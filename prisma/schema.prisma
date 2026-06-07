@@ -1,0 +1,113 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  TECHNICIAN
+  VIEWER
+}
+
+enum PoleStatus {
+  ACTIVE
+  FAULTY
+  UNDER_MAINTENANCE
+  DECOMMISSIONED
+}
+
+enum FaultType {
+  NO_POWER
+  FLICKERING
+  DAMAGED_FIXTURE
+  VANDALISM
+  OTHER
+}
+
+enum ReportStatus {
+  OPEN
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
+
+enum WorkOrderStatus {
+  PENDING
+  ASSIGNED
+  IN_PROGRESS
+  RESOLVED
+  CANCELLED
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  role         Role     @default(VIEWER)
+  createdAt    DateTime @default(now())
+
+  faultReports       FaultReport[] @relation("ReportedBy")
+  workOrdersAssigned WorkOrder[]   @relation("AssignedTo")
+  workOrdersCreated  WorkOrder[]   @relation("AssignedBy")
+  statusLogs         StatusLog[]
+}
+
+model Pole {
+  id          String     @id @default(cuid())
+  poleCode    String     @unique
+  address     String
+  barangay    String
+  latitude    Float
+  longitude   Float
+  status      PoleStatus @default(ACTIVE)
+  installedAt DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  faultReports FaultReport[]
+  statusLogs   StatusLog[]
+}
+
+model FaultReport {
+  id           String       @id @default(cuid())
+  pole         Pole         @relation(fields: [poleId], references: [id])
+  poleId       String
+  reportedBy   User         @relation("ReportedBy", fields: [reportedById], references: [id])
+  reportedById String
+  description  String
+  faultType    FaultType
+  status       ReportStatus @default(OPEN)
+  reportedAt   DateTime     @default(now())
+
+  workOrder WorkOrder?
+}
+
+model WorkOrder {
+  id              String          @id @default(cuid())
+  faultReport     FaultReport     @relation(fields: [faultReportId], references: [id])
+  faultReportId   String          @unique
+  assignedTo      User?           @relation("AssignedTo", fields: [assignedToId], references: [id])
+  assignedToId    String?
+  assignedBy      User            @relation("AssignedBy", fields: [assignedById], references: [id])
+  assignedById    String
+  status          WorkOrderStatus @default(PENDING)
+  assignedAt      DateTime        @default(now())
+  resolvedAt      DateTime?
+  resolutionNotes String?
+}
+
+model StatusLog {
+  id          String     @id @default(cuid())
+  pole        Pole       @relation(fields: [poleId], references: [id])
+  poleId      String
+  changedBy   User       @relation(fields: [changedById], references: [id])
+  changedById String
+  fromStatus  PoleStatus
+  toStatus    PoleStatus
+  changedAt   DateTime   @default(now())
+  reason      String?
+}

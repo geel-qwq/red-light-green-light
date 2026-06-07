@@ -1,0 +1,62 @@
+import { getFaultReports } from '@/actions/faults'
+import Link from 'next/link'
+
+const statusBadge: Record<string, string> = {
+  OPEN: 'bg-red-50 text-red-600',
+  IN_PROGRESS: 'bg-amber-50 text-amber-700',
+  RESOLVED: 'bg-green-50 text-green-700',
+  CLOSED: 'bg-gray-100 text-gray-500',
+}
+
+export default async function FaultsPage() {
+  const reports = await getFaultReports()
+
+  return (
+    <div className="p-6">
+      <h1 className="text-lg font-semibold text-gray-900 mb-6">Fault reports</h1>
+
+      <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="border-b border-gray-100 bg-gray-50">
+              <th className="text-left px-4 py-3 text-xs font-medium text-gray-500">Pole</th>
+              <th className="text-left px-4 py-3 text-xs font-medium text-gray-500">Type</th>
+              <th className="text-left px-4 py-3 text-xs font-medium text-gray-500">Description</th>
+              <th className="text-left px-4 py-3 text-xs font-medium text-gray-500">Status</th>
+              <th className="text-left px-4 py-3 text-xs font-medium text-gray-500">Reported</th>
+              <th className="text-left px-4 py-3 text-xs font-medium text-gray-500">Work order</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-gray-50">
+            {reports.map((report) => (
+              <tr key={report.id} className="hover:bg-gray-50">
+                <td className="px-4 py-3">
+                  <Link href={`/poles/${report.poleId}`} className="text-blue-600 font-mono text-xs hover:underline">
+                    {report.pole.poleCode}
+                  </Link>
+                </td>
+                <td className="px-4 py-3 text-gray-500 text-xs">{report.faultType.replace('_', ' ')}</td>
+                <td className="px-4 py-3 text-gray-700 max-w-xs truncate">{report.description}</td>
+                <td className="px-4 py-3">
+                  <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${statusBadge[report.status]}`}>
+                    {report.status.replace('_', ' ')}
+                  </span>
+                </td>
+                <td className="px-4 py-3 text-gray-400 text-xs">
+                  {new Date(report.reportedAt).toLocaleDateString()}
+                </td>
+                <td className="px-4 py-3 text-xs text-gray-400">
+                  {report.workOrder ? (
+                    <span className="text-green-600">Created</span>
+                  ) : (
+                    <span>None</span>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  )
+}
