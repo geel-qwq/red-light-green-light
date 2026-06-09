@@ -1,6 +1,6 @@
 'use server'
 
-import { prisma } from '@/lib/prisma'
+import prisma  from '@/lib/prisma'
 import { FaultType, PoleStatus, ReportStatus } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
 

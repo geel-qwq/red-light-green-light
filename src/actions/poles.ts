@@ -1,7 +1,7 @@
 'use server'
 
-import { prisma } from '@/lib/prisma'
-import { PoleStatus } from '@prisma/client'
+import prisma  from '@/lib/prisma'
+import { PoleStatus } from '@/lib/generated/prisma/client'
 import { revalidatePath } from 'next/cache'
 
 export async function getPoles() {
