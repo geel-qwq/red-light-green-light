@@ -1,7 +1,8 @@
 'use client'
-
+import { useEffect, useRef } from 'react'
 import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
+import L from 'leaflet'
 
 type Pole = {
   id: string
@@ -27,8 +28,21 @@ const statusLabel: Record<Pole['status'], string> = {
 }
 
 export default function PoleMap({ poles }: { poles: Pole[] }) {
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    return () => {
+      if (containerRef.current) {
+        const container = containerRef.current.querySelector('.leaflet-container') as any
+        if (container?._leaflet_id) {
+          container._leaflet_id = null
+        }
+      }
+    }
+  }, [])
+
   return (
-    <div className="relative h-full w-full rounded-lg overflow-hidden">
+    <div ref={containerRef} className="relative h-full w-full rounded-lg overflow-hidden">
       <MapContainer
         center={[14.676, 121.043]}
         zoom={13}
@@ -60,8 +74,6 @@ export default function PoleMap({ poles }: { poles: Pole[] }) {
           </CircleMarker>
         ))}
       </MapContainer>
-
-      {/* Legend */}
       <div className="absolute bottom-4 left-4 bg-white rounded-lg shadow-sm border border-gray-100 p-3 z-[1000]">
         <p className="text-xs font-medium text-gray-700 mb-2">Legend</p>
         {Object.entries(statusLabel).map(([status, label]) => (

@@ -1,7 +1,7 @@
 'use server'
 
 import prisma  from '@/lib/prisma'
-import { FaultType, PoleStatus, ReportStatus } from '@prisma/client'
+import { FaultType, PoleStatus, ReportStatus } from '@/lib/generated/prisma/client'
 import { revalidatePath } from 'next/cache'
 
 export async function getFaultReports() {

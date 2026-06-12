@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/prisma'
+import prisma  from '@/lib/prisma'
 
 export default async function ReportsPage() {
   const [polesByBarangay, faultsByType, recentLogs] = await Promise.all([
