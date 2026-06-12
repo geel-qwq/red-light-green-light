@@ -3,6 +3,7 @@
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import React from 'react'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -28,6 +29,7 @@ export default function LoginPage() {
       router.push('/dashboard')
     }
   }
+    const [showPassword, setShowPassword] = useState(false);
 
   return (
     <div className="w-[90.2vw] max-w-481.75 h-[92.8vh] max-h-270 bg-white/83 border-2 border-white rounded-[29px] shadow-[0_0_9.9px_6px_rgba(0,0,0,0.25)] p-8">
@@ -65,18 +67,41 @@ export default function LoginPage() {
           />
         </div>
 
-        <div className="flex flex-col justify-center gap-2 w-[863.399px] h-[83.307px]">
-          <label className="text-brand-blue font-['Instrument_Sans'] text-[20px] font-normal leading-[122.098%]">
-            Password
-          </label>
+        <div className="relative flex items-center w-full">
+          <img
+            src="https://i.ibb.co/fVH7PvR1/Lock.png"
+            alt="Lock Icon"
+            className="absolute left-5 size-5 pointer-events-none z-10"
+          />
           <input
             name="password"
-            type="password"
+            type={showPassword ? "text" : "password"}
             required
             placeholder="Enter password"
             defaultValue="admin123"
-            className="w-[86.07vw] h-[7.23vh] bg-[#FFF] border-2 border-brand-blue rounded-[18px] shadow-[0_0_9.9px_0.5px_rgba(0,0,0,0.25)] text-black font-['Instrument_Sans'] text-[14px] font-normal leading-[122.098%] placeholder:text-brand-gray px-6 focus:outline-none shrink-0"
+            className="w-full h-[7.23vh] bg-[#FFF] border-2 border-brand-blue rounded-[18px] shadow-[0_0_9.9px_0.5px_rgba(0,0,0,0.25)] text-black font-['Instrument_Sans'] text-[14px] font-normal leading-[122.098%] placeholder:text-brand-gray pl-16 pr-6 focus:outline-none shrink-0"
           />
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-4 z-10 focus:outline-none hover:opacity-50 transition-opacity"
+            aria-label={showPassword ? 'Hide password' : 'Show password'}
+          >
+            {showPassword ? (
+              <img
+                src="https://i.ibb.co/vxGyVtrx/open.png"
+                alt="Hide Password"
+                className="size-5 cursor-pointer"
+              />
+            ) : (
+              <img
+                src="https://i.ibb.co/G4QGRV0R/closed.png"
+                alt="Show Password"
+                className="size-7 cursor-pointer"
+              />
+            )}
+          </button>
+          
         </div>
 
         <label className="flex items-center gap-1.5 cursor-pointer select-none -mt-10">
@@ -88,7 +113,7 @@ export default function LoginPage() {
           <p className="font-['Instrument_Sans'] text-[15px] text-brand-blue">
             Remember Me
           </p>
-          <p className="inline font-['Instrument_Sans'] text-[15px] text-brand-goldenrod underline text-right ml-auto">
+          <p className="inline font-['Instrument_Sans'] text-[15px] text-brand-goldenrod underline text-right ml-auto cursor-pointer hover:opacity-50 transition-opacity">
             Forgot Password?
           </p>
         </label>
@@ -107,7 +132,7 @@ export default function LoginPage() {
 
         <label className="text-center font-['Instrument_Sans'] text-[38px] font-normal leading-normal text-brand-blue -mt-10">
           <p className="font-['Instrument_Sans'] text-[15px] text-brand-blue text-center">
-            Dont have an account? <span className="text-brand-goldenrod underline cursor-pointer">Register</span>
+            Dont have an account? <span className="text-brand-goldenrod underline cursor-pointer hover:opacity-50 transition-opacity">Register</span>
           </p>
         </label>
       </form>
