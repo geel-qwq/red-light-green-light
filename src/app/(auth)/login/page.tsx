@@ -1,121 +1,145 @@
-"use client";
+'use client'
 
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { LockKeyhole, Eye, EyeOff } from "lucide-react";
+import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import React from 'react'
 
 export default function LoginPage() {
-  const router = useRouter();
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter()
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setLoading(true);
-    setError("");
+    e.preventDefault()
+    setLoading(true)
+    setError('')
 
-    const form = new FormData(e.currentTarget);
-    const result = await signIn("credentials", {
-      email: form.get("email"),
-      password: form.get("password"),
+    const form = new FormData(e.currentTarget)
+    const result = await signIn('credentials', {
+      email: form.get('email'),
+      password: form.get('password'),
       redirect: false,
-    });
+    })
 
     if (result?.error) {
-      setError("Invalid email or password.");
-      setLoading(false);
+      setError('Invalid email or password.')
+      setLoading(false)
     } else {
-      router.push("/dashboard");
+      router.push('/dashboard')
     }
   }
+    const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-[url('/map-bg.png')] bg-cover bg-center">
-      {/* Overlay to dim the map slightly like in the screenshot */}
-      <div className="absolute inset-0 bg-black/20" />
+    <div className="w-[90.2vw] max-w-481.75 h-[92.8vh] max-h-270 bg-white/83 border-2 border-white rounded-[29px] shadow-[0_0_9.9px_6px_rgba(0,0,0,0.25)] p-8">
+      <div className="mb-10">
+        <h1
+          className="w-full max-w-118 mx-auto font-['Koulen'] text-[86px] font-normal text-brand-blue text-center select-none"
+          style={{
+            textShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+            WebkitTextStrokeWidth: '1px',
+            WebkitTextStrokeColor: '#1E3A8A',
+          }}
+        >
+          il<span className="text-[#F4D35E]">lumen</span>ate
+        </h1>
+        <p className="text-center font-['Instrument_Sans'] text-[38px] font-normal leading-normal text-brand-blue">
+          Login
+        </p>
+        
+      </div>
+      
 
-      {/* Modal card */}
-      <div className="relative z-10 w-full max-w-[60rem] bg-white rounded-2xl shadow-xl px-10 py-10 mx-4">
-        {/* Logo */}
-        <div className="flex justify-center mb-6">
-          <h1 className="text-4xl font-extrabold tracking-tight">
-            <span className="text-[#1a2e6e]">IL</span>
-            <span className="text-[#f5c518]">LUMEN</span>
-            <span className="text-[#1a2e6e]">ATE</span>
-          </h1>
+      <form onSubmit={handleSubmit} className="space-y-12" >
+        <div className="flex flex-col justify-center gap-2 w-[480.716px] h-[83.307px]">
+          <label className="text-brand-blue font-['Instrument_Sans'] text-[20px] font-normal leading-[122.098%]">
+            Login with Email / Phone Number
+          </label>
+
+          <input
+            name="email"
+            type="email"
+            required
+            placeholder="Enter email / phone number"
+            defaultValue="admin@lgu.gov.ph"
+            className="w-[86.07vw] h-[7.23vh] bg-[#FFF] border-2 border-brand-blue rounded-[18px] shadow-[0_0_9.9px_0.5px_rgba(0,0,0,0.25)] text-black font-['Instrument_Sans'] text-[14px] font-normal leading-[122.098%] placeholder:text-brand-gray px-6 focus:outline-none shrink-0"
+          />
         </div>
 
-        {/* Subtitle */}
-        <p className="text-center text-[#1a2e6e] text-base font-medium mb-8 leading-snug">
-          Welcome back! Please sign in to your account.
-        </p>
-
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Email */}
-          <div>
-            <label className="block text-sm font-medium text-gray-600 mb-1">
-              Login with Email / Phone Number
-            </label>
-            <input
-              name="email"
-              type="email"
-              required
-              defaultValue="admin@lgu.gov.ph"
-              placeholder="Enter email / phone number"
-              className="w-full px-4 py-3 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#1a2e6e] placeholder-gray-400"
-            />
-          </div>
-
-          {/* Password */}
-          <div className="relative">
-            <label className="block text-sm font-medium text-gray-600 mb-1">
-              Password
-            </label>
-            <LockKeyhole className="absolute left-3 top-8.5 text-[#1a2e6e]" size={20} />
-            <input
-              name="password"
-              type={showPassword ? "text" : "password"}
-              required
-              defaultValue="admin123"
-              placeholder="Enter password"
-              className="w-full pl-10 py-3 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#1a2e6e] placeholder-gray-400"
-            />
-            <button 
-              type="button"
-              onClick={() => setShowPassword(!showPassword)}
-              className='absolute right-3 top-9 text-[#1a2e6e] focus:outline-none'
-            >
-              {showPassword ? <EyeOff size={20}/> : <Eye size={20}/>}
-              </button>
-          </div>
-
-          {error && <p className="text-sm text-red-500 text-center">{error}</p>}
-
-          {/* Sign In button — dark navy, matches "Request New Password" */}
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-[#1a2e6e] text-white py-3 rounded-xl text-sm font-semibold hover:bg-[#152459] disabled:opacity-50 transition-colors mt-2"
-          >
-            {loading ? "Logging in..." : "Login"}
-          </button>
-
-          {/* Forgot password — outlined, matches "Log-in" secondary button */}
+        <div className="relative flex items-center w-full">
+          <img
+            src="https://i.ibb.co/fVH7PvR1/Lock.png"
+            alt="Lock Icon"
+            className="absolute left-5 size-5 pointer-events-none z-10"
+          />
+          <input
+            name="password"
+            type={showPassword ? "text" : "password"}
+            required
+            placeholder="Enter password"
+            defaultValue="admin123"
+            className="w-full h-[7.23vh] bg-[#FFF] border-2 border-brand-blue rounded-[18px] shadow-[0_0_9.9px_0.5px_rgba(0,0,0,0.25)] text-black font-['Instrument_Sans'] text-[14px] font-normal leading-[122.098%] placeholder:text-brand-gray pl-16 pr-6 focus:outline-none shrink-0"
+          />
           <button
             type="button"
-            onClick={() => router.push("/forgot-password")}
-            className="w-full border border-gray-300 text-gray-500 py-3 rounded-xl text-sm font-medium hover:bg-gray-50 transition-colors"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-4 z-10 focus:outline-none hover:opacity-50 transition-opacity"
+            aria-label={showPassword ? 'Hide password' : 'Show password'}
           >
-            Forgot Password?
+            {showPassword ? (
+              <img
+                src="https://i.ibb.co/vxGyVtrx/open.png"
+                alt="Hide Password"
+                className="size-5 cursor-pointer"
+              />
+            ) : (
+              <img
+                src="https://i.ibb.co/G4QGRV0R/closed.png"
+                alt="Show Password"
+                className="size-7 cursor-pointer"
+              />
+            )}
           </button>
-        </form>
+          
+        </div>
 
-        <p className="text-xs text-gray-400 text-center mt-6">
-          Demo: admin@lgu.gov.ph / admin123
-        </p>
-      </div>
+        <label className="flex items-center gap-1.5 cursor-pointer select-none -mt-10">
+          <input type="checkbox" className="sr-only"/>
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
+            <rect x="0.5" y="0.5" width="25" height="25" rx="5.5" fill="#FFFBFB" />
+            <rect x="0.5" y="0.5" width="25" height="25" rx="5.5" stroke="#1E3A8A" />
+          </svg>
+          <p className="font-['Instrument_Sans'] text-[15px] text-brand-blue">
+            Remember Me
+          </p>
+          <p className="inline font-['Instrument_Sans'] text-[15px] text-brand-goldenrod underline text-right ml-auto cursor-pointer hover:opacity-50 transition-opacity">
+            Forgot Password?
+          </p>
+        </label>
+        {error && <p className="text-sm text-red-500">{error}</p>}
+
+        <label className="mb-3 -mt-0.5 flex items-center gap-1.5">
+          <input type="button" className="none"/>
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full bg-brand-blue text-white py-2 rounded-[18px] text-[17px] font-['Instrument_Sans'] hover:bg-brand-royal-blue cursor-pointer disabled:opacity-50 transition-discrete"
+        >
+          {loading ? 'Signing in...' : 'Sign in'}
+        </button>
+        </label>
+
+        <label className="text-center font-['Instrument_Sans'] text-[38px] font-normal leading-normal text-brand-blue -mt-10">
+          <p className="font-['Instrument_Sans'] text-[15px] text-brand-blue text-center">
+            Dont have an account? <span className="text-brand-goldenrod underline cursor-pointer hover:opacity-50 transition-opacity">Register</span>
+          </p>
+        </label>
+      </form>
+
+      <p className="m-11 text-xs text-gray-400">
+        Demo: admin@lgu.gov.ph / admin123
+      </p>
     </div>
-  );
+  )
 }
