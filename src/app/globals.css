@@ -1,1 +1,24 @@
 @import "tailwindcss";
+
+@theme {
+
+  /* Color palette */
+  --color-brand-blue: #1E3A8A;
+  --color-brand-gray: #999;
+  --color-brand-cornflower-blue: #6495ED;
+  --color-brand-royal-blue: #4169E1;
+  --color-brand-goldenrod: #DAA520;
+
+  /* This maps 'font-instrument' to the Next.js Google font variable */
+  --font-instrument: var(--font-instrument);
+  --font-instrument: "Instrument Sans", sans-serif;
+  
+  /* Fonts */
+  --font-koulen: var(--font-koulen);
+
+  --background-image-figma-input: linear-gradient(0deg, rgba(30, 58, 138, 0.49) 0%, rgba(30, 58, 138, 0.49) 100%);
+
+  --shadow-figma: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  --radius-figma: 23px;
+
+}
