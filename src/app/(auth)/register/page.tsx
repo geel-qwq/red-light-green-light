@@ -1,15 +1,97 @@
 // app/register/page.tsx
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { registerUser } from "@/actions/auth";
 import { User, Phone, Mail, Lock, MapPin, Eye, EyeOff } from "lucide-react";
-import { useState } from "react";
+import Link from "next/link";
+
+// Types for the PSGC API
+interface LocationNode {
+  code: string;
+  name: string;
+}
 
 export default function RegisterPage() {
   const [state, formAction, isPending] = useActionState(registerUser, null);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+
+  // Geographic State
+  const [regions, setRegions] = useState<LocationNode[]>([]);
+  const [provinces, setProvinces] = useState<LocationNode[]>([]);
+  const [cities, setCities] = useState<LocationNode[]>([]);
+  const [barangays, setBarangays] = useState<LocationNode[]>([]);
+
+  // Fetch Regions on component mount
+  useEffect(() => {
+    fetch("https://psgc.gitlab.io/api/regions")
+      .then((res) => res.json())
+      .then((data) => setRegions(data))
+      .catch((err) => console.error("Error fetching regions:", err));
+  }, []);
+
+  const handleRegionChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedIndex = e.target.selectedIndex;
+    // We grab the hidden PSGC code from the dataset to fetch the next level
+    const code = e.target.options[selectedIndex].getAttribute("data-code");
+    if (!code) return;
+
+    // Reset dependent dropdowns
+    setProvinces([]);
+    setCities([]);
+    setBarangays([]);
+
+    try {
+      const res = await fetch(`https://psgc.gitlab.io/api/regions/${code}/provinces`);
+      const data = await res.json();
+
+      // NCR Edge Case: Metro Manila has no provinces. 
+      // If the region returns 0 provinces, we fetch its cities directly.
+      if (data.length === 0) {
+        const cityRes = await fetch(`https://psgc.gitlab.io/api/regions/${code}/cities-municipalities`);
+        const cityData = await cityRes.json();
+        setCities(cityData);
+      } else {
+        setProvinces(data);
+      }
+    } catch (err) {
+      console.error("Error fetching provinces:", err);
+    }
+  };
+
+  const handleProvinceChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedIndex = e.target.selectedIndex;
+    const code = e.target.options[selectedIndex].getAttribute("data-code");
+    if (!code) return;
+
+    setCities([]);
+    setBarangays([]);
+
+    try {
+      const res = await fetch(`https://psgc.gitlab.io/api/provinces/${code}/cities-municipalities`);
+      const data = await res.json();
+      setCities(data);
+    } catch (err) {
+      console.error("Error fetching cities:", err);
+    }
+  };
+
+  const handleCityChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedIndex = e.target.selectedIndex;
+    const code = e.target.options[selectedIndex].getAttribute("data-code");
+    if (!code) return;
+
+    setBarangays([]);
+
+    try {
+      const res = await fetch(`https://psgc.gitlab.io/api/cities-municipalities/${code}/barangays`);
+      const data = await res.json();
+      setBarangays(data);
+    } catch (err) {
+      console.error("Error fetching barangays:", err);
+    }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 relative">
@@ -78,9 +160,7 @@ export default function RegisterPage() {
                 </Field>
                 <Field label="Gender" hint="(Optional)">
                   <select name="gender" defaultValue="" className={inputClass}>
-                    <option value="" disabled>
-                      Select gender
-                    </option>
+                    <option value="" disabled>Select gender</option>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
                     <option value="other">Other</option>
@@ -99,10 +179,7 @@ export default function RegisterPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Field label="Email Address" required>
                   <div className="relative">
-                    <Mail
-                      size={16}
-                      className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
-                    />
+                    <Mail size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                     <input
                       name="email"
                       type="email"
@@ -114,10 +191,7 @@ export default function RegisterPage() {
                 </Field>
                 <Field label="Phone Number" required>
                   <div className="relative">
-                    <Phone
-                      size={16}
-                      className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
-                    />
+                    <Phone size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                     <input
                       name="phone"
                       type="tel"
@@ -129,6 +203,7 @@ export default function RegisterPage() {
                 </Field>
               </div>
 
+              {/* DYNAMIC LOCATION DROPDOWNS */}
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
                 <Field label="Region" required>
                   <select
@@ -136,46 +211,70 @@ export default function RegisterPage() {
                     defaultValue=""
                     required
                     className={inputClass}
+                    onChange={handleRegionChange}
                   >
-                    <option value="" disabled>
-                      Select region
-                    </option>
+                    <option value="" disabled>Select region</option>
+                    {regions.map((reg) => (
+                      <option key={reg.code} value={reg.name} data-code={reg.code}>
+                        {reg.name}
+                      </option>
+                    ))}
                   </select>
                 </Field>
-                <Field label="Province" required>
+
+                <Field label="Province" required={provinces.length > 0}>
                   <select
                     name="province"
                     defaultValue=""
-                    required
-                    className={inputClass}
+                    required={provinces.length > 0}
+                    disabled={provinces.length === 0}
+                    className={`${inputClass} disabled:bg-gray-100 disabled:text-gray-400`}
+                    onChange={handleProvinceChange}
                   >
                     <option value="" disabled>
-                      Select province
+                      {/* Visual indicator for NCR */}
+                      {provinces.length === 0 && cities.length > 0 ? "N/A (Metro Manila)" : "Select province"}
                     </option>
+                    {provinces.map((prov) => (
+                      <option key={prov.code} value={prov.name} data-code={prov.code}>
+                        {prov.name}
+                      </option>
+                    ))}
                   </select>
                 </Field>
+
                 <Field label="City / Municipality" required>
                   <select
                     name="city"
                     defaultValue=""
                     required
-                    className={inputClass}
+                    disabled={cities.length === 0}
+                    className={`${inputClass} disabled:bg-gray-100`}
+                    onChange={handleCityChange}
                   >
-                    <option value="" disabled>
-                      Select city / municipality
-                    </option>
+                    <option value="" disabled>Select city / municipality</option>
+                    {cities.map((city) => (
+                      <option key={city.code} value={city.name} data-code={city.code}>
+                        {city.name}
+                      </option>
+                    ))}
                   </select>
                 </Field>
+
                 <Field label="Barangay" required>
                   <select
                     name="barangay"
                     defaultValue=""
                     required
-                    className={inputClass}
+                    disabled={barangays.length === 0}
+                    className={`${inputClass} disabled:bg-gray-100`}
                   >
-                    <option value="" disabled>
-                      Select barangay
-                    </option>
+                    <option value="" disabled>Select barangay</option>
+                    {barangays.map((brgy) => (
+                      <option key={brgy.code} value={brgy.name}>
+                        {brgy.name}
+                      </option>
+                    ))}
                   </select>
                 </Field>
               </div>
@@ -183,10 +282,7 @@ export default function RegisterPage() {
               <div className="mt-4">
                 <Field label="Street Address" hint="(Optional)">
                   <div className="relative">
-                    <MapPin
-                      size={16}
-                      className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
-                    />
+                    <MapPin size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                     <input
                       name="streetAddress"
                       type="text"
@@ -206,16 +302,9 @@ export default function RegisterPage() {
               </h3>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <Field
-                  label="Password"
-                  required
-                  hint="(Use 8 or more characters with letters and numbers)"
-                >
+                <Field label="Password" required hint="(Use 8 or more characters with letters and numbers)">
                   <div className="relative">
-                    <Lock
-                      size={16}
-                      className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
-                    />
+                    <Lock size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                     <input
                       name="password"
                       type={showPassword ? "text" : "password"}
@@ -236,10 +325,7 @@ export default function RegisterPage() {
 
                 <Field label="Confirm Password" required>
                   <div className="relative">
-                    <Lock
-                      size={16}
-                      className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
-                    />
+                    <Lock size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                     <input
                       name="confirmPassword"
                       type={showConfirm ? "text" : "password"}
@@ -260,31 +346,17 @@ export default function RegisterPage() {
 
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-center gap-3 mt-4 text-sm">
                 <label className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    name="terms"
-                    required
-                    className="accent-blue-700"
-                  />
-                  I Agree with Terms &amp; Conditions{" "}
-                  <span className="text-red-500">*</span>
+                  <input type="checkbox" name="terms" required className="accent-blue-700" />
+                  I Agree with Terms &amp; Conditions <span className="text-red-500">*</span>
                 </label>
                 <label className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    name="privacy"
-                    required
-                    className="accent-blue-700"
-                  />
-                  I Agree with Privacy Policy{" "}
-                  <span className="text-red-500">*</span>
+                  <input type="checkbox" name="privacy" required className="accent-blue-700" />
+                  I Agree with Privacy Policy <span className="text-red-500">*</span>
                 </label>
               </div>
 
               {state?.error && (
-                <p className="text-red-500 text-sm text-center mt-3">
-                  {state.error}
-                </p>
+                <p className="text-red-500 text-sm text-center mt-3">{state.error}</p>
               )}
 
               <button
@@ -297,12 +369,9 @@ export default function RegisterPage() {
 
               <p className="text-center text-sm mt-3 text-gray-600">
                 Already have an account?{" "}
-                <a
-                  href="/login"
-                  className="text-yellow-500 font-medium hover:underline"
-                >
+                <Link href="/login" className="text-yellow-500 font-medium hover:underline">
                   Login
-                </a>
+                </Link>
               </p>
             </div>
           </form>
@@ -330,9 +399,7 @@ function Field({
     <div>
       <label className="block text-sm font-medium text-gray-700 mb-1">
         {label} {required && <span className="text-red-500">*</span>}
-        {hint && (
-          <span className="text-gray-400 font-normal text-xs ml-1">{hint}</span>
-        )}
+        {hint && <span className="text-gray-400 font-normal text-xs ml-1">{hint}</span>}
       </label>
       {children}
     </div>

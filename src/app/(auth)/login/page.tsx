@@ -4,6 +4,7 @@ import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import React from 'react'
+import Link from 'next/link'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -132,7 +133,9 @@ export default function LoginPage() {
 
         <label className="text-center font-['Instrument_Sans'] text-[38px] font-normal leading-normal text-brand-blue -mt-10">
           <p className="font-['Instrument_Sans'] text-[15px] text-brand-blue text-center">
-            Dont have an account? <span className="text-brand-goldenrod underline cursor-pointer hover:opacity-50 transition-opacity">Register</span>
+            Dont have an account? <span className="text-brand-goldenrod underline cursor-pointer hover:opacity-50 transition-opacity">
+               <Link href={"/register"}>Register</Link>
+               </span>
           </p>
         </label>
       </form>

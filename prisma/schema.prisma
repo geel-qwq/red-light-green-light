@@ -1,6 +1,8 @@
+// schema.prisma
+
 generator client {
-  provider        = "prisma-client-js"
-  output          = "../src/lib/generated/prisma"
+  provider = "prisma-client-js"
+  output   = "../src/lib/generated/prisma"
 }
 
 datasource db {
@@ -44,13 +46,31 @@ enum WorkOrderStatus {
 }
 
 model User {
-  id           String   @id @default(cuid())
-  name         String
-  email        String   @unique
-  passwordHash String
-  role         Role     @default(VIEWER)
-  createdAt    DateTime @default(now())
+  id            String   @id @default(cuid())
+  
+  // Personal Info
+  firstName     String
+  middleName    String?
+  lastName      String
+  dob           DateTime?
+  gender        String?
+  
+  // Contact & Auth
+  email         String   @unique
+  phone         String
+  passwordHash  String
+  
+  // Location
+  region        String
+  province      String?  
+  city          String
+  barangay      String
+  streetAddress String?
 
+  role          Role     @default(VIEWER)
+  createdAt     DateTime @default(now())
+
+  // Relations
   faultReports       FaultReport[] @relation("ReportedBy")
   workOrdersAssigned WorkOrder[]   @relation("AssignedTo")
   workOrdersCreated  WorkOrder[]   @relation("AssignedBy")
