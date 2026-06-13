@@ -126,7 +126,7 @@ export default function LoginPage() {
           disabled={loading}
           className="w-full bg-brand-blue text-white py-2 rounded-[18px] text-[17px] font-['Instrument_Sans'] hover:bg-brand-royal-blue cursor-pointer disabled:opacity-50 transition-discrete"
         >
-          {loading ? 'Signing in...' : 'Sign in'}
+          {loading ? 'Logging in...' : 'Login'}
         </button>
         </label>
 
