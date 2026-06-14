@@ -2,6 +2,8 @@ import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
+import LogoutButton from '@/components/Logout'
+
 
 const navItems = [
   { href: '/dashboard', label: 'Dashboard', icon: '▦' },
@@ -35,6 +37,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
               {item.label}
             </Link>
           ))}
+          <LogoutButton />
         </nav>
 
         <div className="px-4 py-4 border-t border-gray-100">
