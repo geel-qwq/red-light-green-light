@@ -1,7 +1,7 @@
 'use server'
 
-import prisma  from '@/lib/prisma'
-import { FaultType, PoleStatus, ReportStatus } from '@/lib/generated/prisma/client'
+import prisma from '@/lib/prisma'
+import { FaultType, PoleStatus, ReportStatus } from '@/lib/generated/prisma' // Adjusted to match your previous path, add '/client' back if needed
 import { revalidatePath } from 'next/cache'
 
 export async function getFaultReports() {
@@ -9,7 +9,8 @@ export async function getFaultReports() {
     orderBy: { reportedAt: 'desc' },
     include: {
       pole: true,
-      reportedBy: { select: { id: true, name: true } },
+      // Fixed: Replaced 'name: true' with 'firstName: true, lastName: true'
+      reportedBy: { select: { id: true, firstName: true, lastName: true } },
       workOrder: true,
     },
   })

@@ -1,63 +1,61 @@
-'use client'
+"use client";
 
-import { signIn } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
-import { useState } from 'react'
-import React from 'react'
-import Link from 'next/link'
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import React from "react";
+import Link from "next/link";
 
 export default function LoginPage() {
-  const router = useRouter()
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
+  const router = useRouter();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    setLoading(true)
-    setError('')
+    e.preventDefault();
+    setLoading(true);
+    setError("");
 
-    const form = new FormData(e.currentTarget)
-    const result = await signIn('credentials', {
-      email: form.get('email'),
-      password: form.get('password'),
+    const form = new FormData(e.currentTarget);
+    const result = await signIn("credentials", {
+      email: form.get("email"),
+      password: form.get("password"),
       redirect: false,
-    })
+    });
 
     if (result?.error) {
-      setError('Invalid email or password.')
-      setLoading(false)
+      setError("Invalid email or password.");
+      setLoading(false);
     } else {
-      router.push('/dashboard')
+      router.push("/dashboard");
     }
   }
-    const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="w-[90.2vw] max-w-481.75 h-[92.8vh] max-h-270 bg-white/83 border-2 border-white rounded-[29px] shadow-[0_0_9.9px_6px_rgba(0,0,0,0.25)] p-8">
+    <div className="w-[90.5vw] max-w-481.75 h-[92.8vh] max-h-270 bg-white/83 border-2 border-white rounded-[29px] shadow-[0_0_9.9px_6px_rgba(0,0,0,0.25)] p-8">
       <div className="mb-10">
         <h1
           className="w-full max-w-118 mx-auto font-['Koulen'] text-[86px] font-normal text-brand-blue text-center select-none"
           style={{
-            textShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
-            WebkitTextStrokeWidth: '1px',
-            WebkitTextStrokeColor: '#1E3A8A',
+            textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+            WebkitTextStrokeWidth: "1px",
+            WebkitTextStrokeColor: "#1E3A8A",
           }}
         >
           il<span className="text-[#F4D35E]">lumen</span>ate
         </h1>
-        <p className="text-center font-['Instrument_Sans'] text-[38px] font-normal leading-normal text-brand-blue">
+        <p className="text-center font-['Instrument_Sans'] text-[2rem] font-normal leading-normal text-brand-blue">
           Login
         </p>
-        
       </div>
-      
 
-      <form onSubmit={handleSubmit} className="space-y-12" >
-        <div className="flex flex-col justify-center gap-2 w-[480.716px] h-[83.307px]">
-          <label className="text-brand-blue font-['Instrument_Sans'] text-[20px] font-normal leading-[122.098%]">
+      <form onSubmit={handleSubmit} className="relative space-y-12">
+        <div className=" flex flex-col justify-center gap-2 w-[480.716px] h-[83.307px]">
+          <label className="text-brand-blue font-['Instrument_Sans'] text-[1.125em] font-normal leading-[122.098%]">
             Login with Email / Phone Number
           </label>
-
+          {error && <p className="text-sm text-red-500 absolute right-2 top-2">{error}</p>}
           <input
             name="email"
             type="email"
@@ -74,6 +72,9 @@ export default function LoginPage() {
             alt="Lock Icon"
             className="absolute left-5 size-5 pointer-events-none z-10"
           />
+          <label className="absolute -top-6 text-brand-blue font-['Instrument_Sans'] text-[1.125em] font-normal leading-[122.098%]">
+            Password
+          </label>
           <input
             name="password"
             type={showPassword ? "text" : "password"}
@@ -86,7 +87,7 @@ export default function LoginPage() {
             type="button"
             onClick={() => setShowPassword(!showPassword)}
             className="absolute right-4 z-10 focus:outline-none hover:opacity-50 transition-opacity"
-            aria-label={showPassword ? 'Hide password' : 'Show password'}
+            aria-label={showPassword ? "Hide password" : "Show password"}
           >
             {showPassword ? (
               <img
@@ -102,14 +103,33 @@ export default function LoginPage() {
               />
             )}
           </button>
-          
         </div>
 
         <label className="flex items-center gap-1.5 cursor-pointer select-none -mt-10">
-          <input type="checkbox" className="sr-only"/>
-          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
-            <rect x="0.5" y="0.5" width="25" height="25" rx="5.5" fill="#FFFBFB" />
-            <rect x="0.5" y="0.5" width="25" height="25" rx="5.5" stroke="#1E3A8A" />
+          <input type="checkbox" className="sr-only" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="26"
+            height="26"
+            viewBox="0 0 26 26"
+            fill="none"
+          >
+            <rect
+              x="0.5"
+              y="0.5"
+              width="25"
+              height="25"
+              rx="5.5"
+              fill="#FFFBFB"
+            />
+            <rect
+              x="0.5"
+              y="0.5"
+              width="25"
+              height="25"
+              rx="5.5"
+              stroke="#1E3A8A"
+            />
           </svg>
           <p className="font-['Instrument_Sans'] text-[15px] text-brand-blue">
             Remember Me
@@ -118,31 +138,27 @@ export default function LoginPage() {
             Forgot Password?
           </p>
         </label>
-        {error && <p className="text-sm text-red-500">{error}</p>}
 
         <label className="mb-3 -mt-0.5 flex items-center gap-1.5">
-          <input type="button" className="none"/>
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full bg-brand-blue text-white py-2 rounded-[18px] text-[17px] font-['Instrument_Sans'] hover:bg-brand-royal-blue cursor-pointer disabled:opacity-50 transition-discrete"
-        >
-          {loading ? 'Logging in...' : 'Login'}
-        </button>
+          <input type="button" className="none" />
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-brand-blue text-white py-2 rounded-[18px] text-[17px] font-['Instrument_Sans'] hover:bg-brand-royal-blue cursor-pointer disabled:opacity-50 transition-discrete"
+          >
+            {loading ? "Logging in..." : "Login"}
+          </button>
         </label>
 
         <label className="text-center font-['Instrument_Sans'] text-[38px] font-normal leading-normal text-brand-blue -mt-10">
           <p className="font-['Instrument_Sans'] text-[15px] text-brand-blue text-center">
-            Dont have an account? <span className="text-brand-goldenrod underline cursor-pointer hover:opacity-50 transition-opacity">
-               <Link href={"/register"}>Register</Link>
-               </span>
+            Dont have an account?{" "}
+            <span className="text-brand-goldenrod underline cursor-pointer hover:opacity-50 transition-opacity">
+              <Link href={"/register"}>Register</Link>
+            </span>
           </p>
         </label>
       </form>
-
-      <p className="m-11 text-xs text-gray-400">
-        Demo: admin@lgu.gov.ph / admin123
-      </p>
     </div>
-  )
+  );
 }

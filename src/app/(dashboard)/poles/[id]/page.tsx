@@ -40,7 +40,7 @@ export default async function PoleDetailPage({ params }: { params: { id: string 
                   </span>
                 </div>
                 <p className="text-sm text-gray-700 mt-1">{report.description}</p>
-                <p className="text-xs text-gray-400 mt-1">Reported by {report.reportedBy.name}</p>
+                <p className="text-xs text-gray-400 mt-1">Reported by {report.reportedBy.firstName} {report.reportedBy.lastName}</p>
               </div>
             ))}
           </div>
@@ -61,7 +61,7 @@ export default async function PoleDetailPage({ params }: { params: { id: string 
                 </p>
                 {log.reason && <p className="text-sm text-gray-700">{log.reason}</p>}
                 <p className="text-xs text-gray-400 mt-0.5">
-                  {log.changedBy.name} · {new Date(log.changedAt).toLocaleString()}
+                  {log.changedBy.firstName} {log.changedBy.lastName} · {new Date(log.changedAt).toLocaleString()}
                 </p>
               </div>
             ))}

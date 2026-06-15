@@ -1,7 +1,7 @@
 'use server'
 
 import  prisma  from '@/lib/prisma'
-import { PoleStatus, ReportStatus, WorkOrderStatus } from '@prisma/client'
+import { PoleStatus, ReportStatus, WorkOrderStatus } from '@/lib/generated/prisma'
 import { revalidatePath } from 'next/cache'
 
 export async function getWorkOrders() {
@@ -9,8 +9,8 @@ export async function getWorkOrders() {
     orderBy: { assignedAt: 'desc' },
     include: {
       faultReport: { include: { pole: true } },
-      assignedTo: { select: { id: true, name: true } },
-      assignedBy: { select: { id: true, name: true } },
+      assignedTo: { select: { id: true, firstName: true, lastName: true } },
+      assignedBy: { select: { id: true, firstName: true, lastName: true } },
     },
   })
 }

@@ -1,4 +1,4 @@
-import { PrismaClient, Role, PoleStatus, FaultType } from '@prisma/client'
+import { PrismaClient, Role, PoleStatus, FaultType } from '@/lib/generated/prisma'
 import bcrypt from 'bcryptjs'
 
 const prisma = new PrismaClient()
@@ -12,10 +12,17 @@ async function main() {
     where: { email: 'admin@lgu.gov.ph' },
     update: {},
     create: {
-      name: 'Admin User',
+      // Replaced 'name' with firstName and lastName
+      firstName: 'Admin',
+      lastName: 'User',
       email: 'admin@lgu.gov.ph',
       passwordHash: adminPassword,
       role: Role.ADMIN,
+      // Added missing required fields
+      phone: '09171234567',
+      region: 'NCR',
+      city: 'Quezon City',
+      barangay: 'Diliman'
     },
   })
 
@@ -23,10 +30,17 @@ async function main() {
     where: { email: 'tech@lgu.gov.ph' },
     update: {},
     create: {
-      name: 'Juan dela Cruz',
+      // Replaced 'name' with firstName and lastName
+      firstName: 'Juan',
+      lastName: 'dela Cruz',
       email: 'tech@lgu.gov.ph',
       passwordHash: techPassword,
       role: Role.TECHNICIAN,
+      // Added missing required fields
+      phone: '09181234567',
+      region: 'NCR',
+      city: 'Quezon City',
+      barangay: 'Commonwealth'
     },
   })
 
@@ -88,5 +102,10 @@ async function main() {
 }
 
 main()
-  .catch((e) => { console.error(e); process.exit(1) })
-  .finally(async () => { await prisma.$disconnect() })
+  .catch((e) => { 
+    console.error(e); 
+    process.exit(1) 
+  })
+  .finally(async () => { 
+    await prisma.$disconnect() 
+  })

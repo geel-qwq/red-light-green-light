@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Street Lighting Monitoring System",
+  title: "ilLUMENate",
   description: "Municipal street lighting monitoring and management",
 };
 

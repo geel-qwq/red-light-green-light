@@ -1,4 +1,4 @@
-import { Pole, FaultReport, WorkOrder, User, StatusLog } from "@prisma/client";
+import { Pole, FaultReport, WorkOrder, User, StatusLog } from "@/lib/generated/prisma";
 
 export type { Pole, FaultReport, WorkOrder, User, StatusLog };
 
@@ -8,18 +8,18 @@ export type PoleWithStats = Pole & {
 
 export type FaultReportWithRelations = FaultReport & {
   pole: Pole;
-  reportedBy: Pick<User, "id" | "name">;
+  reportedBy: Pick<User, "id" | "firstName" >;
   workOrder: WorkOrder | null;
 };
 
 export type WorkOrderWithRelations = WorkOrder & {
   faultReport: FaultReport & { pole: Pole };
-  assignedTo: Pick<User, "id" | "name"> | null;
-  assignedBy: Pick<User, "id" | "name">;
+  assignedTo: Pick<User, "id" | "firstName"> | null;
+  assignedBy: Pick<User, "id" | "firstName">;
 };
 
 export type StatusLogWithUser = StatusLog & {
-  changedBy: Pick<User, "id" | "name">;
+  changedBy: Pick<User, "id" | "firstName">;
 };
 
 export type DashboardStats = {
