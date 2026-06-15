@@ -5,3 +5,4 @@ allowBuilds:
   "esbuild": true
   "sharp": true
   '@prisma/client': set this to true or false
+  '@openrouter/sdk': true

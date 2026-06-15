@@ -1,7 +1,31 @@
-import NextAuth, { NextAuthOptions, getServerSession } from 'next-auth'
+// src/lib/auth.ts
+import NextAuth, { NextAuthOptions, getServerSession, DefaultSession } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import bcrypt from 'bcryptjs'
 import prisma from './prisma'
+import { Role } from '@/lib/generated/prisma' // <-- 1. Import Role from Prisma
+
+// 2. Extend NextAuth types to recognize 'id' and 'role'
+declare module 'next-auth' {
+  interface Session {
+    user: {
+      id: string
+      role: Role
+    } & DefaultSession['user']
+  }
+
+  interface User {
+    id: string
+    role: Role
+  }
+}
+
+declare module 'next-auth/jwt' {
+  interface JWT {
+    id: string
+    role: Role
+  }
+}
 
 export const authOptions: NextAuthOptions = {
   session: { strategy: 'jwt' },
@@ -43,8 +67,8 @@ export const authOptions: NextAuthOptions = {
     },
     async session({ session, token }) {
       if (session.user) {
-        session.user.id = token.id as string
-        session.user.role = token.role as Role
+        session.user.id = token.id
+        session.user.role = token.role
       }
       return session
     },

@@ -15,6 +15,9 @@ import {
   Wrench,
   BarChart,
   MapPin,
+  MessageSquare, // Added for Chat Trigger
+  Send,          // Added for Chat Submission
+  Bot,           // Added for Assistant Identity
 } from "lucide-react";
 import Link from "next/link";
 import Logo from "@/components/Logo";
@@ -42,7 +45,12 @@ interface Activity {
   time: string;
 }
 
-// Custom SVG to match the street lamp from your mockup
+// Added simple types to support client-side chat management history structures
+interface ChatMessage {
+  role: "user" | "assistant";
+  content: string;
+}
+
 const StreetLampIcon = ({ hasWarning = false }: { hasWarning?: boolean }) => (
   <div className="relative flex-shrink-0 w-16 h-16 flex items-center justify-center">
     <svg
@@ -77,9 +85,17 @@ export default function Page() {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isRecentOpen, setIsRecentOpen] = useState(false); 
 
+  // --- NEW STATES FOR CHAT TELEMETRY CORE ---
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [chatInput, setChatInput] = useState("");
+  const [isAiLoading, setIsAiLoading] = useState(false);
+  const [messages, setMessages] = useState<ChatMessage[]>([
+    { role: "assistant", content: "Hello! I am LumenCHAT your map chatbot assistant. How can I help you handle node telemetry fields or street maps today?" }
+  ]);
+
   // Role & Menu States
   type UserRole = "superadmin" | "admin" | "technician" | "user";
-  const [userRole, setUserRole] = useState<UserRole>("user"); // Change this to test different roles
+  const [userRole, setUserRole] = useState<UserRole>("user");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -87,6 +103,7 @@ export default function Page() {
   const containerRef = useRef<HTMLDivElement>(null);
   const recentPanelRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
+  const chatEndRef = useRef<HTMLDivElement>(null); // Anchor to automatically scroll down responses
 
   const [recentActivities, setRecentActivities] = useState<Activity[]>([
     {
@@ -123,6 +140,54 @@ export default function Page() {
       { title: "View Map", icon: MapPin },
       { title: "Report an Issue", icon: AlertTriangle },
     ],
+  };
+
+  // Auto scroll down logic whenever new data entries hit state arrays
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, isChatOpen]);
+
+  // Handle AI Submission Event 
+  const handleSendChatMessage = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!chatInput.trim() || isAiLoading) return;
+
+    const userMessageText = chatInput.trim();
+    setChatInput("");
+    
+    // 1. Append user prompt locally
+    const updatedMessages = [...messages, { role: "user" as const, content: userMessageText }];
+    setMessages(updatedMessages);
+    setIsAiLoading(true);
+
+    try {
+      // 2. Query your endpoint route configuration directly
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: updatedMessages }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.reply) {
+        // 3. Mount text back into layout state array context
+        setMessages((prev) => [...prev, { role: "assistant", content: data.reply }]);
+      } else {
+        setMessages((prev) => [
+          ...prev, 
+          { role: "assistant", content: `System Connection Error: ${data.error || "Failed payload resolution parsing execution sequence."}` }
+        ]);
+      }
+    } catch (err) {
+      console.error("Failed handling query routing processing stack:", err);
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", content: "Unable to connect to OpenRouter network links. Check backend configuration environments." }
+      ]);
+    } finally {
+      setIsAiLoading(false);
+    }
   };
 
   // Debounced fetch of suggestions as the user types
@@ -472,6 +537,98 @@ export default function Page() {
               </div>
             )}
           </div>
+
+          {/* --- FLOATING AI TELEMETRY COPILOT WIDGET LAYER --- */}
+          <div className="absolute bottom-6 right-13 pointer-events-auto flex flex-col items-end z-40">
+            {isChatOpen && (
+              <div className="w-[380px] h-[480px] bg-white rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.15)] border border-slate-200 flex flex-col mb-4 overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-200">
+                
+                {/* Chat Panel Header */}
+                <div className="bg-[#2f4383] text-white px-5 py-4 flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <div className="p-1.5 bg-white/10 rounded-lg">
+                      <Bot className="w-5 h-5 text-[#dba65d]" />
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-bold tracking-wide">LumenCHAT</h3>
+                      <p className="text-[11px] text-slate-300 font-medium">your chatbot assistant</p>
+                    </div>
+                  </div>
+                  <button 
+                    onClick={() => setIsChatOpen(false)}
+                    className="p-1 hover:bg-white/10 rounded-full transition-colors"
+                  >
+                    <X className="w-5 h-5 text-slate-300 hover:text-white" />
+                  </button>
+                </div>
+
+                {/* Message Streams Content Timeline Layout */}
+                <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-3 bg-slate-50">
+                  {messages.map((msg, index) => (
+                    <div 
+                      key={index} 
+                      className={`flex flex-col max-w-[80%] ${msg.role === "user" ? "self-end items-end" : "self-start items-start"}`}
+                    >
+                      <div className={`px-4 py-2.5 rounded-2xl text-[14px] leading-relaxed font-medium shadow-sm ${
+                        msg.role === "user" 
+                          ? "bg-[#2f4383] text-white rounded-br-none" 
+                          : "bg-white text-gray-800 border border-slate-200 rounded-bl-none"
+                      }`}>
+                        {msg.content}
+                      </div>
+                    </div>
+                  ))}
+                  
+                  {/* Streaming Loading Indicator Placeholder */}
+                  {isAiLoading && (
+                    <div className="self-start flex items-center gap-2 px-4 py-3 bg-white border border-slate-200 rounded-2xl rounded-bl-none shadow-sm">
+                      <div className="flex gap-1">
+                        <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce"></span>
+                        <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce [animation-delay:0.2s]"></span>
+                        <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce [animation-delay:0.4s]"></span>
+                      </div>
+                    </div>
+                  )}
+                  <div ref={chatEndRef} />
+                </div>
+
+                {/* Chat Action Input Bottom Tray Form */}
+                <form 
+                  onSubmit={handleSendChatMessage} 
+                  className="p-3 border-t border-slate-200 bg-white flex items-center gap-2"
+                >
+                  <input
+                    type="text"
+                    value={chatInput}
+                    onChange={(e) => setChatInput(e.target.value)}
+                    placeholder="Ask about anomalies or hardware specs..."
+                    className="flex-1 text-[14px] font-medium px-3 py-2 border border-slate-200 rounded-xl outline-none focus:border-[#2f4383] transition-colors"
+                  />
+                  <button
+                    type="submit"
+                    disabled={isAiLoading || !chatInput.trim()}
+                    className="p-2 bg-[#2f4383] text-white rounded-xl hover:bg-[#203063] disabled:bg-slate-200 disabled:text-slate-400 transition-colors"
+                  >
+                    <Send className="w-4 h-4" />
+                  </button>
+                </form>
+              </div>
+            )}
+
+            {/* Main Action Trigger Toggle Floating Icon Button */}
+            <button
+              onClick={() => setIsChatOpen(!isChatOpen)}
+              className={`w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-200 ${
+                isChatOpen 
+                  ? "bg-white border border-slate-200 text-gray-700 hover:bg-slate-50 rotate-90" 
+                  : "bg-[#dba65d] text-white hover:bg-[#c59553] scale-100 hover:scale-105"
+              }`}
+            >
+              {isChatOpen ? <X className="w-6 h-6" /> : <MessageSquare className="w-6 h-6" />}
+            </button>
+          </div>
+          {/* --- END FLOATING AI TELEMETRY COPILOT WIDGET LAYER --- */}
+
         </div>
       </main>
     </div>

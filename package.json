@@ -13,6 +13,7 @@
     "db:generate": "prisma generate"
   },
   "dependencies": {
+    "@openrouter/sdk": "^0.12.79",
     "@prisma/adapter-pg": "^7.8.0",
     "@tailwindcss/postcss": "^4.3.0",
     "bcryptjs": "^2.4.3",

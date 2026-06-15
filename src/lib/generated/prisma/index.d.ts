@@ -44,9 +44,10 @@ export type StatusLog = $Result.DefaultSelection<Prisma.$StatusLogPayload>
  */
 export namespace $Enums {
   export const Role: {
+  SUPERADMIN: 'SUPERADMIN',
   ADMIN: 'ADMIN',
   TECHNICIAN: 'TECHNICIAN',
-  VIEWER: 'VIEWER'
+  USER: 'USER'
 };
 
 export type Role = (typeof Role)[keyof typeof Role]
