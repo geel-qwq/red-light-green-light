@@ -47,7 +47,8 @@ export namespace $Enums {
   SUPERADMIN: 'SUPERADMIN',
   ADMIN: 'ADMIN',
   TECHNICIAN: 'TECHNICIAN',
-  USER: 'USER'
+  USER: 'USER',
+  GUEST: 'GUEST'
 };
 
 export type Role = (typeof Role)[keyof typeof Role]

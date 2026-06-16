@@ -1,28 +1,47 @@
-import { PrismaClient, Role, PoleStatus, FaultType } from '@/lib/generated/prisma'
+// prisma/seed.ts
+import { Role, FaultType, PoleStatus } from '../src/lib/generated/prisma'
+import prisma from '../src/lib/prisma' // <-- Import your pre-configured instance instead
 import bcrypt from 'bcryptjs'
 
-const prisma = new PrismaClient()
+// REMOVE OR COMMENT OUT THIS LINE:
+// const prisma = new PrismaClient() 
 
 async function main() {
   // Seed users
+  const superadminPassword = await bcrypt.hash('super123', 10)
   const adminPassword = await bcrypt.hash('admin123', 10)
   const techPassword = await bcrypt.hash('tech123', 10)
+  const userPassword = await bcrypt.hash('user123', 10)
+
+  const superadmin = await prisma.user.upsert({
+    where: { email: 'superadmin@lgu.gov.ph' },
+    update: {},
+    create: {
+      firstName: 'Super',
+      lastName: 'Admin',
+      email: 'superadmin@lgu.gov.ph',
+      passwordHash: superadminPassword,
+      role: Role.SUPERADMIN,
+      phone: '09161234567',
+      region: 'NCR',
+      city: 'Quezon City',
+      barangay: 'Diliman',
+    },
+  })
 
   const admin = await prisma.user.upsert({
     where: { email: 'admin@lgu.gov.ph' },
     update: {},
     create: {
-      // Replaced 'name' with firstName and lastName
       firstName: 'Admin',
       lastName: 'User',
       email: 'admin@lgu.gov.ph',
       passwordHash: adminPassword,
       role: Role.ADMIN,
-      // Added missing required fields
       phone: '09171234567',
       region: 'NCR',
       city: 'Quezon City',
-      barangay: 'Diliman'
+      barangay: 'Diliman',
     },
   })
 
@@ -30,82 +49,48 @@ async function main() {
     where: { email: 'tech@lgu.gov.ph' },
     update: {},
     create: {
-      // Replaced 'name' with firstName and lastName
       firstName: 'Juan',
       lastName: 'dela Cruz',
       email: 'tech@lgu.gov.ph',
       passwordHash: techPassword,
       role: Role.TECHNICIAN,
-      // Added missing required fields
       phone: '09181234567',
       region: 'NCR',
       city: 'Quezon City',
-      barangay: 'Commonwealth'
+      barangay: 'Commonwealth',
     },
   })
 
-  // Seed poles (Quezon City sample locations)
-  const polesData = [
-    { poleCode: 'QC-001', address: 'Elliptical Rd', barangay: 'Diliman', latitude: 14.6507, longitude: 121.0439, status: PoleStatus.ACTIVE },
-    { poleCode: 'QC-002', address: 'Commonwealth Ave', barangay: 'Commonwealth', latitude: 14.6731, longitude: 121.0562, status: PoleStatus.FAULTY },
-    { poleCode: 'QC-003', address: 'Quezon Ave', barangay: 'South Triangle', latitude: 14.6390, longitude: 121.0237, status: PoleStatus.ACTIVE },
-    { poleCode: 'QC-004', address: 'Aurora Blvd', barangay: 'New Manila', latitude: 14.6195, longitude: 121.0355, status: PoleStatus.UNDER_MAINTENANCE },
-    { poleCode: 'QC-005', address: 'Katipunan Ave', barangay: 'Loyola Heights', latitude: 14.6487, longitude: 121.0786, status: PoleStatus.ACTIVE },
-    { poleCode: 'QC-006', address: 'E. Rodriguez Sr. Ave', barangay: 'Kamuning', latitude: 14.6283, longitude: 121.0309, status: PoleStatus.ACTIVE },
-    { poleCode: 'QC-007', address: 'Mindanao Ave', barangay: 'Tandang Sora', latitude: 14.6942, longitude: 121.0387, status: PoleStatus.FAULTY },
-    { poleCode: 'QC-008', address: 'Visayas Ave', barangay: 'Vasra', latitude: 14.6761, longitude: 121.0296, status: PoleStatus.ACTIVE },
-  ]
-
-  for (const pole of polesData) {
-    await prisma.pole.upsert({
-      where: { poleCode: pole.poleCode },
-      update: {},
-      create: pole,
-    })
-  }
-
-  // Seed a sample fault report
-  const faultyPole = await prisma.pole.findUnique({ where: { poleCode: 'QC-002' } })
-  if (faultyPole) {
-    const existing = await prisma.faultReport.findFirst({ where: { poleId: faultyPole.id } })
-    if (!existing) {
-      const report = await prisma.faultReport.create({
-        data: {
-          poleId: faultyPole.id,
-          reportedById: admin.id,
-          description: 'Light not turning on at night.',
-          faultType: FaultType.NO_POWER,
-        },
-      })
-
-      await prisma.workOrder.create({
-        data: {
-          faultReportId: report.id,
-          assignedToId: tech.id,
-          assignedById: admin.id,
-        },
-      })
-
-      await prisma.statusLog.create({
-        data: {
-          poleId: faultyPole.id,
-          changedById: admin.id,
-          fromStatus: PoleStatus.ACTIVE,
-          toStatus: PoleStatus.FAULTY,
-          reason: 'Fault reported: Light not turning on at night.',
-        },
-      })
-    }
-  }
+  const user = await prisma.user.upsert({
+    where: { email: 'user@lgu.gov.ph' },
+    update: {},
+    create: {
+      firstName: 'Maria',
+      lastName: 'Santos',
+      email: 'user@lgu.gov.ph',
+      passwordHash: userPassword,
+      role: Role.USER,
+      phone: '09191234567',
+      region: 'NCR',
+      city: 'Quezon City',
+      barangay: 'Kamuning',
+    },
+  })
 
   console.log('Seed complete.')
+  console.log('Test accounts:')
+  console.log('  superadmin@lgu.gov.ph / super123')
+  console.log('  admin@lgu.gov.ph / admin123')
+  console.log('  tech@lgu.gov.ph / tech123')
+  console.log('  user@lgu.gov.ph / user123')
+  console.log('No poles seeded — to be populated via OSM streetlight import.')
 }
 
 main()
-  .catch((e) => { 
-    console.error(e); 
-    process.exit(1) 
+  .catch((e) => {
+    console.error(e)
+    process.exit(1)
   })
-  .finally(async () => { 
-    await prisma.$disconnect() 
+  .finally(async () => {
+    await prisma.$disconnect()
   })

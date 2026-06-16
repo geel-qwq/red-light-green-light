@@ -1,11 +1,10 @@
 // src/lib/auth.ts
-import NextAuth, { NextAuthOptions, getServerSession, DefaultSession } from 'next-auth'
+import { NextAuthOptions, getServerSession, DefaultSession } from 'next-auth' // <-- Removed NextAuth from here
 import CredentialsProvider from 'next-auth/providers/credentials'
 import bcrypt from 'bcryptjs'
 import prisma from './prisma'
-import { Role } from '@/lib/generated/prisma' // <-- 1. Import Role from Prisma
+import { Role } from '@/lib/generated/prisma'
 
-// 2. Extend NextAuth types to recognize 'id' and 'role'
 declare module 'next-auth' {
   interface Session {
     user: {
@@ -77,4 +76,4 @@ export const authOptions: NextAuthOptions = {
 
 export const getSession = () => getServerSession(authOptions)
 
-export default NextAuth(authOptions)
+// <-- REMOVED 'export default NextAuth(authOptions)' FROM HERE

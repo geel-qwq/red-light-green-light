@@ -1,6 +1,6 @@
 "use client";
 
-import { signIn } from "next-auth/react";
+import { signIn, getSession } from "next-auth/react"; // 1. Added getSession import
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import React from "react";
@@ -10,6 +10,7 @@ export default function LoginPage() {
   const router = useRouter();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -27,10 +28,24 @@ export default function LoginPage() {
       setError("Invalid email or password.");
       setLoading(false);
     } else {
-      router.push("/dashboard");
+      // 2. Fetch the session immediately after successful login
+      const session = await getSession();
+      const userRole = session?.user?.role; // Accessing the user's role
+
+      // 3. Conditional routing based on the Role enum in your schema
+      if (userRole === "SUPERADMIN") {
+        router.push("/superadmin/dashboard");
+      } else if (userRole === "ADMIN") {
+        router.push("/admin/dashboard");
+      } else if (userRole === "TECHNICIAN") {
+        router.push("/technician/dashboard");
+      } else {
+        router.push("/user/dashboard");
+      }
+      
+      router.refresh();
     }
   }
-  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <div className="w-[90.5vw] max-w-481.75 h-[92.8vh] max-h-270 bg-white/83 border-2 border-white rounded-[29px] shadow-[0_0_9.9px_6px_rgba(0,0,0,0.25)] p-8">

@@ -47,14 +47,6 @@ async function getTechnicianStats(userId: string) {
   return { assigned, inProgress, resolvedThisWeek }
 }
 
-async function getUserStats(userId: string) {
-  const myReports = await prisma.faultReport.count({ where: { reportedById: userId } })
-  const myOpenReports = await prisma.faultReport.count({
-    where: { reportedById: userId, status: { in: ['OPEN', 'IN_PROGRESS'] } },
-  })
-  return { myReports, myOpenReports }
-}
-
 const statCards = (stats: Awaited<ReturnType<typeof getDashboardStats>>) => [
   { label: 'Total poles', value: stats.totalPoles, color: 'text-gray-900' },
   { label: 'Active', value: stats.activePoles, color: 'text-green-600' },
@@ -87,6 +79,8 @@ export default async function DashboardPage() {
 
   const role = session.user.role
   const userId = session.user.id
+
+  if (role === 'USER') redirect('/user/dashboard')
 
   // SUPERADMIN & ADMIN: full network overview
   if (role === 'SUPERADMIN' || role === 'ADMIN') {
@@ -126,18 +120,5 @@ export default async function DashboardPage() {
     )
   }
 
-  // USER: their own reports
-  const stats = await getUserStats(userId)
-  return (
-    <div className="p-6 space-y-6">
-      <h1 className="text-lg font-semibold text-gray-900">My Reports</h1>
-      <StatGrid
-        cards={[
-          { label: 'My reports', value: stats.myReports, color: 'text-gray-900' },
-          { label: 'Open', value: stats.myOpenReports, color: 'text-orange-500' },
-        ]}
-      />
-      {/* TODO: list of user's reports + "Report an issue" CTA */}
-    </div>
-  )
+  redirect('/login')
 }

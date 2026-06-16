@@ -16,7 +16,7 @@ export async function POST(req: Request) {
 
     const openrouter = new OpenRouter({ apiKey });
 
-    // Format fields strictly to match expected literal string structures
+    // Format fields strictly to match expected literal string structures for the SDK
     const formattedMessages = [
       { 
         role: "system" as const, 
@@ -28,38 +28,35 @@ export async function POST(req: Request) {
       })),
     ];
 
-    // Wrap payload parameters inside the explicit 'chatRequest' structural parent key
+    // Request the stream from OpenRouter
     const stream = await openrouter.chat.send({
       chatRequest: {
-        model: "nex-agi/nex-n2-pro:free",
+        model: "openai/gpt-oss-120b:free",
         messages: formattedMessages,
         stream: true,
       }
     });
 
-    let aiResponseContent = "";
+    let fullAIResponse = "";
 
-    // Iterate through the asynchronous stream chunks to build the full string response
+    // Consume the stream internally on the server side
     for await (const chunk of stream) {
       const content = chunk.choices?.[0]?.delta?.content;
       if (content) {
-        aiResponseContent += content;
+        fullAIResponse += content;
       }
 
-      // FIX: Read reasoning tokens dynamically to bypass strict type-check collision
-      if (chunk.usage) {
-        const usageObj = chunk.usage as Record<string, any>;
-        const tokens = usageObj.reasoning_tokens || usageObj.reasoningTokens;
-        if (tokens) {
-          console.log(`\n[AI Reasoning Tokens utilized]: ${tokens}`);
-        }
+      // Log the reasoning tokens to your server terminal when they arrive
+      if (chunk.usage && chunk.usage.reasoningTokens) {
+        console.log(`\nReasoning tokens: ${chunk.usage.reasoningTokens}`);
       }
     }
 
-    return NextResponse.json({ reply: aiResponseContent });
+    // Return everything as a standard JSON object that your frontend is waiting for
+    return NextResponse.json({ reply: fullAIResponse });
 
   } catch (error: any) {
-    console.error("OpenRouter Stream Error Handler:", error);
+    console.error("OpenRouter Error Handler:", error);
     return NextResponse.json(
       { error: error?.message || "Internal server error occurred processing prompt payload." },
       { status: 500 }

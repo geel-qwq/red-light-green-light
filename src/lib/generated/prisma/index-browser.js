@@ -200,7 +200,8 @@ exports.Role = exports.$Enums.Role = {
   SUPERADMIN: 'SUPERADMIN',
   ADMIN: 'ADMIN',
   TECHNICIAN: 'TECHNICIAN',
-  USER: 'USER'
+  USER: 'USER',
+  GUEST: 'GUEST'
 };
 
 exports.PoleStatus = exports.$Enums.PoleStatus = {
