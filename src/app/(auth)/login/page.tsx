@@ -1,36 +1,51 @@
-'use client'
+"use client";
 
-import { signIn } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
-import { useState } from 'react'
-import React from 'react'
-import Link from 'next/link'
+import { signIn, getSession } from "next-auth/react"; // 1. Added getSession import
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import React from "react";
+import Link from "next/link";
 
 export default function LoginPage() {
-  const router = useRouter()
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
+  const router = useRouter();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    setLoading(true)
-    setError('')
+    e.preventDefault();
+    setLoading(true);
+    setError("");
 
-    const form = new FormData(e.currentTarget)
-    const result = await signIn('credentials', {
-      email: form.get('email'),
-      password: form.get('password'),
+    const form = new FormData(e.currentTarget);
+    const result = await signIn("credentials", {
+      email: form.get("email"),
+      password: form.get("password"),
       redirect: false,
-    })
+    });
 
     if (result?.error) {
-      setError('Invalid email or password.')
-      setLoading(false)
+      setError("Invalid email or password.");
+      setLoading(false);
     } else {
-      router.push('/dashboard')
+      // 2. Fetch the session immediately after successful login
+      const session = await getSession();
+      const userRole = session?.user?.role; // Accessing the user's role
+
+      // 3. Conditional routing based on the Role enum in your schema
+      if (userRole === "SUPERADMIN") {
+        router.push("/superadmin/dashboard");
+      } else if (userRole === "ADMIN") {
+        router.push("/admin/dashboard");
+      } else if (userRole === "TECHNICIAN") {
+        router.push("/technician/dashboard");
+      } else {
+        router.push("/user/dashboard");
+      }
+      
+      router.refresh();
     }
   }
-    const [showPassword, setShowPassword] = useState(false);
 
   return (
     <div className="w-[90%] max-w-4xl mx-auto rounded-[29px] bg-white/83 border-2 border-white shadow-[0_0_9.9px_6px_rgba(0,0,0,0.25)] p-4 md:p-8">
@@ -38,9 +53,9 @@ export default function LoginPage() {
         <h1
           className="w-full max-w-118 mx-auto font-['Koulen'] text-[48px] md:text-[64px] lg:text-[86px] font-normal text-brand-blue text-center select-none"
           style={{
-            textShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
-            WebkitTextStrokeWidth: '1px',
-            WebkitTextStrokeColor: '#1E3A8A',
+            textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+            WebkitTextStrokeWidth: "1px",
+            WebkitTextStrokeColor: "#1E3A8A",
           }}
         >
           il<span className="text-[#F4D35E]">lumen</span>ate
@@ -48,16 +63,14 @@ export default function LoginPage() {
         <p className="text-center font-['Instrument_Sans'] text-xl md:text-2xl lg:text-[24px] font-normal leading-normal text-brand-blue">
           Welcome! Please login to your account.
         </p>
-        
       </div>
-      
 
       <form onSubmit={handleSubmit} className="space-y-10 max-w-5xl mx-auto" >
         <div className="flex flex-col gap-2 w-full">
           <label className="text-brand-blue font-['Instrument_Sans'] text-base font-normal leading-[122.098%]">
             Login with Email / Phone Number
           </label>
-
+          {error && <p className="text-sm text-red-500 absolute right-2 top-2">{error}</p>}
           <input
             name="email"
             type="email"
@@ -74,6 +87,9 @@ export default function LoginPage() {
             alt="Lock Icon"
             className="absolute left-5 size-5 pointer-events-none z-10"
           />
+          <label className="absolute -top-6 text-brand-blue font-['Instrument_Sans'] text-[1.125em] font-normal leading-[122.098%]">
+            Password
+          </label>
           <input
             name="password"
             type={showPassword ? "text" : "password"}
@@ -86,7 +102,7 @@ export default function LoginPage() {
             type="button"
             onClick={() => setShowPassword(!showPassword)}
             className="absolute right-4 z-10 focus:outline-none hover:opacity-50 transition-opacity"
-            aria-label={showPassword ? 'Hide password' : 'Show password'}
+            aria-label={showPassword ? "Hide password" : "Show password"}
           >
             {showPassword ? (
               <img
@@ -102,7 +118,6 @@ export default function LoginPage() {
               />
             )}
           </button>
-          
         </div>
 
         <label className="flex items-center gap-1.5 cursor-pointer select-none">
@@ -118,7 +133,6 @@ export default function LoginPage() {
             Forgot Password?
           </p>
         </label>
-        {error && <p className="text-sm text-red-500">{error}</p>}
 
         <label className="flex items-center gap-1.5">
           <input type="button" className="none"/>
@@ -140,5 +154,5 @@ export default function LoginPage() {
         </label>
       </form>
     </div>
-  )
+  );
 }

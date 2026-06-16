@@ -197,9 +197,11 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 exports.Role = exports.$Enums.Role = {
+  SUPERADMIN: 'SUPERADMIN',
   ADMIN: 'ADMIN',
   TECHNICIAN: 'TECHNICIAN',
-  VIEWER: 'VIEWER'
+  USER: 'USER',
+  GUEST: 'GUEST'
 };
 
 exports.PoleStatus = exports.$Enums.PoleStatus = {

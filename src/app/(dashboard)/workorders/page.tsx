@@ -37,7 +37,7 @@ export default async function WorkOrdersPage() {
                   {order.faultReport.faultType.replace('_', ' ')}
                 </td>
                 <td className="px-4 py-3 text-gray-700">
-                  {order.assignedTo?.name ?? <span className="text-gray-400">Unassigned</span>}
+                  {order.assignedTo?.firstName ?? <span className="text-gray-400">Unassigned</span>}
                 </td>
                 <td className="px-4 py-3">
                   <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${statusBadge[order.status]}`}>

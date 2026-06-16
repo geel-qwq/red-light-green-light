@@ -10,9 +10,11 @@ datasource db {
 }
 
 enum Role {
+  SUPERADMIN
   ADMIN
   TECHNICIAN
-  VIEWER
+  USER
+  GUEST
 }
 
 enum PoleStatus {
@@ -67,7 +69,7 @@ model User {
   barangay      String
   streetAddress String?
 
-  role          Role     @default(VIEWER)
+  role          Role     @default(USER)
   createdAt     DateTime @default(now())
 
   // Relations

@@ -1,7 +1,30 @@
-import NextAuth, { NextAuthOptions } from 'next-auth'
+// src/lib/auth.ts
+import { NextAuthOptions, getServerSession, DefaultSession } from 'next-auth' // <-- Removed NextAuth from here
 import CredentialsProvider from 'next-auth/providers/credentials'
 import bcrypt from 'bcryptjs'
-import prisma  from './prisma'
+import prisma from './prisma'
+import { Role } from '@/lib/generated/prisma'
+
+declare module 'next-auth' {
+  interface Session {
+    user: {
+      id: string
+      role: Role
+    } & DefaultSession['user']
+  }
+
+  interface User {
+    id: string
+    role: Role
+  }
+}
+
+declare module 'next-auth/jwt' {
+  interface JWT {
+    id: string
+    role: Role
+  }
+}
 
 export const authOptions: NextAuthOptions = {
   session: { strategy: 'jwt' },
@@ -24,20 +47,33 @@ export const authOptions: NextAuthOptions = {
         const valid = await bcrypt.compare(credentials.password, user.passwordHash)
         if (!valid) return null
 
-        return { id: user.id, name: user.name, email: user.email, role: user.role }
+        return {
+          id: user.id,
+          name: `${user.firstName} ${user.lastName}`,
+          email: user.email,
+          role: user.role,
+        }
       },
     }),
   ],
   callbacks: {
     async jwt({ token, user }) {
-      if (user) token.role = (user as any).role
+      if (user) {
+        token.id = user.id
+        token.role = user.role
+      }
       return token
     },
     async session({ session, token }) {
-      if (session.user) (session.user as any).role = token.role
+      if (session.user) {
+        session.user.id = token.id
+        session.user.role = token.role
+      }
       return session
     },
   },
 }
 
-export default NextAuth(authOptions)
+export const getSession = () => getServerSession(authOptions)
+
+// <-- REMOVED 'export default NextAuth(authOptions)' FROM HERE
