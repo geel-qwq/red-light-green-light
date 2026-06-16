@@ -208,7 +208,7 @@ export default function LeafletMap({ targetLocation }: LeafletMapProps) {
     };
   }, []);
   return (
-    <div className="absolute inset-0 z-[0]">
+    <div className="absolute inset-0 z-[0] map-container">
       <MapContainer
         key={mapKey}
         center={targetLocation || defaultCenter}
@@ -233,12 +233,14 @@ export default function LeafletMap({ targetLocation }: LeafletMapProps) {
             },
           }}
         />
-        <LocationDetails
-          isOpen={showDetails}
-          title="Selected Location"
-          address=""
-        />
-        
+        <div className="location-details">
+          <LocationDetails
+            isOpen={showDetails}
+            title="Selected Location"
+            address=""
+          />
+        </div>
+
       </MapContainer>
     </div>
   );
