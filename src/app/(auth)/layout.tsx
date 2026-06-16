@@ -17,9 +17,10 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
     <div 
       className={`${koulenFont.variable} ${instrumentSansFont.variable} min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat`}
       style={{
-        backgroundImage: `linear-gradient(0deg, rgba(30, 58, 138, 0.49) 0%, rgba(30, 58, 138, 0.49) 100%), url(https://i.ibb.co/RkxqkgsH/login.png)`,
-        backgroundColor: '#FFF'
+        backgroundImage: `linear-gradient(0deg, rgba(30, 58, 138, 0.35) 0%, rgba(30, 58, 138, 0.35) 100%), url('/image.png')`
+        
       }}
+      
     >
       {children}
       

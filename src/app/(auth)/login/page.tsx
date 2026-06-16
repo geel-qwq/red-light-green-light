@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import React from "react";
 import Link from "next/link";
+import { Eye, EyeOff, Lock } from "lucide-react";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -82,12 +83,8 @@ export default function LoginPage() {
         </div>
 
         <div className="relative flex items-center w-full mb-1">
-          <img
-            src="https://i.ibb.co/fVH7PvR1/Lock.png"
-            alt="Lock Icon"
-            className="absolute left-5 size-5 pointer-events-none z-10"
-          />
-          <label className="absolute -top-6 text-brand-blue font-['Instrument_Sans'] text-[1.125em] font-normal leading-[122.098%]">
+          <Lock size={16} color="#1E3A8A" className="absolute left-5 pointer-events-none" />
+          <label className="absolute -top-6 text-brand-blue font-['Instrument_Sans'] text-base font-normal leading-[122.098%]">
             Password
           </label>
           <input
@@ -96,42 +93,22 @@ export default function LoginPage() {
             required
             placeholder="Enter password"
             defaultValue="admin123"
-            className="w-full h-[7.23vh] bg-[#FFF] border-2 border-brand-blue rounded-[18px] shadow-[0_0_9.9px_0.5px_rgba(0,0,0,0.25)] text-black font-['Instrument_Sans'] text-[14px] font-normal leading-[122.098%] placeholder:text-brand-gray pl-16 pr-6 focus:outline-none shrink-0"
+            className="w-full h-[7.23vh] bg-[#FFF] border-2 border-brand-blue rounded-[18px] shadow-[0_0_9.9px_0.5px_rgba(0,0,0,0.25)] text-black font-['Instrument_Sans'] text-[14px] font-normal leading-[122.098%] placeholder:text-brand-gray pl-13 pr-6 focus:outline-none shrink-0"
           />
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-4 z-10 focus:outline-none hover:opacity-50 transition-opacity"
-            aria-label={showPassword ? "Hide password" : "Show password"}
+            className="absolute right-4 z-10 focus:outline-none hover:cursor-pointer hover:opacity-50 transition-opacity"
           >
-            {showPassword ? (
-              <img
-                src="https://i.ibb.co/vxGyVtrx/open.png"
-                alt="Hide Password"
-                className="size-5 cursor-pointer"
-              />
-            ) : (
-              <img
-                src="https://i.ibb.co/G4QGRV0R/closed.png"
-                alt="Show Password"
-                className="size-7 cursor-pointer"
-              />
-            )}
+            {showPassword ? <EyeOff size={20} color="#1E3A8A" /> : <Eye size={20} color="#1E3A8A"/>}
           </button>
         </div>
 
-        <label className="flex items-center gap-1.5 cursor-pointer select-none">
-          <input type="checkbox" className="sr-only"/>
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <rect x="0.5" y="0.5" width="19" height="19" rx="5.5" fill="#FFFBFB" />
-            <rect x="0.5" y="0.5" width="19" height="19" rx="5.5" stroke="#1E3A8A" />
-          </svg>
-          <p className="font-['Instrument_Sans'] text-xs text-brand-blue">
-            Remember Me
-          </p>
-          <p className="inline font-['Instrument_Sans'] text-xs text-brand-goldenrod underline text-right ml-auto cursor-pointer hover:opacity-50 transition-opacity">
-            Forgot Password?
-          </p>
+        <label className="flex items-center mt-1 select-none">
+          <label className="flex items-center gap-2 font-['Instrument_Sans'] text-brand-blue">
+            <input type="checkbox" name="terms" required className="accent-brand-blue cursor-pointer" />
+            Remember me
+          </label>
         </label>
 
         <label className="flex items-center gap-1.5">
@@ -139,14 +116,14 @@ export default function LoginPage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-brand-blue text-white py-2 rounded-[18px] text-lg font-['Instrument_Sans'] hover:bg-brand-royal-blue cursor-pointer disabled:opacity-50 transition-discrete"
+          className="w-full bg-brand-blue text-white py-2 rounded-[18px] text-lg font-['Instrument_Sans'] hover:bg-brand-royal-blue cursor-pointer disabled:opacity-50 transition-colors"
         >
           {loading ? 'Logging in...' : 'Login'}
         </button>
         </label>
 
         <label className="font-normal leading-normal text-brand-blue">
-          <p className="font-['Instrument_Sans'] text-xs text-center m-6 -mt-8">
+          <p className="font-['Instrument_Sans'] text-base text-center m-6 -mt-8">
             Don't have an account? <span className="text-brand-goldenrod underline cursor-pointer hover:opacity-50 transition-opacity">
                <Link href={"/register"}>Register</Link>
                </span>

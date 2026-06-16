@@ -17,6 +17,8 @@ export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [gender, setGender] = useState("");
+  const [region, setRegion] = useState("");
+  const [dob, setDob] = useState("");
 
   // Geographic State
   const [regions, setRegions] = useState<LocationNode[]>([]);
@@ -156,7 +158,9 @@ export default function RegisterPage() {
                     name="dob"
                     type="date"
                     placeholder="MM / DD / YYYY"
-                    className={inputClass}
+                    className={`${inputClass} ${dob ? "bg-white!" : "bg-transparent!"} hover:cursor-pointer`}
+                    value={dob}
+                    onChange={(e) => setDob(e.target.value)}
                   />
                 </Field>
                 <Field label="Gender" hint="(Optional)">
@@ -208,13 +212,7 @@ export default function RegisterPage() {
               {/* DYNAMIC LOCATION DROPDOWNS */}
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
                 <Field label="Region" required>
-                  <select
-                    name="region"
-                    defaultValue=""
-                    required
-                    className={inputClass}
-                    onChange={handleRegionChange}
-                  >
+                  <select name="region" value={region} onChange={(e) => setRegion(e.target.value)} className={`${inputClass} ${region ? "bg-white!" : "bg-transparent!"} hover:cursor-pointer`}>
                     <option value="" disabled>
                       Select region
                     </option>
@@ -320,9 +318,9 @@ export default function RegisterPage() {
                     <button
                       type="button"
                       onClick={() => setShowPassword((v) => !v)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:cursor-pointer hover:opacity-50 transition-opacity"
                     >
-                      {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                      {showPassword ? <EyeOff size={16} color="#1E3A8A"/> : <Eye size={16} color="#1E3A8A"/>}
                     </button>
                   </div>
                 </Field>
@@ -340,21 +338,21 @@ export default function RegisterPage() {
                     <button
                       type="button"
                       onClick={() => setShowConfirm((v) => !v)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:cursor-pointer hover:opacity-50 transition-opacity"
                     >
-                      {showConfirm ? <EyeOff size={16} /> : <Eye size={16} />}
+                      {showConfirm ? <EyeOff size={16} color="#1E3A8A"/> : <Eye size={16} color="#1E3A8A"/>}
                     </button>
                   </div>
                 </Field>
               </div>
 
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-center gap-3 mt-4 text-sm">
-                <label className="flex items-center gap-2 text-brand-blue">
-                  <input type="checkbox" name="terms" required className="accent-brand-blue" />
+                <label className="flex items-center gap-2 font-['Instrument_Sans'] text-brand-blue">
+                  <input type="checkbox" name="terms" required className="accent-brand-blue hover:cursor-pointer" />
                   I Agree with Terms &amp; Conditions <span className="text-red-500">*</span>
                 </label>
-                <label className="flex items-center gap-2 text-brand-blue">
-                  <input type="checkbox" name="privacy" required className="accent-brand-blue" />
+                <label className="flex items-center gap-2 font-['Instrument_Sans'] text-brand-blue">
+                  <input type="checkbox" name="privacy" required className="accent-brand-blue hover:cursor-pointer"/>
                   I Agree with Privacy Policy <span className="text-red-500">*</span>
                 </label>
               </div>
@@ -366,12 +364,12 @@ export default function RegisterPage() {
               <button
                 type="submit"
                 disabled={isPending}
-                className="w-full mt-5 py-3 rounded-md bg-brand-blue text-white font-['Instrument_Sans'] hover:bg-brand-blue-dark transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
+                className="w-full bg-brand-blue text-white mt-5 py-2 rounded-[18px] text-lg font-['Instrument_Sans'] hover:bg-brand-royal-blue cursor-pointer disabled:opacity-50 transition-colors"
               >
                 {isPending ? "Registering..." : "Register"}
               </button>
 
-              <p className="text-center text-sm mt-3 text-brand-blue">
+              <p className="text-center text-sm mt-4 font-['Instrument_Sans'] text-brand-blue">
                 Already have an account?{" "}
                 <Link href="/login" className="text-yellow-500 font-['Instrument_Sans'] hover:underline">
                   Login

@@ -454,7 +454,7 @@ export default function Page() {
     <div className="flex h-screen w-full overflow-hidden bg-[#e5e7eb] font-sans relative">
       
       {/* 1. LEFT SIDEBAR */}
-      <aside className="w-[72px] bg-[#2f4383] flex flex-col items-center py-5 z-40 shadow-xl justify-between">
+      <aside className="w-[64px] bg-brand-blue/90 backdrop-blur-[0.5px] flex flex-col items-center py-5 z-40 shadow-xl justify-between">
         <div className="flex flex-col items-center gap-8 w-full">
           
           {/* FLOATING ACTION TRIGGER: Toggles your Admin Popup System Overview instead of pushing routes */}
@@ -464,7 +464,7 @@ export default function Page() {
                 e.stopPropagation();
                 setIsOverviewOpen(!isOverviewOpen);
               }}
-              className={`w-full py-3 flex flex-col items-center gap-1.5 cursor-pointer transition-colors ${isOverviewOpen ? "bg-[#3b529a] border-l-4 border-[#dba65d]" : "hover:bg-[#3b529a]/50 border-l-4 border-transparent"}`}
+              className={`w-full py-3 flex flex-col items-center gap-1.5 cursor-pointer transition-colors ${isOverviewOpen ? "bg-[#3b529a] border-l-4 border-[#dba65d]" : "border-l-4 border-transparent"}`}
             >
               <button
                 className={`w-[38px] h-[38px] rounded-full border-2 border-[#dba65d] flex items-center justify-center ${isOverviewOpen ? "bg-[#dba65d]" : ""}`}
@@ -547,7 +547,7 @@ export default function Page() {
               e.stopPropagation();
               setIsRecentOpen(!isRecentOpen);
             }}
-            className={`w-full py-3 flex flex-col items-center gap-1.5 cursor-pointer transition-colors ${isRecentOpen ? "bg-[#3b529a] border-l-4 border-[#dba65d]" : "hover:bg-[#3b529a]/50 border-l-4 border-transparent"}`}
+            className={`w-full py-3 flex flex-col items-center gap-1.5 cursor-pointer transition-colors justify-center ${isRecentOpen ? "bg-[#3b529a] border-l-4 border-[#dba65d]" : "hover:bg-[#3b529a]/50 border-l-4 border-transparent"}`}
           >
             <button
               className={`w-[38px] h-[38px] rounded-full border-2 border-[#dba65d] flex items-center justify-center ${isRecentOpen ? "bg-[#dba65d]" : ""}`}
@@ -575,12 +575,26 @@ export default function Page() {
         <Map targetLocation={searchedLocation} />
 
         {/* TOP SYSTEM LOGO NAVIGATION BAR */}
-        <header className="absolute top-0 left-0 w-full h-[70px] bg-[#2f4383]/90 backdrop-blur-sm z-30 flex justify-between items-center px-8 border-b border-[#2f4383]/50 pointer-events-auto">
-          <div className="flex flex-col justify-center">
-            <Logo className="w-auto h-[44px]" />
+        <header className="absolute top-0 left-0 w-full h-auto bg-brand-blue/90 backdrop-blur-[0.5px] z-30 flex justify-between items-center px-8 border-b border-[#2f4383]/50 pointer-events-auto">
+          <div className="-ml-5 flex justify-center">
+            <Logo className="mt-3 w-auto h-[44px]" />
+            {/* ilLUMENate */}
+            <div className="flex flex-col">
+              <h1
+                className="w-auto max-w-118 mx-auto text-[42px] font-koulen text-white text-center select-none"
+                style={{
+                  textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                  WebkitTextStrokeWidth: "1px",
+                  WebkitTextStrokeColor: "#1E3A8A",
+                  font: "'koulen'"
+                }}
+              >
+                il<span className="text-[#F4D35E]">lumen</span>ate
+              </h1>
+            </div>
             {/* REAL-TIME CLIENT-SIDE REVERSE GEOLOCATION NODE FIELD TEXT DISPLAY */}
             <p className="text-[11px] text-amber-300 font-bold tracking-wider uppercase pl-1 flex items-center gap-1">
-              <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-ping" />
+              <span className="ml-5 w-1.5 h-1.5 bg-emerald-400 rounded-full animate-ping" />
               Location Context: {gpsLocation}
             </p>
           </div>
@@ -807,11 +821,11 @@ export default function Page() {
                     </div>
                     <div>
                       <h3 className="text-sm font-bold tracking-wide">LumenCHAT</h3>
-                      <p className="text-[11px] text-slate-300 font-medium">your chatbot assistant</p>
+                      <p className="text-[11px] text-slate-300 font-medium">Your AI chatbot assistant</p>
                     </div>
                   </div>
                   <button onClick={() => setIsChatOpen(false)} className="p-1 hover:bg-white/10 rounded-full transition-colors">
-                    <X className="w-5 h-5 text-slate-300 hover:text-white" />
+                    <X className="w-5 h-5 text-slate-300 hover:text-white hover:cursor-pointer" />
                   </button>
                 </div>
 
@@ -853,7 +867,7 @@ export default function Page() {
 
             <button
               onClick={() => setIsChatOpen(!isChatOpen)}
-              className={`w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-200 ${isChatOpen ? "bg-white border border-slate-200 text-gray-700 hover:bg-slate-50 rotate-90" : "bg-[#dba65d] text-white hover:bg-[#c59553] scale-100 hover:scale-105"}`}
+              className={`w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-200 ${isChatOpen ? "bg-white border border-slate-200 text-gray-700 hover:bg-slate-50 rotate-90" : "bg-[#dba65d] text-white hover:bg-[#c59553] scale-100 hover:scale-105 hover:cursor-pointer"}`}
             >
               {isChatOpen ? <X className="w-6 h-6" /> : <MessageSquare className="w-6 h-6" />}
             </button>

@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from 'react';
 import { MapContainer, TileLayer, Marker, ZoomControl, CircleMarker, useMap, useMapEvents } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+import LocationDetails from '.././LocationDetails';
+
 
 // --- Custom Main Location Marker ---
 const customMarkerIcon = new L.DivIcon({
@@ -135,19 +137,19 @@ function StreetlightLayer() {
   return (
     <>
       {isFetching && (
-        <div className="absolute top-4 right-4 z-[400] bg-white px-3 py-1 rounded-full shadow-md text-xs font-bold text-slate-600 border border-slate-200">
+        <div className="absolute top-20 right-4 z-[400] bg-white px-3 py-1 rounded-full shadow-md text-xs font-bold text-slate-600 border border-slate-200">
           Fetching live streetlights...
         </div>
       )}
 
       {error && !isFetching && (
-        <div className="absolute top-4 right-4 z-[400] bg-white px-3 py-1 rounded-full shadow-md text-xs font-bold text-red-500 border border-slate-200">
+        <div className="absolute top-20 right-4 z-[400] bg-white px-3 py-1 rounded-full shadow-md text-xs font-bold text-red-500 border border-slate-200">
           {error}
         </div>
       )}
 
       {!isFetching && !error && lights.length === 0 && (
-        <div className="absolute top-4 right-4 z-[400] bg-white px-3 py-1 rounded-full shadow-md text-xs font-bold text-slate-500 border border-slate-200">
+        <div className="absolute top-20 right-4 z-[400] bg-white px-3 py-1 rounded-full shadow-md text-xs font-bold text-slate-500 border border-slate-200">
           No tagged streetlights here
         </div>
       )}
@@ -182,6 +184,29 @@ export default function LeafletMap({ targetLocation }: LeafletMapProps) {
   // instead of running into conflict issues with an already initialized container.
   const mapKey = targetLocation ? `${targetLocation[0]}-${targetLocation[1]}` : 'default-map';
 
+  // --- Marker Details ---
+  const [showDetails, setShowDetails] = useState(false);
+  useEffect(() => {
+    const handleOutsideClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+
+      // keep popup open when clicking inside map or popup
+      if (
+        target.closest(".map-container") ||
+        target.closest(".location-details")
+      ) {
+        return;
+      }
+
+      setShowDetails(false);
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
   return (
     <div className="absolute inset-0 z-[0]">
       <MapContainer
@@ -199,7 +224,21 @@ export default function LeafletMap({ targetLocation }: LeafletMapProps) {
         <ZoomControl position="bottomright" />
         <MapUpdater targetLocation={targetLocation} />
         <StreetlightLayer />
-        <Marker position={targetLocation || defaultCenter} icon={customMarkerIcon} />
+        <Marker
+          position={targetLocation || defaultCenter}
+          icon={customMarkerIcon}
+          eventHandlers={{
+            click: () => {
+              setShowDetails(true);
+            },
+          }}
+        />
+        <LocationDetails
+          isOpen={showDetails}
+          title="Selected Location"
+          address=""
+        />
+        
       </MapContainer>
     </div>
   );
