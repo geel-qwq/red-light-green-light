@@ -1,8 +1,3 @@
-// ============================================================
-// LocationDetails.tsx
-// Slide-up panel shown when a map marker is clicked.
-// Three tabs: Overview · Complaints · About
-// ============================================================
 
 "use client";
 
@@ -72,13 +67,13 @@ export interface LocationDetailsProps {
   // Basic identity
   title?: string;   // street name or pole code
   address?: string;
-  // Pole metadata (optional — provided when a known pole is clicked)
-  status?: string;   // e.g. "ACTIVE", "FAULTY" …
+  // Pole metadata 
+  status?: string;
   poleCode?: string;
   latitude?: number;
   longitude?: number;
   barangay?: string;
-  // Node / hardware specs (optional extras shown in About tab)
+  // Node / hardware specs
   nodeSpecs?: Record<string, string>;
 }
 
@@ -105,7 +100,7 @@ export default function LocationDetails({
   const [submitted, setSubmitted] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Resolve badge colours (fall back to ACTIVE if status unknown)
+  // Resolve badge colours
   const badge = STATUS_BADGE[status] ?? STATUS_BADGE["ACTIVE"];
 
   // ── File drop handlers ──
@@ -158,11 +153,6 @@ export default function LocationDetails({
   );
 
   return (
-    /*
-     * Outer wrapper — slides up from the bottom of the map.
-     * translate-y-full hides it; translate-y-0 reveals it.
-     * z-[500] keeps it above Leaflet tiles (z-[400]).
-     */
     <div
       className={[
         "absolute top-[150px] left-6 z-[500]",

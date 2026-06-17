@@ -1,9 +1,10 @@
+
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
 import {
   MapContainer, TileLayer, Marker, ZoomControl,
-  CircleMarker, useMap, useMapEvents,
+  useMap, useMapEvents,
 } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
@@ -33,15 +34,68 @@ const customMarkerIconBounce = new L.DivIcon({
   iconAnchor: [16, 32],
 });
 
+// ── Pole/light status, mirroring polemap.tsx's statusColor + LocationDetails'
+type PoleStatus = 'ACTIVE' | 'FAULTY' | 'UNDER_MAINTENANCE' | 'DECOMMISSIONED';
+
+// ── Status → icon file in public/marker_icons ──
+// NOTE: these filenames are placeholders — rename them (and the extension,
+// if you're using .svg instead of .png) to match whatever actually lives
+// in public/marker_icons.
+const STATUS_ICON_FILE: Record<PoleStatus, string> = {
+  ACTIVE:            '/marker_icons/lamp-active.png',
+  FAULTY:            '/marker_icons/lamp-faulty.png',
+  UNDER_MAINTENANCE: '/marker_icons/lamp-under_maintenance.png',
+  DECOMMISSIONED:    '/marker_icons/lamp-decommissioned.png',
+};
+
+type LightVisualState = 'default' | 'hovered' | 'selected';
+
+// Base icon size in px — hover/selected just scale this up via CSS below,
+// so bump this single number if the icons read too small/large overall.
+const STREETLIGHT_ICON_PX = 22;
+
+// Finite (status × state) combinations, so build each L.Icon once and
+// reuse it across markers/re-renders instead of recreating on every render.
+const statusIconCache = new Map<string, L.Icon>();
+
+function getStatusIcon(status: PoleStatus, state: LightVisualState): L.Icon {
+  const cacheKey = `${status}-${state}`;
+  const cached = statusIconCache.get(cacheKey);
+  if (cached) return cached;
+
+  const icon = new L.Icon({
+    iconUrl: STATUS_ICON_FILE[status] ?? STATUS_ICON_FILE.ACTIVE,
+    iconSize: [STREETLIGHT_ICON_PX, STREETLIGHT_ICON_PX],
+    iconAnchor: [STREETLIGHT_ICON_PX / 2, STREETLIGHT_ICON_PX / 2],
+    className: [
+      'streetlight-status-icon',
+      state !== 'default' ? `streetlight-status-icon--${state}` : '',
+    ].filter(Boolean).join(' '),
+  });
+
+  statusIconCache.set(cacheKey, icon);
+  return icon;
+}
+
 // ── Flies the map to a new position whenever targetLocation changes ──
 function MapUpdater({ targetLocation }: { targetLocation?: [number, number] | null }) {
   const map = useMap();
   useEffect(() => {
     if (targetLocation) {
-      map.flyTo(targetLocation, 16, { duration: 1.5 });
+      map.flyTo(targetLocation, map.getZoom(), {
+        duration: 0.8,
+      });
     }
   }, [targetLocation, map]);
   return null;
+}
+
+// A streetlight pulled live from OpenStreetMap. OSM carries no fault/
+// operational status of its own — these default to ACTIVE until/unless
+// cross-referenced with this app's real pole records.
+interface OsmLight {
+  position: [number, number];
+  status: PoleStatus;
 }
 
 // ── Props for the streetlight layer ──
@@ -54,7 +108,7 @@ interface StreetlightLayerProps {
 
 // ── Fetches and renders live streetlight circles via Overpass API ──
 function StreetlightLayer({ onLightClick, selectedLight }: StreetlightLayerProps) {
-  const [lights,       setLights]       = useState<[number, number][]>([]);
+  const [lights,       setLights]       = useState<OsmLight[]>([]);
   const [isFetching,   setIsFetching]   = useState(false);
   const [error,        setError]        = useState<string | null>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -98,14 +152,14 @@ function StreetlightLayer({ onLightClick, selectedLight }: StreetlightLayerProps
         if (!res.ok) throw new Error(`Status ${res.status}`);
 
         const data = await res.json();
-        const fetched: [number, number][] = [];
+        const fetched: OsmLight[] = [];
 
         for (const el of data.elements) {
           if (el.type === 'node' && typeof el.lat === 'number' && typeof el.lon === 'number') {
-            fetched.push([el.lat, el.lon]);
+            fetched.push({ position: [el.lat, el.lon], status: 'ACTIVE' });
           } else if (el.type === 'way' && Array.isArray(el.geometry)) {
             el.geometry.forEach((pt: any, idx: number) => {
-              if (pt && idx % 3 === 0) fetched.push([pt.lat, pt.lon]);
+              if (pt && idx % 3 === 0) fetched.push({ position: [pt.lat, pt.lon], status: 'ACTIVE' });
             });
           }
         }
@@ -165,25 +219,27 @@ function StreetlightLayer({ onLightClick, selectedLight }: StreetlightLayerProps
         </div>
       )}
 
-      {/* Streetlight circles */}
-      {lights.map((light, index) => (
-        <CircleMarker
-          key={`light-${light[0]}-${light[1]}-${index}`}
-          center={light}
-          radius={isSelected(light) ? 7 : hoveredIndex === index ? 6 : 4}
-          pathOptions={{
-            color:       '#dba65d',
-            fillColor:   '#FFD700',
-            fillOpacity: isSelected(light) ? 1 : hoveredIndex === index ? 1 : 0.8,
-            weight:      isSelected(light) ? 3 : hoveredIndex === index ? 2 : 1,
-          }}
-          eventHandlers={{
-            click:      () => onLightClick(light),
-            mouseover:  () => setHoveredIndex(index),
-            mouseout:   () => setHoveredIndex(null),
-          }}
-        />
-      ))}
+      {/* Streetlight icons — status-coded, same status set as polemap.tsx */}
+      {lights.map((light, index) => {
+        const state: LightVisualState = isSelected(light.position)
+          ? 'selected'
+          : hoveredIndex === index
+            ? 'hovered'
+            : 'default';
+
+        return (
+          <Marker
+            key={`light-${light.position[0]}-${light.position[1]}-${index}`}
+            position={light.position}
+            icon={getStatusIcon(light.status, state)}
+            eventHandlers={{
+              click:      () => onLightClick(light.position),
+              mouseover:  () => setHoveredIndex(index),
+              mouseout:   () => setHoveredIndex(null),
+            }}
+          />
+        );
+      })}
     </>
   );
 }
@@ -223,6 +279,23 @@ export default function LeafletMap({ targetLocation, onMarkerClick }: LeafletMap
           75%        { transform: translateY(-4px);  }
         }
         .leaflet-marker-icon.marker-bounce:hover div {
+          animation: markerBounce 0.45s ease;
+        }
+
+        /* Status-coded streetlight icons — replaces the old CircleMarker's
+           radius/opacity/weight feedback with a scale + drop-shadow, and
+           reuses the same bounce keyframes above for the "selected" pop. */
+        .streetlight-status-icon {
+          transition: transform 0.2s ease, filter 0.2s ease;
+          transform-origin: center center;
+        }
+        .streetlight-status-icon--hovered {
+          transform: scale(1.3);
+          filter: drop-shadow(0 2px 4px rgba(0,0,0,0.35));
+        }
+        .streetlight-status-icon--selected {
+          transform: scale(1.5);
+          filter: drop-shadow(0 0 6px rgba(0,0,0,0.5));
           animation: markerBounce 0.45s ease;
         }
       `;
