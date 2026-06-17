@@ -38,6 +38,26 @@ export type WorkOrder = $Result.DefaultSelection<Prisma.$WorkOrderPayload>
  * 
  */
 export type StatusLog = $Result.DefaultSelection<Prisma.$StatusLogPayload>
+/**
+ * Model SearchHistory
+ * 
+ */
+export type SearchHistory = $Result.DefaultSelection<Prisma.$SearchHistoryPayload>
+/**
+ * Model Notification
+ * 
+ */
+export type Notification = $Result.DefaultSelection<Prisma.$NotificationPayload>
+/**
+ * Model InventoryItem
+ * 
+ */
+export type InventoryItem = $Result.DefaultSelection<Prisma.$InventoryItemPayload>
+/**
+ * Model InventoryLog
+ * 
+ */
+export type InventoryLog = $Result.DefaultSelection<Prisma.$InventoryLogPayload>
 
 /**
  * Enums
@@ -287,6 +307,46 @@ export class PrismaClient<
     * ```
     */
   get statusLog(): Prisma.StatusLogDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.searchHistory`: Exposes CRUD operations for the **SearchHistory** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SearchHistories
+    * const searchHistories = await prisma.searchHistory.findMany()
+    * ```
+    */
+  get searchHistory(): Prisma.SearchHistoryDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.notification`: Exposes CRUD operations for the **Notification** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Notifications
+    * const notifications = await prisma.notification.findMany()
+    * ```
+    */
+  get notification(): Prisma.NotificationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.inventoryItem`: Exposes CRUD operations for the **InventoryItem** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more InventoryItems
+    * const inventoryItems = await prisma.inventoryItem.findMany()
+    * ```
+    */
+  get inventoryItem(): Prisma.InventoryItemDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.inventoryLog`: Exposes CRUD operations for the **InventoryLog** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more InventoryLogs
+    * const inventoryLogs = await prisma.inventoryLog.findMany()
+    * ```
+    */
+  get inventoryLog(): Prisma.InventoryLogDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -725,7 +785,11 @@ export namespace Prisma {
     Pole: 'Pole',
     FaultReport: 'FaultReport',
     WorkOrder: 'WorkOrder',
-    StatusLog: 'StatusLog'
+    StatusLog: 'StatusLog',
+    SearchHistory: 'SearchHistory',
+    Notification: 'Notification',
+    InventoryItem: 'InventoryItem',
+    InventoryLog: 'InventoryLog'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -741,7 +805,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "pole" | "faultReport" | "workOrder" | "statusLog"
+      modelProps: "user" | "pole" | "faultReport" | "workOrder" | "statusLog" | "searchHistory" | "notification" | "inventoryItem" | "inventoryLog"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1115,6 +1179,302 @@ export namespace Prisma {
           }
         }
       }
+      SearchHistory: {
+        payload: Prisma.$SearchHistoryPayload<ExtArgs>
+        fields: Prisma.SearchHistoryFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SearchHistoryFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SearchHistoryPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SearchHistoryFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SearchHistoryPayload>
+          }
+          findFirst: {
+            args: Prisma.SearchHistoryFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SearchHistoryPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SearchHistoryFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SearchHistoryPayload>
+          }
+          findMany: {
+            args: Prisma.SearchHistoryFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SearchHistoryPayload>[]
+          }
+          create: {
+            args: Prisma.SearchHistoryCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SearchHistoryPayload>
+          }
+          createMany: {
+            args: Prisma.SearchHistoryCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SearchHistoryCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SearchHistoryPayload>[]
+          }
+          delete: {
+            args: Prisma.SearchHistoryDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SearchHistoryPayload>
+          }
+          update: {
+            args: Prisma.SearchHistoryUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SearchHistoryPayload>
+          }
+          deleteMany: {
+            args: Prisma.SearchHistoryDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SearchHistoryUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SearchHistoryUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SearchHistoryPayload>[]
+          }
+          upsert: {
+            args: Prisma.SearchHistoryUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SearchHistoryPayload>
+          }
+          aggregate: {
+            args: Prisma.SearchHistoryAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSearchHistory>
+          }
+          groupBy: {
+            args: Prisma.SearchHistoryGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SearchHistoryGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SearchHistoryCountArgs<ExtArgs>
+            result: $Utils.Optional<SearchHistoryCountAggregateOutputType> | number
+          }
+        }
+      }
+      Notification: {
+        payload: Prisma.$NotificationPayload<ExtArgs>
+        fields: Prisma.NotificationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.NotificationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.NotificationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>
+          }
+          findFirst: {
+            args: Prisma.NotificationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.NotificationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>
+          }
+          findMany: {
+            args: Prisma.NotificationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>[]
+          }
+          create: {
+            args: Prisma.NotificationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>
+          }
+          createMany: {
+            args: Prisma.NotificationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.NotificationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>[]
+          }
+          delete: {
+            args: Prisma.NotificationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>
+          }
+          update: {
+            args: Prisma.NotificationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>
+          }
+          deleteMany: {
+            args: Prisma.NotificationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.NotificationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.NotificationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>[]
+          }
+          upsert: {
+            args: Prisma.NotificationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$NotificationPayload>
+          }
+          aggregate: {
+            args: Prisma.NotificationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateNotification>
+          }
+          groupBy: {
+            args: Prisma.NotificationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<NotificationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.NotificationCountArgs<ExtArgs>
+            result: $Utils.Optional<NotificationCountAggregateOutputType> | number
+          }
+        }
+      }
+      InventoryItem: {
+        payload: Prisma.$InventoryItemPayload<ExtArgs>
+        fields: Prisma.InventoryItemFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.InventoryItemFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryItemPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.InventoryItemFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryItemPayload>
+          }
+          findFirst: {
+            args: Prisma.InventoryItemFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryItemPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.InventoryItemFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryItemPayload>
+          }
+          findMany: {
+            args: Prisma.InventoryItemFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryItemPayload>[]
+          }
+          create: {
+            args: Prisma.InventoryItemCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryItemPayload>
+          }
+          createMany: {
+            args: Prisma.InventoryItemCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.InventoryItemCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryItemPayload>[]
+          }
+          delete: {
+            args: Prisma.InventoryItemDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryItemPayload>
+          }
+          update: {
+            args: Prisma.InventoryItemUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryItemPayload>
+          }
+          deleteMany: {
+            args: Prisma.InventoryItemDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.InventoryItemUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.InventoryItemUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryItemPayload>[]
+          }
+          upsert: {
+            args: Prisma.InventoryItemUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryItemPayload>
+          }
+          aggregate: {
+            args: Prisma.InventoryItemAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateInventoryItem>
+          }
+          groupBy: {
+            args: Prisma.InventoryItemGroupByArgs<ExtArgs>
+            result: $Utils.Optional<InventoryItemGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.InventoryItemCountArgs<ExtArgs>
+            result: $Utils.Optional<InventoryItemCountAggregateOutputType> | number
+          }
+        }
+      }
+      InventoryLog: {
+        payload: Prisma.$InventoryLogPayload<ExtArgs>
+        fields: Prisma.InventoryLogFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.InventoryLogFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryLogPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.InventoryLogFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryLogPayload>
+          }
+          findFirst: {
+            args: Prisma.InventoryLogFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryLogPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.InventoryLogFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryLogPayload>
+          }
+          findMany: {
+            args: Prisma.InventoryLogFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryLogPayload>[]
+          }
+          create: {
+            args: Prisma.InventoryLogCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryLogPayload>
+          }
+          createMany: {
+            args: Prisma.InventoryLogCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.InventoryLogCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryLogPayload>[]
+          }
+          delete: {
+            args: Prisma.InventoryLogDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryLogPayload>
+          }
+          update: {
+            args: Prisma.InventoryLogUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryLogPayload>
+          }
+          deleteMany: {
+            args: Prisma.InventoryLogDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.InventoryLogUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.InventoryLogUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryLogPayload>[]
+          }
+          upsert: {
+            args: Prisma.InventoryLogUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$InventoryLogPayload>
+          }
+          aggregate: {
+            args: Prisma.InventoryLogAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateInventoryLog>
+          }
+          groupBy: {
+            args: Prisma.InventoryLogGroupByArgs<ExtArgs>
+            result: $Utils.Optional<InventoryLogGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.InventoryLogCountArgs<ExtArgs>
+            result: $Utils.Optional<InventoryLogCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1228,6 +1588,10 @@ export namespace Prisma {
     faultReport?: FaultReportOmit
     workOrder?: WorkOrderOmit
     statusLog?: StatusLogOmit
+    searchHistory?: SearchHistoryOmit
+    notification?: NotificationOmit
+    inventoryItem?: InventoryItemOmit
+    inventoryLog?: InventoryLogOmit
   }
 
   /* Types for Logging */
@@ -1312,6 +1676,9 @@ export namespace Prisma {
     workOrdersAssigned: number
     workOrdersCreated: number
     statusLogs: number
+    searchHistory: number
+    notifications: number
+    inventoryLogs: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1319,6 +1686,9 @@ export namespace Prisma {
     workOrdersAssigned?: boolean | UserCountOutputTypeCountWorkOrdersAssignedArgs
     workOrdersCreated?: boolean | UserCountOutputTypeCountWorkOrdersCreatedArgs
     statusLogs?: boolean | UserCountOutputTypeCountStatusLogsArgs
+    searchHistory?: boolean | UserCountOutputTypeCountSearchHistoryArgs
+    notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
+    inventoryLogs?: boolean | UserCountOutputTypeCountInventoryLogsArgs
   }
 
   // Custom InputTypes
@@ -1360,6 +1730,27 @@ export namespace Prisma {
     where?: StatusLogWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountSearchHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SearchHistoryWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NotificationWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountInventoryLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InventoryLogWhereInput
+  }
+
 
   /**
    * Count Type PoleCountOutputType
@@ -1398,6 +1789,37 @@ export namespace Prisma {
    */
   export type PoleCountOutputTypeCountStatusLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: StatusLogWhereInput
+  }
+
+
+  /**
+   * Count Type InventoryItemCountOutputType
+   */
+
+  export type InventoryItemCountOutputType = {
+    logs: number
+  }
+
+  export type InventoryItemCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    logs?: boolean | InventoryItemCountOutputTypeCountLogsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * InventoryItemCountOutputType without action
+   */
+  export type InventoryItemCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryItemCountOutputType
+     */
+    select?: InventoryItemCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * InventoryItemCountOutputType without action
+   */
+  export type InventoryItemCountOutputTypeCountLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InventoryLogWhereInput
   }
 
 
@@ -1661,6 +2083,9 @@ export namespace Prisma {
     workOrdersAssigned?: boolean | User$workOrdersAssignedArgs<ExtArgs>
     workOrdersCreated?: boolean | User$workOrdersCreatedArgs<ExtArgs>
     statusLogs?: boolean | User$statusLogsArgs<ExtArgs>
+    searchHistory?: boolean | User$searchHistoryArgs<ExtArgs>
+    notifications?: boolean | User$notificationsArgs<ExtArgs>
+    inventoryLogs?: boolean | User$inventoryLogsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1727,6 +2152,9 @@ export namespace Prisma {
     workOrdersAssigned?: boolean | User$workOrdersAssignedArgs<ExtArgs>
     workOrdersCreated?: boolean | User$workOrdersCreatedArgs<ExtArgs>
     statusLogs?: boolean | User$statusLogsArgs<ExtArgs>
+    searchHistory?: boolean | User$searchHistoryArgs<ExtArgs>
+    notifications?: boolean | User$notificationsArgs<ExtArgs>
+    inventoryLogs?: boolean | User$inventoryLogsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1739,6 +2167,9 @@ export namespace Prisma {
       workOrdersAssigned: Prisma.$WorkOrderPayload<ExtArgs>[]
       workOrdersCreated: Prisma.$WorkOrderPayload<ExtArgs>[]
       statusLogs: Prisma.$StatusLogPayload<ExtArgs>[]
+      searchHistory: Prisma.$SearchHistoryPayload<ExtArgs>[]
+      notifications: Prisma.$NotificationPayload<ExtArgs>[]
+      inventoryLogs: Prisma.$InventoryLogPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2155,6 +2586,9 @@ export namespace Prisma {
     workOrdersAssigned<T extends User$workOrdersAssignedArgs<ExtArgs> = {}>(args?: Subset<T, User$workOrdersAssignedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkOrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     workOrdersCreated<T extends User$workOrdersCreatedArgs<ExtArgs> = {}>(args?: Subset<T, User$workOrdersCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkOrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     statusLogs<T extends User$statusLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$statusLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StatusLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    searchHistory<T extends User$searchHistoryArgs<ExtArgs> = {}>(args?: Subset<T, User$searchHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SearchHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    notifications<T extends User$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    inventoryLogs<T extends User$inventoryLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$inventoryLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InventoryLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2686,6 +3120,78 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: StatusLogScalarFieldEnum | StatusLogScalarFieldEnum[]
+  }
+
+  /**
+   * User.searchHistory
+   */
+  export type User$searchHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SearchHistory
+     */
+    select?: SearchHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SearchHistory
+     */
+    omit?: SearchHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SearchHistoryInclude<ExtArgs> | null
+    where?: SearchHistoryWhereInput
+    orderBy?: SearchHistoryOrderByWithRelationInput | SearchHistoryOrderByWithRelationInput[]
+    cursor?: SearchHistoryWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SearchHistoryScalarFieldEnum | SearchHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * User.notifications
+   */
+  export type User$notificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    where?: NotificationWhereInput
+    orderBy?: NotificationOrderByWithRelationInput | NotificationOrderByWithRelationInput[]
+    cursor?: NotificationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
+  }
+
+  /**
+   * User.inventoryLogs
+   */
+  export type User$inventoryLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryLog
+     */
+    select?: InventoryLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryLog
+     */
+    omit?: InventoryLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryLogInclude<ExtArgs> | null
+    where?: InventoryLogWhereInput
+    orderBy?: InventoryLogOrderByWithRelationInput | InventoryLogOrderByWithRelationInput[]
+    cursor?: InventoryLogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: InventoryLogScalarFieldEnum | InventoryLogScalarFieldEnum[]
   }
 
   /**
@@ -7255,6 +7761,4505 @@ export namespace Prisma {
 
 
   /**
+   * Model SearchHistory
+   */
+
+  export type AggregateSearchHistory = {
+    _count: SearchHistoryCountAggregateOutputType | null
+    _avg: SearchHistoryAvgAggregateOutputType | null
+    _sum: SearchHistorySumAggregateOutputType | null
+    _min: SearchHistoryMinAggregateOutputType | null
+    _max: SearchHistoryMaxAggregateOutputType | null
+  }
+
+  export type SearchHistoryAvgAggregateOutputType = {
+    lat: number | null
+    lng: number | null
+  }
+
+  export type SearchHistorySumAggregateOutputType = {
+    lat: number | null
+    lng: number | null
+  }
+
+  export type SearchHistoryMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    title: string | null
+    description: string | null
+    lat: number | null
+    lng: number | null
+    createdAt: Date | null
+  }
+
+  export type SearchHistoryMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    title: string | null
+    description: string | null
+    lat: number | null
+    lng: number | null
+    createdAt: Date | null
+  }
+
+  export type SearchHistoryCountAggregateOutputType = {
+    id: number
+    userId: number
+    title: number
+    description: number
+    lat: number
+    lng: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type SearchHistoryAvgAggregateInputType = {
+    lat?: true
+    lng?: true
+  }
+
+  export type SearchHistorySumAggregateInputType = {
+    lat?: true
+    lng?: true
+  }
+
+  export type SearchHistoryMinAggregateInputType = {
+    id?: true
+    userId?: true
+    title?: true
+    description?: true
+    lat?: true
+    lng?: true
+    createdAt?: true
+  }
+
+  export type SearchHistoryMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    title?: true
+    description?: true
+    lat?: true
+    lng?: true
+    createdAt?: true
+  }
+
+  export type SearchHistoryCountAggregateInputType = {
+    id?: true
+    userId?: true
+    title?: true
+    description?: true
+    lat?: true
+    lng?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type SearchHistoryAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SearchHistory to aggregate.
+     */
+    where?: SearchHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SearchHistories to fetch.
+     */
+    orderBy?: SearchHistoryOrderByWithRelationInput | SearchHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SearchHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SearchHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SearchHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SearchHistories
+    **/
+    _count?: true | SearchHistoryCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SearchHistoryAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SearchHistorySumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SearchHistoryMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SearchHistoryMaxAggregateInputType
+  }
+
+  export type GetSearchHistoryAggregateType<T extends SearchHistoryAggregateArgs> = {
+        [P in keyof T & keyof AggregateSearchHistory]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSearchHistory[P]>
+      : GetScalarType<T[P], AggregateSearchHistory[P]>
+  }
+
+
+
+
+  export type SearchHistoryGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SearchHistoryWhereInput
+    orderBy?: SearchHistoryOrderByWithAggregationInput | SearchHistoryOrderByWithAggregationInput[]
+    by: SearchHistoryScalarFieldEnum[] | SearchHistoryScalarFieldEnum
+    having?: SearchHistoryScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SearchHistoryCountAggregateInputType | true
+    _avg?: SearchHistoryAvgAggregateInputType
+    _sum?: SearchHistorySumAggregateInputType
+    _min?: SearchHistoryMinAggregateInputType
+    _max?: SearchHistoryMaxAggregateInputType
+  }
+
+  export type SearchHistoryGroupByOutputType = {
+    id: string
+    userId: string
+    title: string
+    description: string
+    lat: number | null
+    lng: number | null
+    createdAt: Date
+    _count: SearchHistoryCountAggregateOutputType | null
+    _avg: SearchHistoryAvgAggregateOutputType | null
+    _sum: SearchHistorySumAggregateOutputType | null
+    _min: SearchHistoryMinAggregateOutputType | null
+    _max: SearchHistoryMaxAggregateOutputType | null
+  }
+
+  type GetSearchHistoryGroupByPayload<T extends SearchHistoryGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SearchHistoryGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SearchHistoryGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SearchHistoryGroupByOutputType[P]>
+            : GetScalarType<T[P], SearchHistoryGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SearchHistorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    title?: boolean
+    description?: boolean
+    lat?: boolean
+    lng?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["searchHistory"]>
+
+  export type SearchHistorySelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    title?: boolean
+    description?: boolean
+    lat?: boolean
+    lng?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["searchHistory"]>
+
+  export type SearchHistorySelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    title?: boolean
+    description?: boolean
+    lat?: boolean
+    lng?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["searchHistory"]>
+
+  export type SearchHistorySelectScalar = {
+    id?: boolean
+    userId?: boolean
+    title?: boolean
+    description?: boolean
+    lat?: boolean
+    lng?: boolean
+    createdAt?: boolean
+  }
+
+  export type SearchHistoryOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "title" | "description" | "lat" | "lng" | "createdAt", ExtArgs["result"]["searchHistory"]>
+  export type SearchHistoryInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type SearchHistoryIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type SearchHistoryIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $SearchHistoryPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SearchHistory"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      title: string
+      description: string
+      lat: number | null
+      lng: number | null
+      createdAt: Date
+    }, ExtArgs["result"]["searchHistory"]>
+    composites: {}
+  }
+
+  type SearchHistoryGetPayload<S extends boolean | null | undefined | SearchHistoryDefaultArgs> = $Result.GetResult<Prisma.$SearchHistoryPayload, S>
+
+  type SearchHistoryCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SearchHistoryFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SearchHistoryCountAggregateInputType | true
+    }
+
+  export interface SearchHistoryDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SearchHistory'], meta: { name: 'SearchHistory' } }
+    /**
+     * Find zero or one SearchHistory that matches the filter.
+     * @param {SearchHistoryFindUniqueArgs} args - Arguments to find a SearchHistory
+     * @example
+     * // Get one SearchHistory
+     * const searchHistory = await prisma.searchHistory.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SearchHistoryFindUniqueArgs>(args: SelectSubset<T, SearchHistoryFindUniqueArgs<ExtArgs>>): Prisma__SearchHistoryClient<$Result.GetResult<Prisma.$SearchHistoryPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SearchHistory that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SearchHistoryFindUniqueOrThrowArgs} args - Arguments to find a SearchHistory
+     * @example
+     * // Get one SearchHistory
+     * const searchHistory = await prisma.searchHistory.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SearchHistoryFindUniqueOrThrowArgs>(args: SelectSubset<T, SearchHistoryFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SearchHistoryClient<$Result.GetResult<Prisma.$SearchHistoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SearchHistory that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SearchHistoryFindFirstArgs} args - Arguments to find a SearchHistory
+     * @example
+     * // Get one SearchHistory
+     * const searchHistory = await prisma.searchHistory.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SearchHistoryFindFirstArgs>(args?: SelectSubset<T, SearchHistoryFindFirstArgs<ExtArgs>>): Prisma__SearchHistoryClient<$Result.GetResult<Prisma.$SearchHistoryPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SearchHistory that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SearchHistoryFindFirstOrThrowArgs} args - Arguments to find a SearchHistory
+     * @example
+     * // Get one SearchHistory
+     * const searchHistory = await prisma.searchHistory.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SearchHistoryFindFirstOrThrowArgs>(args?: SelectSubset<T, SearchHistoryFindFirstOrThrowArgs<ExtArgs>>): Prisma__SearchHistoryClient<$Result.GetResult<Prisma.$SearchHistoryPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SearchHistories that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SearchHistoryFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SearchHistories
+     * const searchHistories = await prisma.searchHistory.findMany()
+     * 
+     * // Get first 10 SearchHistories
+     * const searchHistories = await prisma.searchHistory.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const searchHistoryWithIdOnly = await prisma.searchHistory.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SearchHistoryFindManyArgs>(args?: SelectSubset<T, SearchHistoryFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SearchHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SearchHistory.
+     * @param {SearchHistoryCreateArgs} args - Arguments to create a SearchHistory.
+     * @example
+     * // Create one SearchHistory
+     * const SearchHistory = await prisma.searchHistory.create({
+     *   data: {
+     *     // ... data to create a SearchHistory
+     *   }
+     * })
+     * 
+     */
+    create<T extends SearchHistoryCreateArgs>(args: SelectSubset<T, SearchHistoryCreateArgs<ExtArgs>>): Prisma__SearchHistoryClient<$Result.GetResult<Prisma.$SearchHistoryPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SearchHistories.
+     * @param {SearchHistoryCreateManyArgs} args - Arguments to create many SearchHistories.
+     * @example
+     * // Create many SearchHistories
+     * const searchHistory = await prisma.searchHistory.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SearchHistoryCreateManyArgs>(args?: SelectSubset<T, SearchHistoryCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SearchHistories and returns the data saved in the database.
+     * @param {SearchHistoryCreateManyAndReturnArgs} args - Arguments to create many SearchHistories.
+     * @example
+     * // Create many SearchHistories
+     * const searchHistory = await prisma.searchHistory.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SearchHistories and only return the `id`
+     * const searchHistoryWithIdOnly = await prisma.searchHistory.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SearchHistoryCreateManyAndReturnArgs>(args?: SelectSubset<T, SearchHistoryCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SearchHistoryPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SearchHistory.
+     * @param {SearchHistoryDeleteArgs} args - Arguments to delete one SearchHistory.
+     * @example
+     * // Delete one SearchHistory
+     * const SearchHistory = await prisma.searchHistory.delete({
+     *   where: {
+     *     // ... filter to delete one SearchHistory
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SearchHistoryDeleteArgs>(args: SelectSubset<T, SearchHistoryDeleteArgs<ExtArgs>>): Prisma__SearchHistoryClient<$Result.GetResult<Prisma.$SearchHistoryPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SearchHistory.
+     * @param {SearchHistoryUpdateArgs} args - Arguments to update one SearchHistory.
+     * @example
+     * // Update one SearchHistory
+     * const searchHistory = await prisma.searchHistory.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SearchHistoryUpdateArgs>(args: SelectSubset<T, SearchHistoryUpdateArgs<ExtArgs>>): Prisma__SearchHistoryClient<$Result.GetResult<Prisma.$SearchHistoryPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SearchHistories.
+     * @param {SearchHistoryDeleteManyArgs} args - Arguments to filter SearchHistories to delete.
+     * @example
+     * // Delete a few SearchHistories
+     * const { count } = await prisma.searchHistory.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SearchHistoryDeleteManyArgs>(args?: SelectSubset<T, SearchHistoryDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SearchHistories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SearchHistoryUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SearchHistories
+     * const searchHistory = await prisma.searchHistory.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SearchHistoryUpdateManyArgs>(args: SelectSubset<T, SearchHistoryUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SearchHistories and returns the data updated in the database.
+     * @param {SearchHistoryUpdateManyAndReturnArgs} args - Arguments to update many SearchHistories.
+     * @example
+     * // Update many SearchHistories
+     * const searchHistory = await prisma.searchHistory.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SearchHistories and only return the `id`
+     * const searchHistoryWithIdOnly = await prisma.searchHistory.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SearchHistoryUpdateManyAndReturnArgs>(args: SelectSubset<T, SearchHistoryUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SearchHistoryPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SearchHistory.
+     * @param {SearchHistoryUpsertArgs} args - Arguments to update or create a SearchHistory.
+     * @example
+     * // Update or create a SearchHistory
+     * const searchHistory = await prisma.searchHistory.upsert({
+     *   create: {
+     *     // ... data to create a SearchHistory
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SearchHistory we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SearchHistoryUpsertArgs>(args: SelectSubset<T, SearchHistoryUpsertArgs<ExtArgs>>): Prisma__SearchHistoryClient<$Result.GetResult<Prisma.$SearchHistoryPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SearchHistories.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SearchHistoryCountArgs} args - Arguments to filter SearchHistories to count.
+     * @example
+     * // Count the number of SearchHistories
+     * const count = await prisma.searchHistory.count({
+     *   where: {
+     *     // ... the filter for the SearchHistories we want to count
+     *   }
+     * })
+    **/
+    count<T extends SearchHistoryCountArgs>(
+      args?: Subset<T, SearchHistoryCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SearchHistoryCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SearchHistory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SearchHistoryAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SearchHistoryAggregateArgs>(args: Subset<T, SearchHistoryAggregateArgs>): Prisma.PrismaPromise<GetSearchHistoryAggregateType<T>>
+
+    /**
+     * Group by SearchHistory.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SearchHistoryGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SearchHistoryGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SearchHistoryGroupByArgs['orderBy'] }
+        : { orderBy?: SearchHistoryGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SearchHistoryGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSearchHistoryGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SearchHistory model
+   */
+  readonly fields: SearchHistoryFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SearchHistory.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SearchHistoryClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SearchHistory model
+   */
+  interface SearchHistoryFieldRefs {
+    readonly id: FieldRef<"SearchHistory", 'String'>
+    readonly userId: FieldRef<"SearchHistory", 'String'>
+    readonly title: FieldRef<"SearchHistory", 'String'>
+    readonly description: FieldRef<"SearchHistory", 'String'>
+    readonly lat: FieldRef<"SearchHistory", 'Float'>
+    readonly lng: FieldRef<"SearchHistory", 'Float'>
+    readonly createdAt: FieldRef<"SearchHistory", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SearchHistory findUnique
+   */
+  export type SearchHistoryFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SearchHistory
+     */
+    select?: SearchHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SearchHistory
+     */
+    omit?: SearchHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SearchHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which SearchHistory to fetch.
+     */
+    where: SearchHistoryWhereUniqueInput
+  }
+
+  /**
+   * SearchHistory findUniqueOrThrow
+   */
+  export type SearchHistoryFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SearchHistory
+     */
+    select?: SearchHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SearchHistory
+     */
+    omit?: SearchHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SearchHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which SearchHistory to fetch.
+     */
+    where: SearchHistoryWhereUniqueInput
+  }
+
+  /**
+   * SearchHistory findFirst
+   */
+  export type SearchHistoryFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SearchHistory
+     */
+    select?: SearchHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SearchHistory
+     */
+    omit?: SearchHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SearchHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which SearchHistory to fetch.
+     */
+    where?: SearchHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SearchHistories to fetch.
+     */
+    orderBy?: SearchHistoryOrderByWithRelationInput | SearchHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SearchHistories.
+     */
+    cursor?: SearchHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SearchHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SearchHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SearchHistories.
+     */
+    distinct?: SearchHistoryScalarFieldEnum | SearchHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * SearchHistory findFirstOrThrow
+   */
+  export type SearchHistoryFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SearchHistory
+     */
+    select?: SearchHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SearchHistory
+     */
+    omit?: SearchHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SearchHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which SearchHistory to fetch.
+     */
+    where?: SearchHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SearchHistories to fetch.
+     */
+    orderBy?: SearchHistoryOrderByWithRelationInput | SearchHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SearchHistories.
+     */
+    cursor?: SearchHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SearchHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SearchHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SearchHistories.
+     */
+    distinct?: SearchHistoryScalarFieldEnum | SearchHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * SearchHistory findMany
+   */
+  export type SearchHistoryFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SearchHistory
+     */
+    select?: SearchHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SearchHistory
+     */
+    omit?: SearchHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SearchHistoryInclude<ExtArgs> | null
+    /**
+     * Filter, which SearchHistories to fetch.
+     */
+    where?: SearchHistoryWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SearchHistories to fetch.
+     */
+    orderBy?: SearchHistoryOrderByWithRelationInput | SearchHistoryOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SearchHistories.
+     */
+    cursor?: SearchHistoryWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SearchHistories from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SearchHistories.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SearchHistories.
+     */
+    distinct?: SearchHistoryScalarFieldEnum | SearchHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * SearchHistory create
+   */
+  export type SearchHistoryCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SearchHistory
+     */
+    select?: SearchHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SearchHistory
+     */
+    omit?: SearchHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SearchHistoryInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SearchHistory.
+     */
+    data: XOR<SearchHistoryCreateInput, SearchHistoryUncheckedCreateInput>
+  }
+
+  /**
+   * SearchHistory createMany
+   */
+  export type SearchHistoryCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SearchHistories.
+     */
+    data: SearchHistoryCreateManyInput | SearchHistoryCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SearchHistory createManyAndReturn
+   */
+  export type SearchHistoryCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SearchHistory
+     */
+    select?: SearchHistorySelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SearchHistory
+     */
+    omit?: SearchHistoryOmit<ExtArgs> | null
+    /**
+     * The data used to create many SearchHistories.
+     */
+    data: SearchHistoryCreateManyInput | SearchHistoryCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SearchHistoryIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SearchHistory update
+   */
+  export type SearchHistoryUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SearchHistory
+     */
+    select?: SearchHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SearchHistory
+     */
+    omit?: SearchHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SearchHistoryInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SearchHistory.
+     */
+    data: XOR<SearchHistoryUpdateInput, SearchHistoryUncheckedUpdateInput>
+    /**
+     * Choose, which SearchHistory to update.
+     */
+    where: SearchHistoryWhereUniqueInput
+  }
+
+  /**
+   * SearchHistory updateMany
+   */
+  export type SearchHistoryUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SearchHistories.
+     */
+    data: XOR<SearchHistoryUpdateManyMutationInput, SearchHistoryUncheckedUpdateManyInput>
+    /**
+     * Filter which SearchHistories to update
+     */
+    where?: SearchHistoryWhereInput
+    /**
+     * Limit how many SearchHistories to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SearchHistory updateManyAndReturn
+   */
+  export type SearchHistoryUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SearchHistory
+     */
+    select?: SearchHistorySelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SearchHistory
+     */
+    omit?: SearchHistoryOmit<ExtArgs> | null
+    /**
+     * The data used to update SearchHistories.
+     */
+    data: XOR<SearchHistoryUpdateManyMutationInput, SearchHistoryUncheckedUpdateManyInput>
+    /**
+     * Filter which SearchHistories to update
+     */
+    where?: SearchHistoryWhereInput
+    /**
+     * Limit how many SearchHistories to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SearchHistoryIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SearchHistory upsert
+   */
+  export type SearchHistoryUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SearchHistory
+     */
+    select?: SearchHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SearchHistory
+     */
+    omit?: SearchHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SearchHistoryInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SearchHistory to update in case it exists.
+     */
+    where: SearchHistoryWhereUniqueInput
+    /**
+     * In case the SearchHistory found by the `where` argument doesn't exist, create a new SearchHistory with this data.
+     */
+    create: XOR<SearchHistoryCreateInput, SearchHistoryUncheckedCreateInput>
+    /**
+     * In case the SearchHistory was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SearchHistoryUpdateInput, SearchHistoryUncheckedUpdateInput>
+  }
+
+  /**
+   * SearchHistory delete
+   */
+  export type SearchHistoryDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SearchHistory
+     */
+    select?: SearchHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SearchHistory
+     */
+    omit?: SearchHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SearchHistoryInclude<ExtArgs> | null
+    /**
+     * Filter which SearchHistory to delete.
+     */
+    where: SearchHistoryWhereUniqueInput
+  }
+
+  /**
+   * SearchHistory deleteMany
+   */
+  export type SearchHistoryDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SearchHistories to delete
+     */
+    where?: SearchHistoryWhereInput
+    /**
+     * Limit how many SearchHistories to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SearchHistory without action
+   */
+  export type SearchHistoryDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SearchHistory
+     */
+    select?: SearchHistorySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SearchHistory
+     */
+    omit?: SearchHistoryOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SearchHistoryInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Notification
+   */
+
+  export type AggregateNotification = {
+    _count: NotificationCountAggregateOutputType | null
+    _min: NotificationMinAggregateOutputType | null
+    _max: NotificationMaxAggregateOutputType | null
+  }
+
+  export type NotificationMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    title: string | null
+    message: string | null
+    type: string | null
+    read: boolean | null
+    createdAt: Date | null
+  }
+
+  export type NotificationMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    title: string | null
+    message: string | null
+    type: string | null
+    read: boolean | null
+    createdAt: Date | null
+  }
+
+  export type NotificationCountAggregateOutputType = {
+    id: number
+    userId: number
+    title: number
+    message: number
+    type: number
+    read: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type NotificationMinAggregateInputType = {
+    id?: true
+    userId?: true
+    title?: true
+    message?: true
+    type?: true
+    read?: true
+    createdAt?: true
+  }
+
+  export type NotificationMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    title?: true
+    message?: true
+    type?: true
+    read?: true
+    createdAt?: true
+  }
+
+  export type NotificationCountAggregateInputType = {
+    id?: true
+    userId?: true
+    title?: true
+    message?: true
+    type?: true
+    read?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type NotificationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Notification to aggregate.
+     */
+    where?: NotificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Notifications to fetch.
+     */
+    orderBy?: NotificationOrderByWithRelationInput | NotificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: NotificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Notifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Notifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Notifications
+    **/
+    _count?: true | NotificationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: NotificationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: NotificationMaxAggregateInputType
+  }
+
+  export type GetNotificationAggregateType<T extends NotificationAggregateArgs> = {
+        [P in keyof T & keyof AggregateNotification]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateNotification[P]>
+      : GetScalarType<T[P], AggregateNotification[P]>
+  }
+
+
+
+
+  export type NotificationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: NotificationWhereInput
+    orderBy?: NotificationOrderByWithAggregationInput | NotificationOrderByWithAggregationInput[]
+    by: NotificationScalarFieldEnum[] | NotificationScalarFieldEnum
+    having?: NotificationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: NotificationCountAggregateInputType | true
+    _min?: NotificationMinAggregateInputType
+    _max?: NotificationMaxAggregateInputType
+  }
+
+  export type NotificationGroupByOutputType = {
+    id: string
+    userId: string
+    title: string
+    message: string
+    type: string
+    read: boolean
+    createdAt: Date
+    _count: NotificationCountAggregateOutputType | null
+    _min: NotificationMinAggregateOutputType | null
+    _max: NotificationMaxAggregateOutputType | null
+  }
+
+  type GetNotificationGroupByPayload<T extends NotificationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<NotificationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof NotificationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], NotificationGroupByOutputType[P]>
+            : GetScalarType<T[P], NotificationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type NotificationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    title?: boolean
+    message?: boolean
+    type?: boolean
+    read?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["notification"]>
+
+  export type NotificationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    title?: boolean
+    message?: boolean
+    type?: boolean
+    read?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["notification"]>
+
+  export type NotificationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    title?: boolean
+    message?: boolean
+    type?: boolean
+    read?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["notification"]>
+
+  export type NotificationSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    title?: boolean
+    message?: boolean
+    type?: boolean
+    read?: boolean
+    createdAt?: boolean
+  }
+
+  export type NotificationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "title" | "message" | "type" | "read" | "createdAt", ExtArgs["result"]["notification"]>
+  export type NotificationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type NotificationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type NotificationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $NotificationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Notification"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      title: string
+      message: string
+      type: string
+      read: boolean
+      createdAt: Date
+    }, ExtArgs["result"]["notification"]>
+    composites: {}
+  }
+
+  type NotificationGetPayload<S extends boolean | null | undefined | NotificationDefaultArgs> = $Result.GetResult<Prisma.$NotificationPayload, S>
+
+  type NotificationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<NotificationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: NotificationCountAggregateInputType | true
+    }
+
+  export interface NotificationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Notification'], meta: { name: 'Notification' } }
+    /**
+     * Find zero or one Notification that matches the filter.
+     * @param {NotificationFindUniqueArgs} args - Arguments to find a Notification
+     * @example
+     * // Get one Notification
+     * const notification = await prisma.notification.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends NotificationFindUniqueArgs>(args: SelectSubset<T, NotificationFindUniqueArgs<ExtArgs>>): Prisma__NotificationClient<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Notification that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {NotificationFindUniqueOrThrowArgs} args - Arguments to find a Notification
+     * @example
+     * // Get one Notification
+     * const notification = await prisma.notification.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends NotificationFindUniqueOrThrowArgs>(args: SelectSubset<T, NotificationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__NotificationClient<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Notification that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationFindFirstArgs} args - Arguments to find a Notification
+     * @example
+     * // Get one Notification
+     * const notification = await prisma.notification.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends NotificationFindFirstArgs>(args?: SelectSubset<T, NotificationFindFirstArgs<ExtArgs>>): Prisma__NotificationClient<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Notification that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationFindFirstOrThrowArgs} args - Arguments to find a Notification
+     * @example
+     * // Get one Notification
+     * const notification = await prisma.notification.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends NotificationFindFirstOrThrowArgs>(args?: SelectSubset<T, NotificationFindFirstOrThrowArgs<ExtArgs>>): Prisma__NotificationClient<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Notifications that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Notifications
+     * const notifications = await prisma.notification.findMany()
+     * 
+     * // Get first 10 Notifications
+     * const notifications = await prisma.notification.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const notificationWithIdOnly = await prisma.notification.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends NotificationFindManyArgs>(args?: SelectSubset<T, NotificationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Notification.
+     * @param {NotificationCreateArgs} args - Arguments to create a Notification.
+     * @example
+     * // Create one Notification
+     * const Notification = await prisma.notification.create({
+     *   data: {
+     *     // ... data to create a Notification
+     *   }
+     * })
+     * 
+     */
+    create<T extends NotificationCreateArgs>(args: SelectSubset<T, NotificationCreateArgs<ExtArgs>>): Prisma__NotificationClient<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Notifications.
+     * @param {NotificationCreateManyArgs} args - Arguments to create many Notifications.
+     * @example
+     * // Create many Notifications
+     * const notification = await prisma.notification.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends NotificationCreateManyArgs>(args?: SelectSubset<T, NotificationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Notifications and returns the data saved in the database.
+     * @param {NotificationCreateManyAndReturnArgs} args - Arguments to create many Notifications.
+     * @example
+     * // Create many Notifications
+     * const notification = await prisma.notification.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Notifications and only return the `id`
+     * const notificationWithIdOnly = await prisma.notification.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends NotificationCreateManyAndReturnArgs>(args?: SelectSubset<T, NotificationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Notification.
+     * @param {NotificationDeleteArgs} args - Arguments to delete one Notification.
+     * @example
+     * // Delete one Notification
+     * const Notification = await prisma.notification.delete({
+     *   where: {
+     *     // ... filter to delete one Notification
+     *   }
+     * })
+     * 
+     */
+    delete<T extends NotificationDeleteArgs>(args: SelectSubset<T, NotificationDeleteArgs<ExtArgs>>): Prisma__NotificationClient<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Notification.
+     * @param {NotificationUpdateArgs} args - Arguments to update one Notification.
+     * @example
+     * // Update one Notification
+     * const notification = await prisma.notification.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends NotificationUpdateArgs>(args: SelectSubset<T, NotificationUpdateArgs<ExtArgs>>): Prisma__NotificationClient<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Notifications.
+     * @param {NotificationDeleteManyArgs} args - Arguments to filter Notifications to delete.
+     * @example
+     * // Delete a few Notifications
+     * const { count } = await prisma.notification.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends NotificationDeleteManyArgs>(args?: SelectSubset<T, NotificationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Notifications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Notifications
+     * const notification = await prisma.notification.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends NotificationUpdateManyArgs>(args: SelectSubset<T, NotificationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Notifications and returns the data updated in the database.
+     * @param {NotificationUpdateManyAndReturnArgs} args - Arguments to update many Notifications.
+     * @example
+     * // Update many Notifications
+     * const notification = await prisma.notification.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Notifications and only return the `id`
+     * const notificationWithIdOnly = await prisma.notification.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends NotificationUpdateManyAndReturnArgs>(args: SelectSubset<T, NotificationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Notification.
+     * @param {NotificationUpsertArgs} args - Arguments to update or create a Notification.
+     * @example
+     * // Update or create a Notification
+     * const notification = await prisma.notification.upsert({
+     *   create: {
+     *     // ... data to create a Notification
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Notification we want to update
+     *   }
+     * })
+     */
+    upsert<T extends NotificationUpsertArgs>(args: SelectSubset<T, NotificationUpsertArgs<ExtArgs>>): Prisma__NotificationClient<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Notifications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationCountArgs} args - Arguments to filter Notifications to count.
+     * @example
+     * // Count the number of Notifications
+     * const count = await prisma.notification.count({
+     *   where: {
+     *     // ... the filter for the Notifications we want to count
+     *   }
+     * })
+    **/
+    count<T extends NotificationCountArgs>(
+      args?: Subset<T, NotificationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], NotificationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Notification.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends NotificationAggregateArgs>(args: Subset<T, NotificationAggregateArgs>): Prisma.PrismaPromise<GetNotificationAggregateType<T>>
+
+    /**
+     * Group by Notification.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {NotificationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends NotificationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: NotificationGroupByArgs['orderBy'] }
+        : { orderBy?: NotificationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, NotificationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetNotificationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Notification model
+   */
+  readonly fields: NotificationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Notification.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__NotificationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Notification model
+   */
+  interface NotificationFieldRefs {
+    readonly id: FieldRef<"Notification", 'String'>
+    readonly userId: FieldRef<"Notification", 'String'>
+    readonly title: FieldRef<"Notification", 'String'>
+    readonly message: FieldRef<"Notification", 'String'>
+    readonly type: FieldRef<"Notification", 'String'>
+    readonly read: FieldRef<"Notification", 'Boolean'>
+    readonly createdAt: FieldRef<"Notification", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Notification findUnique
+   */
+  export type NotificationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * Filter, which Notification to fetch.
+     */
+    where: NotificationWhereUniqueInput
+  }
+
+  /**
+   * Notification findUniqueOrThrow
+   */
+  export type NotificationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * Filter, which Notification to fetch.
+     */
+    where: NotificationWhereUniqueInput
+  }
+
+  /**
+   * Notification findFirst
+   */
+  export type NotificationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * Filter, which Notification to fetch.
+     */
+    where?: NotificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Notifications to fetch.
+     */
+    orderBy?: NotificationOrderByWithRelationInput | NotificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Notifications.
+     */
+    cursor?: NotificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Notifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Notifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Notifications.
+     */
+    distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
+  }
+
+  /**
+   * Notification findFirstOrThrow
+   */
+  export type NotificationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * Filter, which Notification to fetch.
+     */
+    where?: NotificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Notifications to fetch.
+     */
+    orderBy?: NotificationOrderByWithRelationInput | NotificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Notifications.
+     */
+    cursor?: NotificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Notifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Notifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Notifications.
+     */
+    distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
+  }
+
+  /**
+   * Notification findMany
+   */
+  export type NotificationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * Filter, which Notifications to fetch.
+     */
+    where?: NotificationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Notifications to fetch.
+     */
+    orderBy?: NotificationOrderByWithRelationInput | NotificationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Notifications.
+     */
+    cursor?: NotificationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Notifications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Notifications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Notifications.
+     */
+    distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
+  }
+
+  /**
+   * Notification create
+   */
+  export type NotificationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Notification.
+     */
+    data: XOR<NotificationCreateInput, NotificationUncheckedCreateInput>
+  }
+
+  /**
+   * Notification createMany
+   */
+  export type NotificationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Notifications.
+     */
+    data: NotificationCreateManyInput | NotificationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Notification createManyAndReturn
+   */
+  export type NotificationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * The data used to create many Notifications.
+     */
+    data: NotificationCreateManyInput | NotificationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Notification update
+   */
+  export type NotificationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Notification.
+     */
+    data: XOR<NotificationUpdateInput, NotificationUncheckedUpdateInput>
+    /**
+     * Choose, which Notification to update.
+     */
+    where: NotificationWhereUniqueInput
+  }
+
+  /**
+   * Notification updateMany
+   */
+  export type NotificationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Notifications.
+     */
+    data: XOR<NotificationUpdateManyMutationInput, NotificationUncheckedUpdateManyInput>
+    /**
+     * Filter which Notifications to update
+     */
+    where?: NotificationWhereInput
+    /**
+     * Limit how many Notifications to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Notification updateManyAndReturn
+   */
+  export type NotificationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * The data used to update Notifications.
+     */
+    data: XOR<NotificationUpdateManyMutationInput, NotificationUncheckedUpdateManyInput>
+    /**
+     * Filter which Notifications to update
+     */
+    where?: NotificationWhereInput
+    /**
+     * Limit how many Notifications to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Notification upsert
+   */
+  export type NotificationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Notification to update in case it exists.
+     */
+    where: NotificationWhereUniqueInput
+    /**
+     * In case the Notification found by the `where` argument doesn't exist, create a new Notification with this data.
+     */
+    create: XOR<NotificationCreateInput, NotificationUncheckedCreateInput>
+    /**
+     * In case the Notification was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<NotificationUpdateInput, NotificationUncheckedUpdateInput>
+  }
+
+  /**
+   * Notification delete
+   */
+  export type NotificationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+    /**
+     * Filter which Notification to delete.
+     */
+    where: NotificationWhereUniqueInput
+  }
+
+  /**
+   * Notification deleteMany
+   */
+  export type NotificationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Notifications to delete
+     */
+    where?: NotificationWhereInput
+    /**
+     * Limit how many Notifications to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Notification without action
+   */
+  export type NotificationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Notification
+     */
+    select?: NotificationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Notification
+     */
+    omit?: NotificationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: NotificationInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model InventoryItem
+   */
+
+  export type AggregateInventoryItem = {
+    _count: InventoryItemCountAggregateOutputType | null
+    _avg: InventoryItemAvgAggregateOutputType | null
+    _sum: InventoryItemSumAggregateOutputType | null
+    _min: InventoryItemMinAggregateOutputType | null
+    _max: InventoryItemMaxAggregateOutputType | null
+  }
+
+  export type InventoryItemAvgAggregateOutputType = {
+    quantity: number | null
+    minStock: number | null
+  }
+
+  export type InventoryItemSumAggregateOutputType = {
+    quantity: number | null
+    minStock: number | null
+  }
+
+  export type InventoryItemMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    sku: string | null
+    quantity: number | null
+    unit: string | null
+    minStock: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type InventoryItemMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    description: string | null
+    sku: string | null
+    quantity: number | null
+    unit: string | null
+    minStock: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type InventoryItemCountAggregateOutputType = {
+    id: number
+    name: number
+    description: number
+    sku: number
+    quantity: number
+    unit: number
+    minStock: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type InventoryItemAvgAggregateInputType = {
+    quantity?: true
+    minStock?: true
+  }
+
+  export type InventoryItemSumAggregateInputType = {
+    quantity?: true
+    minStock?: true
+  }
+
+  export type InventoryItemMinAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    sku?: true
+    quantity?: true
+    unit?: true
+    minStock?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type InventoryItemMaxAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    sku?: true
+    quantity?: true
+    unit?: true
+    minStock?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type InventoryItemCountAggregateInputType = {
+    id?: true
+    name?: true
+    description?: true
+    sku?: true
+    quantity?: true
+    unit?: true
+    minStock?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type InventoryItemAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which InventoryItem to aggregate.
+     */
+    where?: InventoryItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of InventoryItems to fetch.
+     */
+    orderBy?: InventoryItemOrderByWithRelationInput | InventoryItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: InventoryItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` InventoryItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` InventoryItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned InventoryItems
+    **/
+    _count?: true | InventoryItemCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: InventoryItemAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: InventoryItemSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: InventoryItemMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: InventoryItemMaxAggregateInputType
+  }
+
+  export type GetInventoryItemAggregateType<T extends InventoryItemAggregateArgs> = {
+        [P in keyof T & keyof AggregateInventoryItem]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateInventoryItem[P]>
+      : GetScalarType<T[P], AggregateInventoryItem[P]>
+  }
+
+
+
+
+  export type InventoryItemGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InventoryItemWhereInput
+    orderBy?: InventoryItemOrderByWithAggregationInput | InventoryItemOrderByWithAggregationInput[]
+    by: InventoryItemScalarFieldEnum[] | InventoryItemScalarFieldEnum
+    having?: InventoryItemScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: InventoryItemCountAggregateInputType | true
+    _avg?: InventoryItemAvgAggregateInputType
+    _sum?: InventoryItemSumAggregateInputType
+    _min?: InventoryItemMinAggregateInputType
+    _max?: InventoryItemMaxAggregateInputType
+  }
+
+  export type InventoryItemGroupByOutputType = {
+    id: string
+    name: string
+    description: string | null
+    sku: string
+    quantity: number
+    unit: string
+    minStock: number
+    createdAt: Date
+    updatedAt: Date
+    _count: InventoryItemCountAggregateOutputType | null
+    _avg: InventoryItemAvgAggregateOutputType | null
+    _sum: InventoryItemSumAggregateOutputType | null
+    _min: InventoryItemMinAggregateOutputType | null
+    _max: InventoryItemMaxAggregateOutputType | null
+  }
+
+  type GetInventoryItemGroupByPayload<T extends InventoryItemGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<InventoryItemGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof InventoryItemGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], InventoryItemGroupByOutputType[P]>
+            : GetScalarType<T[P], InventoryItemGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type InventoryItemSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    sku?: boolean
+    quantity?: boolean
+    unit?: boolean
+    minStock?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    logs?: boolean | InventoryItem$logsArgs<ExtArgs>
+    _count?: boolean | InventoryItemCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["inventoryItem"]>
+
+  export type InventoryItemSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    sku?: boolean
+    quantity?: boolean
+    unit?: boolean
+    minStock?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["inventoryItem"]>
+
+  export type InventoryItemSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    sku?: boolean
+    quantity?: boolean
+    unit?: boolean
+    minStock?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["inventoryItem"]>
+
+  export type InventoryItemSelectScalar = {
+    id?: boolean
+    name?: boolean
+    description?: boolean
+    sku?: boolean
+    quantity?: boolean
+    unit?: boolean
+    minStock?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type InventoryItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "sku" | "quantity" | "unit" | "minStock" | "createdAt" | "updatedAt", ExtArgs["result"]["inventoryItem"]>
+  export type InventoryItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    logs?: boolean | InventoryItem$logsArgs<ExtArgs>
+    _count?: boolean | InventoryItemCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type InventoryItemIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type InventoryItemIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $InventoryItemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "InventoryItem"
+    objects: {
+      logs: Prisma.$InventoryLogPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      description: string | null
+      sku: string
+      quantity: number
+      unit: string
+      minStock: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["inventoryItem"]>
+    composites: {}
+  }
+
+  type InventoryItemGetPayload<S extends boolean | null | undefined | InventoryItemDefaultArgs> = $Result.GetResult<Prisma.$InventoryItemPayload, S>
+
+  type InventoryItemCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<InventoryItemFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: InventoryItemCountAggregateInputType | true
+    }
+
+  export interface InventoryItemDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['InventoryItem'], meta: { name: 'InventoryItem' } }
+    /**
+     * Find zero or one InventoryItem that matches the filter.
+     * @param {InventoryItemFindUniqueArgs} args - Arguments to find a InventoryItem
+     * @example
+     * // Get one InventoryItem
+     * const inventoryItem = await prisma.inventoryItem.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends InventoryItemFindUniqueArgs>(args: SelectSubset<T, InventoryItemFindUniqueArgs<ExtArgs>>): Prisma__InventoryItemClient<$Result.GetResult<Prisma.$InventoryItemPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one InventoryItem that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {InventoryItemFindUniqueOrThrowArgs} args - Arguments to find a InventoryItem
+     * @example
+     * // Get one InventoryItem
+     * const inventoryItem = await prisma.inventoryItem.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends InventoryItemFindUniqueOrThrowArgs>(args: SelectSubset<T, InventoryItemFindUniqueOrThrowArgs<ExtArgs>>): Prisma__InventoryItemClient<$Result.GetResult<Prisma.$InventoryItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first InventoryItem that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InventoryItemFindFirstArgs} args - Arguments to find a InventoryItem
+     * @example
+     * // Get one InventoryItem
+     * const inventoryItem = await prisma.inventoryItem.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends InventoryItemFindFirstArgs>(args?: SelectSubset<T, InventoryItemFindFirstArgs<ExtArgs>>): Prisma__InventoryItemClient<$Result.GetResult<Prisma.$InventoryItemPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first InventoryItem that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InventoryItemFindFirstOrThrowArgs} args - Arguments to find a InventoryItem
+     * @example
+     * // Get one InventoryItem
+     * const inventoryItem = await prisma.inventoryItem.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends InventoryItemFindFirstOrThrowArgs>(args?: SelectSubset<T, InventoryItemFindFirstOrThrowArgs<ExtArgs>>): Prisma__InventoryItemClient<$Result.GetResult<Prisma.$InventoryItemPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more InventoryItems that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InventoryItemFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all InventoryItems
+     * const inventoryItems = await prisma.inventoryItem.findMany()
+     * 
+     * // Get first 10 InventoryItems
+     * const inventoryItems = await prisma.inventoryItem.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const inventoryItemWithIdOnly = await prisma.inventoryItem.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends InventoryItemFindManyArgs>(args?: SelectSubset<T, InventoryItemFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InventoryItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a InventoryItem.
+     * @param {InventoryItemCreateArgs} args - Arguments to create a InventoryItem.
+     * @example
+     * // Create one InventoryItem
+     * const InventoryItem = await prisma.inventoryItem.create({
+     *   data: {
+     *     // ... data to create a InventoryItem
+     *   }
+     * })
+     * 
+     */
+    create<T extends InventoryItemCreateArgs>(args: SelectSubset<T, InventoryItemCreateArgs<ExtArgs>>): Prisma__InventoryItemClient<$Result.GetResult<Prisma.$InventoryItemPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many InventoryItems.
+     * @param {InventoryItemCreateManyArgs} args - Arguments to create many InventoryItems.
+     * @example
+     * // Create many InventoryItems
+     * const inventoryItem = await prisma.inventoryItem.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends InventoryItemCreateManyArgs>(args?: SelectSubset<T, InventoryItemCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many InventoryItems and returns the data saved in the database.
+     * @param {InventoryItemCreateManyAndReturnArgs} args - Arguments to create many InventoryItems.
+     * @example
+     * // Create many InventoryItems
+     * const inventoryItem = await prisma.inventoryItem.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many InventoryItems and only return the `id`
+     * const inventoryItemWithIdOnly = await prisma.inventoryItem.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends InventoryItemCreateManyAndReturnArgs>(args?: SelectSubset<T, InventoryItemCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InventoryItemPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a InventoryItem.
+     * @param {InventoryItemDeleteArgs} args - Arguments to delete one InventoryItem.
+     * @example
+     * // Delete one InventoryItem
+     * const InventoryItem = await prisma.inventoryItem.delete({
+     *   where: {
+     *     // ... filter to delete one InventoryItem
+     *   }
+     * })
+     * 
+     */
+    delete<T extends InventoryItemDeleteArgs>(args: SelectSubset<T, InventoryItemDeleteArgs<ExtArgs>>): Prisma__InventoryItemClient<$Result.GetResult<Prisma.$InventoryItemPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one InventoryItem.
+     * @param {InventoryItemUpdateArgs} args - Arguments to update one InventoryItem.
+     * @example
+     * // Update one InventoryItem
+     * const inventoryItem = await prisma.inventoryItem.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends InventoryItemUpdateArgs>(args: SelectSubset<T, InventoryItemUpdateArgs<ExtArgs>>): Prisma__InventoryItemClient<$Result.GetResult<Prisma.$InventoryItemPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more InventoryItems.
+     * @param {InventoryItemDeleteManyArgs} args - Arguments to filter InventoryItems to delete.
+     * @example
+     * // Delete a few InventoryItems
+     * const { count } = await prisma.inventoryItem.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends InventoryItemDeleteManyArgs>(args?: SelectSubset<T, InventoryItemDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more InventoryItems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InventoryItemUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many InventoryItems
+     * const inventoryItem = await prisma.inventoryItem.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends InventoryItemUpdateManyArgs>(args: SelectSubset<T, InventoryItemUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more InventoryItems and returns the data updated in the database.
+     * @param {InventoryItemUpdateManyAndReturnArgs} args - Arguments to update many InventoryItems.
+     * @example
+     * // Update many InventoryItems
+     * const inventoryItem = await prisma.inventoryItem.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more InventoryItems and only return the `id`
+     * const inventoryItemWithIdOnly = await prisma.inventoryItem.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends InventoryItemUpdateManyAndReturnArgs>(args: SelectSubset<T, InventoryItemUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InventoryItemPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one InventoryItem.
+     * @param {InventoryItemUpsertArgs} args - Arguments to update or create a InventoryItem.
+     * @example
+     * // Update or create a InventoryItem
+     * const inventoryItem = await prisma.inventoryItem.upsert({
+     *   create: {
+     *     // ... data to create a InventoryItem
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the InventoryItem we want to update
+     *   }
+     * })
+     */
+    upsert<T extends InventoryItemUpsertArgs>(args: SelectSubset<T, InventoryItemUpsertArgs<ExtArgs>>): Prisma__InventoryItemClient<$Result.GetResult<Prisma.$InventoryItemPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of InventoryItems.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InventoryItemCountArgs} args - Arguments to filter InventoryItems to count.
+     * @example
+     * // Count the number of InventoryItems
+     * const count = await prisma.inventoryItem.count({
+     *   where: {
+     *     // ... the filter for the InventoryItems we want to count
+     *   }
+     * })
+    **/
+    count<T extends InventoryItemCountArgs>(
+      args?: Subset<T, InventoryItemCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], InventoryItemCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a InventoryItem.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InventoryItemAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends InventoryItemAggregateArgs>(args: Subset<T, InventoryItemAggregateArgs>): Prisma.PrismaPromise<GetInventoryItemAggregateType<T>>
+
+    /**
+     * Group by InventoryItem.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InventoryItemGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends InventoryItemGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: InventoryItemGroupByArgs['orderBy'] }
+        : { orderBy?: InventoryItemGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, InventoryItemGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetInventoryItemGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the InventoryItem model
+   */
+  readonly fields: InventoryItemFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for InventoryItem.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__InventoryItemClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    logs<T extends InventoryItem$logsArgs<ExtArgs> = {}>(args?: Subset<T, InventoryItem$logsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InventoryLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the InventoryItem model
+   */
+  interface InventoryItemFieldRefs {
+    readonly id: FieldRef<"InventoryItem", 'String'>
+    readonly name: FieldRef<"InventoryItem", 'String'>
+    readonly description: FieldRef<"InventoryItem", 'String'>
+    readonly sku: FieldRef<"InventoryItem", 'String'>
+    readonly quantity: FieldRef<"InventoryItem", 'Int'>
+    readonly unit: FieldRef<"InventoryItem", 'String'>
+    readonly minStock: FieldRef<"InventoryItem", 'Int'>
+    readonly createdAt: FieldRef<"InventoryItem", 'DateTime'>
+    readonly updatedAt: FieldRef<"InventoryItem", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * InventoryItem findUnique
+   */
+  export type InventoryItemFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryItem
+     */
+    select?: InventoryItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryItem
+     */
+    omit?: InventoryItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryItemInclude<ExtArgs> | null
+    /**
+     * Filter, which InventoryItem to fetch.
+     */
+    where: InventoryItemWhereUniqueInput
+  }
+
+  /**
+   * InventoryItem findUniqueOrThrow
+   */
+  export type InventoryItemFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryItem
+     */
+    select?: InventoryItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryItem
+     */
+    omit?: InventoryItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryItemInclude<ExtArgs> | null
+    /**
+     * Filter, which InventoryItem to fetch.
+     */
+    where: InventoryItemWhereUniqueInput
+  }
+
+  /**
+   * InventoryItem findFirst
+   */
+  export type InventoryItemFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryItem
+     */
+    select?: InventoryItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryItem
+     */
+    omit?: InventoryItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryItemInclude<ExtArgs> | null
+    /**
+     * Filter, which InventoryItem to fetch.
+     */
+    where?: InventoryItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of InventoryItems to fetch.
+     */
+    orderBy?: InventoryItemOrderByWithRelationInput | InventoryItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for InventoryItems.
+     */
+    cursor?: InventoryItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` InventoryItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` InventoryItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of InventoryItems.
+     */
+    distinct?: InventoryItemScalarFieldEnum | InventoryItemScalarFieldEnum[]
+  }
+
+  /**
+   * InventoryItem findFirstOrThrow
+   */
+  export type InventoryItemFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryItem
+     */
+    select?: InventoryItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryItem
+     */
+    omit?: InventoryItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryItemInclude<ExtArgs> | null
+    /**
+     * Filter, which InventoryItem to fetch.
+     */
+    where?: InventoryItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of InventoryItems to fetch.
+     */
+    orderBy?: InventoryItemOrderByWithRelationInput | InventoryItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for InventoryItems.
+     */
+    cursor?: InventoryItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` InventoryItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` InventoryItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of InventoryItems.
+     */
+    distinct?: InventoryItemScalarFieldEnum | InventoryItemScalarFieldEnum[]
+  }
+
+  /**
+   * InventoryItem findMany
+   */
+  export type InventoryItemFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryItem
+     */
+    select?: InventoryItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryItem
+     */
+    omit?: InventoryItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryItemInclude<ExtArgs> | null
+    /**
+     * Filter, which InventoryItems to fetch.
+     */
+    where?: InventoryItemWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of InventoryItems to fetch.
+     */
+    orderBy?: InventoryItemOrderByWithRelationInput | InventoryItemOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing InventoryItems.
+     */
+    cursor?: InventoryItemWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` InventoryItems from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` InventoryItems.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of InventoryItems.
+     */
+    distinct?: InventoryItemScalarFieldEnum | InventoryItemScalarFieldEnum[]
+  }
+
+  /**
+   * InventoryItem create
+   */
+  export type InventoryItemCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryItem
+     */
+    select?: InventoryItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryItem
+     */
+    omit?: InventoryItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryItemInclude<ExtArgs> | null
+    /**
+     * The data needed to create a InventoryItem.
+     */
+    data: XOR<InventoryItemCreateInput, InventoryItemUncheckedCreateInput>
+  }
+
+  /**
+   * InventoryItem createMany
+   */
+  export type InventoryItemCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many InventoryItems.
+     */
+    data: InventoryItemCreateManyInput | InventoryItemCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * InventoryItem createManyAndReturn
+   */
+  export type InventoryItemCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryItem
+     */
+    select?: InventoryItemSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryItem
+     */
+    omit?: InventoryItemOmit<ExtArgs> | null
+    /**
+     * The data used to create many InventoryItems.
+     */
+    data: InventoryItemCreateManyInput | InventoryItemCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * InventoryItem update
+   */
+  export type InventoryItemUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryItem
+     */
+    select?: InventoryItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryItem
+     */
+    omit?: InventoryItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryItemInclude<ExtArgs> | null
+    /**
+     * The data needed to update a InventoryItem.
+     */
+    data: XOR<InventoryItemUpdateInput, InventoryItemUncheckedUpdateInput>
+    /**
+     * Choose, which InventoryItem to update.
+     */
+    where: InventoryItemWhereUniqueInput
+  }
+
+  /**
+   * InventoryItem updateMany
+   */
+  export type InventoryItemUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update InventoryItems.
+     */
+    data: XOR<InventoryItemUpdateManyMutationInput, InventoryItemUncheckedUpdateManyInput>
+    /**
+     * Filter which InventoryItems to update
+     */
+    where?: InventoryItemWhereInput
+    /**
+     * Limit how many InventoryItems to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * InventoryItem updateManyAndReturn
+   */
+  export type InventoryItemUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryItem
+     */
+    select?: InventoryItemSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryItem
+     */
+    omit?: InventoryItemOmit<ExtArgs> | null
+    /**
+     * The data used to update InventoryItems.
+     */
+    data: XOR<InventoryItemUpdateManyMutationInput, InventoryItemUncheckedUpdateManyInput>
+    /**
+     * Filter which InventoryItems to update
+     */
+    where?: InventoryItemWhereInput
+    /**
+     * Limit how many InventoryItems to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * InventoryItem upsert
+   */
+  export type InventoryItemUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryItem
+     */
+    select?: InventoryItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryItem
+     */
+    omit?: InventoryItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryItemInclude<ExtArgs> | null
+    /**
+     * The filter to search for the InventoryItem to update in case it exists.
+     */
+    where: InventoryItemWhereUniqueInput
+    /**
+     * In case the InventoryItem found by the `where` argument doesn't exist, create a new InventoryItem with this data.
+     */
+    create: XOR<InventoryItemCreateInput, InventoryItemUncheckedCreateInput>
+    /**
+     * In case the InventoryItem was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<InventoryItemUpdateInput, InventoryItemUncheckedUpdateInput>
+  }
+
+  /**
+   * InventoryItem delete
+   */
+  export type InventoryItemDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryItem
+     */
+    select?: InventoryItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryItem
+     */
+    omit?: InventoryItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryItemInclude<ExtArgs> | null
+    /**
+     * Filter which InventoryItem to delete.
+     */
+    where: InventoryItemWhereUniqueInput
+  }
+
+  /**
+   * InventoryItem deleteMany
+   */
+  export type InventoryItemDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which InventoryItems to delete
+     */
+    where?: InventoryItemWhereInput
+    /**
+     * Limit how many InventoryItems to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * InventoryItem.logs
+   */
+  export type InventoryItem$logsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryLog
+     */
+    select?: InventoryLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryLog
+     */
+    omit?: InventoryLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryLogInclude<ExtArgs> | null
+    where?: InventoryLogWhereInput
+    orderBy?: InventoryLogOrderByWithRelationInput | InventoryLogOrderByWithRelationInput[]
+    cursor?: InventoryLogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: InventoryLogScalarFieldEnum | InventoryLogScalarFieldEnum[]
+  }
+
+  /**
+   * InventoryItem without action
+   */
+  export type InventoryItemDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryItem
+     */
+    select?: InventoryItemSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryItem
+     */
+    omit?: InventoryItemOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryItemInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model InventoryLog
+   */
+
+  export type AggregateInventoryLog = {
+    _count: InventoryLogCountAggregateOutputType | null
+    _avg: InventoryLogAvgAggregateOutputType | null
+    _sum: InventoryLogSumAggregateOutputType | null
+    _min: InventoryLogMinAggregateOutputType | null
+    _max: InventoryLogMaxAggregateOutputType | null
+  }
+
+  export type InventoryLogAvgAggregateOutputType = {
+    change: number | null
+  }
+
+  export type InventoryLogSumAggregateOutputType = {
+    change: number | null
+  }
+
+  export type InventoryLogMinAggregateOutputType = {
+    id: string | null
+    itemId: string | null
+    userId: string | null
+    change: number | null
+    note: string | null
+    createdAt: Date | null
+  }
+
+  export type InventoryLogMaxAggregateOutputType = {
+    id: string | null
+    itemId: string | null
+    userId: string | null
+    change: number | null
+    note: string | null
+    createdAt: Date | null
+  }
+
+  export type InventoryLogCountAggregateOutputType = {
+    id: number
+    itemId: number
+    userId: number
+    change: number
+    note: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type InventoryLogAvgAggregateInputType = {
+    change?: true
+  }
+
+  export type InventoryLogSumAggregateInputType = {
+    change?: true
+  }
+
+  export type InventoryLogMinAggregateInputType = {
+    id?: true
+    itemId?: true
+    userId?: true
+    change?: true
+    note?: true
+    createdAt?: true
+  }
+
+  export type InventoryLogMaxAggregateInputType = {
+    id?: true
+    itemId?: true
+    userId?: true
+    change?: true
+    note?: true
+    createdAt?: true
+  }
+
+  export type InventoryLogCountAggregateInputType = {
+    id?: true
+    itemId?: true
+    userId?: true
+    change?: true
+    note?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type InventoryLogAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which InventoryLog to aggregate.
+     */
+    where?: InventoryLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of InventoryLogs to fetch.
+     */
+    orderBy?: InventoryLogOrderByWithRelationInput | InventoryLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: InventoryLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` InventoryLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` InventoryLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned InventoryLogs
+    **/
+    _count?: true | InventoryLogCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: InventoryLogAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: InventoryLogSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: InventoryLogMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: InventoryLogMaxAggregateInputType
+  }
+
+  export type GetInventoryLogAggregateType<T extends InventoryLogAggregateArgs> = {
+        [P in keyof T & keyof AggregateInventoryLog]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateInventoryLog[P]>
+      : GetScalarType<T[P], AggregateInventoryLog[P]>
+  }
+
+
+
+
+  export type InventoryLogGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InventoryLogWhereInput
+    orderBy?: InventoryLogOrderByWithAggregationInput | InventoryLogOrderByWithAggregationInput[]
+    by: InventoryLogScalarFieldEnum[] | InventoryLogScalarFieldEnum
+    having?: InventoryLogScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: InventoryLogCountAggregateInputType | true
+    _avg?: InventoryLogAvgAggregateInputType
+    _sum?: InventoryLogSumAggregateInputType
+    _min?: InventoryLogMinAggregateInputType
+    _max?: InventoryLogMaxAggregateInputType
+  }
+
+  export type InventoryLogGroupByOutputType = {
+    id: string
+    itemId: string
+    userId: string
+    change: number
+    note: string | null
+    createdAt: Date
+    _count: InventoryLogCountAggregateOutputType | null
+    _avg: InventoryLogAvgAggregateOutputType | null
+    _sum: InventoryLogSumAggregateOutputType | null
+    _min: InventoryLogMinAggregateOutputType | null
+    _max: InventoryLogMaxAggregateOutputType | null
+  }
+
+  type GetInventoryLogGroupByPayload<T extends InventoryLogGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<InventoryLogGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof InventoryLogGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], InventoryLogGroupByOutputType[P]>
+            : GetScalarType<T[P], InventoryLogGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type InventoryLogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    itemId?: boolean
+    userId?: boolean
+    change?: boolean
+    note?: boolean
+    createdAt?: boolean
+    item?: boolean | InventoryItemDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["inventoryLog"]>
+
+  export type InventoryLogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    itemId?: boolean
+    userId?: boolean
+    change?: boolean
+    note?: boolean
+    createdAt?: boolean
+    item?: boolean | InventoryItemDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["inventoryLog"]>
+
+  export type InventoryLogSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    itemId?: boolean
+    userId?: boolean
+    change?: boolean
+    note?: boolean
+    createdAt?: boolean
+    item?: boolean | InventoryItemDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["inventoryLog"]>
+
+  export type InventoryLogSelectScalar = {
+    id?: boolean
+    itemId?: boolean
+    userId?: boolean
+    change?: boolean
+    note?: boolean
+    createdAt?: boolean
+  }
+
+  export type InventoryLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "itemId" | "userId" | "change" | "note" | "createdAt", ExtArgs["result"]["inventoryLog"]>
+  export type InventoryLogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    item?: boolean | InventoryItemDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type InventoryLogIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    item?: boolean | InventoryItemDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type InventoryLogIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    item?: boolean | InventoryItemDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $InventoryLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "InventoryLog"
+    objects: {
+      item: Prisma.$InventoryItemPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      itemId: string
+      userId: string
+      change: number
+      note: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["inventoryLog"]>
+    composites: {}
+  }
+
+  type InventoryLogGetPayload<S extends boolean | null | undefined | InventoryLogDefaultArgs> = $Result.GetResult<Prisma.$InventoryLogPayload, S>
+
+  type InventoryLogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<InventoryLogFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: InventoryLogCountAggregateInputType | true
+    }
+
+  export interface InventoryLogDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['InventoryLog'], meta: { name: 'InventoryLog' } }
+    /**
+     * Find zero or one InventoryLog that matches the filter.
+     * @param {InventoryLogFindUniqueArgs} args - Arguments to find a InventoryLog
+     * @example
+     * // Get one InventoryLog
+     * const inventoryLog = await prisma.inventoryLog.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends InventoryLogFindUniqueArgs>(args: SelectSubset<T, InventoryLogFindUniqueArgs<ExtArgs>>): Prisma__InventoryLogClient<$Result.GetResult<Prisma.$InventoryLogPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one InventoryLog that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {InventoryLogFindUniqueOrThrowArgs} args - Arguments to find a InventoryLog
+     * @example
+     * // Get one InventoryLog
+     * const inventoryLog = await prisma.inventoryLog.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends InventoryLogFindUniqueOrThrowArgs>(args: SelectSubset<T, InventoryLogFindUniqueOrThrowArgs<ExtArgs>>): Prisma__InventoryLogClient<$Result.GetResult<Prisma.$InventoryLogPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first InventoryLog that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InventoryLogFindFirstArgs} args - Arguments to find a InventoryLog
+     * @example
+     * // Get one InventoryLog
+     * const inventoryLog = await prisma.inventoryLog.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends InventoryLogFindFirstArgs>(args?: SelectSubset<T, InventoryLogFindFirstArgs<ExtArgs>>): Prisma__InventoryLogClient<$Result.GetResult<Prisma.$InventoryLogPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first InventoryLog that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InventoryLogFindFirstOrThrowArgs} args - Arguments to find a InventoryLog
+     * @example
+     * // Get one InventoryLog
+     * const inventoryLog = await prisma.inventoryLog.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends InventoryLogFindFirstOrThrowArgs>(args?: SelectSubset<T, InventoryLogFindFirstOrThrowArgs<ExtArgs>>): Prisma__InventoryLogClient<$Result.GetResult<Prisma.$InventoryLogPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more InventoryLogs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InventoryLogFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all InventoryLogs
+     * const inventoryLogs = await prisma.inventoryLog.findMany()
+     * 
+     * // Get first 10 InventoryLogs
+     * const inventoryLogs = await prisma.inventoryLog.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const inventoryLogWithIdOnly = await prisma.inventoryLog.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends InventoryLogFindManyArgs>(args?: SelectSubset<T, InventoryLogFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InventoryLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a InventoryLog.
+     * @param {InventoryLogCreateArgs} args - Arguments to create a InventoryLog.
+     * @example
+     * // Create one InventoryLog
+     * const InventoryLog = await prisma.inventoryLog.create({
+     *   data: {
+     *     // ... data to create a InventoryLog
+     *   }
+     * })
+     * 
+     */
+    create<T extends InventoryLogCreateArgs>(args: SelectSubset<T, InventoryLogCreateArgs<ExtArgs>>): Prisma__InventoryLogClient<$Result.GetResult<Prisma.$InventoryLogPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many InventoryLogs.
+     * @param {InventoryLogCreateManyArgs} args - Arguments to create many InventoryLogs.
+     * @example
+     * // Create many InventoryLogs
+     * const inventoryLog = await prisma.inventoryLog.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends InventoryLogCreateManyArgs>(args?: SelectSubset<T, InventoryLogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many InventoryLogs and returns the data saved in the database.
+     * @param {InventoryLogCreateManyAndReturnArgs} args - Arguments to create many InventoryLogs.
+     * @example
+     * // Create many InventoryLogs
+     * const inventoryLog = await prisma.inventoryLog.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many InventoryLogs and only return the `id`
+     * const inventoryLogWithIdOnly = await prisma.inventoryLog.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends InventoryLogCreateManyAndReturnArgs>(args?: SelectSubset<T, InventoryLogCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InventoryLogPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a InventoryLog.
+     * @param {InventoryLogDeleteArgs} args - Arguments to delete one InventoryLog.
+     * @example
+     * // Delete one InventoryLog
+     * const InventoryLog = await prisma.inventoryLog.delete({
+     *   where: {
+     *     // ... filter to delete one InventoryLog
+     *   }
+     * })
+     * 
+     */
+    delete<T extends InventoryLogDeleteArgs>(args: SelectSubset<T, InventoryLogDeleteArgs<ExtArgs>>): Prisma__InventoryLogClient<$Result.GetResult<Prisma.$InventoryLogPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one InventoryLog.
+     * @param {InventoryLogUpdateArgs} args - Arguments to update one InventoryLog.
+     * @example
+     * // Update one InventoryLog
+     * const inventoryLog = await prisma.inventoryLog.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends InventoryLogUpdateArgs>(args: SelectSubset<T, InventoryLogUpdateArgs<ExtArgs>>): Prisma__InventoryLogClient<$Result.GetResult<Prisma.$InventoryLogPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more InventoryLogs.
+     * @param {InventoryLogDeleteManyArgs} args - Arguments to filter InventoryLogs to delete.
+     * @example
+     * // Delete a few InventoryLogs
+     * const { count } = await prisma.inventoryLog.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends InventoryLogDeleteManyArgs>(args?: SelectSubset<T, InventoryLogDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more InventoryLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InventoryLogUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many InventoryLogs
+     * const inventoryLog = await prisma.inventoryLog.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends InventoryLogUpdateManyArgs>(args: SelectSubset<T, InventoryLogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more InventoryLogs and returns the data updated in the database.
+     * @param {InventoryLogUpdateManyAndReturnArgs} args - Arguments to update many InventoryLogs.
+     * @example
+     * // Update many InventoryLogs
+     * const inventoryLog = await prisma.inventoryLog.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more InventoryLogs and only return the `id`
+     * const inventoryLogWithIdOnly = await prisma.inventoryLog.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends InventoryLogUpdateManyAndReturnArgs>(args: SelectSubset<T, InventoryLogUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InventoryLogPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one InventoryLog.
+     * @param {InventoryLogUpsertArgs} args - Arguments to update or create a InventoryLog.
+     * @example
+     * // Update or create a InventoryLog
+     * const inventoryLog = await prisma.inventoryLog.upsert({
+     *   create: {
+     *     // ... data to create a InventoryLog
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the InventoryLog we want to update
+     *   }
+     * })
+     */
+    upsert<T extends InventoryLogUpsertArgs>(args: SelectSubset<T, InventoryLogUpsertArgs<ExtArgs>>): Prisma__InventoryLogClient<$Result.GetResult<Prisma.$InventoryLogPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of InventoryLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InventoryLogCountArgs} args - Arguments to filter InventoryLogs to count.
+     * @example
+     * // Count the number of InventoryLogs
+     * const count = await prisma.inventoryLog.count({
+     *   where: {
+     *     // ... the filter for the InventoryLogs we want to count
+     *   }
+     * })
+    **/
+    count<T extends InventoryLogCountArgs>(
+      args?: Subset<T, InventoryLogCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], InventoryLogCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a InventoryLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InventoryLogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends InventoryLogAggregateArgs>(args: Subset<T, InventoryLogAggregateArgs>): Prisma.PrismaPromise<GetInventoryLogAggregateType<T>>
+
+    /**
+     * Group by InventoryLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {InventoryLogGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends InventoryLogGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: InventoryLogGroupByArgs['orderBy'] }
+        : { orderBy?: InventoryLogGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, InventoryLogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetInventoryLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the InventoryLog model
+   */
+  readonly fields: InventoryLogFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for InventoryLog.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__InventoryLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    item<T extends InventoryItemDefaultArgs<ExtArgs> = {}>(args?: Subset<T, InventoryItemDefaultArgs<ExtArgs>>): Prisma__InventoryItemClient<$Result.GetResult<Prisma.$InventoryItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the InventoryLog model
+   */
+  interface InventoryLogFieldRefs {
+    readonly id: FieldRef<"InventoryLog", 'String'>
+    readonly itemId: FieldRef<"InventoryLog", 'String'>
+    readonly userId: FieldRef<"InventoryLog", 'String'>
+    readonly change: FieldRef<"InventoryLog", 'Int'>
+    readonly note: FieldRef<"InventoryLog", 'String'>
+    readonly createdAt: FieldRef<"InventoryLog", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * InventoryLog findUnique
+   */
+  export type InventoryLogFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryLog
+     */
+    select?: InventoryLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryLog
+     */
+    omit?: InventoryLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryLogInclude<ExtArgs> | null
+    /**
+     * Filter, which InventoryLog to fetch.
+     */
+    where: InventoryLogWhereUniqueInput
+  }
+
+  /**
+   * InventoryLog findUniqueOrThrow
+   */
+  export type InventoryLogFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryLog
+     */
+    select?: InventoryLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryLog
+     */
+    omit?: InventoryLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryLogInclude<ExtArgs> | null
+    /**
+     * Filter, which InventoryLog to fetch.
+     */
+    where: InventoryLogWhereUniqueInput
+  }
+
+  /**
+   * InventoryLog findFirst
+   */
+  export type InventoryLogFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryLog
+     */
+    select?: InventoryLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryLog
+     */
+    omit?: InventoryLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryLogInclude<ExtArgs> | null
+    /**
+     * Filter, which InventoryLog to fetch.
+     */
+    where?: InventoryLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of InventoryLogs to fetch.
+     */
+    orderBy?: InventoryLogOrderByWithRelationInput | InventoryLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for InventoryLogs.
+     */
+    cursor?: InventoryLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` InventoryLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` InventoryLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of InventoryLogs.
+     */
+    distinct?: InventoryLogScalarFieldEnum | InventoryLogScalarFieldEnum[]
+  }
+
+  /**
+   * InventoryLog findFirstOrThrow
+   */
+  export type InventoryLogFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryLog
+     */
+    select?: InventoryLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryLog
+     */
+    omit?: InventoryLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryLogInclude<ExtArgs> | null
+    /**
+     * Filter, which InventoryLog to fetch.
+     */
+    where?: InventoryLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of InventoryLogs to fetch.
+     */
+    orderBy?: InventoryLogOrderByWithRelationInput | InventoryLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for InventoryLogs.
+     */
+    cursor?: InventoryLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` InventoryLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` InventoryLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of InventoryLogs.
+     */
+    distinct?: InventoryLogScalarFieldEnum | InventoryLogScalarFieldEnum[]
+  }
+
+  /**
+   * InventoryLog findMany
+   */
+  export type InventoryLogFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryLog
+     */
+    select?: InventoryLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryLog
+     */
+    omit?: InventoryLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryLogInclude<ExtArgs> | null
+    /**
+     * Filter, which InventoryLogs to fetch.
+     */
+    where?: InventoryLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of InventoryLogs to fetch.
+     */
+    orderBy?: InventoryLogOrderByWithRelationInput | InventoryLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing InventoryLogs.
+     */
+    cursor?: InventoryLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` InventoryLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` InventoryLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of InventoryLogs.
+     */
+    distinct?: InventoryLogScalarFieldEnum | InventoryLogScalarFieldEnum[]
+  }
+
+  /**
+   * InventoryLog create
+   */
+  export type InventoryLogCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryLog
+     */
+    select?: InventoryLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryLog
+     */
+    omit?: InventoryLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryLogInclude<ExtArgs> | null
+    /**
+     * The data needed to create a InventoryLog.
+     */
+    data: XOR<InventoryLogCreateInput, InventoryLogUncheckedCreateInput>
+  }
+
+  /**
+   * InventoryLog createMany
+   */
+  export type InventoryLogCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many InventoryLogs.
+     */
+    data: InventoryLogCreateManyInput | InventoryLogCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * InventoryLog createManyAndReturn
+   */
+  export type InventoryLogCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryLog
+     */
+    select?: InventoryLogSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryLog
+     */
+    omit?: InventoryLogOmit<ExtArgs> | null
+    /**
+     * The data used to create many InventoryLogs.
+     */
+    data: InventoryLogCreateManyInput | InventoryLogCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryLogIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * InventoryLog update
+   */
+  export type InventoryLogUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryLog
+     */
+    select?: InventoryLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryLog
+     */
+    omit?: InventoryLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryLogInclude<ExtArgs> | null
+    /**
+     * The data needed to update a InventoryLog.
+     */
+    data: XOR<InventoryLogUpdateInput, InventoryLogUncheckedUpdateInput>
+    /**
+     * Choose, which InventoryLog to update.
+     */
+    where: InventoryLogWhereUniqueInput
+  }
+
+  /**
+   * InventoryLog updateMany
+   */
+  export type InventoryLogUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update InventoryLogs.
+     */
+    data: XOR<InventoryLogUpdateManyMutationInput, InventoryLogUncheckedUpdateManyInput>
+    /**
+     * Filter which InventoryLogs to update
+     */
+    where?: InventoryLogWhereInput
+    /**
+     * Limit how many InventoryLogs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * InventoryLog updateManyAndReturn
+   */
+  export type InventoryLogUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryLog
+     */
+    select?: InventoryLogSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryLog
+     */
+    omit?: InventoryLogOmit<ExtArgs> | null
+    /**
+     * The data used to update InventoryLogs.
+     */
+    data: XOR<InventoryLogUpdateManyMutationInput, InventoryLogUncheckedUpdateManyInput>
+    /**
+     * Filter which InventoryLogs to update
+     */
+    where?: InventoryLogWhereInput
+    /**
+     * Limit how many InventoryLogs to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryLogIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * InventoryLog upsert
+   */
+  export type InventoryLogUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryLog
+     */
+    select?: InventoryLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryLog
+     */
+    omit?: InventoryLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryLogInclude<ExtArgs> | null
+    /**
+     * The filter to search for the InventoryLog to update in case it exists.
+     */
+    where: InventoryLogWhereUniqueInput
+    /**
+     * In case the InventoryLog found by the `where` argument doesn't exist, create a new InventoryLog with this data.
+     */
+    create: XOR<InventoryLogCreateInput, InventoryLogUncheckedCreateInput>
+    /**
+     * In case the InventoryLog was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<InventoryLogUpdateInput, InventoryLogUncheckedUpdateInput>
+  }
+
+  /**
+   * InventoryLog delete
+   */
+  export type InventoryLogDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryLog
+     */
+    select?: InventoryLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryLog
+     */
+    omit?: InventoryLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryLogInclude<ExtArgs> | null
+    /**
+     * Filter which InventoryLog to delete.
+     */
+    where: InventoryLogWhereUniqueInput
+  }
+
+  /**
+   * InventoryLog deleteMany
+   */
+  export type InventoryLogDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which InventoryLogs to delete
+     */
+    where?: InventoryLogWhereInput
+    /**
+     * Limit how many InventoryLogs to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * InventoryLog without action
+   */
+  export type InventoryLogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the InventoryLog
+     */
+    select?: InventoryLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the InventoryLog
+     */
+    omit?: InventoryLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: InventoryLogInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -7343,6 +12348,59 @@ export namespace Prisma {
   };
 
   export type StatusLogScalarFieldEnum = (typeof StatusLogScalarFieldEnum)[keyof typeof StatusLogScalarFieldEnum]
+
+
+  export const SearchHistoryScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    title: 'title',
+    description: 'description',
+    lat: 'lat',
+    lng: 'lng',
+    createdAt: 'createdAt'
+  };
+
+  export type SearchHistoryScalarFieldEnum = (typeof SearchHistoryScalarFieldEnum)[keyof typeof SearchHistoryScalarFieldEnum]
+
+
+  export const NotificationScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    title: 'title',
+    message: 'message',
+    type: 'type',
+    read: 'read',
+    createdAt: 'createdAt'
+  };
+
+  export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
+
+
+  export const InventoryItemScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    description: 'description',
+    sku: 'sku',
+    quantity: 'quantity',
+    unit: 'unit',
+    minStock: 'minStock',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type InventoryItemScalarFieldEnum = (typeof InventoryItemScalarFieldEnum)[keyof typeof InventoryItemScalarFieldEnum]
+
+
+  export const InventoryLogScalarFieldEnum: {
+    id: 'id',
+    itemId: 'itemId',
+    userId: 'userId',
+    change: 'change',
+    note: 'note',
+    createdAt: 'createdAt'
+  };
+
+  export type InventoryLogScalarFieldEnum = (typeof InventoryLogScalarFieldEnum)[keyof typeof InventoryLogScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -7487,6 +12545,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -7527,6 +12592,9 @@ export namespace Prisma {
     workOrdersAssigned?: WorkOrderListRelationFilter
     workOrdersCreated?: WorkOrderListRelationFilter
     statusLogs?: StatusLogListRelationFilter
+    searchHistory?: SearchHistoryListRelationFilter
+    notifications?: NotificationListRelationFilter
+    inventoryLogs?: InventoryLogListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -7550,6 +12618,9 @@ export namespace Prisma {
     workOrdersAssigned?: WorkOrderOrderByRelationAggregateInput
     workOrdersCreated?: WorkOrderOrderByRelationAggregateInput
     statusLogs?: StatusLogOrderByRelationAggregateInput
+    searchHistory?: SearchHistoryOrderByRelationAggregateInput
+    notifications?: NotificationOrderByRelationAggregateInput
+    inventoryLogs?: InventoryLogOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -7576,6 +12647,9 @@ export namespace Prisma {
     workOrdersAssigned?: WorkOrderListRelationFilter
     workOrdersCreated?: WorkOrderListRelationFilter
     statusLogs?: StatusLogListRelationFilter
+    searchHistory?: SearchHistoryListRelationFilter
+    notifications?: NotificationListRelationFilter
+    inventoryLogs?: InventoryLogListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -7917,6 +12991,280 @@ export namespace Prisma {
     reason?: StringNullableWithAggregatesFilter<"StatusLog"> | string | null
   }
 
+  export type SearchHistoryWhereInput = {
+    AND?: SearchHistoryWhereInput | SearchHistoryWhereInput[]
+    OR?: SearchHistoryWhereInput[]
+    NOT?: SearchHistoryWhereInput | SearchHistoryWhereInput[]
+    id?: StringFilter<"SearchHistory"> | string
+    userId?: StringFilter<"SearchHistory"> | string
+    title?: StringFilter<"SearchHistory"> | string
+    description?: StringFilter<"SearchHistory"> | string
+    lat?: FloatNullableFilter<"SearchHistory"> | number | null
+    lng?: FloatNullableFilter<"SearchHistory"> | number | null
+    createdAt?: DateTimeFilter<"SearchHistory"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type SearchHistoryOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    lat?: SortOrderInput | SortOrder
+    lng?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type SearchHistoryWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SearchHistoryWhereInput | SearchHistoryWhereInput[]
+    OR?: SearchHistoryWhereInput[]
+    NOT?: SearchHistoryWhereInput | SearchHistoryWhereInput[]
+    userId?: StringFilter<"SearchHistory"> | string
+    title?: StringFilter<"SearchHistory"> | string
+    description?: StringFilter<"SearchHistory"> | string
+    lat?: FloatNullableFilter<"SearchHistory"> | number | null
+    lng?: FloatNullableFilter<"SearchHistory"> | number | null
+    createdAt?: DateTimeFilter<"SearchHistory"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type SearchHistoryOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    lat?: SortOrderInput | SortOrder
+    lng?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: SearchHistoryCountOrderByAggregateInput
+    _avg?: SearchHistoryAvgOrderByAggregateInput
+    _max?: SearchHistoryMaxOrderByAggregateInput
+    _min?: SearchHistoryMinOrderByAggregateInput
+    _sum?: SearchHistorySumOrderByAggregateInput
+  }
+
+  export type SearchHistoryScalarWhereWithAggregatesInput = {
+    AND?: SearchHistoryScalarWhereWithAggregatesInput | SearchHistoryScalarWhereWithAggregatesInput[]
+    OR?: SearchHistoryScalarWhereWithAggregatesInput[]
+    NOT?: SearchHistoryScalarWhereWithAggregatesInput | SearchHistoryScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SearchHistory"> | string
+    userId?: StringWithAggregatesFilter<"SearchHistory"> | string
+    title?: StringWithAggregatesFilter<"SearchHistory"> | string
+    description?: StringWithAggregatesFilter<"SearchHistory"> | string
+    lat?: FloatNullableWithAggregatesFilter<"SearchHistory"> | number | null
+    lng?: FloatNullableWithAggregatesFilter<"SearchHistory"> | number | null
+    createdAt?: DateTimeWithAggregatesFilter<"SearchHistory"> | Date | string
+  }
+
+  export type NotificationWhereInput = {
+    AND?: NotificationWhereInput | NotificationWhereInput[]
+    OR?: NotificationWhereInput[]
+    NOT?: NotificationWhereInput | NotificationWhereInput[]
+    id?: StringFilter<"Notification"> | string
+    userId?: StringFilter<"Notification"> | string
+    title?: StringFilter<"Notification"> | string
+    message?: StringFilter<"Notification"> | string
+    type?: StringFilter<"Notification"> | string
+    read?: BoolFilter<"Notification"> | boolean
+    createdAt?: DateTimeFilter<"Notification"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type NotificationOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    message?: SortOrder
+    type?: SortOrder
+    read?: SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type NotificationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: NotificationWhereInput | NotificationWhereInput[]
+    OR?: NotificationWhereInput[]
+    NOT?: NotificationWhereInput | NotificationWhereInput[]
+    userId?: StringFilter<"Notification"> | string
+    title?: StringFilter<"Notification"> | string
+    message?: StringFilter<"Notification"> | string
+    type?: StringFilter<"Notification"> | string
+    read?: BoolFilter<"Notification"> | boolean
+    createdAt?: DateTimeFilter<"Notification"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type NotificationOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    message?: SortOrder
+    type?: SortOrder
+    read?: SortOrder
+    createdAt?: SortOrder
+    _count?: NotificationCountOrderByAggregateInput
+    _max?: NotificationMaxOrderByAggregateInput
+    _min?: NotificationMinOrderByAggregateInput
+  }
+
+  export type NotificationScalarWhereWithAggregatesInput = {
+    AND?: NotificationScalarWhereWithAggregatesInput | NotificationScalarWhereWithAggregatesInput[]
+    OR?: NotificationScalarWhereWithAggregatesInput[]
+    NOT?: NotificationScalarWhereWithAggregatesInput | NotificationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Notification"> | string
+    userId?: StringWithAggregatesFilter<"Notification"> | string
+    title?: StringWithAggregatesFilter<"Notification"> | string
+    message?: StringWithAggregatesFilter<"Notification"> | string
+    type?: StringWithAggregatesFilter<"Notification"> | string
+    read?: BoolWithAggregatesFilter<"Notification"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Notification"> | Date | string
+  }
+
+  export type InventoryItemWhereInput = {
+    AND?: InventoryItemWhereInput | InventoryItemWhereInput[]
+    OR?: InventoryItemWhereInput[]
+    NOT?: InventoryItemWhereInput | InventoryItemWhereInput[]
+    id?: StringFilter<"InventoryItem"> | string
+    name?: StringFilter<"InventoryItem"> | string
+    description?: StringNullableFilter<"InventoryItem"> | string | null
+    sku?: StringFilter<"InventoryItem"> | string
+    quantity?: IntFilter<"InventoryItem"> | number
+    unit?: StringFilter<"InventoryItem"> | string
+    minStock?: IntFilter<"InventoryItem"> | number
+    createdAt?: DateTimeFilter<"InventoryItem"> | Date | string
+    updatedAt?: DateTimeFilter<"InventoryItem"> | Date | string
+    logs?: InventoryLogListRelationFilter
+  }
+
+  export type InventoryItemOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    sku?: SortOrder
+    quantity?: SortOrder
+    unit?: SortOrder
+    minStock?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    logs?: InventoryLogOrderByRelationAggregateInput
+  }
+
+  export type InventoryItemWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    sku?: string
+    AND?: InventoryItemWhereInput | InventoryItemWhereInput[]
+    OR?: InventoryItemWhereInput[]
+    NOT?: InventoryItemWhereInput | InventoryItemWhereInput[]
+    name?: StringFilter<"InventoryItem"> | string
+    description?: StringNullableFilter<"InventoryItem"> | string | null
+    quantity?: IntFilter<"InventoryItem"> | number
+    unit?: StringFilter<"InventoryItem"> | string
+    minStock?: IntFilter<"InventoryItem"> | number
+    createdAt?: DateTimeFilter<"InventoryItem"> | Date | string
+    updatedAt?: DateTimeFilter<"InventoryItem"> | Date | string
+    logs?: InventoryLogListRelationFilter
+  }, "id" | "sku">
+
+  export type InventoryItemOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    sku?: SortOrder
+    quantity?: SortOrder
+    unit?: SortOrder
+    minStock?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: InventoryItemCountOrderByAggregateInput
+    _avg?: InventoryItemAvgOrderByAggregateInput
+    _max?: InventoryItemMaxOrderByAggregateInput
+    _min?: InventoryItemMinOrderByAggregateInput
+    _sum?: InventoryItemSumOrderByAggregateInput
+  }
+
+  export type InventoryItemScalarWhereWithAggregatesInput = {
+    AND?: InventoryItemScalarWhereWithAggregatesInput | InventoryItemScalarWhereWithAggregatesInput[]
+    OR?: InventoryItemScalarWhereWithAggregatesInput[]
+    NOT?: InventoryItemScalarWhereWithAggregatesInput | InventoryItemScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"InventoryItem"> | string
+    name?: StringWithAggregatesFilter<"InventoryItem"> | string
+    description?: StringNullableWithAggregatesFilter<"InventoryItem"> | string | null
+    sku?: StringWithAggregatesFilter<"InventoryItem"> | string
+    quantity?: IntWithAggregatesFilter<"InventoryItem"> | number
+    unit?: StringWithAggregatesFilter<"InventoryItem"> | string
+    minStock?: IntWithAggregatesFilter<"InventoryItem"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"InventoryItem"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"InventoryItem"> | Date | string
+  }
+
+  export type InventoryLogWhereInput = {
+    AND?: InventoryLogWhereInput | InventoryLogWhereInput[]
+    OR?: InventoryLogWhereInput[]
+    NOT?: InventoryLogWhereInput | InventoryLogWhereInput[]
+    id?: StringFilter<"InventoryLog"> | string
+    itemId?: StringFilter<"InventoryLog"> | string
+    userId?: StringFilter<"InventoryLog"> | string
+    change?: IntFilter<"InventoryLog"> | number
+    note?: StringNullableFilter<"InventoryLog"> | string | null
+    createdAt?: DateTimeFilter<"InventoryLog"> | Date | string
+    item?: XOR<InventoryItemScalarRelationFilter, InventoryItemWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type InventoryLogOrderByWithRelationInput = {
+    id?: SortOrder
+    itemId?: SortOrder
+    userId?: SortOrder
+    change?: SortOrder
+    note?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    item?: InventoryItemOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type InventoryLogWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: InventoryLogWhereInput | InventoryLogWhereInput[]
+    OR?: InventoryLogWhereInput[]
+    NOT?: InventoryLogWhereInput | InventoryLogWhereInput[]
+    itemId?: StringFilter<"InventoryLog"> | string
+    userId?: StringFilter<"InventoryLog"> | string
+    change?: IntFilter<"InventoryLog"> | number
+    note?: StringNullableFilter<"InventoryLog"> | string | null
+    createdAt?: DateTimeFilter<"InventoryLog"> | Date | string
+    item?: XOR<InventoryItemScalarRelationFilter, InventoryItemWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type InventoryLogOrderByWithAggregationInput = {
+    id?: SortOrder
+    itemId?: SortOrder
+    userId?: SortOrder
+    change?: SortOrder
+    note?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: InventoryLogCountOrderByAggregateInput
+    _avg?: InventoryLogAvgOrderByAggregateInput
+    _max?: InventoryLogMaxOrderByAggregateInput
+    _min?: InventoryLogMinOrderByAggregateInput
+    _sum?: InventoryLogSumOrderByAggregateInput
+  }
+
+  export type InventoryLogScalarWhereWithAggregatesInput = {
+    AND?: InventoryLogScalarWhereWithAggregatesInput | InventoryLogScalarWhereWithAggregatesInput[]
+    OR?: InventoryLogScalarWhereWithAggregatesInput[]
+    NOT?: InventoryLogScalarWhereWithAggregatesInput | InventoryLogScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"InventoryLog"> | string
+    itemId?: StringWithAggregatesFilter<"InventoryLog"> | string
+    userId?: StringWithAggregatesFilter<"InventoryLog"> | string
+    change?: IntWithAggregatesFilter<"InventoryLog"> | number
+    note?: StringNullableWithAggregatesFilter<"InventoryLog"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"InventoryLog"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     firstName: string
@@ -7938,6 +13286,9 @@ export namespace Prisma {
     workOrdersAssigned?: WorkOrderCreateNestedManyWithoutAssignedToInput
     workOrdersCreated?: WorkOrderCreateNestedManyWithoutAssignedByInput
     statusLogs?: StatusLogCreateNestedManyWithoutChangedByInput
+    searchHistory?: SearchHistoryCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    inventoryLogs?: InventoryLogCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -7961,6 +13312,9 @@ export namespace Prisma {
     workOrdersAssigned?: WorkOrderUncheckedCreateNestedManyWithoutAssignedToInput
     workOrdersCreated?: WorkOrderUncheckedCreateNestedManyWithoutAssignedByInput
     statusLogs?: StatusLogUncheckedCreateNestedManyWithoutChangedByInput
+    searchHistory?: SearchHistoryUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    inventoryLogs?: InventoryLogUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -7984,6 +13338,9 @@ export namespace Prisma {
     workOrdersAssigned?: WorkOrderUpdateManyWithoutAssignedToNestedInput
     workOrdersCreated?: WorkOrderUpdateManyWithoutAssignedByNestedInput
     statusLogs?: StatusLogUpdateManyWithoutChangedByNestedInput
+    searchHistory?: SearchHistoryUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    inventoryLogs?: InventoryLogUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -8007,6 +13364,9 @@ export namespace Prisma {
     workOrdersAssigned?: WorkOrderUncheckedUpdateManyWithoutAssignedToNestedInput
     workOrdersCreated?: WorkOrderUncheckedUpdateManyWithoutAssignedByNestedInput
     statusLogs?: StatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+    searchHistory?: SearchHistoryUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    inventoryLogs?: InventoryLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -8372,6 +13732,293 @@ export namespace Prisma {
     reason?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type SearchHistoryCreateInput = {
+    id?: string
+    title: string
+    description: string
+    lat?: number | null
+    lng?: number | null
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutSearchHistoryInput
+  }
+
+  export type SearchHistoryUncheckedCreateInput = {
+    id?: string
+    userId: string
+    title: string
+    description: string
+    lat?: number | null
+    lng?: number | null
+    createdAt?: Date | string
+  }
+
+  export type SearchHistoryUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    lat?: NullableFloatFieldUpdateOperationsInput | number | null
+    lng?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutSearchHistoryNestedInput
+  }
+
+  export type SearchHistoryUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    lat?: NullableFloatFieldUpdateOperationsInput | number | null
+    lng?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SearchHistoryCreateManyInput = {
+    id?: string
+    userId: string
+    title: string
+    description: string
+    lat?: number | null
+    lng?: number | null
+    createdAt?: Date | string
+  }
+
+  export type SearchHistoryUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    lat?: NullableFloatFieldUpdateOperationsInput | number | null
+    lng?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SearchHistoryUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    lat?: NullableFloatFieldUpdateOperationsInput | number | null
+    lng?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationCreateInput = {
+    id?: string
+    title: string
+    message: string
+    type?: string
+    read?: boolean
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutNotificationsInput
+  }
+
+  export type NotificationUncheckedCreateInput = {
+    id?: string
+    userId: string
+    title: string
+    message: string
+    type?: string
+    read?: boolean
+    createdAt?: Date | string
+  }
+
+  export type NotificationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    read?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutNotificationsNestedInput
+  }
+
+  export type NotificationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    read?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationCreateManyInput = {
+    id?: string
+    userId: string
+    title: string
+    message: string
+    type?: string
+    read?: boolean
+    createdAt?: Date | string
+  }
+
+  export type NotificationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    read?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    read?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InventoryItemCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    sku: string
+    quantity?: number
+    unit?: string
+    minStock?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    logs?: InventoryLogCreateNestedManyWithoutItemInput
+  }
+
+  export type InventoryItemUncheckedCreateInput = {
+    id?: string
+    name: string
+    description?: string | null
+    sku: string
+    quantity?: number
+    unit?: string
+    minStock?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    logs?: InventoryLogUncheckedCreateNestedManyWithoutItemInput
+  }
+
+  export type InventoryItemUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    sku?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    unit?: StringFieldUpdateOperationsInput | string
+    minStock?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    logs?: InventoryLogUpdateManyWithoutItemNestedInput
+  }
+
+  export type InventoryItemUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    sku?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    unit?: StringFieldUpdateOperationsInput | string
+    minStock?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    logs?: InventoryLogUncheckedUpdateManyWithoutItemNestedInput
+  }
+
+  export type InventoryItemCreateManyInput = {
+    id?: string
+    name: string
+    description?: string | null
+    sku: string
+    quantity?: number
+    unit?: string
+    minStock?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type InventoryItemUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    sku?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    unit?: StringFieldUpdateOperationsInput | string
+    minStock?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InventoryItemUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    sku?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    unit?: StringFieldUpdateOperationsInput | string
+    minStock?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InventoryLogCreateInput = {
+    id?: string
+    change: number
+    note?: string | null
+    createdAt?: Date | string
+    item: InventoryItemCreateNestedOneWithoutLogsInput
+    user: UserCreateNestedOneWithoutInventoryLogsInput
+  }
+
+  export type InventoryLogUncheckedCreateInput = {
+    id?: string
+    itemId: string
+    userId: string
+    change: number
+    note?: string | null
+    createdAt?: Date | string
+  }
+
+  export type InventoryLogUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    change?: IntFieldUpdateOperationsInput | number
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    item?: InventoryItemUpdateOneRequiredWithoutLogsNestedInput
+    user?: UserUpdateOneRequiredWithoutInventoryLogsNestedInput
+  }
+
+  export type InventoryLogUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    itemId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    change?: IntFieldUpdateOperationsInput | number
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InventoryLogCreateManyInput = {
+    id?: string
+    itemId: string
+    userId: string
+    change: number
+    note?: string | null
+    createdAt?: Date | string
+  }
+
+  export type InventoryLogUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    change?: IntFieldUpdateOperationsInput | number
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InventoryLogUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    itemId?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    change?: IntFieldUpdateOperationsInput | number
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -8449,6 +14096,24 @@ export namespace Prisma {
     none?: StatusLogWhereInput
   }
 
+  export type SearchHistoryListRelationFilter = {
+    every?: SearchHistoryWhereInput
+    some?: SearchHistoryWhereInput
+    none?: SearchHistoryWhereInput
+  }
+
+  export type NotificationListRelationFilter = {
+    every?: NotificationWhereInput
+    some?: NotificationWhereInput
+    none?: NotificationWhereInput
+  }
+
+  export type InventoryLogListRelationFilter = {
+    every?: InventoryLogWhereInput
+    some?: InventoryLogWhereInput
+    none?: InventoryLogWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -8463,6 +14128,18 @@ export namespace Prisma {
   }
 
   export type StatusLogOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SearchHistoryOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type NotificationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type InventoryLogOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -8856,6 +14533,229 @@ export namespace Prisma {
     reason?: SortOrder
   }
 
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type SearchHistoryCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    lat?: SortOrder
+    lng?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SearchHistoryAvgOrderByAggregateInput = {
+    lat?: SortOrder
+    lng?: SortOrder
+  }
+
+  export type SearchHistoryMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    lat?: SortOrder
+    lng?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SearchHistoryMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    lat?: SortOrder
+    lng?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SearchHistorySumOrderByAggregateInput = {
+    lat?: SortOrder
+    lng?: SortOrder
+  }
+
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NotificationCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    message?: SortOrder
+    type?: SortOrder
+    read?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type NotificationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    message?: SortOrder
+    type?: SortOrder
+    read?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type NotificationMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    title?: SortOrder
+    message?: SortOrder
+    type?: SortOrder
+    read?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type InventoryItemCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    sku?: SortOrder
+    quantity?: SortOrder
+    unit?: SortOrder
+    minStock?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type InventoryItemAvgOrderByAggregateInput = {
+    quantity?: SortOrder
+    minStock?: SortOrder
+  }
+
+  export type InventoryItemMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    sku?: SortOrder
+    quantity?: SortOrder
+    unit?: SortOrder
+    minStock?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type InventoryItemMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    sku?: SortOrder
+    quantity?: SortOrder
+    unit?: SortOrder
+    minStock?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type InventoryItemSumOrderByAggregateInput = {
+    quantity?: SortOrder
+    minStock?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type InventoryItemScalarRelationFilter = {
+    is?: InventoryItemWhereInput
+    isNot?: InventoryItemWhereInput
+  }
+
+  export type InventoryLogCountOrderByAggregateInput = {
+    id?: SortOrder
+    itemId?: SortOrder
+    userId?: SortOrder
+    change?: SortOrder
+    note?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type InventoryLogAvgOrderByAggregateInput = {
+    change?: SortOrder
+  }
+
+  export type InventoryLogMaxOrderByAggregateInput = {
+    id?: SortOrder
+    itemId?: SortOrder
+    userId?: SortOrder
+    change?: SortOrder
+    note?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type InventoryLogMinOrderByAggregateInput = {
+    id?: SortOrder
+    itemId?: SortOrder
+    userId?: SortOrder
+    change?: SortOrder
+    note?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type InventoryLogSumOrderByAggregateInput = {
+    change?: SortOrder
+  }
+
   export type FaultReportCreateNestedManyWithoutReportedByInput = {
     create?: XOR<FaultReportCreateWithoutReportedByInput, FaultReportUncheckedCreateWithoutReportedByInput> | FaultReportCreateWithoutReportedByInput[] | FaultReportUncheckedCreateWithoutReportedByInput[]
     connectOrCreate?: FaultReportCreateOrConnectWithoutReportedByInput | FaultReportCreateOrConnectWithoutReportedByInput[]
@@ -8884,6 +14784,27 @@ export namespace Prisma {
     connect?: StatusLogWhereUniqueInput | StatusLogWhereUniqueInput[]
   }
 
+  export type SearchHistoryCreateNestedManyWithoutUserInput = {
+    create?: XOR<SearchHistoryCreateWithoutUserInput, SearchHistoryUncheckedCreateWithoutUserInput> | SearchHistoryCreateWithoutUserInput[] | SearchHistoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SearchHistoryCreateOrConnectWithoutUserInput | SearchHistoryCreateOrConnectWithoutUserInput[]
+    createMany?: SearchHistoryCreateManyUserInputEnvelope
+    connect?: SearchHistoryWhereUniqueInput | SearchHistoryWhereUniqueInput[]
+  }
+
+  export type NotificationCreateNestedManyWithoutUserInput = {
+    create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
+    createMany?: NotificationCreateManyUserInputEnvelope
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+  }
+
+  export type InventoryLogCreateNestedManyWithoutUserInput = {
+    create?: XOR<InventoryLogCreateWithoutUserInput, InventoryLogUncheckedCreateWithoutUserInput> | InventoryLogCreateWithoutUserInput[] | InventoryLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: InventoryLogCreateOrConnectWithoutUserInput | InventoryLogCreateOrConnectWithoutUserInput[]
+    createMany?: InventoryLogCreateManyUserInputEnvelope
+    connect?: InventoryLogWhereUniqueInput | InventoryLogWhereUniqueInput[]
+  }
+
   export type FaultReportUncheckedCreateNestedManyWithoutReportedByInput = {
     create?: XOR<FaultReportCreateWithoutReportedByInput, FaultReportUncheckedCreateWithoutReportedByInput> | FaultReportCreateWithoutReportedByInput[] | FaultReportUncheckedCreateWithoutReportedByInput[]
     connectOrCreate?: FaultReportCreateOrConnectWithoutReportedByInput | FaultReportCreateOrConnectWithoutReportedByInput[]
@@ -8910,6 +14831,27 @@ export namespace Prisma {
     connectOrCreate?: StatusLogCreateOrConnectWithoutChangedByInput | StatusLogCreateOrConnectWithoutChangedByInput[]
     createMany?: StatusLogCreateManyChangedByInputEnvelope
     connect?: StatusLogWhereUniqueInput | StatusLogWhereUniqueInput[]
+  }
+
+  export type SearchHistoryUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<SearchHistoryCreateWithoutUserInput, SearchHistoryUncheckedCreateWithoutUserInput> | SearchHistoryCreateWithoutUserInput[] | SearchHistoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SearchHistoryCreateOrConnectWithoutUserInput | SearchHistoryCreateOrConnectWithoutUserInput[]
+    createMany?: SearchHistoryCreateManyUserInputEnvelope
+    connect?: SearchHistoryWhereUniqueInput | SearchHistoryWhereUniqueInput[]
+  }
+
+  export type NotificationUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
+    createMany?: NotificationCreateManyUserInputEnvelope
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+  }
+
+  export type InventoryLogUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<InventoryLogCreateWithoutUserInput, InventoryLogUncheckedCreateWithoutUserInput> | InventoryLogCreateWithoutUserInput[] | InventoryLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: InventoryLogCreateOrConnectWithoutUserInput | InventoryLogCreateOrConnectWithoutUserInput[]
+    createMany?: InventoryLogCreateManyUserInputEnvelope
+    connect?: InventoryLogWhereUniqueInput | InventoryLogWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -8988,6 +14930,48 @@ export namespace Prisma {
     deleteMany?: StatusLogScalarWhereInput | StatusLogScalarWhereInput[]
   }
 
+  export type SearchHistoryUpdateManyWithoutUserNestedInput = {
+    create?: XOR<SearchHistoryCreateWithoutUserInput, SearchHistoryUncheckedCreateWithoutUserInput> | SearchHistoryCreateWithoutUserInput[] | SearchHistoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SearchHistoryCreateOrConnectWithoutUserInput | SearchHistoryCreateOrConnectWithoutUserInput[]
+    upsert?: SearchHistoryUpsertWithWhereUniqueWithoutUserInput | SearchHistoryUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: SearchHistoryCreateManyUserInputEnvelope
+    set?: SearchHistoryWhereUniqueInput | SearchHistoryWhereUniqueInput[]
+    disconnect?: SearchHistoryWhereUniqueInput | SearchHistoryWhereUniqueInput[]
+    delete?: SearchHistoryWhereUniqueInput | SearchHistoryWhereUniqueInput[]
+    connect?: SearchHistoryWhereUniqueInput | SearchHistoryWhereUniqueInput[]
+    update?: SearchHistoryUpdateWithWhereUniqueWithoutUserInput | SearchHistoryUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: SearchHistoryUpdateManyWithWhereWithoutUserInput | SearchHistoryUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: SearchHistoryScalarWhereInput | SearchHistoryScalarWhereInput[]
+  }
+
+  export type NotificationUpdateManyWithoutUserNestedInput = {
+    create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
+    upsert?: NotificationUpsertWithWhereUniqueWithoutUserInput | NotificationUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: NotificationCreateManyUserInputEnvelope
+    set?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    disconnect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    delete?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    update?: NotificationUpdateWithWhereUniqueWithoutUserInput | NotificationUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: NotificationUpdateManyWithWhereWithoutUserInput | NotificationUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+  }
+
+  export type InventoryLogUpdateManyWithoutUserNestedInput = {
+    create?: XOR<InventoryLogCreateWithoutUserInput, InventoryLogUncheckedCreateWithoutUserInput> | InventoryLogCreateWithoutUserInput[] | InventoryLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: InventoryLogCreateOrConnectWithoutUserInput | InventoryLogCreateOrConnectWithoutUserInput[]
+    upsert?: InventoryLogUpsertWithWhereUniqueWithoutUserInput | InventoryLogUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: InventoryLogCreateManyUserInputEnvelope
+    set?: InventoryLogWhereUniqueInput | InventoryLogWhereUniqueInput[]
+    disconnect?: InventoryLogWhereUniqueInput | InventoryLogWhereUniqueInput[]
+    delete?: InventoryLogWhereUniqueInput | InventoryLogWhereUniqueInput[]
+    connect?: InventoryLogWhereUniqueInput | InventoryLogWhereUniqueInput[]
+    update?: InventoryLogUpdateWithWhereUniqueWithoutUserInput | InventoryLogUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: InventoryLogUpdateManyWithWhereWithoutUserInput | InventoryLogUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: InventoryLogScalarWhereInput | InventoryLogScalarWhereInput[]
+  }
+
   export type FaultReportUncheckedUpdateManyWithoutReportedByNestedInput = {
     create?: XOR<FaultReportCreateWithoutReportedByInput, FaultReportUncheckedCreateWithoutReportedByInput> | FaultReportCreateWithoutReportedByInput[] | FaultReportUncheckedCreateWithoutReportedByInput[]
     connectOrCreate?: FaultReportCreateOrConnectWithoutReportedByInput | FaultReportCreateOrConnectWithoutReportedByInput[]
@@ -9042,6 +15026,48 @@ export namespace Prisma {
     update?: StatusLogUpdateWithWhereUniqueWithoutChangedByInput | StatusLogUpdateWithWhereUniqueWithoutChangedByInput[]
     updateMany?: StatusLogUpdateManyWithWhereWithoutChangedByInput | StatusLogUpdateManyWithWhereWithoutChangedByInput[]
     deleteMany?: StatusLogScalarWhereInput | StatusLogScalarWhereInput[]
+  }
+
+  export type SearchHistoryUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<SearchHistoryCreateWithoutUserInput, SearchHistoryUncheckedCreateWithoutUserInput> | SearchHistoryCreateWithoutUserInput[] | SearchHistoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SearchHistoryCreateOrConnectWithoutUserInput | SearchHistoryCreateOrConnectWithoutUserInput[]
+    upsert?: SearchHistoryUpsertWithWhereUniqueWithoutUserInput | SearchHistoryUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: SearchHistoryCreateManyUserInputEnvelope
+    set?: SearchHistoryWhereUniqueInput | SearchHistoryWhereUniqueInput[]
+    disconnect?: SearchHistoryWhereUniqueInput | SearchHistoryWhereUniqueInput[]
+    delete?: SearchHistoryWhereUniqueInput | SearchHistoryWhereUniqueInput[]
+    connect?: SearchHistoryWhereUniqueInput | SearchHistoryWhereUniqueInput[]
+    update?: SearchHistoryUpdateWithWhereUniqueWithoutUserInput | SearchHistoryUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: SearchHistoryUpdateManyWithWhereWithoutUserInput | SearchHistoryUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: SearchHistoryScalarWhereInput | SearchHistoryScalarWhereInput[]
+  }
+
+  export type NotificationUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput> | NotificationCreateWithoutUserInput[] | NotificationUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: NotificationCreateOrConnectWithoutUserInput | NotificationCreateOrConnectWithoutUserInput[]
+    upsert?: NotificationUpsertWithWhereUniqueWithoutUserInput | NotificationUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: NotificationCreateManyUserInputEnvelope
+    set?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    disconnect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    delete?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
+    update?: NotificationUpdateWithWhereUniqueWithoutUserInput | NotificationUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: NotificationUpdateManyWithWhereWithoutUserInput | NotificationUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+  }
+
+  export type InventoryLogUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<InventoryLogCreateWithoutUserInput, InventoryLogUncheckedCreateWithoutUserInput> | InventoryLogCreateWithoutUserInput[] | InventoryLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: InventoryLogCreateOrConnectWithoutUserInput | InventoryLogCreateOrConnectWithoutUserInput[]
+    upsert?: InventoryLogUpsertWithWhereUniqueWithoutUserInput | InventoryLogUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: InventoryLogCreateManyUserInputEnvelope
+    set?: InventoryLogWhereUniqueInput | InventoryLogWhereUniqueInput[]
+    disconnect?: InventoryLogWhereUniqueInput | InventoryLogWhereUniqueInput[]
+    delete?: InventoryLogWhereUniqueInput | InventoryLogWhereUniqueInput[]
+    connect?: InventoryLogWhereUniqueInput | InventoryLogWhereUniqueInput[]
+    update?: InventoryLogUpdateWithWhereUniqueWithoutUserInput | InventoryLogUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: InventoryLogUpdateManyWithWhereWithoutUserInput | InventoryLogUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: InventoryLogScalarWhereInput | InventoryLogScalarWhereInput[]
   }
 
   export type FaultReportCreateNestedManyWithoutPoleInput = {
@@ -9282,6 +15308,124 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutStatusLogsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutStatusLogsInput, UserUpdateWithoutStatusLogsInput>, UserUncheckedUpdateWithoutStatusLogsInput>
+  }
+
+  export type UserCreateNestedOneWithoutSearchHistoryInput = {
+    create?: XOR<UserCreateWithoutSearchHistoryInput, UserUncheckedCreateWithoutSearchHistoryInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSearchHistoryInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type UserUpdateOneRequiredWithoutSearchHistoryNestedInput = {
+    create?: XOR<UserCreateWithoutSearchHistoryInput, UserUncheckedCreateWithoutSearchHistoryInput>
+    connectOrCreate?: UserCreateOrConnectWithoutSearchHistoryInput
+    upsert?: UserUpsertWithoutSearchHistoryInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutSearchHistoryInput, UserUpdateWithoutSearchHistoryInput>, UserUncheckedUpdateWithoutSearchHistoryInput>
+  }
+
+  export type UserCreateNestedOneWithoutNotificationsInput = {
+    create?: XOR<UserCreateWithoutNotificationsInput, UserUncheckedCreateWithoutNotificationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutNotificationsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type UserUpdateOneRequiredWithoutNotificationsNestedInput = {
+    create?: XOR<UserCreateWithoutNotificationsInput, UserUncheckedCreateWithoutNotificationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutNotificationsInput
+    upsert?: UserUpsertWithoutNotificationsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutNotificationsInput, UserUpdateWithoutNotificationsInput>, UserUncheckedUpdateWithoutNotificationsInput>
+  }
+
+  export type InventoryLogCreateNestedManyWithoutItemInput = {
+    create?: XOR<InventoryLogCreateWithoutItemInput, InventoryLogUncheckedCreateWithoutItemInput> | InventoryLogCreateWithoutItemInput[] | InventoryLogUncheckedCreateWithoutItemInput[]
+    connectOrCreate?: InventoryLogCreateOrConnectWithoutItemInput | InventoryLogCreateOrConnectWithoutItemInput[]
+    createMany?: InventoryLogCreateManyItemInputEnvelope
+    connect?: InventoryLogWhereUniqueInput | InventoryLogWhereUniqueInput[]
+  }
+
+  export type InventoryLogUncheckedCreateNestedManyWithoutItemInput = {
+    create?: XOR<InventoryLogCreateWithoutItemInput, InventoryLogUncheckedCreateWithoutItemInput> | InventoryLogCreateWithoutItemInput[] | InventoryLogUncheckedCreateWithoutItemInput[]
+    connectOrCreate?: InventoryLogCreateOrConnectWithoutItemInput | InventoryLogCreateOrConnectWithoutItemInput[]
+    createMany?: InventoryLogCreateManyItemInputEnvelope
+    connect?: InventoryLogWhereUniqueInput | InventoryLogWhereUniqueInput[]
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type InventoryLogUpdateManyWithoutItemNestedInput = {
+    create?: XOR<InventoryLogCreateWithoutItemInput, InventoryLogUncheckedCreateWithoutItemInput> | InventoryLogCreateWithoutItemInput[] | InventoryLogUncheckedCreateWithoutItemInput[]
+    connectOrCreate?: InventoryLogCreateOrConnectWithoutItemInput | InventoryLogCreateOrConnectWithoutItemInput[]
+    upsert?: InventoryLogUpsertWithWhereUniqueWithoutItemInput | InventoryLogUpsertWithWhereUniqueWithoutItemInput[]
+    createMany?: InventoryLogCreateManyItemInputEnvelope
+    set?: InventoryLogWhereUniqueInput | InventoryLogWhereUniqueInput[]
+    disconnect?: InventoryLogWhereUniqueInput | InventoryLogWhereUniqueInput[]
+    delete?: InventoryLogWhereUniqueInput | InventoryLogWhereUniqueInput[]
+    connect?: InventoryLogWhereUniqueInput | InventoryLogWhereUniqueInput[]
+    update?: InventoryLogUpdateWithWhereUniqueWithoutItemInput | InventoryLogUpdateWithWhereUniqueWithoutItemInput[]
+    updateMany?: InventoryLogUpdateManyWithWhereWithoutItemInput | InventoryLogUpdateManyWithWhereWithoutItemInput[]
+    deleteMany?: InventoryLogScalarWhereInput | InventoryLogScalarWhereInput[]
+  }
+
+  export type InventoryLogUncheckedUpdateManyWithoutItemNestedInput = {
+    create?: XOR<InventoryLogCreateWithoutItemInput, InventoryLogUncheckedCreateWithoutItemInput> | InventoryLogCreateWithoutItemInput[] | InventoryLogUncheckedCreateWithoutItemInput[]
+    connectOrCreate?: InventoryLogCreateOrConnectWithoutItemInput | InventoryLogCreateOrConnectWithoutItemInput[]
+    upsert?: InventoryLogUpsertWithWhereUniqueWithoutItemInput | InventoryLogUpsertWithWhereUniqueWithoutItemInput[]
+    createMany?: InventoryLogCreateManyItemInputEnvelope
+    set?: InventoryLogWhereUniqueInput | InventoryLogWhereUniqueInput[]
+    disconnect?: InventoryLogWhereUniqueInput | InventoryLogWhereUniqueInput[]
+    delete?: InventoryLogWhereUniqueInput | InventoryLogWhereUniqueInput[]
+    connect?: InventoryLogWhereUniqueInput | InventoryLogWhereUniqueInput[]
+    update?: InventoryLogUpdateWithWhereUniqueWithoutItemInput | InventoryLogUpdateWithWhereUniqueWithoutItemInput[]
+    updateMany?: InventoryLogUpdateManyWithWhereWithoutItemInput | InventoryLogUpdateManyWithWhereWithoutItemInput[]
+    deleteMany?: InventoryLogScalarWhereInput | InventoryLogScalarWhereInput[]
+  }
+
+  export type InventoryItemCreateNestedOneWithoutLogsInput = {
+    create?: XOR<InventoryItemCreateWithoutLogsInput, InventoryItemUncheckedCreateWithoutLogsInput>
+    connectOrCreate?: InventoryItemCreateOrConnectWithoutLogsInput
+    connect?: InventoryItemWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutInventoryLogsInput = {
+    create?: XOR<UserCreateWithoutInventoryLogsInput, UserUncheckedCreateWithoutInventoryLogsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutInventoryLogsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type InventoryItemUpdateOneRequiredWithoutLogsNestedInput = {
+    create?: XOR<InventoryItemCreateWithoutLogsInput, InventoryItemUncheckedCreateWithoutLogsInput>
+    connectOrCreate?: InventoryItemCreateOrConnectWithoutLogsInput
+    upsert?: InventoryItemUpsertWithoutLogsInput
+    connect?: InventoryItemWhereUniqueInput
+    update?: XOR<XOR<InventoryItemUpdateToOneWithWhereWithoutLogsInput, InventoryItemUpdateWithoutLogsInput>, InventoryItemUncheckedUpdateWithoutLogsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutInventoryLogsNestedInput = {
+    create?: XOR<UserCreateWithoutInventoryLogsInput, UserUncheckedCreateWithoutInventoryLogsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutInventoryLogsInput
+    upsert?: UserUpsertWithoutInventoryLogsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutInventoryLogsInput, UserUpdateWithoutInventoryLogsInput>, UserUncheckedUpdateWithoutInventoryLogsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -9530,6 +15674,62 @@ export namespace Prisma {
     _max?: NestedEnumWorkOrderStatusFilter<$PrismaModel>
   }
 
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
   export type FaultReportCreateWithoutReportedByInput = {
     id?: string
     description: string
@@ -9648,6 +15848,88 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type SearchHistoryCreateWithoutUserInput = {
+    id?: string
+    title: string
+    description: string
+    lat?: number | null
+    lng?: number | null
+    createdAt?: Date | string
+  }
+
+  export type SearchHistoryUncheckedCreateWithoutUserInput = {
+    id?: string
+    title: string
+    description: string
+    lat?: number | null
+    lng?: number | null
+    createdAt?: Date | string
+  }
+
+  export type SearchHistoryCreateOrConnectWithoutUserInput = {
+    where: SearchHistoryWhereUniqueInput
+    create: XOR<SearchHistoryCreateWithoutUserInput, SearchHistoryUncheckedCreateWithoutUserInput>
+  }
+
+  export type SearchHistoryCreateManyUserInputEnvelope = {
+    data: SearchHistoryCreateManyUserInput | SearchHistoryCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type NotificationCreateWithoutUserInput = {
+    id?: string
+    title: string
+    message: string
+    type?: string
+    read?: boolean
+    createdAt?: Date | string
+  }
+
+  export type NotificationUncheckedCreateWithoutUserInput = {
+    id?: string
+    title: string
+    message: string
+    type?: string
+    read?: boolean
+    createdAt?: Date | string
+  }
+
+  export type NotificationCreateOrConnectWithoutUserInput = {
+    where: NotificationWhereUniqueInput
+    create: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput>
+  }
+
+  export type NotificationCreateManyUserInputEnvelope = {
+    data: NotificationCreateManyUserInput | NotificationCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type InventoryLogCreateWithoutUserInput = {
+    id?: string
+    change: number
+    note?: string | null
+    createdAt?: Date | string
+    item: InventoryItemCreateNestedOneWithoutLogsInput
+  }
+
+  export type InventoryLogUncheckedCreateWithoutUserInput = {
+    id?: string
+    itemId: string
+    change: number
+    note?: string | null
+    createdAt?: Date | string
+  }
+
+  export type InventoryLogCreateOrConnectWithoutUserInput = {
+    where: InventoryLogWhereUniqueInput
+    create: XOR<InventoryLogCreateWithoutUserInput, InventoryLogUncheckedCreateWithoutUserInput>
+  }
+
+  export type InventoryLogCreateManyUserInputEnvelope = {
+    data: InventoryLogCreateManyUserInput | InventoryLogCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type FaultReportUpsertWithWhereUniqueWithoutReportedByInput = {
     where: FaultReportWhereUniqueInput
     update: XOR<FaultReportUpdateWithoutReportedByInput, FaultReportUncheckedUpdateWithoutReportedByInput>
@@ -9750,6 +16032,92 @@ export namespace Prisma {
     toStatus?: EnumPoleStatusFilter<"StatusLog"> | $Enums.PoleStatus
     changedAt?: DateTimeFilter<"StatusLog"> | Date | string
     reason?: StringNullableFilter<"StatusLog"> | string | null
+  }
+
+  export type SearchHistoryUpsertWithWhereUniqueWithoutUserInput = {
+    where: SearchHistoryWhereUniqueInput
+    update: XOR<SearchHistoryUpdateWithoutUserInput, SearchHistoryUncheckedUpdateWithoutUserInput>
+    create: XOR<SearchHistoryCreateWithoutUserInput, SearchHistoryUncheckedCreateWithoutUserInput>
+  }
+
+  export type SearchHistoryUpdateWithWhereUniqueWithoutUserInput = {
+    where: SearchHistoryWhereUniqueInput
+    data: XOR<SearchHistoryUpdateWithoutUserInput, SearchHistoryUncheckedUpdateWithoutUserInput>
+  }
+
+  export type SearchHistoryUpdateManyWithWhereWithoutUserInput = {
+    where: SearchHistoryScalarWhereInput
+    data: XOR<SearchHistoryUpdateManyMutationInput, SearchHistoryUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type SearchHistoryScalarWhereInput = {
+    AND?: SearchHistoryScalarWhereInput | SearchHistoryScalarWhereInput[]
+    OR?: SearchHistoryScalarWhereInput[]
+    NOT?: SearchHistoryScalarWhereInput | SearchHistoryScalarWhereInput[]
+    id?: StringFilter<"SearchHistory"> | string
+    userId?: StringFilter<"SearchHistory"> | string
+    title?: StringFilter<"SearchHistory"> | string
+    description?: StringFilter<"SearchHistory"> | string
+    lat?: FloatNullableFilter<"SearchHistory"> | number | null
+    lng?: FloatNullableFilter<"SearchHistory"> | number | null
+    createdAt?: DateTimeFilter<"SearchHistory"> | Date | string
+  }
+
+  export type NotificationUpsertWithWhereUniqueWithoutUserInput = {
+    where: NotificationWhereUniqueInput
+    update: XOR<NotificationUpdateWithoutUserInput, NotificationUncheckedUpdateWithoutUserInput>
+    create: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput>
+  }
+
+  export type NotificationUpdateWithWhereUniqueWithoutUserInput = {
+    where: NotificationWhereUniqueInput
+    data: XOR<NotificationUpdateWithoutUserInput, NotificationUncheckedUpdateWithoutUserInput>
+  }
+
+  export type NotificationUpdateManyWithWhereWithoutUserInput = {
+    where: NotificationScalarWhereInput
+    data: XOR<NotificationUpdateManyMutationInput, NotificationUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type NotificationScalarWhereInput = {
+    AND?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+    OR?: NotificationScalarWhereInput[]
+    NOT?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+    id?: StringFilter<"Notification"> | string
+    userId?: StringFilter<"Notification"> | string
+    title?: StringFilter<"Notification"> | string
+    message?: StringFilter<"Notification"> | string
+    type?: StringFilter<"Notification"> | string
+    read?: BoolFilter<"Notification"> | boolean
+    createdAt?: DateTimeFilter<"Notification"> | Date | string
+  }
+
+  export type InventoryLogUpsertWithWhereUniqueWithoutUserInput = {
+    where: InventoryLogWhereUniqueInput
+    update: XOR<InventoryLogUpdateWithoutUserInput, InventoryLogUncheckedUpdateWithoutUserInput>
+    create: XOR<InventoryLogCreateWithoutUserInput, InventoryLogUncheckedCreateWithoutUserInput>
+  }
+
+  export type InventoryLogUpdateWithWhereUniqueWithoutUserInput = {
+    where: InventoryLogWhereUniqueInput
+    data: XOR<InventoryLogUpdateWithoutUserInput, InventoryLogUncheckedUpdateWithoutUserInput>
+  }
+
+  export type InventoryLogUpdateManyWithWhereWithoutUserInput = {
+    where: InventoryLogScalarWhereInput
+    data: XOR<InventoryLogUpdateManyMutationInput, InventoryLogUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type InventoryLogScalarWhereInput = {
+    AND?: InventoryLogScalarWhereInput | InventoryLogScalarWhereInput[]
+    OR?: InventoryLogScalarWhereInput[]
+    NOT?: InventoryLogScalarWhereInput | InventoryLogScalarWhereInput[]
+    id?: StringFilter<"InventoryLog"> | string
+    itemId?: StringFilter<"InventoryLog"> | string
+    userId?: StringFilter<"InventoryLog"> | string
+    change?: IntFilter<"InventoryLog"> | number
+    note?: StringNullableFilter<"InventoryLog"> | string | null
+    createdAt?: DateTimeFilter<"InventoryLog"> | Date | string
   }
 
   export type FaultReportCreateWithoutPoleInput = {
@@ -9893,6 +16261,9 @@ export namespace Prisma {
     workOrdersAssigned?: WorkOrderCreateNestedManyWithoutAssignedToInput
     workOrdersCreated?: WorkOrderCreateNestedManyWithoutAssignedByInput
     statusLogs?: StatusLogCreateNestedManyWithoutChangedByInput
+    searchHistory?: SearchHistoryCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    inventoryLogs?: InventoryLogCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutFaultReportsInput = {
@@ -9915,6 +16286,9 @@ export namespace Prisma {
     workOrdersAssigned?: WorkOrderUncheckedCreateNestedManyWithoutAssignedToInput
     workOrdersCreated?: WorkOrderUncheckedCreateNestedManyWithoutAssignedByInput
     statusLogs?: StatusLogUncheckedCreateNestedManyWithoutChangedByInput
+    searchHistory?: SearchHistoryUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    inventoryLogs?: InventoryLogUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutFaultReportsInput = {
@@ -10015,6 +16389,9 @@ export namespace Prisma {
     workOrdersAssigned?: WorkOrderUpdateManyWithoutAssignedToNestedInput
     workOrdersCreated?: WorkOrderUpdateManyWithoutAssignedByNestedInput
     statusLogs?: StatusLogUpdateManyWithoutChangedByNestedInput
+    searchHistory?: SearchHistoryUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    inventoryLogs?: InventoryLogUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFaultReportsInput = {
@@ -10037,6 +16414,9 @@ export namespace Prisma {
     workOrdersAssigned?: WorkOrderUncheckedUpdateManyWithoutAssignedToNestedInput
     workOrdersCreated?: WorkOrderUncheckedUpdateManyWithoutAssignedByNestedInput
     statusLogs?: StatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+    searchHistory?: SearchHistoryUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    inventoryLogs?: InventoryLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WorkOrderUpsertWithoutFaultReportInput = {
@@ -10115,6 +16495,9 @@ export namespace Prisma {
     faultReports?: FaultReportCreateNestedManyWithoutReportedByInput
     workOrdersCreated?: WorkOrderCreateNestedManyWithoutAssignedByInput
     statusLogs?: StatusLogCreateNestedManyWithoutChangedByInput
+    searchHistory?: SearchHistoryCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    inventoryLogs?: InventoryLogCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWorkOrdersAssignedInput = {
@@ -10137,6 +16520,9 @@ export namespace Prisma {
     faultReports?: FaultReportUncheckedCreateNestedManyWithoutReportedByInput
     workOrdersCreated?: WorkOrderUncheckedCreateNestedManyWithoutAssignedByInput
     statusLogs?: StatusLogUncheckedCreateNestedManyWithoutChangedByInput
+    searchHistory?: SearchHistoryUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    inventoryLogs?: InventoryLogUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWorkOrdersAssignedInput = {
@@ -10164,6 +16550,9 @@ export namespace Prisma {
     faultReports?: FaultReportCreateNestedManyWithoutReportedByInput
     workOrdersAssigned?: WorkOrderCreateNestedManyWithoutAssignedToInput
     statusLogs?: StatusLogCreateNestedManyWithoutChangedByInput
+    searchHistory?: SearchHistoryCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    inventoryLogs?: InventoryLogCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWorkOrdersCreatedInput = {
@@ -10186,6 +16575,9 @@ export namespace Prisma {
     faultReports?: FaultReportUncheckedCreateNestedManyWithoutReportedByInput
     workOrdersAssigned?: WorkOrderUncheckedCreateNestedManyWithoutAssignedToInput
     statusLogs?: StatusLogUncheckedCreateNestedManyWithoutChangedByInput
+    searchHistory?: SearchHistoryUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    inventoryLogs?: InventoryLogUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWorkOrdersCreatedInput = {
@@ -10255,6 +16647,9 @@ export namespace Prisma {
     faultReports?: FaultReportUpdateManyWithoutReportedByNestedInput
     workOrdersCreated?: WorkOrderUpdateManyWithoutAssignedByNestedInput
     statusLogs?: StatusLogUpdateManyWithoutChangedByNestedInput
+    searchHistory?: SearchHistoryUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    inventoryLogs?: InventoryLogUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWorkOrdersAssignedInput = {
@@ -10277,6 +16672,9 @@ export namespace Prisma {
     faultReports?: FaultReportUncheckedUpdateManyWithoutReportedByNestedInput
     workOrdersCreated?: WorkOrderUncheckedUpdateManyWithoutAssignedByNestedInput
     statusLogs?: StatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+    searchHistory?: SearchHistoryUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    inventoryLogs?: InventoryLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUpsertWithoutWorkOrdersCreatedInput = {
@@ -10310,6 +16708,9 @@ export namespace Prisma {
     faultReports?: FaultReportUpdateManyWithoutReportedByNestedInput
     workOrdersAssigned?: WorkOrderUpdateManyWithoutAssignedToNestedInput
     statusLogs?: StatusLogUpdateManyWithoutChangedByNestedInput
+    searchHistory?: SearchHistoryUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    inventoryLogs?: InventoryLogUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWorkOrdersCreatedInput = {
@@ -10332,6 +16733,9 @@ export namespace Prisma {
     faultReports?: FaultReportUncheckedUpdateManyWithoutReportedByNestedInput
     workOrdersAssigned?: WorkOrderUncheckedUpdateManyWithoutAssignedToNestedInput
     statusLogs?: StatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+    searchHistory?: SearchHistoryUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    inventoryLogs?: InventoryLogUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PoleCreateWithoutStatusLogsInput = {
@@ -10385,6 +16789,9 @@ export namespace Prisma {
     faultReports?: FaultReportCreateNestedManyWithoutReportedByInput
     workOrdersAssigned?: WorkOrderCreateNestedManyWithoutAssignedToInput
     workOrdersCreated?: WorkOrderCreateNestedManyWithoutAssignedByInput
+    searchHistory?: SearchHistoryCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    inventoryLogs?: InventoryLogCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutStatusLogsInput = {
@@ -10407,6 +16814,9 @@ export namespace Prisma {
     faultReports?: FaultReportUncheckedCreateNestedManyWithoutReportedByInput
     workOrdersAssigned?: WorkOrderUncheckedCreateNestedManyWithoutAssignedToInput
     workOrdersCreated?: WorkOrderUncheckedCreateNestedManyWithoutAssignedByInput
+    searchHistory?: SearchHistoryUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    inventoryLogs?: InventoryLogUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutStatusLogsInput = {
@@ -10482,6 +16892,9 @@ export namespace Prisma {
     faultReports?: FaultReportUpdateManyWithoutReportedByNestedInput
     workOrdersAssigned?: WorkOrderUpdateManyWithoutAssignedToNestedInput
     workOrdersCreated?: WorkOrderUpdateManyWithoutAssignedByNestedInput
+    searchHistory?: SearchHistoryUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    inventoryLogs?: InventoryLogUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutStatusLogsInput = {
@@ -10504,6 +16917,463 @@ export namespace Prisma {
     faultReports?: FaultReportUncheckedUpdateManyWithoutReportedByNestedInput
     workOrdersAssigned?: WorkOrderUncheckedUpdateManyWithoutAssignedToNestedInput
     workOrdersCreated?: WorkOrderUncheckedUpdateManyWithoutAssignedByNestedInput
+    searchHistory?: SearchHistoryUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    inventoryLogs?: InventoryLogUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutSearchHistoryInput = {
+    id?: string
+    firstName: string
+    middleName?: string | null
+    lastName: string
+    dob?: Date | string | null
+    gender?: string | null
+    email: string
+    phone: string
+    passwordHash: string
+    region: string
+    province?: string | null
+    city: string
+    barangay: string
+    streetAddress?: string | null
+    role?: $Enums.Role
+    createdAt?: Date | string
+    faultReports?: FaultReportCreateNestedManyWithoutReportedByInput
+    workOrdersAssigned?: WorkOrderCreateNestedManyWithoutAssignedToInput
+    workOrdersCreated?: WorkOrderCreateNestedManyWithoutAssignedByInput
+    statusLogs?: StatusLogCreateNestedManyWithoutChangedByInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    inventoryLogs?: InventoryLogCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutSearchHistoryInput = {
+    id?: string
+    firstName: string
+    middleName?: string | null
+    lastName: string
+    dob?: Date | string | null
+    gender?: string | null
+    email: string
+    phone: string
+    passwordHash: string
+    region: string
+    province?: string | null
+    city: string
+    barangay: string
+    streetAddress?: string | null
+    role?: $Enums.Role
+    createdAt?: Date | string
+    faultReports?: FaultReportUncheckedCreateNestedManyWithoutReportedByInput
+    workOrdersAssigned?: WorkOrderUncheckedCreateNestedManyWithoutAssignedToInput
+    workOrdersCreated?: WorkOrderUncheckedCreateNestedManyWithoutAssignedByInput
+    statusLogs?: StatusLogUncheckedCreateNestedManyWithoutChangedByInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    inventoryLogs?: InventoryLogUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutSearchHistoryInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutSearchHistoryInput, UserUncheckedCreateWithoutSearchHistoryInput>
+  }
+
+  export type UserUpsertWithoutSearchHistoryInput = {
+    update: XOR<UserUpdateWithoutSearchHistoryInput, UserUncheckedUpdateWithoutSearchHistoryInput>
+    create: XOR<UserCreateWithoutSearchHistoryInput, UserUncheckedCreateWithoutSearchHistoryInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutSearchHistoryInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutSearchHistoryInput, UserUncheckedUpdateWithoutSearchHistoryInput>
+  }
+
+  export type UserUpdateWithoutSearchHistoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    region?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: StringFieldUpdateOperationsInput | string
+    barangay?: StringFieldUpdateOperationsInput | string
+    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    faultReports?: FaultReportUpdateManyWithoutReportedByNestedInput
+    workOrdersAssigned?: WorkOrderUpdateManyWithoutAssignedToNestedInput
+    workOrdersCreated?: WorkOrderUpdateManyWithoutAssignedByNestedInput
+    statusLogs?: StatusLogUpdateManyWithoutChangedByNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    inventoryLogs?: InventoryLogUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutSearchHistoryInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    region?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: StringFieldUpdateOperationsInput | string
+    barangay?: StringFieldUpdateOperationsInput | string
+    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    faultReports?: FaultReportUncheckedUpdateManyWithoutReportedByNestedInput
+    workOrdersAssigned?: WorkOrderUncheckedUpdateManyWithoutAssignedToNestedInput
+    workOrdersCreated?: WorkOrderUncheckedUpdateManyWithoutAssignedByNestedInput
+    statusLogs?: StatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    inventoryLogs?: InventoryLogUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutNotificationsInput = {
+    id?: string
+    firstName: string
+    middleName?: string | null
+    lastName: string
+    dob?: Date | string | null
+    gender?: string | null
+    email: string
+    phone: string
+    passwordHash: string
+    region: string
+    province?: string | null
+    city: string
+    barangay: string
+    streetAddress?: string | null
+    role?: $Enums.Role
+    createdAt?: Date | string
+    faultReports?: FaultReportCreateNestedManyWithoutReportedByInput
+    workOrdersAssigned?: WorkOrderCreateNestedManyWithoutAssignedToInput
+    workOrdersCreated?: WorkOrderCreateNestedManyWithoutAssignedByInput
+    statusLogs?: StatusLogCreateNestedManyWithoutChangedByInput
+    searchHistory?: SearchHistoryCreateNestedManyWithoutUserInput
+    inventoryLogs?: InventoryLogCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutNotificationsInput = {
+    id?: string
+    firstName: string
+    middleName?: string | null
+    lastName: string
+    dob?: Date | string | null
+    gender?: string | null
+    email: string
+    phone: string
+    passwordHash: string
+    region: string
+    province?: string | null
+    city: string
+    barangay: string
+    streetAddress?: string | null
+    role?: $Enums.Role
+    createdAt?: Date | string
+    faultReports?: FaultReportUncheckedCreateNestedManyWithoutReportedByInput
+    workOrdersAssigned?: WorkOrderUncheckedCreateNestedManyWithoutAssignedToInput
+    workOrdersCreated?: WorkOrderUncheckedCreateNestedManyWithoutAssignedByInput
+    statusLogs?: StatusLogUncheckedCreateNestedManyWithoutChangedByInput
+    searchHistory?: SearchHistoryUncheckedCreateNestedManyWithoutUserInput
+    inventoryLogs?: InventoryLogUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutNotificationsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutNotificationsInput, UserUncheckedCreateWithoutNotificationsInput>
+  }
+
+  export type UserUpsertWithoutNotificationsInput = {
+    update: XOR<UserUpdateWithoutNotificationsInput, UserUncheckedUpdateWithoutNotificationsInput>
+    create: XOR<UserCreateWithoutNotificationsInput, UserUncheckedCreateWithoutNotificationsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutNotificationsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutNotificationsInput, UserUncheckedUpdateWithoutNotificationsInput>
+  }
+
+  export type UserUpdateWithoutNotificationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    region?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: StringFieldUpdateOperationsInput | string
+    barangay?: StringFieldUpdateOperationsInput | string
+    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    faultReports?: FaultReportUpdateManyWithoutReportedByNestedInput
+    workOrdersAssigned?: WorkOrderUpdateManyWithoutAssignedToNestedInput
+    workOrdersCreated?: WorkOrderUpdateManyWithoutAssignedByNestedInput
+    statusLogs?: StatusLogUpdateManyWithoutChangedByNestedInput
+    searchHistory?: SearchHistoryUpdateManyWithoutUserNestedInput
+    inventoryLogs?: InventoryLogUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutNotificationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    region?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: StringFieldUpdateOperationsInput | string
+    barangay?: StringFieldUpdateOperationsInput | string
+    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    faultReports?: FaultReportUncheckedUpdateManyWithoutReportedByNestedInput
+    workOrdersAssigned?: WorkOrderUncheckedUpdateManyWithoutAssignedToNestedInput
+    workOrdersCreated?: WorkOrderUncheckedUpdateManyWithoutAssignedByNestedInput
+    statusLogs?: StatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+    searchHistory?: SearchHistoryUncheckedUpdateManyWithoutUserNestedInput
+    inventoryLogs?: InventoryLogUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type InventoryLogCreateWithoutItemInput = {
+    id?: string
+    change: number
+    note?: string | null
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutInventoryLogsInput
+  }
+
+  export type InventoryLogUncheckedCreateWithoutItemInput = {
+    id?: string
+    userId: string
+    change: number
+    note?: string | null
+    createdAt?: Date | string
+  }
+
+  export type InventoryLogCreateOrConnectWithoutItemInput = {
+    where: InventoryLogWhereUniqueInput
+    create: XOR<InventoryLogCreateWithoutItemInput, InventoryLogUncheckedCreateWithoutItemInput>
+  }
+
+  export type InventoryLogCreateManyItemInputEnvelope = {
+    data: InventoryLogCreateManyItemInput | InventoryLogCreateManyItemInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type InventoryLogUpsertWithWhereUniqueWithoutItemInput = {
+    where: InventoryLogWhereUniqueInput
+    update: XOR<InventoryLogUpdateWithoutItemInput, InventoryLogUncheckedUpdateWithoutItemInput>
+    create: XOR<InventoryLogCreateWithoutItemInput, InventoryLogUncheckedCreateWithoutItemInput>
+  }
+
+  export type InventoryLogUpdateWithWhereUniqueWithoutItemInput = {
+    where: InventoryLogWhereUniqueInput
+    data: XOR<InventoryLogUpdateWithoutItemInput, InventoryLogUncheckedUpdateWithoutItemInput>
+  }
+
+  export type InventoryLogUpdateManyWithWhereWithoutItemInput = {
+    where: InventoryLogScalarWhereInput
+    data: XOR<InventoryLogUpdateManyMutationInput, InventoryLogUncheckedUpdateManyWithoutItemInput>
+  }
+
+  export type InventoryItemCreateWithoutLogsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    sku: string
+    quantity?: number
+    unit?: string
+    minStock?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type InventoryItemUncheckedCreateWithoutLogsInput = {
+    id?: string
+    name: string
+    description?: string | null
+    sku: string
+    quantity?: number
+    unit?: string
+    minStock?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type InventoryItemCreateOrConnectWithoutLogsInput = {
+    where: InventoryItemWhereUniqueInput
+    create: XOR<InventoryItemCreateWithoutLogsInput, InventoryItemUncheckedCreateWithoutLogsInput>
+  }
+
+  export type UserCreateWithoutInventoryLogsInput = {
+    id?: string
+    firstName: string
+    middleName?: string | null
+    lastName: string
+    dob?: Date | string | null
+    gender?: string | null
+    email: string
+    phone: string
+    passwordHash: string
+    region: string
+    province?: string | null
+    city: string
+    barangay: string
+    streetAddress?: string | null
+    role?: $Enums.Role
+    createdAt?: Date | string
+    faultReports?: FaultReportCreateNestedManyWithoutReportedByInput
+    workOrdersAssigned?: WorkOrderCreateNestedManyWithoutAssignedToInput
+    workOrdersCreated?: WorkOrderCreateNestedManyWithoutAssignedByInput
+    statusLogs?: StatusLogCreateNestedManyWithoutChangedByInput
+    searchHistory?: SearchHistoryCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutInventoryLogsInput = {
+    id?: string
+    firstName: string
+    middleName?: string | null
+    lastName: string
+    dob?: Date | string | null
+    gender?: string | null
+    email: string
+    phone: string
+    passwordHash: string
+    region: string
+    province?: string | null
+    city: string
+    barangay: string
+    streetAddress?: string | null
+    role?: $Enums.Role
+    createdAt?: Date | string
+    faultReports?: FaultReportUncheckedCreateNestedManyWithoutReportedByInput
+    workOrdersAssigned?: WorkOrderUncheckedCreateNestedManyWithoutAssignedToInput
+    workOrdersCreated?: WorkOrderUncheckedCreateNestedManyWithoutAssignedByInput
+    statusLogs?: StatusLogUncheckedCreateNestedManyWithoutChangedByInput
+    searchHistory?: SearchHistoryUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutInventoryLogsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutInventoryLogsInput, UserUncheckedCreateWithoutInventoryLogsInput>
+  }
+
+  export type InventoryItemUpsertWithoutLogsInput = {
+    update: XOR<InventoryItemUpdateWithoutLogsInput, InventoryItemUncheckedUpdateWithoutLogsInput>
+    create: XOR<InventoryItemCreateWithoutLogsInput, InventoryItemUncheckedCreateWithoutLogsInput>
+    where?: InventoryItemWhereInput
+  }
+
+  export type InventoryItemUpdateToOneWithWhereWithoutLogsInput = {
+    where?: InventoryItemWhereInput
+    data: XOR<InventoryItemUpdateWithoutLogsInput, InventoryItemUncheckedUpdateWithoutLogsInput>
+  }
+
+  export type InventoryItemUpdateWithoutLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    sku?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    unit?: StringFieldUpdateOperationsInput | string
+    minStock?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InventoryItemUncheckedUpdateWithoutLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    sku?: StringFieldUpdateOperationsInput | string
+    quantity?: IntFieldUpdateOperationsInput | number
+    unit?: StringFieldUpdateOperationsInput | string
+    minStock?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUpsertWithoutInventoryLogsInput = {
+    update: XOR<UserUpdateWithoutInventoryLogsInput, UserUncheckedUpdateWithoutInventoryLogsInput>
+    create: XOR<UserCreateWithoutInventoryLogsInput, UserUncheckedCreateWithoutInventoryLogsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutInventoryLogsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutInventoryLogsInput, UserUncheckedUpdateWithoutInventoryLogsInput>
+  }
+
+  export type UserUpdateWithoutInventoryLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    region?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: StringFieldUpdateOperationsInput | string
+    barangay?: StringFieldUpdateOperationsInput | string
+    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    faultReports?: FaultReportUpdateManyWithoutReportedByNestedInput
+    workOrdersAssigned?: WorkOrderUpdateManyWithoutAssignedToNestedInput
+    workOrdersCreated?: WorkOrderUpdateManyWithoutAssignedByNestedInput
+    statusLogs?: StatusLogUpdateManyWithoutChangedByNestedInput
+    searchHistory?: SearchHistoryUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutInventoryLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    phone?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    region?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    city?: StringFieldUpdateOperationsInput | string
+    barangay?: StringFieldUpdateOperationsInput | string
+    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    faultReports?: FaultReportUncheckedUpdateManyWithoutReportedByNestedInput
+    workOrdersAssigned?: WorkOrderUncheckedUpdateManyWithoutAssignedToNestedInput
+    workOrdersCreated?: WorkOrderUncheckedUpdateManyWithoutAssignedByNestedInput
+    statusLogs?: StatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+    searchHistory?: SearchHistoryUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type FaultReportCreateManyReportedByInput = {
@@ -10542,6 +17412,32 @@ export namespace Prisma {
     toStatus: $Enums.PoleStatus
     changedAt?: Date | string
     reason?: string | null
+  }
+
+  export type SearchHistoryCreateManyUserInput = {
+    id?: string
+    title: string
+    description: string
+    lat?: number | null
+    lng?: number | null
+    createdAt?: Date | string
+  }
+
+  export type NotificationCreateManyUserInput = {
+    id?: string
+    title: string
+    message: string
+    type?: string
+    read?: boolean
+    createdAt?: Date | string
+  }
+
+  export type InventoryLogCreateManyUserInput = {
+    id?: string
+    itemId: string
+    change: number
+    note?: string | null
+    createdAt?: Date | string
   }
 
   export type FaultReportUpdateWithoutReportedByInput = {
@@ -10660,6 +17556,84 @@ export namespace Prisma {
     reason?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type SearchHistoryUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    lat?: NullableFloatFieldUpdateOperationsInput | number | null
+    lng?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SearchHistoryUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    lat?: NullableFloatFieldUpdateOperationsInput | number | null
+    lng?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SearchHistoryUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    lat?: NullableFloatFieldUpdateOperationsInput | number | null
+    lng?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    read?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    read?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type NotificationUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    message?: StringFieldUpdateOperationsInput | string
+    type?: StringFieldUpdateOperationsInput | string
+    read?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InventoryLogUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    change?: IntFieldUpdateOperationsInput | number
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    item?: InventoryItemUpdateOneRequiredWithoutLogsNestedInput
+  }
+
+  export type InventoryLogUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    itemId?: StringFieldUpdateOperationsInput | string
+    change?: IntFieldUpdateOperationsInput | number
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InventoryLogUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    itemId?: StringFieldUpdateOperationsInput | string
+    change?: IntFieldUpdateOperationsInput | number
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type FaultReportCreateManyPoleInput = {
     id?: string
     reportedById: string
@@ -10732,6 +17706,38 @@ export namespace Prisma {
     toStatus?: EnumPoleStatusFieldUpdateOperationsInput | $Enums.PoleStatus
     changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reason?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type InventoryLogCreateManyItemInput = {
+    id?: string
+    userId: string
+    change: number
+    note?: string | null
+    createdAt?: Date | string
+  }
+
+  export type InventoryLogUpdateWithoutItemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    change?: IntFieldUpdateOperationsInput | number
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutInventoryLogsNestedInput
+  }
+
+  export type InventoryLogUncheckedUpdateWithoutItemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    change?: IntFieldUpdateOperationsInput | number
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type InventoryLogUncheckedUpdateManyWithoutItemInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    change?: IntFieldUpdateOperationsInput | number
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

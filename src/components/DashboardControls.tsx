@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { BarChart3, X, CheckCircle, Siren, Wrench, Lightbulb, Zap } from "lucide-react"
 
 interface DashboardControlsProps {
   userRole: string
@@ -48,7 +49,7 @@ export default function DashboardControls({ userRole }: DashboardControlsProps) 
           onClick={() => setIsOpen(true)}
           className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-blue-600 hover:bg-blue-50 transition-colors text-left cursor-pointer mt-1"
         >
-          <span className="text-base">📊</span>
+          <BarChart3 className="w-4 h-4" />
           System Overview
         </button>
       )}
@@ -65,9 +66,9 @@ export default function DashboardControls({ userRole }: DashboardControlsProps) 
             {/* Close Cross Trigger */}
             <button 
               onClick={() => setIsOpen(false)}
-              className="absolute top-6 right-6 text-gray-400 hover:text-gray-700 bg-gray-100 hover:bg-gray-200 size-8 flex items-center justify-center rounded-full transition-colors text-xl font-bold cursor-pointer"
+              className="absolute top-6 right-6 text-gray-400 hover:text-gray-700 bg-gray-100 hover:bg-gray-200 size-8 flex items-center justify-center rounded-full transition-colors cursor-pointer"
             >
-              ✕
+              <X className="w-4 h-4" />
             </button>
 
             {/* Title Header */}
@@ -85,31 +86,31 @@ export default function DashboardControls({ userRole }: DashboardControlsProps) 
               <div className="bg-white border border-slate-100 rounded-xl p-4 shadow-sm flex flex-col justify-between min-h-[110px]">
                 <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Recent Fixes</span>
                 <span className="text-2xl font-black text-slate-800 my-1">MCRT1</span>
-                <span className="text-[10px] text-emerald-600 font-medium">✅ Resolved in last 2 hours</span>
+                <span className="text-[10px] text-emerald-600 font-medium inline-flex items-center gap-1"><CheckCircle className="w-3 h-3" /> Resolved in last 2 hours</span>
               </div>
 
               <div className="bg-white border border-slate-100 rounded-xl p-4 shadow-sm flex flex-col justify-between min-h-[110px]">
                 <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Recent Reported Outages</span>
                 <span className="text-3xl font-black text-slate-800 my-1">9</span>
-                <span className="text-[10px] text-rose-600 font-medium">🚨 Unresolved civic tickets</span>
+                <span className="text-[10px] text-rose-600 font-medium inline-flex items-center gap-1"><Siren className="w-3 h-3" /> Unresolved civic tickets</span>
               </div>
 
               <div className="bg-white border border-slate-100 rounded-xl p-4 shadow-sm flex flex-col justify-between min-h-[110px]">
                 <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Ongoing Maintenance</span>
                 <span className="text-3xl font-black text-slate-800 my-1">3</span>
-                <span className="text-[10px] text-amber-600 font-medium">🛠️ Crew active in field</span>
+                <span className="text-[10px] text-amber-600 font-medium inline-flex items-center gap-1"><Wrench className="w-3 h-3" /> Crew active in field</span>
               </div>
 
               <div className="bg-white border border-slate-100 rounded-xl p-4 shadow-sm flex flex-col justify-between min-h-[110px]">
                 <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Street With Least Lights</span>
                 <span className="text-xl font-bold text-slate-800 truncate my-1">Sta. Mesa</span>
-                <span className="text-[10px] text-slate-500 font-medium">💡 5 units</span>
+                <span className="text-[10px] text-slate-500 font-medium inline-flex items-center gap-1"><Lightbulb className="w-3 h-3" /> 5 units</span>
               </div>
 
               <div className="bg-white border border-slate-100 rounded-xl p-4 shadow-sm flex flex-col justify-between min-h-[110px]">
                 <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Street With Most Lights</span>
                 <span className="text-xl font-bold text-slate-800 truncate my-1">Pureza</span>
-                <span className="text-[10px] text-slate-500 font-medium">⚡ 67 units</span>
+                <span className="text-[10px] text-slate-500 font-medium inline-flex items-center gap-1"><Zap className="w-3 h-3" /> 67 units</span>
               </div>
             </div>
 

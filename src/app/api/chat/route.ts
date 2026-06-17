@@ -47,8 +47,9 @@ export async function POST(req: Request) {
       }
 
       // Log the reasoning tokens to your server terminal when they arrive
-      if (chunk.usage && chunk.usage.reasoningTokens) {
-        console.log(`\nReasoning tokens: ${chunk.usage.reasoningTokens}`);
+      const reasoningTokens = (chunk.usage as Record<string, unknown> | undefined)?.reasoningTokens
+      if (reasoningTokens) {
+        console.log(`\nReasoning tokens: ${reasoningTokens}`);
       }
     }
 

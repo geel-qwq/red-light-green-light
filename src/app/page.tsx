@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 import {
   Menu,
@@ -17,11 +18,17 @@ import {
   MapPin,
   MessageSquare, 
   Send, 
-  Bot, 
+  Bot,
+  CheckCircle,
+  Siren,
+  Lightbulb,
+  Zap,
 } from "lucide-react";
 import Link from "next/link";
 import Logo from "@/components/Logo";
-import { BarChart as BarChartIcon } from "lucide-react"; 
+import GuestRedirectWrapper from "@/components/GuestRedirectWrapper";
+import { getSearchHistory, saveSearch, deleteSearch } from "@/actions/searchHistory";
+import type { SearchHistory } from "@/lib/generated/prisma";
 import UserFloatingDashboard from './(dashboard)/user/dashboard/_components/UserFloatingDashboard'
 import TechnicianFloatingDashboard from './(dashboard)/technician/dashboard/_components/TechnicianFloatingDashboard'
 import SuperAdminFloatingDashboard from './(dashboard)/superadmin/dashboard/_components/SuperAdminFloatingDashboard'
@@ -128,6 +135,18 @@ const StreetLampIcon = ({ hasWarning = false }: { hasWarning?: boolean }) => (
 );
 
 export default function Page() {
+  const router = useRouter();
+
+  function timeAgo(date: Date): string {
+    const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
+    if (seconds < 60) return "Just now";
+    const minutes = Math.floor(seconds / 60);
+    if (minutes < 60) return `${minutes} minute${minutes > 1 ? "s" : ""} ago`;
+    const hours = Math.floor(minutes / 60);
+    if (hours < 24) return `${hours} hour${hours > 1 ? "s" : ""} ago`;
+    const days = Math.floor(hours / 24);
+    return `${days} day${days > 1 ? "s" : ""} ago`;
+  }
   const [searchInput, setSearchInput] = useState("");
   const [isSearching, setIsSearching] = useState(false);
   const [searchedLocation, setSearchedLocation] = useState<[number, number] | null>(null);
@@ -155,10 +174,8 @@ export default function Page() {
     },
   ]);
 
-  // Dev fallback when no session; real session role takes precedence
-  const [userRole] = useState<UserRole>("superadmin");
   const [sessionUser, setSessionUser] = useState<{ role: UserRole; name: string } | null>(null);
-  const effectiveRole = sessionUser?.role ?? userRole;
+  const effectiveRole = sessionUser?.role;
   const [userDashboard, setUserDashboard] = useState<{
     stats: { total: number; open: number; resolved: number };
     recentReports: UserDashboardReport[];
@@ -185,40 +202,27 @@ export default function Page() {
   const chatEndRef = useRef<HTMLDivElement>(null); 
 
   const [isDashboardOpen, setIsDashboardOpen] = useState(false);
-  const [recentActivities, setRecentActivities] = useState<Activity[]>([
-    {
-      id: "MCRT1",
-      title: "Bonifacio Public Market",
-      description: "Inspected Lamp Failure telemetry specs",
-      time: "2 minutes ago",
-    },
-    {
-      id: "MCRT2",
-      title: "Gov. Pascual Ave",
-      description: "Operational / Healthy check",
-      time: "1 hour ago",
-    },
-  ]);
+  const [recentActivities, setRecentActivities] = useState<Activity[]>([]);
 
-  const roleMenuConfig = {
+  const roleMenuConfig: Record<string, { title: string; icon: React.ComponentType<{ className?: string }>; key: string; route?: string }[]> = {
     superadmin: [
-      { title: "Dashboard Overview", icon: BarChart },
-      { title: "User Management", icon: Users },
-      { title: "System Settings", icon: Settings },
+      { title: "System Overview", icon: BarChart, key: "overview", route: "/superadmin/dashboard" },
+      { title: "User & Role Management", icon: Users, key: "users", route: "/superadmin/users" },
+      { title: "System Settings", icon: Settings, key: "settings", route: "/superadmin/dashboard" },
     ],
     admin: [
-      { title: "Network Dashboard", icon: BarChart },
-      { title: "Manage Nodes", icon: MapPin },
-      { title: "Generate Reports", icon: BarChart },
+      { title: "System Overview", icon: BarChart, key: "overview", route: "/admin/dashboard" },
+      { title: "Manage Nodes", icon: MapPin, key: "nodes", route: "/poles" },
+      { title: "Generate Reports", icon: BarChart, key: "reports", route: "/reports" },
     ],
     technician: [
-      { title: "My Task Assignments", icon: Wrench },
-      { title: "Maintenance Logs", icon: Settings },
-      { title: "Active Alerts", icon: AlertTriangle },
+      { title: "System Overview", icon: BarChart, key: "overview", route: "/technician/dashboard" },
+      { title: "Maintenance Logs", icon: Settings, key: "logs", route: "/workorders" },
+      { title: "Active Alerts", icon: AlertTriangle, key: "alerts", route: "/faults" },
     ],
     user: [
-      { title: "View Map", icon: MapPin },
-      { title: "Report an Issue", icon: AlertTriangle },
+      { title: "My Dashboard", icon: BarChart, key: "overview", route: "/user/dashboard" },
+      { title: "Report an Issue", icon: AlertTriangle, key: "report", route: "/faults" },
     ],
   };
 
@@ -235,6 +239,22 @@ export default function Page() {
       })
       .catch(() => {});
   }, []);
+
+  useEffect(() => {
+    if (!sessionUser) return;
+    getSearchHistory().then((history) => {
+      setRecentActivities(
+        history.map((h: SearchHistory) => ({
+          id: h.id,
+          title: h.title,
+          description: h.description,
+          time: timeAgo(new Date(h.createdAt)),
+          lat: h.lat ?? undefined,
+          lng: h.lng ?? undefined,
+        }))
+      );
+    });
+  }, [sessionUser]);
 
   useEffect(() => {
     if (!isOverviewOpen) return;
@@ -421,20 +441,30 @@ export default function Page() {
     setSearchInput(mainTitle);
     setShowSuggestions(false);
 
-    const newActivity: Activity = {
-      id: `NODE-${Math.floor(Math.random() * 1000)}`,
+    saveSearch({
       title: mainTitle,
       description: "Searched location",
-      time: "Just now",
-    };
-
-    setRecentActivities((prevActivities) => [newActivity, ...prevActivities]);
+      lat,
+      lng: lon,
+    }).then((record) => {
+      setRecentActivities((prev) => [
+        {
+          id: record.id,
+          title: record.title,
+          description: record.description,
+          time: "Just now",
+          lat: record.lat ?? undefined,
+          lng: record.lng ?? undefined,
+        },
+        ...prev,
+      ]);
+    });
   };
 
   const handleDeleteActivity = (idToDelete: string) => {
-    setRecentActivities((prevActivities) =>
-      prevActivities.filter((activity) => activity.id !== idToDelete),
-    );
+    deleteSearch(idToDelete).then(() => {
+      setRecentActivities((prev) => prev.filter((a) => a.id !== idToDelete));
+    });
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -451,57 +481,12 @@ export default function Page() {
   };
 
   return (
+    <GuestRedirectWrapper>
     <div className="flex h-screen w-full overflow-hidden bg-[#e5e7eb] font-sans relative">
       
       {/* 1. LEFT SIDEBAR */}
       <aside className="w-[72px] bg-[#2f4383] flex flex-col items-center py-5 z-40 shadow-xl justify-between">
         <div className="flex flex-col items-center gap-8 w-full">
-          
-          {/* FLOATING ACTION TRIGGER: Toggles your Admin Popup System Overview instead of pushing routes */}
-          {(effectiveRole === "admin" || effectiveRole === "superadmin") && (
-            <div
-              onClick={(e) => {
-                e.stopPropagation();
-                setIsOverviewOpen(!isOverviewOpen);
-              }}
-              className={`w-full py-3 flex flex-col items-center gap-1.5 cursor-pointer transition-colors ${isOverviewOpen ? "bg-[#3b529a] border-l-4 border-[#dba65d]" : "hover:bg-[#3b529a]/50 border-l-4 border-transparent"}`}
-            >
-              <button
-                className={`w-[38px] h-[38px] rounded-full border-2 border-[#dba65d] flex items-center justify-center ${isOverviewOpen ? "bg-[#dba65d]" : ""}`}
-              >
-                <BarChartIcon
-                  className={`w-5 h-5 ${isOverviewOpen ? "text-white" : "text-[#dba65d]"}`}
-                  strokeWidth={2}
-                />
-              </button>
-              <span className="text-[#dba65d] text-[10px] text-center px-0.5 font-bold tracking-wide leading-tight">
-                System Overview
-              </span>
-            </div>
-          )}
-
-          {effectiveRole === "user" && (
-            <div
-              onClick={(e) => {
-                e.stopPropagation();
-                setIsOverviewOpen(!isOverviewOpen);
-              }}
-              className={`w-full py-3 flex flex-col items-center gap-1.5 cursor-pointer transition-colors ${isOverviewOpen ? "bg-[#3b529a] border-l-4 border-[#dba65d]" : "hover:bg-[#3b529a]/50 border-l-4 border-transparent"}`}
-            >
-              <button
-                className={`w-[38px] h-[38px] rounded-full border-2 border-[#dba65d] flex items-center justify-center ${isOverviewOpen ? "bg-[#dba65d]" : ""}`}
-              >
-                <BarChartIcon
-                  className={`w-5 h-5 ${isOverviewOpen ? "text-white" : "text-[#dba65d]"}`}
-                  strokeWidth={2}
-                />
-              </button>
-              <span className="text-[#dba65d] text-[10px] text-center px-0.5 font-bold tracking-wide leading-tight">
-                My Dashboard
-              </span>
-            </div>
-          )}
-
           {/* HAMBURGER MENU WITH ROLE-BASED DROPDOWN */}
           <div className="relative" ref={menuRef}>
             <button
@@ -515,7 +500,7 @@ export default function Page() {
             </button>
 
             {/* Dropdown Menu Overlay */}
-            {isMenuOpen && (
+            {isMenuOpen && sessionUser && effectiveRole && (
               <div className="absolute top-0 left-[60px] w-60 bg-white rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100 overflow-hidden flex flex-col z-50 animate-in fade-in slide-in-from-left-2 duration-200">
                 <div className="px-4 py-3 bg-[#f8fafc] border-b border-gray-100 flex items-center justify-between">
                   <span className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">
@@ -524,11 +509,19 @@ export default function Page() {
                 </div>
 
                 <div className="py-2">
-                  {roleMenuConfig[effectiveRole].map((item, idx) => {
+                  {roleMenuConfig[effectiveRole]?.map((item, idx) => {
                     const Icon = item.icon;
                     return (
                       <button
                         key={idx}
+                        onClick={() => {
+                          if (item.key === "overview") {
+                            setIsOverviewOpen(true);
+                          } else if (item.route) {
+                            router.push(item.route);
+                          }
+                          setIsMenuOpen(false);
+                        }}
                         className="flex items-center gap-3 px-4 py-2.5 w-full text-left text-[14px] font-medium text-gray-700 hover:bg-[#f1f5f9] hover:text-[#2f4383] transition-colors"
                       >
                         <Icon className="w-4 h-4 text-gray-400" />
@@ -584,6 +577,7 @@ export default function Page() {
               Location Context: {gpsLocation}
             </p>
           </div>
+          {!sessionUser && (
           <div className="flex items-center gap-4">
             <Link href={"/login"}>
               <button className="cursor-pointer px-8 py-2.5 rounded-full font-bold text-[14px] text-[#dba65d] bg-white hover:bg-gray-100 transition-colors shadow-md">
@@ -594,8 +588,9 @@ export default function Page() {
               <button className="cursor-pointer px-8 py-2.5 rounded-full font-bold text-[14px] text-white bg-[#dba65d] hover:bg-[#c59553] transition-colors shadow-md">
                 Sign Up
               </button>
-            </Link>
+           </Link>
           </div>
+          )}
         </header>
 
         {/* --- RECENTS ACTIVITIES SLIDE PANEL TRAY --- */}
@@ -731,9 +726,9 @@ export default function Page() {
                 {/* Dismiss Modal Trigger Button */}
                 <button 
                   onClick={() => setIsOverviewOpen(false)}
-                  className="absolute top-6 right-6 text-gray-400 hover:text-gray-700 bg-gray-100 hover:bg-gray-200 w-8 h-8 flex items-center justify-center rounded-full transition-colors text-sm font-bold cursor-pointer"
+                  className="absolute top-6 right-6 text-gray-400 hover:text-gray-700 bg-gray-100 hover:bg-gray-200 w-8 h-8 flex items-center justify-center rounded-full transition-colors cursor-pointer"
                 >
-                  ✕
+                  <X className="w-4 h-4" />
                 </button>
 
                 {/* Dashboard Panel Metadata Header */}
@@ -751,31 +746,31 @@ export default function Page() {
                   <div className="bg-white border border-slate-100 rounded-xl p-4 shadow-sm flex flex-col justify-between min-h-[110px]">
                     <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Recent Fixes</span>
                     <span className="text-2xl font-black text-slate-800 my-1">MCRT1</span>
-                    <span className="text-[10px] text-emerald-600 font-medium">✅ Resolved in last 2 hours</span>
+                    <span className="text-[10px] text-emerald-600 font-medium inline-flex items-center gap-1"><CheckCircle className="w-3 h-3" /> Resolved in last 2 hours</span>
                   </div>
 
                   <div className="bg-white border border-slate-100 rounded-xl p-4 shadow-sm flex flex-col justify-between min-h-[110px]">
                     <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Recent Reported Outages</span>
                     <span className="text-3xl font-black text-slate-800 my-1">9</span>
-                    <span className="text-[10px] text-rose-600 font-medium">🚨 Unresolved civic tickets</span>
+                    <span className="text-[10px] text-rose-600 font-medium inline-flex items-center gap-1"><Siren className="w-3 h-3" /> Unresolved civic tickets</span>
                   </div>
 
                   <div className="bg-white border border-slate-100 rounded-xl p-4 shadow-sm flex flex-col justify-between min-h-[110px]">
                     <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Ongoing Maintenance</span>
                     <span className="text-3xl font-black text-slate-800 my-1">3</span>
-                    <span className="text-[10px] text-amber-600 font-medium">🛠️ Crew active in field</span>
+                    <span className="text-[10px] text-amber-600 font-medium inline-flex items-center gap-1"><Wrench className="w-3 h-3" /> Crew active in field</span>
                   </div>
 
                   <div className="bg-white border border-slate-100 rounded-xl p-4 shadow-sm flex flex-col justify-between min-h-[110px]">
                     <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Street With Least Lights</span>
                     <span className="text-xl font-bold text-slate-800 truncate my-1">Sta. Mesa</span>
-                    <span className="text-[10px] text-slate-500 font-medium">💡 Total: 5 units</span>
+                    <span className="text-[10px] text-slate-500 font-medium inline-flex items-center gap-1"><Lightbulb className="w-3 h-3" /> Total: 5 units</span>
                   </div>
 
                   <div className="bg-white border border-slate-100 rounded-xl p-4 shadow-sm flex flex-col justify-between min-h-[110px]">
                     <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Street With Most Lights</span>
                     <span className="text-xl font-bold text-slate-800 truncate my-1">Pureza</span>
-                    <span className="text-[10px] text-slate-500 font-medium">⚡ Total: 67 units</span>
+                    <span className="text-[10px] text-slate-500 font-medium inline-flex items-center gap-1"><Zap className="w-3 h-3" /> Total: 67 units</span>
                   </div>
                 </div>
 
@@ -889,5 +884,6 @@ export default function Page() {
         />
       )}
     </div>
+    </GuestRedirectWrapper>
   );
 }

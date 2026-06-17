@@ -73,10 +73,13 @@ model User {
   createdAt DateTime @default(now())
 
   // Relations
-  faultReports       FaultReport[] @relation("ReportedBy")
-  workOrdersAssigned WorkOrder[]   @relation("AssignedTo")
-  workOrdersCreated  WorkOrder[]   @relation("AssignedBy")
+  faultReports       FaultReport[]   @relation("ReportedBy")
+  workOrdersAssigned WorkOrder[]     @relation("AssignedTo")
+  workOrdersCreated  WorkOrder[]     @relation("AssignedBy")
   statusLogs         StatusLog[]
+  searchHistory      SearchHistory[]
+  notifications      Notification[]
+  inventoryLogs      InventoryLog[]
 }
 
 model Pole {
@@ -132,4 +135,58 @@ model StatusLog {
   toStatus    PoleStatus
   changedAt   DateTime   @default(now())
   reason      String?
+}
+
+model SearchHistory {
+  id          String   @id @default(cuid())
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String
+  title       String
+  description String
+  lat         Float?
+  lng         Float?
+  createdAt   DateTime @default(now())
+
+  @@index([userId, createdAt])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  title     String
+  message   String
+  type      String   @default("INFO")
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([userId, read, createdAt])
+}
+
+model InventoryItem {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  sku         String   @unique
+  quantity    Int      @default(0)
+  unit        String   @default("pcs")
+  minStock    Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  logs InventoryLog[]
+}
+
+model InventoryLog {
+  id        String        @id @default(cuid())
+  item      InventoryItem @relation(fields: [itemId], references: [id])
+  itemId    String
+  user      User          @relation(fields: [userId], references: [id])
+  userId    String
+  change    Int // positive = added, negative = used
+  note      String?
+  createdAt DateTime      @default(now())
+
+  @@index([itemId, createdAt])
 }

@@ -182,6 +182,47 @@ exports.Prisma.StatusLogScalarFieldEnum = {
   reason: 'reason'
 };
 
+exports.Prisma.SearchHistoryScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  title: 'title',
+  description: 'description',
+  lat: 'lat',
+  lng: 'lng',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.NotificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  title: 'title',
+  message: 'message',
+  type: 'type',
+  read: 'read',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.InventoryItemScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  sku: 'sku',
+  quantity: 'quantity',
+  unit: 'unit',
+  minStock: 'minStock',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.InventoryLogScalarFieldEnum = {
+  id: 'id',
+  itemId: 'itemId',
+  userId: 'userId',
+  change: 'change',
+  note: 'note',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -239,7 +280,11 @@ exports.Prisma.ModelName = {
   Pole: 'Pole',
   FaultReport: 'FaultReport',
   WorkOrder: 'WorkOrder',
-  StatusLog: 'StatusLog'
+  StatusLog: 'StatusLog',
+  SearchHistory: 'SearchHistory',
+  Notification: 'Notification',
+  InventoryItem: 'InventoryItem',
+  InventoryLog: 'InventoryLog'
 };
 
 /**

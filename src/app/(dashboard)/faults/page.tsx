@@ -1,5 +1,7 @@
 import { getFaultReports } from '@/actions/faults'
+import { getSession } from '@/lib/auth'
 import Link from 'next/link'
+import FaultsClient from './FaultsClient'
 
 const statusBadge: Record<string, string> = {
   OPEN: 'bg-red-50 text-red-600',
@@ -9,7 +11,9 @@ const statusBadge: Record<string, string> = {
 }
 
 export default async function FaultsPage() {
+  const session = await getSession()
   const reports = await getFaultReports()
+  const role = session?.user?.role ?? ''
 
   return (
     <div className="p-6">
@@ -25,6 +29,7 @@ export default async function FaultsPage() {
               <th className="text-left px-4 py-3 text-xs font-medium text-gray-500">Status</th>
               <th className="text-left px-4 py-3 text-xs font-medium text-gray-500">Reported</th>
               <th className="text-left px-4 py-3 text-xs font-medium text-gray-500">Work order</th>
+              <th className="px-4 py-3" />
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-50">
@@ -50,6 +55,15 @@ export default async function FaultsPage() {
                     <span className="text-green-600">Created</span>
                   ) : (
                     <span>None</span>
+                  )}
+                </td>
+                <td className="px-4 py-3">
+                  {report.status === 'OPEN' && (
+                    <FaultsClient
+                      faultReportId={report.id}
+                      role={role}
+                      userId={session?.user?.id}
+                    />
                   )}
                 </td>
               </tr>

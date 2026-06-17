@@ -1,7 +1,7 @@
 'use server'
 
 import prisma from '@/lib/prisma'
-import { FaultType, PoleStatus, ReportStatus } from '@/lib/generated/prisma' // Adjusted to match your previous path, add '/client' back if needed
+import { FaultType, PoleStatus, ReportStatus, WorkOrderStatus } from '@/lib/generated/prisma'
 import { revalidatePath } from 'next/cache'
 
 export async function getFaultReports() {
@@ -57,4 +57,53 @@ export async function closeFaultReport(reportId: string, closedById: string) {
   })
   revalidatePath('/faults')
   return report
+}
+
+export async function fixFaultReport(
+  faultReportId: string,
+  technicianId: string,
+  resolutionNotes: string
+) {
+  const report = await prisma.faultReport.findUnique({
+    where: { id: faultReportId },
+    include: { pole: true },
+  })
+  if (!report) throw new Error('Fault report not found')
+  if (report.status !== ReportStatus.OPEN) throw new Error('Fault report is not open')
+
+  await prisma.workOrder.create({
+    data: {
+      faultReportId,
+      assignedToId: technicianId,
+      assignedById: technicianId,
+      status: WorkOrderStatus.RESOLVED,
+      resolvedAt: new Date(),
+      resolutionNotes,
+    },
+  })
+
+  await prisma.faultReport.update({
+    where: { id: faultReportId },
+    data: { status: ReportStatus.RESOLVED },
+  })
+
+  await prisma.pole.update({
+    where: { id: report.poleId },
+    data: { status: PoleStatus.ACTIVE },
+  })
+
+  await prisma.statusLog.create({
+    data: {
+      poleId: report.poleId,
+      changedById: technicianId,
+      fromStatus: report.pole.status,
+      toStatus: PoleStatus.ACTIVE,
+      reason: `Fault fixed by technician: ${resolutionNotes}`,
+    },
+  })
+
+  revalidatePath('/faults')
+  revalidatePath('/poles')
+  revalidatePath('/workorders')
+  revalidatePath('/')
 }

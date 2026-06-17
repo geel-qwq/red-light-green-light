@@ -1,9 +1,12 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { MapContainer, TileLayer, Marker, ZoomControl, CircleMarker, useMap, useMapEvents } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+import { useSession } from 'next-auth/react';
+import { bulkRegisterOsmPoles } from '@/actions/poles';
+import StreetlightPopup from './StreetlightPopup';
 
 // --- Custom Main Location Marker ---
 const customMarkerIcon = new L.DivIcon({
@@ -34,6 +37,9 @@ function StreetlightLayer() {
   const [lights, setLights] = useState<[number, number][]>([]);
   const [isFetching, setIsFetching] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [selectedLight, setSelectedLight] = useState<[number, number] | null>(null);
+  const [registeringAll, setRegisteringAll] = useState(false);
+  const { data: session } = useSession();
 
   const abortRef = useRef<AbortController | null>(null);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -152,19 +158,59 @@ function StreetlightLayer() {
         </div>
       )}
 
+      {!isFetching && !error && lights.length > 0 && session?.user && (
+        <div className="absolute top-4 right-4 z-[400] flex items-center gap-2">
+          <div className="bg-white px-3 py-1 rounded-full shadow-md text-xs font-bold text-slate-600 border border-slate-200">
+            {lights.length} lights
+          </div>
+          <button
+            onClick={async () => {
+              setRegisteringAll(true);
+              try {
+                await bulkRegisterOsmPoles(
+                  lights.map((l) => ({ lat: l[0], lng: l[1] })),
+                );
+              } finally {
+                setRegisteringAll(false);
+              }
+            }}
+            disabled={registeringAll}
+            className="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md border border-blue-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {registeringAll ? "Registering..." : `Register All`}
+          </button>
+        </div>
+      )}
+
       {lights.map((light, index) => (
         <CircleMarker
           key={`light-${light[0]}-${light[1]}-${index}`}
           center={light}
-          radius={4}
+          radius={session?.user ? 6 : 4}
           pathOptions={{
             color: '#dba65d',
             fillColor: '#FFD700',
             fillOpacity: 0.8,
-            weight: 1,
+            weight: session?.user ? 2 : 1,
           }}
+          eventHandlers={
+            session?.user
+              ? {
+                  click: () => setSelectedLight(light),
+                }
+              : undefined
+          }
+          className={session?.user ? 'cursor-pointer' : ''}
         />
       ))}
+
+      {selectedLight && (
+        <StreetlightPopup
+          lat={selectedLight[0]}
+          lng={selectedLight[1]}
+          onClose={() => setSelectedLight(null)}
+        />
+      )}
     </>
   );
 }

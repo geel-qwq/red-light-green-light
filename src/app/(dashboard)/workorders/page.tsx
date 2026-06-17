@@ -1,4 +1,6 @@
+import { getSession } from '@/lib/auth'
 import { getWorkOrders } from '@/actions/workorders'
+import WorkOrdersClient from './WorkOrdersClient'
 
 const statusBadge: Record<string, string> = {
   PENDING: 'bg-gray-100 text-gray-500',
@@ -9,6 +11,7 @@ const statusBadge: Record<string, string> = {
 }
 
 export default async function WorkOrdersPage() {
+  const session = await getSession()
   const orders = await getWorkOrders()
 
   return (
@@ -25,6 +28,7 @@ export default async function WorkOrdersPage() {
               <th className="text-left px-4 py-3 text-xs font-medium text-gray-500">Status</th>
               <th className="text-left px-4 py-3 text-xs font-medium text-gray-500">Assigned</th>
               <th className="text-left px-4 py-3 text-xs font-medium text-gray-500">Resolved</th>
+              <th className="px-4 py-3" />
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-50">
@@ -36,8 +40,12 @@ export default async function WorkOrdersPage() {
                 <td className="px-4 py-3 text-gray-500 text-xs">
                   {order.faultReport.faultType.replace('_', ' ')}
                 </td>
-                <td className="px-4 py-3 text-gray-700">
-                  {order.assignedTo?.firstName ?? <span className="text-gray-400">Unassigned</span>}
+                <td className="px-4 py-3 text-gray-700 text-xs">
+                  {order.assignedTo ? (
+                    `${order.assignedTo.firstName} ${order.assignedTo.lastName}`
+                  ) : (
+                    <span className="text-gray-400">Unassigned</span>
+                  )}
                 </td>
                 <td className="px-4 py-3">
                   <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${statusBadge[order.status]}`}>
@@ -49,6 +57,14 @@ export default async function WorkOrdersPage() {
                 </td>
                 <td className="px-4 py-3 text-gray-400 text-xs">
                   {order.resolvedAt ? new Date(order.resolvedAt).toLocaleDateString() : '—'}
+                </td>
+                <td className="px-4 py-3">
+                  <WorkOrdersClient
+                    orderId={order.id}
+                    status={order.status}
+                    userId={session?.user?.id}
+                    assignedToId={order.assignedTo?.id}
+                  />
                 </td>
               </tr>
             ))}

@@ -3,6 +3,7 @@
 import  prisma  from '@/lib/prisma'
 import { PoleStatus, ReportStatus, WorkOrderStatus } from '@/lib/generated/prisma'
 import { revalidatePath } from 'next/cache'
+import { createNotification } from './notifications'
 
 export async function getWorkOrders() {
   return prisma.workOrder.findMany({
@@ -25,6 +26,10 @@ export async function createWorkOrder(data: {
       ...data,
       status: data.assignedToId ? WorkOrderStatus.ASSIGNED : WorkOrderStatus.PENDING,
     },
+    include: {
+      faultReport: { include: { pole: true } },
+      assignedTo: { select: { id: true, firstName: true, lastName: true } },
+    },
   })
 
   await prisma.faultReport.update({
@@ -32,8 +37,73 @@ export async function createWorkOrder(data: {
     data: { status: ReportStatus.IN_PROGRESS },
   })
 
+  // Notify assigned technician
+  if (data.assignedToId) {
+    await createNotification({
+      userId: data.assignedToId,
+      title: 'New Work Order Assigned',
+      message: `Work order for ${order.faultReport.pole.poleCode} — ${order.faultReport.faultType.replace('_', ' ')} has been assigned to you.`,
+      type: 'WORK_ORDER',
+    })
+  }
+
   revalidatePath('/workorders')
   revalidatePath('/faults')
+  return order
+}
+
+export async function updateWorkOrderStatus(
+  workOrderId: string,
+  status: 'IN_PROGRESS' | 'RESOLVED',
+  userId: string,
+  resolutionNotes?: string
+) {
+  const order = await prisma.workOrder.findUnique({
+    where: { id: workOrderId },
+    include: { faultReport: { include: { pole: true } } },
+  })
+  if (!order) throw new Error('Work order not found')
+
+  if (status === 'IN_PROGRESS') {
+    await prisma.workOrder.update({
+      where: { id: workOrderId },
+      data: { status: WorkOrderStatus.IN_PROGRESS },
+    })
+  } else if (status === 'RESOLVED') {
+    await prisma.workOrder.update({
+      where: { id: workOrderId },
+      data: {
+        status: WorkOrderStatus.RESOLVED,
+        resolvedAt: new Date(),
+        resolutionNotes: resolutionNotes ?? '',
+      },
+    })
+
+    await prisma.faultReport.update({
+      where: { id: order.faultReportId },
+      data: { status: ReportStatus.RESOLVED },
+    })
+
+    await prisma.pole.update({
+      where: { id: order.faultReport.poleId },
+      data: { status: PoleStatus.ACTIVE },
+    })
+
+    await prisma.statusLog.create({
+      data: {
+        poleId: order.faultReport.poleId,
+        changedById: userId,
+        fromStatus: order.faultReport.pole.status,
+        toStatus: PoleStatus.ACTIVE,
+        reason: `Work order resolved: ${resolutionNotes ?? ''}`,
+      },
+    })
+  }
+
+  revalidatePath('/workorders')
+  revalidatePath('/faults')
+  revalidatePath('/poles')
+  revalidatePath('/')
   return order
 }
 
@@ -42,42 +112,5 @@ export async function resolveWorkOrder(
   resolvedById: string,
   resolutionNotes: string
 ) {
-  const order = await prisma.workOrder.update({
-    where: { id: workOrderId },
-    data: {
-      status: WorkOrderStatus.RESOLVED,
-      resolvedAt: new Date(),
-      resolutionNotes,
-    },
-    include: { faultReport: { include: { pole: true } } },
-  })
-
-  // Close the fault report
-  await prisma.faultReport.update({
-    where: { id: order.faultReportId },
-    data: { status: ReportStatus.RESOLVED },
-  })
-
-  // Flip pole back to ACTIVE
-  await prisma.pole.update({
-    where: { id: order.faultReport.poleId },
-    data: { status: PoleStatus.ACTIVE },
-  })
-
-  // Audit log
-  await prisma.statusLog.create({
-    data: {
-      poleId: order.faultReport.poleId,
-      changedById: resolvedById,
-      fromStatus: order.faultReport.pole.status,
-      toStatus: PoleStatus.ACTIVE,
-      reason: `Work order resolved: ${resolutionNotes}`,
-    },
-  })
-
-  revalidatePath('/workorders')
-  revalidatePath('/faults')
-  revalidatePath('/poles')
-  revalidatePath('/')
-  return order
+  return updateWorkOrderStatus(workOrderId, 'RESOLVED', resolvedById, resolutionNotes)
 }

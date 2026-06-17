@@ -21,6 +21,7 @@ export async function updateUserRole(userId: string, newRole: string) {
   })
 
   revalidatePath('/superadmin/dashboard')
+  revalidatePath('/superadmin/users')
   revalidatePath('/admin/dashboard')
   revalidatePath('/dashboard')
 }

@@ -4,6 +4,7 @@ import prisma from '@/lib/prisma'
 import UserStatsRow from './_components/UserStatsRow'
 import MyReportsTable from './_components/MyReportsTable'
 import MyRecentActivity from './_components/MyRecentActivity'
+import { Hand } from 'lucide-react'
 
 async function getUserData(userId: string) {
   const [myReports, openReports, resolvedReports, recentReports, recentActivity] = await Promise.all([
@@ -42,7 +43,7 @@ export default async function UserDashboardPage() {
     <div className="p-8 space-y-8 max-w-[1200px]">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Hi, {firstName} 👋</h1>
+        <h1 className="text-2xl font-bold text-gray-900 inline-flex items-center gap-2">Hi, {firstName} <Hand className="w-6 h-6" /></h1>
         <p className="text-sm text-gray-500 mt-1">
           Here's a summary of your reported issues and their current status.
         </p>
