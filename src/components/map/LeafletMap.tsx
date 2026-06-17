@@ -155,9 +155,8 @@ function StreetlightLayer() {
       )}
 
       {lights.map((light, index) => (
-        <div className="flex-grow flex items-center">
+        <div key={`light-${light[0]}-${light[1]}-${index}`} className="flex-grow flex items-center">
           <CircleMarker
-            key={`light-${light[0]}-${light[1]}-${index}`}
             center={light}
             radius={4}
             pathOptions={{
@@ -177,9 +176,10 @@ function StreetlightLayer() {
 // --- Main Map Component ---
 interface LeafletMapProps {
   targetLocation?: [number, number] | null;
+  onMarkerClick?: () => void;
 }
 
-export default function LeafletMap({ targetLocation }: LeafletMapProps) {
+export default function LeafletMap({ targetLocation, onMarkerClick }: LeafletMapProps) {
   const defaultCenter: [number, number] = [14.6507, 120.9842];
 
   // Generate a unique map key based on coordinates or initialization.
@@ -233,6 +233,7 @@ export default function LeafletMap({ targetLocation }: LeafletMapProps) {
           eventHandlers={{
             click: () => {
               setShowDetails(true);
+              onMarkerClick?.();
             },
           }}
         />

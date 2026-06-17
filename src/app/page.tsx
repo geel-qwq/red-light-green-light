@@ -397,21 +397,32 @@ export default function Page() {
 
   // Click outside click trap routines
   useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
-        setShowSuggestions(false);
-        setIsFilterOpen(false);
-      }
-      if (recentPanelRef.current && !recentPanelRef.current.contains(e.target as Node)) {
-        setIsRecentOpen(false);
-      }
-      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
-        setIsMenuOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  const handleClickOutside = (e: MouseEvent) => {
+    const target = e.target as HTMLElement;
+
+    // Ignore Leaflet map interactions
+    if (target.closest(".leaflet-container")) {
+      return;
+    }
+
+    if (containerRef.current && !containerRef.current.contains(target)) {
+      setShowSuggestions(false);
+      setIsFilterOpen(false);
+    }
+
+    if (recentPanelRef.current && !recentPanelRef.current.contains(target)) {
+      setIsRecentOpen(false);
+    }
+
+    if (menuRef.current && !menuRef.current.contains(target)) {
+      setIsMenuOpen(false);
+    }
+  };
+
+  document.addEventListener("mousedown", handleClickOutside);
+
+  return () => document.removeEventListener("mousedown", handleClickOutside);
+}, []);
 
   const selectResult = (result: SearchResult) => {
     const lat = parseFloat(result.lat);
@@ -595,7 +606,7 @@ export default function Page() {
 
       {/* 2. MAIN MAP PAGE SPACE */}
       <main className="flex-1 relative flex flex-col">
-        <Map targetLocation={searchedLocation} />
+        <Map targetLocation={searchedLocation} onMarkerClick={() => setShowSuggestions(false)}/>
 
         {/* TOP SYSTEM LOGO NAVIGATION BAR */}
         <header className="absolute top-0 left-0 w-full h-auto bg-brand-blue/90 backdrop-blur-[0.5px] z-30 flex justify-between items-center px-8 border-b border-[#2f4383]/50 pointer-events-auto">
@@ -677,9 +688,9 @@ export default function Page() {
 
         {/* FLOATING MAP CONTROLS CODES */}
         <div className="absolute inset-0 z-10 pointer-events-none mt-[70px]">
-          <div ref={containerRef} className="absolute top-4 left-6 pointer-events-auto w-[750px]">
+          <div ref={containerRef} className="absolute top-4 left-6 pointer-events-auto w-[480px] transition-all duration-300 hover:w-[650px]">
             <div className="relative flex items-center w-full bg-white rounded-[20px] shadow-sm border border-slate-300 px-3 py-2">
-              <div className="hover:grow flex items-center">
+              <div className="flex items-center flex-1">
                 <input
                   type="text"
                   placeholder={isSearching ? "Searching..." : "Search Location"}
@@ -687,7 +698,7 @@ export default function Page() {
                   onChange={(e) => setSearchInput(e.target.value)}
                   onKeyDown={handleKeyDown}
                   onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
-                  className="w-full bg-transparent outline-none text-gray-800 placeholder:text-gray-400 text-[15px] font-medium"
+                  className="flex-1 bg-transparent outline-none text-gray-800 placeholder:text-gray-400 text-[15px] font-medium"
                 />
                 <div className="w-[1px] h-6 bg-slate-300 mx-3 shrink-0"></div>
               </div>
@@ -731,7 +742,12 @@ export default function Page() {
             </div>
 
             {showSuggestions && suggestions.length > 0 && (
-              <div className="mt-3 flex flex-col gap-3">
+              <div
+                className={`mt-3 flex flex-col gap-3 transition-all duration-200 ease-out ${showSuggestions && suggestions.length > 0
+                    ? "opacity-100 translate-y-0 pointer-events-auto"
+                    : "opacity-0 -translate-y-2 pointer-events-none"
+                  }`}
+              >
                 {suggestions.map((result, index) => {
                   const addressParts = result.display_name.split(",");
                   const mainTitle = addressParts[0].toUpperCase();
@@ -742,7 +758,7 @@ export default function Page() {
                     <button
                       key={result.place_id}
                       onClick={() => selectResult(result)}
-                      className="flex items-center gap-5 w-full text-left p-4 bg-white rounded-2xl shadow-sm border border-slate-300 hover:shadow-md hover:border-slate-400 transition-all"
+                      className="flex items-center gap-5 w-full text-left p-4 bg-white rounded-2xl shadow-sm border border-slate-300 hover:shadow-md hover:border-slate-400 hover:bg-gray-300 transition-all hover:cursor-pointer"
                     >
                       <StreetLampIcon hasWarning={showWarning} />
                       <div className="flex flex-col pr-2">
