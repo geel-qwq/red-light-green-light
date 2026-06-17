@@ -155,17 +155,20 @@ function StreetlightLayer() {
       )}
 
       {lights.map((light, index) => (
-        <CircleMarker
-          key={`light-${light[0]}-${light[1]}-${index}`}
-          center={light}
-          radius={4}
-          pathOptions={{
-            color: '#dba65d',
-            fillColor: '#FFD700',
-            fillOpacity: 0.8,
-            weight: 1,
-          }}
-        />
+        <div className="flex-grow flex items-center">
+          <CircleMarker
+            key={`light-${light[0]}-${light[1]}-${index}`}
+            center={light}
+            radius={4}
+            pathOptions={{
+              color: '#dba65d',
+              fillColor: '#FFD700',
+              fillOpacity: 0.8,
+              weight: 1,
+            }}
+          />
+          <div className="w-[1px] h-6 bg-slate-300 mx-3 flex-shrink-0"></div>
+        </div>
       ))}
     </>
   );

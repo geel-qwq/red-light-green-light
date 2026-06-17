@@ -679,9 +679,7 @@ export default function Page() {
         <div className="absolute inset-0 z-10 pointer-events-none mt-[70px]">
           <div ref={containerRef} className="absolute top-4 left-6 pointer-events-auto w-[750px]">
             <div className="relative flex items-center w-full bg-white rounded-[20px] shadow-sm border border-slate-300 px-3 py-2">
-              <div className="flex-grow flex items-center">
-                <Search className="w-5 h-5 text-gray-500 ml-1 flex-shrink-0" />
-                <div className="w-[1px] h-6 bg-slate-300 mx-3 flex-shrink-0"></div>
+              <div className="hover:grow flex items-center">
                 <input
                   type="text"
                   placeholder={isSearching ? "Searching..." : "Search Location"}
@@ -691,6 +689,7 @@ export default function Page() {
                   onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
                   className="w-full bg-transparent outline-none text-gray-800 placeholder:text-gray-400 text-[15px] font-medium"
                 />
+                <div className="w-[1px] h-6 bg-slate-300 mx-3 shrink-0"></div>
               </div>
 
               <div className="flex items-center gap-2 ml-4 flex-shrink-0">
