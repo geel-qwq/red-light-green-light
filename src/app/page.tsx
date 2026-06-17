@@ -688,7 +688,7 @@ export default function Page() {
 
         {/* FLOATING MAP CONTROLS CODES */}
         <div className="absolute inset-0 z-10 pointer-events-none mt-[70px]">
-          <div ref={containerRef} className="absolute top-4 left-6 pointer-events-auto w-[480px] transition-all duration-300 hover:w-[650px]">
+          <div ref={containerRef} className="absolute top-4 left-6 pointer-events-auto w-[480px] transition-all duration-300 hover:w-[650px] hover:cursor-pointer">
             <div className="relative flex items-center w-full bg-white rounded-[20px] shadow-sm border border-slate-300 px-3 py-2">
               <div className="flex items-center flex-1">
                 <input
