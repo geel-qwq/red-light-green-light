@@ -8,13 +8,13 @@
     "start": "next start",
     "lint": "next lint",
     "db:push": "prisma db push",
-    "db:seed": "ts-node --compiler-options \"{\\\"module\\\":\\\"CommonJS\\\"}\" prisma/seed.ts",
+    "db:seed": "tsx prisma/seed.ts",
     "db:studio": "prisma studio",
     "db:generate": "prisma generate"
   },
   "dependencies": {
     "@openrouter/sdk": "^0.12.79",
-     "@prisma/client-runtime-utils": "7.8.0",
+    "@prisma/client-runtime-utils": "7.8.0",
     "@prisma/adapter-pg": "^7.8.0",
     "@tailwindcss/postcss": "^4.3.0",
     "bcryptjs": "^2.4.3",
