@@ -155,8 +155,8 @@ function StreetlightLayer() {
       )}
 
       {lights.map((light, index) => (
-        <div key={`light-${light[0]}-${light[1]}-${index}`} className="flex-grow flex items-center">
           <CircleMarker
+          key={`light-${light[0]}-${light[1]}-${index}`}
             center={light}
             radius={4}
             pathOptions={{
@@ -166,8 +166,6 @@ function StreetlightLayer() {
               weight: 1,
             }}
           />
-          <div className="w-[1px] h-6 bg-slate-300 mx-3 flex-shrink-0"></div>
-        </div>
       ))}
     </>
   );
