@@ -19,7 +19,7 @@ export default async function DashboardLayout({
       <MobileSidebarToggle />
 
       {/* Sidebar */}
-      <aside id="dashboard-sidebar" className="fixed -translate-x-full md:relative md:translate-x-0 w-56 bg-white border-r border-gray-100 flex flex-col justify-between z-40 transition-transform duration-200 md:min-h-screen">
+      <aside id="dashboard-sidebar" className="fixed -translate-x-full md:relative md:translate-x-0 w-72 md:w-56 bg-white border-r border-gray-100 flex flex-col justify-between z-40 transition-transform duration-200 md:min-h-screen">
         <div className="flex flex-col flex-1">
           {/* Header */}
           <div className="px-6 py-5 border-b border-gray-100">

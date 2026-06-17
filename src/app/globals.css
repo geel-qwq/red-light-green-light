@@ -49,3 +49,22 @@
     }
   }
 }
+
+/* Responsive table wrapper - ensures tables scroll horizontally on mobile */
+.table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Improve touch target sizes on mobile */
+@media (max-width: 640px) {
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Ensure buttons and interactive elements are large enough to tap */
+  button, a, select, input[type="checkbox"], input[type="radio"] {
+    cursor: pointer;
+  }
+}

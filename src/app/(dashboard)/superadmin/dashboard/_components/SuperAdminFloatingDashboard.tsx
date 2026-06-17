@@ -45,7 +45,7 @@ export default function SuperAdminFloatingDashboard({
           </p>
         </div>
 
-        <div className="grid grid-cols-3 gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mb-6">
           <div className="bg-white border border-blue-100 rounded-xl p-4 flex flex-col gap-2">
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Total Users</span>
             <span className="text-3xl font-black text-blue-600">{stats.totalUsers}</span>
@@ -73,7 +73,7 @@ export default function SuperAdminFloatingDashboard({
 
         <div className="border-t border-gray-100 mb-5" />
 
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
           <div className="bg-white border border-amber-100 rounded-xl p-4 flex flex-col gap-2">
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Pending Work Orders</span>
             <span className="text-3xl font-black text-amber-500">{stats.pendingWorkOrders}</span>

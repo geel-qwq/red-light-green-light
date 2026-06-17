@@ -547,6 +547,10 @@ export default function Page() {
                     return (
                       <button
                         key={idx}
+                        onClick={() => {
+                          if (item.route) router.push(item.route);
+                          setIsMenuOpen(false);
+                        }}
                         className="flex items-center gap-3 px-4 py-2.5 w-full text-left text-[14px] font-medium text-gray-700 hover:bg-[#dba65d] hover:text-white transition-colors group"
                       >
                         <Icon className="w-4 h-4 text-gray-400 group-hover:text-white transition-colors" />
@@ -642,13 +646,12 @@ export default function Page() {
         <Map targetLocation={searchedLocation} onMarkerClick={() => setShowSuggestions(false)}/>
 
         {/* TOP SYSTEM LOGO NAVIGATION BAR */}
-        <header className="absolute top-0 left-0 w-full h-auto bg-brand-blue/90 backdrop-blur-[0.5px] z-30 flex justify-between items-center px-4 sm:px-8 border-b border-[#2f4383]/50 pointer-events-auto">
-          <div className="-ml-5 flex justify-center">
-            <Logo className="mt-3 w-auto h-[44px]" />
-            {/* ilLUMENate */}
+        <header className="absolute top-0 left-0 w-full h-auto bg-brand-blue/90 backdrop-blur-[0.5px] z-30 flex justify-between items-center px-2 sm:px-8 border-b border-[#2f4383]/50 pointer-events-auto">
+          <div className="-ml-5 flex items-center justify-center">
+            <Logo className="w-auto h-[32px] sm:h-[44px]" />
             <div className="flex flex-col">
               <h1
-                className="w-auto max-w-118 mx-auto text-[42px] font-koulen text-white text-center select-none"
+                className="w-auto mx-auto text-[24px] sm:text-[32px] md:text-[42px] font-koulen text-white text-center select-none leading-tight"
                 style={{
                   textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
                   WebkitTextStrokeWidth: "1px",
@@ -659,21 +662,20 @@ export default function Page() {
                 il<span className="text-[#F4D35E]">lumen</span>ate
               </h1>
             </div>
-            {/* REAL-TIME CLIENT-SIDE REVERSE GEOLOCATION NODE FIELD TEXT DISPLAY */}
-            <p className="text-[11px] text-amber-300 font-bold tracking-wider uppercase pl-1 flex items-center gap-1">
+            <p className="hidden md:flex text-[11px] text-amber-300 font-bold tracking-wider uppercase pl-1 items-center gap-1">
               <span className="ml-5 mr-2 w-1.5 h-1.5 bg-emerald-400 rounded-full animate-ping" />
               Location Context: {gpsLocation}
             </p>
           </div>
           {!sessionUser && (
-          <div className="flex items-center gap-2 sm:gap-4">
+          <div className="flex items-center gap-1 sm:gap-4">
             <Link href={"/login"}>
-              <button className="cursor-pointer px-4 sm:px-8 py-2 sm:py-2.5 rounded-full font-bold text-[12px] sm:text-[14px] text-[#dba65d] bg-white hover:bg-gray-100 transition-colors shadow-md">
+              <button className="cursor-pointer px-3 sm:px-8 py-1.5 sm:py-2.5 rounded-full font-bold text-[11px] sm:text-[14px] text-[#dba65d] bg-white hover:bg-gray-100 transition-colors shadow-md whitespace-nowrap">
                 Login
               </button>
             </Link>
             <Link href={"/register"}>
-              <button className="cursor-pointer px-4 sm:px-8 py-2 sm:py-2.5 rounded-full font-bold text-[12px] sm:text-[14px] text-white bg-[#dba65d] hover:bg-[#c59553] transition-colors shadow-md">
+              <button className="cursor-pointer px-3 sm:px-8 py-1.5 sm:py-2.5 rounded-full font-bold text-[11px] sm:text-[14px] text-white bg-[#dba65d] hover:bg-[#c59553] transition-colors shadow-md whitespace-nowrap">
                 Sign Up
               </button>
            </Link>
@@ -685,21 +687,21 @@ export default function Page() {
         {isRecentOpen && (
           <div
             ref={recentPanelRef}
-            className="absolute top-[70px] left-0 bottom-0 w-full sm:w-[420px] bg-white z-20 shadow-[8px_0_24px_rgba(0,0,0,0.15)] flex flex-col animate-in slide-in-from-left-8 duration-200"
+            className="absolute top-[60px] sm:top-[70px] left-0 bottom-0 w-full sm:w-[420px] bg-white z-20 shadow-[8px_0_24px_rgba(0,0,0,0.15)] flex flex-col animate-in slide-in-from-left-8 duration-200"
           >
-            <div className="flex items-center justify-between px-8 py-6 border-b border-gray-200/80">
-              <h2 className="text-2xl font-bold text-gray-900 tracking-tight">Recent Activities</h2>
+            <div className="flex items-center justify-between px-4 sm:px-8 py-4 sm:py-6 border-b border-gray-200/80">
+              <h2 className="text-lg sm:text-2xl font-bold text-gray-900 tracking-tight">Recent Activities</h2>
               <button
                 onClick={() => setIsRecentOpen(false)}
                 className="p-1 rounded-full text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors"
               >
-                <X className="w-6 h-6" />
+                <X className="w-5 h-5 sm:w-6 sm:h-6" />
               </button>
             </div>
 
-            <div className="flex-1 overflow-y-auto p-6 flex flex-col gap-4">
+            <div className="flex-1 overflow-y-auto p-4 sm:p-6 flex flex-col gap-3 sm:gap-4">
               {recentActivities.map((activity) => (
-                <div key={activity.id} className="relative bg-white border border-gray-200 rounded-xl p-5 shadow-sm mb-4">
+                <div key={activity.id} className="relative bg-white border border-gray-200 rounded-xl p-4 sm:p-5 shadow-sm mb-3 sm:mb-4">
                   <button
                     onClick={() => handleDeleteActivity(activity.id)}
                     className="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition-colors"
@@ -723,7 +725,7 @@ export default function Page() {
 
         {/* FLOATING MAP CONTROLS CODES */}
         <div className="absolute inset-0 z-10 pointer-events-none mt-[70px]">
-          <div ref={containerRef} className="absolute top-4 left-4 right-4 md:left-6 md:right-auto pointer-events-auto md:w-[480px] transition-all duration-300 hover:w-[650px] hover:cursor-pointer">
+          <div ref={containerRef} className="absolute top-2 sm:top-4 left-2 right-2 sm:left-4 sm:right-4 md:left-6 md:right-auto pointer-events-auto sm:w-[90vw] md:w-[480px] md:hover:w-[650px] transition-all duration-300">
             <div className="relative flex items-center w-full bg-white rounded-[20px] shadow-sm border border-slate-300 px-3 py-2">
               <div className="flex items-center flex-1">
                 <input
@@ -733,29 +735,20 @@ export default function Page() {
                   onChange={(e) => setSearchInput(e.target.value)}
                   onKeyDown={handleKeyDown}
                   onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
-                  className="flex-1 bg-transparent outline-none text-gray-800 placeholder:text-gray-400 text-[15px] font-medium"
+                  className="flex-1 bg-transparent outline-none text-gray-800 placeholder:text-gray-400 text-[14px] sm:text-[15px] font-medium"
                 />
-                <div className="w-[1px] h-6 bg-slate-300 mx-3 shrink-0"></div>
               </div>
 
-              <div className="hidden sm:flex items-center gap-2 ml-4 flex-shrink-0">
-                <button
-                  onClick={() => setIsFilterOpen(!isFilterOpen)}
-                  className="flex items-center gap-1.5 px-4 py-1.5 bg-white text-gray-700 rounded-full border border-gray-300 hover:bg-slate-50 transition-colors"
-                >
-                  <Filter className="w-4 h-4" />
-                  <span className="text-sm font-medium">Filter</span>
-                </button>
-                <button className="px-4 py-1.5 bg-white text-gray-700 rounded-full border border-gray-300 hover:bg-slate-50 transition-colors text-sm font-medium">
-                  Barangay
-                </button>
-                <button className="px-4 py-1.5 bg-white text-gray-700 rounded-full border border-gray-300 hover:bg-slate-50 transition-colors text-sm font-medium">
-                  Street
-                </button>
-              </div>
+              <button
+                onClick={() => setIsFilterOpen(!isFilterOpen)}
+                className="ml-2 flex items-center gap-1 px-3 py-1.5 bg-white text-gray-700 rounded-full border border-gray-300 hover:bg-slate-50 transition-colors shrink-0"
+              >
+                <Filter className="w-4 h-4" />
+                <span className="hidden sm:inline text-sm font-medium">Filter</span>
+              </button>
 
               {isFilterOpen && (
-                <div className="absolute top-[110%] left-0 sm:left-auto sm:right-[140px] w-56 bg-white rounded-xl shadow-lg border border-slate-200 py-2 z-50">
+                <div className="absolute top-[110%] left-0 sm:left-auto sm:right-0 w-56 bg-white rounded-xl shadow-lg border border-slate-200 py-2 z-50">
                   <button onClick={() => setIsFilterOpen(false)} className="w-full flex items-center gap-3 px-4 py-2 hover:bg-slate-50 text-gray-700 border-b border-slate-100">
                     <X className="w-4 h-4" />
                     <span className="text-sm">Clear Filter</span>
@@ -793,12 +786,14 @@ export default function Page() {
                     <button
                       key={result.place_id}
                       onClick={() => selectResult(result)}
-                      className="flex items-center gap-5 w-full text-left p-4 bg-white rounded-2xl shadow-sm border border-slate-300 hover:shadow-md hover:border-slate-400 hover:bg-gray-300 transition-all hover:cursor-pointer"
+                      className="flex items-center gap-3 sm:gap-5 w-full text-left p-3 sm:p-4 bg-white rounded-2xl shadow-sm border border-slate-300 hover:shadow-md hover:border-slate-400 hover:bg-gray-300 transition-all hover:cursor-pointer"
                     >
-                      <StreetLampIcon hasWarning={showWarning} />
-                      <div className="flex flex-col pr-2">
-                        <span className="text-xl font-medium text-gray-900 tracking-wide">{mainTitle}</span>
-                        <span className="text-[13px] text-gray-800 font-medium leading-snug mt-1">{subAddress}</span>
+                      <div className="hidden sm:block flex-shrink-0">
+                        <StreetLampIcon hasWarning={showWarning} />
+                      </div>
+                      <div className="flex flex-col pr-2 min-w-0">
+                        <span className="text-base sm:text-xl font-medium text-gray-900 tracking-wide truncate">{mainTitle}</span>
+                        <span className="text-[12px] sm:text-[13px] text-gray-800 font-medium leading-snug mt-1 line-clamp-2">{subAddress}</span>
                       </div>
                     </button>
                   );
@@ -809,11 +804,10 @@ export default function Page() {
 
           {/* --- NEW FLOATING SYSTEM METRICS MODAL GLASS OVERLAY CONTROLLER --- */}
           {isOverviewOpen && (effectiveRole === "admin" || effectiveRole === "superadmin") && (
-            <div className="absolute inset-0 z-50 pointer-events-auto flex items-center justify-center p-4 md:p-8 animate-in fade-in duration-200">
-              {/* Clicking outside the modal dashboard card cancels it */}
+            <div className="absolute inset-0 z-50 pointer-events-auto flex items-center justify-center p-2 sm:p-4 md:p-8 animate-in fade-in duration-200">
               <div className="absolute inset-0" onClick={() => setIsOverviewOpen(false)} />
 
-              <div className="relative z-10 w-[90vw] max-w-6xl h-[80vh] bg-white/95 border border-white rounded-[24px] shadow-[0_20px_50px_rgba(0,0,0,0.3)] flex flex-col p-6 md:p-8 overflow-y-auto">
+              <div className="relative z-10 w-full sm:w-[95vw] md:w-[90vw] max-w-6xl h-[85vh] sm:h-[80vh] bg-white/95 border border-white rounded-[16px] sm:rounded-[24px] shadow-[0_20px_50px_rgba(0,0,0,0.3)] flex flex-col p-4 sm:p-6 md:p-8 overflow-y-auto">
 
                 {/* Dismiss Modal Trigger Button */}
                 <button
@@ -884,9 +878,9 @@ export default function Page() {
           )}
 
           {/* FLOATING AI TELEMETRY COPILOT PANEL */}
-          <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-13 pointer-events-auto flex flex-col items-end z-40">
+          <div className="absolute bottom-4 right-2 sm:right-4 sm:bottom-6 sm:right-13 pointer-events-auto flex flex-col items-end z-40">
             {isChatOpen && (
-              <div className="w-[calc(100vw-2rem)] sm:w-[380px] h-[480px] bg-white rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.15)] border border-slate-200 flex flex-col mb-4 overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-200">
+              <div className="w-[calc(100vw-1rem)] sm:w-[380px] h-[50vh] sm:h-[480px] bg-white rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.15)] border border-slate-200 flex flex-col mb-4 overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-200">
                 <div className="bg-[#2f4383] text-white px-5 py-4 flex items-center justify-between">
                   <div className="flex items-center gap-2.5">
                     <div className="p-1.5 bg-white/10 rounded-lg">

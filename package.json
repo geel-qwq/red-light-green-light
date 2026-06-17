@@ -14,8 +14,8 @@
   },
   "dependencies": {
     "@openrouter/sdk": "^0.12.79",
-    "@prisma/client-runtime-utils": "7.8.0",
     "@prisma/adapter-pg": "^7.8.0",
+    "@prisma/client-runtime-utils": "7.8.0",
     "@tailwindcss/postcss": "^4.3.0",
     "bcryptjs": "^2.4.3",
     "dotenv": "^17.4.2",
@@ -27,7 +27,8 @@
     "react": "^18",
     "react-dom": "^18",
     "react-leaflet": "^4.2.1",
-    "react-markdown": "^10.1.0"
+    "react-markdown": "^10.1.0",
+    "resend": "^6.12.4"
   },
   "devDependencies": {
     "@prisma/client": "^7.8.0",

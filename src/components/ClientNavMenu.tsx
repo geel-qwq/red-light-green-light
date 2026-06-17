@@ -185,7 +185,7 @@ export default function ClientNavMenu({ userRole, userName }: Props) {
         {isNotifOpen && (
           <>
             <div className="fixed inset-0 z-40" onClick={() => setIsNotifOpen(false)} />
-            <div className="fixed bottom-auto left-1/2 -translate-x-1/2 md:left-auto md:right-4 md:translate-x-0 md:bottom-auto md:top-20 w-[calc(100vw-2rem)] sm:w-80 bg-white rounded-xl shadow-xl border border-gray-100 z-50 max-h-96 flex flex-col">
+            <div className="fixed bottom-auto left-1/2 -translate-x-1/2 md:left-auto md:right-4 md:translate-x-0 md:bottom-auto md:top-20 w-[calc(100vw-1rem)] sm:w-80 bg-white rounded-xl shadow-xl border border-gray-100 z-50 max-h-96 flex flex-col">
               <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
                 <span className="text-sm font-semibold text-gray-700">Notifications</span>
                 {unreadCount > 0 && (
@@ -224,9 +224,9 @@ export default function ClientNavMenu({ userRole, userName }: Props) {
 
       {/* System Overview Modal */}
       {isOverviewOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4">
           <div className="absolute inset-0" onClick={() => setIsOverviewOpen(false)} />
-          <div className="relative z-10 w-[90vw] max-w-6xl h-[80vh] bg-white rounded-[24px] shadow-2xl flex flex-col p-6 md:p-8 overflow-y-auto">
+          <div className="relative z-10 w-full sm:w-[95vw] md:w-[90vw] max-w-6xl h-[85vh] sm:h-[80vh] bg-white rounded-[16px] sm:rounded-[24px] shadow-2xl flex flex-col p-4 sm:p-6 md:p-8 overflow-y-auto">
             <button
               onClick={() => setIsOverviewOpen(false)}
               className="absolute top-6 right-6 text-gray-400 hover:text-gray-700 bg-gray-100 hover:bg-gray-200 w-8 h-8 flex items-center justify-center rounded-full transition-colors cursor-pointer"

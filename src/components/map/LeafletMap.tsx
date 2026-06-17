@@ -95,17 +95,28 @@ function StreetlightLayer({ onLightClick, selectedLight }: StreetlightLayerProps
   const [error,        setError]        = useState<string | null>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
-  const abortRef    = useRef<AbortController | null>(null);
-  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const abortRef       = useRef<AbortController | null>(null);
+  const debounceRef    = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const cooldownRef    = useRef<number>(0);
+  const lastBboxRef    = useRef<string>('');
 
   const ENDPOINTS = [
     'https://overpass-api.de/api/interpreter',
     'https://overpass.kumi.systems/api/interpreter',
-    'https://overpass.openstreetmap.ru/api/interpreter',
   ];
 
   const fetchLights = async (map: L.Map) => {
-    if (map.getZoom() < 15) { setLights([]); setError(null); return; }
+    const zoom = map.getZoom();
+    if (zoom < 14) { setLights([]); setError(null); return; }
+
+    const bounds = map.getBounds();
+    const dec = zoom >= 17 ? 5 : zoom >= 15 ? 4 : 3;
+    const bbox = `${bounds.getSouth().toFixed(dec)},${bounds.getWest().toFixed(dec)},${bounds.getNorth().toFixed(dec)},${bounds.getEast().toFixed(dec)}`;
+
+    if (bbox === lastBboxRef.current) return;
+    lastBboxRef.current = bbox;
+
+    if (Date.now() < cooldownRef.current) return;
 
     abortRef.current?.abort();
     const controller = new AbortController();
@@ -114,28 +125,25 @@ function StreetlightLayer({ onLightClick, selectedLight }: StreetlightLayerProps
     setIsFetching(true);
     setError(null);
 
-    const bounds = map.getBounds();
-    const bbox   = `${bounds.getSouth()},${bounds.getWest()},${bounds.getNorth()},${bounds.getEast()}`;
-
-    const query = `
-      [out:json][timeout:25];
-      (
-        node["highway"="street_lamp"](${bbox});
-        node["man_made"="street_lamp"](${bbox});
-        node["amenity"="street_lamp"](${bbox});
-        way["lit"="yes"]["highway"](${bbox});
-      );
-      out body geom;
-    `;
+    const query = `[out:json][timeout:10];(node["highway"="street_lamp"](${bbox});node["man_made"="street_lamp"](${bbox});node["amenity"="street_lamp"](${bbox});way["lit"="yes"]["highway"](${bbox}););out body geom;`;
 
     for (const endpoint of ENDPOINTS) {
+      if (controller.signal.aborted) return;
       try {
-        const res  = await fetch(`${endpoint}?data=${encodeURIComponent(query)}`, { signal: controller.signal });
-        if (!res.ok) throw new Error(`Status ${res.status}`);
-
-        const data = await res.json();
+        const res = await fetch(`${endpoint}?data=${encodeURIComponent(query)}`, {
+          signal: controller.signal,
+          headers: { 'User-Agent': 'ilLUMENate/1.0 (municipal lighting map)' },
+        });
+        if (res.status === 429) {
+          cooldownRef.current = Date.now() + 30000;
+          continue;
+        }
+        if (!res.ok) continue;
+        const text = await res.text();
+        let data: any;
+        try { data = JSON.parse(text); } catch { continue; }
+        if (!data?.elements) continue;
         const fetched: OsmLight[] = [];
-
         for (const el of data.elements) {
           if (el.type === 'node' && typeof el.lat === 'number' && typeof el.lon === 'number') {
             fetched.push({ position: [el.lat, el.lon], status: 'ACTIVE' });
@@ -145,30 +153,28 @@ function StreetlightLayer({ onLightClick, selectedLight }: StreetlightLayerProps
             });
           }
         }
-
         setLights(fetched);
         setIsFetching(false);
         return;
       } catch (err: any) {
         if (err.name === 'AbortError') return;
-        console.warn(`Overpass endpoint failed (${endpoint}):`, err);
       }
     }
 
     setIsFetching(false);
-    setError('Could not load streetlight data right now.');
   };
 
   const map = useMapEvents({
     moveend: () => {
       if (debounceRef.current) clearTimeout(debounceRef.current);
-      debounceRef.current = setTimeout(() => fetchLights(map), 500);
+      debounceRef.current = setTimeout(() => fetchLights(map), 800);
     },
   });
 
   useEffect(() => {
-    fetchLights(map);
+    const timer = setTimeout(() => fetchLights(map), 500);
     return () => {
+      clearTimeout(timer);
       abortRef.current?.abort();
       if (debounceRef.current) clearTimeout(debounceRef.current);
     };

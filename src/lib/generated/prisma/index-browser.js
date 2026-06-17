@@ -192,6 +192,15 @@ exports.Prisma.SearchHistoryScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.PasswordResetTokenScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  token: 'token',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  usedAt: 'usedAt'
+};
+
 exports.Prisma.NotificationScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -282,6 +291,7 @@ exports.Prisma.ModelName = {
   WorkOrder: 'WorkOrder',
   StatusLog: 'StatusLog',
   SearchHistory: 'SearchHistory',
+  PasswordResetToken: 'PasswordResetToken',
   Notification: 'Notification',
   InventoryItem: 'InventoryItem',
   InventoryLog: 'InventoryLog'
