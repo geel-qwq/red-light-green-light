@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import ClientNavMenu from "@/components/ClientNavMenu";
 import LocationDisplay from "@/components/LocationDisplay";
+import MobileSidebarToggle from "@/components/MobileSidebarToggle";
 
 export default async function DashboardLayout({
   children,
@@ -14,8 +15,11 @@ export default async function DashboardLayout({
 
   return (
     <div className="flex min-h-screen bg-gray-50">
+      {/* Mobile sidebar toggle */}
+      <MobileSidebarToggle />
+
       {/* Sidebar */}
-      <aside className="w-56 bg-white border-r border-gray-100 flex flex-col justify-between">
+      <aside id="dashboard-sidebar" className="fixed -translate-x-full md:relative md:translate-x-0 w-56 bg-white border-r border-gray-100 flex flex-col justify-between z-40 transition-transform duration-200 md:min-h-screen">
         <div className="flex flex-col flex-1">
           {/* Header */}
           <div className="px-6 py-5 border-b border-gray-100">
@@ -33,8 +37,11 @@ export default async function DashboardLayout({
         </div>
       </aside>
 
+      {/* Mobile overlay */}
+      <div id="sidebar-overlay" className="fixed inset-0 bg-black/30 z-30 hidden md:hidden" />
+
       {/* Main content */}
-      <main className="flex-1 overflow-auto">{children}</main>
+      <main id="main-content" className="flex-1 overflow-auto min-w-0">{children}</main>
     </div>
   );
 }

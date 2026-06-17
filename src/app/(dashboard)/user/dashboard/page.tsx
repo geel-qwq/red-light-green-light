@@ -40,7 +40,7 @@ export default async function UserDashboardPage() {
   const firstName = session.user.name?.split(' ')[0] ?? 'there'
 
   return (
-    <div className="p-8 space-y-8 max-w-[1200px]">
+    <div className="p-4 sm:p-8 space-y-8 max-w-[1200px]">
       {/* Header */}
       <div>
         <h1 className="text-2xl font-bold text-gray-900 inline-flex items-center gap-2">Hi, {firstName} <Hand className="w-6 h-6" /></h1>

@@ -76,7 +76,7 @@ export default async function AdminDashboard() {
   const data = await getAdminData()
 
   return (
-    <div className="p-8 space-y-8 max-w-[1400px]">
+    <div className="p-4 sm:p-8 space-y-8 max-w-[1400px]">
       {/* Header */}
       <div>
         <h1 className="text-2xl font-bold text-gray-900">Admin Dashboard</h1>

@@ -483,9 +483,17 @@ export default function Page() {
   return (
     <GuestRedirectWrapper>
     <div className="flex h-screen w-full overflow-hidden bg-[#e5e7eb] font-sans relative">
-      
+
+      {/* Mobile sidebar toggle */}
+      <button
+        onClick={() => setIsMenuOpen(!isMenuOpen)}
+        className="fixed top-4 left-4 z-50 md:hidden w-10 h-10 rounded-xl bg-[#2f4383] border-2 border-[#dba65d] flex items-center justify-center"
+      >
+        <Menu className="w-5 h-5 text-[#dba65d]" strokeWidth={2} />
+      </button>
+
       {/* 1. LEFT SIDEBAR */}
-      <aside className="w-[72px] bg-[#2f4383] flex flex-col items-center py-5 z-40 shadow-xl justify-between">
+      <aside className={`${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 fixed md:relative w-[72px] bg-[#2f4383] flex flex-col items-center py-5 z-40 shadow-xl justify-between transition-transform duration-200`}>
         <div className="flex flex-col items-center gap-8 w-full">
           {/* HAMBURGER MENU WITH ROLE-BASED DROPDOWN */}
           <div className="relative" ref={menuRef}>
@@ -501,7 +509,7 @@ export default function Page() {
 
             {/* Dropdown Menu Overlay */}
             {isMenuOpen && sessionUser && effectiveRole && (
-              <div className="absolute top-0 left-[60px] w-60 bg-white rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100 overflow-hidden flex flex-col z-50 animate-in fade-in slide-in-from-left-2 duration-200">
+              <div className="absolute top-0 left-[60px] md:left-[60px] right-0 md:right-auto w-auto md:w-60 bg-white rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100 overflow-hidden flex flex-col z-50 animate-in fade-in slide-in-from-left-2 duration-200">
                 <div className="px-4 py-3 bg-[#f8fafc] border-b border-gray-100 flex items-center justify-between">
                   <span className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">
                     {effectiveRole} Menu
@@ -568,7 +576,7 @@ export default function Page() {
         <Map targetLocation={searchedLocation} />
 
         {/* TOP SYSTEM LOGO NAVIGATION BAR */}
-        <header className="absolute top-0 left-0 w-full h-[70px] bg-[#2f4383]/90 backdrop-blur-sm z-30 flex justify-between items-center px-8 border-b border-[#2f4383]/50 pointer-events-auto">
+        <header className="absolute top-0 left-0 w-full h-[70px] bg-[#2f4383]/90 backdrop-blur-sm z-30 flex justify-between items-center px-4 sm:px-8 border-b border-[#2f4383]/50 pointer-events-auto">
           <div className="flex flex-col justify-center">
             <Logo className="w-auto h-[44px]" />
             {/* REAL-TIME CLIENT-SIDE REVERSE GEOLOCATION NODE FIELD TEXT DISPLAY */}
@@ -578,14 +586,14 @@ export default function Page() {
             </p>
           </div>
           {!sessionUser && (
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 sm:gap-4">
             <Link href={"/login"}>
-              <button className="cursor-pointer px-8 py-2.5 rounded-full font-bold text-[14px] text-[#dba65d] bg-white hover:bg-gray-100 transition-colors shadow-md">
+              <button className="cursor-pointer px-4 sm:px-8 py-2 sm:py-2.5 rounded-full font-bold text-[12px] sm:text-[14px] text-[#dba65d] bg-white hover:bg-gray-100 transition-colors shadow-md">
                 Login
               </button>
             </Link>
             <Link href={"/register"}>
-              <button className="cursor-pointer px-8 py-2.5 rounded-full font-bold text-[14px] text-white bg-[#dba65d] hover:bg-[#c59553] transition-colors shadow-md">
+              <button className="cursor-pointer px-4 sm:px-8 py-2 sm:py-2.5 rounded-full font-bold text-[12px] sm:text-[14px] text-white bg-[#dba65d] hover:bg-[#c59553] transition-colors shadow-md">
                 Sign Up
               </button>
            </Link>
@@ -597,7 +605,7 @@ export default function Page() {
         {isRecentOpen && (
           <div
             ref={recentPanelRef}
-            className="absolute top-[70px] left-0 bottom-0 w-[420px] bg-white z-20 shadow-[8px_0_24px_rgba(0,0,0,0.15)] flex flex-col animate-in slide-in-from-left-8 duration-200"
+            className="absolute top-[70px] left-0 bottom-0 w-full sm:w-[420px] bg-white z-20 shadow-[8px_0_24px_rgba(0,0,0,0.15)] flex flex-col animate-in slide-in-from-left-8 duration-200"
           >
             <div className="flex items-center justify-between px-8 py-6 border-b border-gray-200/80">
               <h2 className="text-2xl font-bold text-gray-900 tracking-tight">Recent Activities</h2>
@@ -635,7 +643,7 @@ export default function Page() {
 
         {/* FLOATING MAP CONTROLS CODES */}
         <div className="absolute inset-0 z-10 pointer-events-none mt-[70px]">
-          <div ref={containerRef} className="absolute top-4 left-6 pointer-events-auto w-[750px]">
+          <div ref={containerRef} className="absolute top-4 left-4 right-4 md:left-6 md:right-auto pointer-events-auto md:w-[750px]">
             <div className="relative flex items-center w-full bg-white rounded-[20px] shadow-sm border border-slate-300 px-3 py-2">
               <div className="flex-grow flex items-center">
                 <Search className="w-5 h-5 text-gray-500 ml-1 flex-shrink-0" />
@@ -651,7 +659,7 @@ export default function Page() {
                 />
               </div>
 
-              <div className="flex items-center gap-2 ml-4 flex-shrink-0">
+              <div className="hidden sm:flex items-center gap-2 ml-4 flex-shrink-0">
                 <button
                   onClick={() => setIsFilterOpen(!isFilterOpen)}
                   className="flex items-center gap-1.5 px-4 py-1.5 bg-white text-gray-700 rounded-full border border-gray-300 hover:bg-slate-50 transition-colors"
@@ -668,7 +676,7 @@ export default function Page() {
               </div>
 
               {isFilterOpen && (
-                <div className="absolute top-[110%] right-[140px] w-56 bg-white rounded-xl shadow-lg border border-slate-200 py-2 z-50">
+                <div className="absolute top-[110%] left-0 sm:left-auto sm:right-[140px] w-56 bg-white rounded-xl shadow-lg border border-slate-200 py-2 z-50">
                   <button onClick={() => setIsFilterOpen(false)} className="w-full flex items-center gap-3 px-4 py-2 hover:bg-slate-50 text-gray-700 border-b border-slate-100">
                     <X className="w-4 h-4" />
                     <span className="text-sm">Clear Filter</span>
@@ -690,7 +698,7 @@ export default function Page() {
             </div>
 
             {showSuggestions && suggestions.length > 0 && (
-              <div className="mt-3 flex flex-col gap-3">
+              <div className="mt-3 flex flex-col gap-3 max-h-[60vh] overflow-y-auto">
                 {suggestions.map((result, index) => {
                   const addressParts = result.display_name.split(",");
                   const mainTitle = addressParts[0].toUpperCase();
@@ -792,9 +800,9 @@ export default function Page() {
           )}
 
           {/* FLOATING AI TELEMETRY COPILOT PANEL */}
-          <div className="absolute bottom-6 right-13 pointer-events-auto flex flex-col items-end z-40">
+          <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-13 pointer-events-auto flex flex-col items-end z-40">
             {isChatOpen && (
-              <div className="w-[380px] h-[480px] bg-white rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.15)] border border-slate-200 flex flex-col mb-4 overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-200">
+              <div className="w-[calc(100vw-2rem)] sm:w-[380px] h-[480px] bg-white rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.15)] border border-slate-200 flex flex-col mb-4 overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-200">
                 <div className="bg-[#2f4383] text-white px-5 py-4 flex items-center justify-between">
                   <div className="flex items-center gap-2.5">
                     <div className="p-1.5 bg-white/10 rounded-lg">

@@ -33,7 +33,8 @@ export default async function ReportsPage() {
       {/* Poles by barangay */}
       <section className="bg-white rounded-xl border border-gray-100 p-5">
         <h2 className="text-sm font-medium text-gray-700 mb-4">Poles by barangay</h2>
-        <table className="w-full text-sm">
+        <div className="overflow-x-auto">
+        <table className="w-full text-sm min-w-[400px]">
           <thead>
             <tr className="border-b border-gray-100">
               <th className="text-left pb-2 text-xs font-medium text-gray-500">Barangay</th>
@@ -53,6 +54,7 @@ export default async function ReportsPage() {
             ))}
           </tbody>
         </table>
+        </div>
       </section>
 
       {/* Faults by type */}

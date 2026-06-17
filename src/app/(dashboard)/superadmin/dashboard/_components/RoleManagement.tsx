@@ -59,8 +59,8 @@ export default function RoleManagement({ users }: { users: User[] }) {
         </div>
       )}
 
-      <div className="overflow-x-auto">
-        <table className="w-full text-sm">
+      <div className="overflow-x-auto -mx-6 px-6">
+        <table className="w-full text-sm min-w-[550px]">
           <thead>
             <tr className="border-b border-gray-100">
               <th className="text-left text-xs font-bold text-gray-400 uppercase tracking-wider pb-3 pr-4">Name</th>

@@ -185,7 +185,7 @@ export default function ClientNavMenu({ userRole, userName }: Props) {
         {isNotifOpen && (
           <>
             <div className="fixed inset-0 z-40" onClick={() => setIsNotifOpen(false)} />
-            <div className="absolute bottom-full right-0 mb-2 w-80 bg-white rounded-xl shadow-xl border border-gray-100 z-50 max-h-96 flex flex-col">
+            <div className="fixed bottom-auto left-1/2 -translate-x-1/2 md:left-auto md:right-4 md:translate-x-0 md:bottom-auto md:top-20 w-[calc(100vw-2rem)] sm:w-80 bg-white rounded-xl shadow-xl border border-gray-100 z-50 max-h-96 flex flex-col">
               <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
                 <span className="text-sm font-semibold text-gray-700">Notifications</span>
                 {unreadCount > 0 && (

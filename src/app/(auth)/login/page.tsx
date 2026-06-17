@@ -48,10 +48,10 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="w-[90.5vw] max-w-481.75 h-[92.8vh] max-h-270 bg-white/83 border-2 border-white rounded-[29px] shadow-[0_0_9.9px_6px_rgba(0,0,0,0.25)] p-8">
-      <div className="mb-10">
+    <div className="w-[95vw] max-w-[500px] bg-white/83 border-2 border-white rounded-[29px] shadow-[0_0_9.9px_6px_rgba(0,0,0,0.25)] p-6 sm:p-8">
+      <div className="mb-8 sm:mb-10">
         <h1
-          className="w-full max-w-118 mx-auto font-['Koulen'] text-[86px] font-normal text-brand-blue text-center select-none"
+          className="w-full mx-auto font-['Koulen'] text-[48px] sm:text-[64px] md:text-[86px] font-normal text-brand-blue text-center select-none leading-none"
           style={{
             textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
             WebkitTextStrokeWidth: "1px",
@@ -60,14 +60,14 @@ export default function LoginPage() {
         >
           il<span className="text-[#F4D35E]">lumen</span>ate
         </h1>
-        <p className="text-center font-['Instrument_Sans'] text-[2rem] font-normal leading-normal text-brand-blue">
+        <p className="text-center font-['Instrument_Sans'] text-[1.5rem] sm:text-[2rem] font-normal leading-normal text-brand-blue">
           Login
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="relative space-y-12">
-        <div className=" flex flex-col justify-center gap-2 w-[480.716px] h-[83.307px]">
-          <label className="text-brand-blue font-['Instrument_Sans'] text-[1.125em] font-normal leading-[122.098%]">
+      <form onSubmit={handleSubmit} className="relative space-y-8 sm:space-y-12">
+        <div className="flex flex-col justify-center gap-2 w-full">
+          <label className="text-brand-blue font-['Instrument_Sans'] text-[0.9em] sm:text-[1.125em] font-normal leading-[122.098%]">
             Login with Email / Phone Number
           </label>
           {error && <p className="text-sm text-red-500 absolute right-2 top-2">{error}</p>}
@@ -77,7 +77,7 @@ export default function LoginPage() {
             required
             placeholder="Enter email / phone number"
             defaultValue="admin@lgu.gov.ph"
-            className="w-[86.07vw] h-[7.23vh] bg-[#FFF] border-2 border-brand-blue rounded-[18px] shadow-[0_0_9.9px_0.5px_rgba(0,0,0,0.25)] text-black font-['Instrument_Sans'] text-[14px] font-normal leading-[122.098%] placeholder:text-brand-gray px-6 focus:outline-none shrink-0"
+            className="w-full h-12 sm:h-14 bg-[#FFF] border-2 border-brand-blue rounded-[18px] shadow-[0_0_9.9px_0.5px_rgba(0,0,0,0.25)] text-black font-['Instrument_Sans'] text-[14px] font-normal leading-[122.098%] placeholder:text-brand-gray px-6 focus:outline-none"
           />
         </div>
 
@@ -96,7 +96,7 @@ export default function LoginPage() {
             required
             placeholder="Enter password"
             defaultValue="admin123"
-            className="w-full h-[7.23vh] bg-[#FFF] border-2 border-brand-blue rounded-[18px] shadow-[0_0_9.9px_0.5px_rgba(0,0,0,0.25)] text-black font-['Instrument_Sans'] text-[14px] font-normal leading-[122.098%] placeholder:text-brand-gray pl-16 pr-6 focus:outline-none shrink-0"
+            className="w-full h-12 sm:h-14 bg-[#FFF] border-2 border-brand-blue rounded-[18px] shadow-[0_0_9.9px_0.5px_rgba(0,0,0,0.25)] text-black font-['Instrument_Sans'] text-[14px] font-normal leading-[122.098%] placeholder:text-brand-gray pl-16 pr-6 focus:outline-none"
           />
           <button
             type="button"
@@ -120,8 +120,7 @@ export default function LoginPage() {
           </button>
         </div>
 
-        <label className="flex items-center gap-1.5 cursor-pointer select-none -mt-10">
-          <input type="checkbox" className="sr-only" />
+        <label className="flex items-center gap-1.5 cursor-pointer select-none -mt-6 sm:-mt-10 flex-wrap">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="26"
@@ -165,9 +164,9 @@ export default function LoginPage() {
           </button>
         </label>
 
-        <label className="text-center font-['Instrument_Sans'] text-[38px] font-normal leading-normal text-brand-blue -mt-10">
-          <p className="font-['Instrument_Sans'] text-[15px] text-brand-blue text-center">
-            Dont have an account?{" "}
+        <label className="text-center -mt-6 sm:-mt-10">
+          <p className="font-['Instrument_Sans'] text-[13px] sm:text-[15px] text-brand-blue text-center">
+            Don&apos;t have an account?{" "}
             <span className="text-brand-goldenrod underline cursor-pointer hover:opacity-50 transition-opacity">
               <Link href={"/register"}>Register</Link>
             </span>

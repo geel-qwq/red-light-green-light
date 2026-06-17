@@ -1673,22 +1673,22 @@ export namespace Prisma {
 
   export type UserCountOutputType = {
     faultReports: number
-    workOrdersAssigned: number
-    workOrdersCreated: number
-    statusLogs: number
-    searchHistory: number
-    notifications: number
     inventoryLogs: number
+    notifications: number
+    searchHistory: number
+    statusLogs: number
+    workOrdersCreated: number
+    workOrdersAssigned: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     faultReports?: boolean | UserCountOutputTypeCountFaultReportsArgs
-    workOrdersAssigned?: boolean | UserCountOutputTypeCountWorkOrdersAssignedArgs
-    workOrdersCreated?: boolean | UserCountOutputTypeCountWorkOrdersCreatedArgs
-    statusLogs?: boolean | UserCountOutputTypeCountStatusLogsArgs
-    searchHistory?: boolean | UserCountOutputTypeCountSearchHistoryArgs
-    notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
     inventoryLogs?: boolean | UserCountOutputTypeCountInventoryLogsArgs
+    notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
+    searchHistory?: boolean | UserCountOutputTypeCountSearchHistoryArgs
+    statusLogs?: boolean | UserCountOutputTypeCountStatusLogsArgs
+    workOrdersCreated?: boolean | UserCountOutputTypeCountWorkOrdersCreatedArgs
+    workOrdersAssigned?: boolean | UserCountOutputTypeCountWorkOrdersAssignedArgs
   }
 
   // Custom InputTypes
@@ -1712,29 +1712,8 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountWorkOrdersAssignedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: WorkOrderWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountWorkOrdersCreatedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: WorkOrderWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountStatusLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: StatusLogWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountSearchHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: SearchHistoryWhereInput
+  export type UserCountOutputTypeCountInventoryLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: InventoryLogWhereInput
   }
 
   /**
@@ -1747,8 +1726,29 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountInventoryLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: InventoryLogWhereInput
+  export type UserCountOutputTypeCountSearchHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SearchHistoryWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountStatusLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: StatusLogWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountWorkOrdersCreatedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WorkOrderWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountWorkOrdersAssignedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WorkOrderWhereInput
   }
 
 
@@ -1839,118 +1839,118 @@ export namespace Prisma {
 
   export type UserMinAggregateOutputType = {
     id: string | null
-    firstName: string | null
-    middleName: string | null
-    lastName: string | null
-    dob: Date | null
-    gender: string | null
     email: string | null
-    phone: string | null
     passwordHash: string | null
-    region: string | null
-    province: string | null
-    city: string | null
-    barangay: string | null
-    streetAddress: string | null
     role: $Enums.Role | null
     createdAt: Date | null
+    barangay: string | null
+    city: string | null
+    dob: Date | null
+    firstName: string | null
+    gender: string | null
+    lastName: string | null
+    middleName: string | null
+    phone: string | null
+    province: string | null
+    region: string | null
+    streetAddress: string | null
   }
 
   export type UserMaxAggregateOutputType = {
     id: string | null
-    firstName: string | null
-    middleName: string | null
-    lastName: string | null
-    dob: Date | null
-    gender: string | null
     email: string | null
-    phone: string | null
     passwordHash: string | null
-    region: string | null
-    province: string | null
-    city: string | null
-    barangay: string | null
-    streetAddress: string | null
     role: $Enums.Role | null
     createdAt: Date | null
+    barangay: string | null
+    city: string | null
+    dob: Date | null
+    firstName: string | null
+    gender: string | null
+    lastName: string | null
+    middleName: string | null
+    phone: string | null
+    province: string | null
+    region: string | null
+    streetAddress: string | null
   }
 
   export type UserCountAggregateOutputType = {
     id: number
-    firstName: number
-    middleName: number
-    lastName: number
-    dob: number
-    gender: number
     email: number
-    phone: number
     passwordHash: number
-    region: number
-    province: number
-    city: number
-    barangay: number
-    streetAddress: number
     role: number
     createdAt: number
+    barangay: number
+    city: number
+    dob: number
+    firstName: number
+    gender: number
+    lastName: number
+    middleName: number
+    phone: number
+    province: number
+    region: number
+    streetAddress: number
     _all: number
   }
 
 
   export type UserMinAggregateInputType = {
     id?: true
-    firstName?: true
-    middleName?: true
-    lastName?: true
-    dob?: true
-    gender?: true
     email?: true
-    phone?: true
     passwordHash?: true
-    region?: true
-    province?: true
-    city?: true
-    barangay?: true
-    streetAddress?: true
     role?: true
     createdAt?: true
+    barangay?: true
+    city?: true
+    dob?: true
+    firstName?: true
+    gender?: true
+    lastName?: true
+    middleName?: true
+    phone?: true
+    province?: true
+    region?: true
+    streetAddress?: true
   }
 
   export type UserMaxAggregateInputType = {
     id?: true
-    firstName?: true
-    middleName?: true
-    lastName?: true
-    dob?: true
-    gender?: true
     email?: true
-    phone?: true
     passwordHash?: true
-    region?: true
-    province?: true
-    city?: true
-    barangay?: true
-    streetAddress?: true
     role?: true
     createdAt?: true
+    barangay?: true
+    city?: true
+    dob?: true
+    firstName?: true
+    gender?: true
+    lastName?: true
+    middleName?: true
+    phone?: true
+    province?: true
+    region?: true
+    streetAddress?: true
   }
 
   export type UserCountAggregateInputType = {
     id?: true
-    firstName?: true
-    middleName?: true
-    lastName?: true
-    dob?: true
-    gender?: true
     email?: true
-    phone?: true
     passwordHash?: true
-    region?: true
-    province?: true
-    city?: true
-    barangay?: true
-    streetAddress?: true
     role?: true
     createdAt?: true
+    barangay?: true
+    city?: true
+    dob?: true
+    firstName?: true
+    gender?: true
+    lastName?: true
+    middleName?: true
+    phone?: true
+    province?: true
+    region?: true
+    streetAddress?: true
     _all?: true
   }
 
@@ -2028,21 +2028,21 @@ export namespace Prisma {
 
   export type UserGroupByOutputType = {
     id: string
-    firstName: string
-    middleName: string | null
-    lastName: string
-    dob: Date | null
-    gender: string | null
     email: string
-    phone: string
     passwordHash: string
-    region: string
-    province: string | null
-    city: string
-    barangay: string
-    streetAddress: string | null
     role: $Enums.Role
     createdAt: Date
+    barangay: string
+    city: string
+    dob: Date | null
+    firstName: string
+    gender: string | null
+    lastName: string
+    middleName: string | null
+    phone: string
+    province: string | null
+    region: string
+    streetAddress: string | null
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -2064,97 +2064,97 @@ export namespace Prisma {
 
   export type UserSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    firstName?: boolean
-    middleName?: boolean
-    lastName?: boolean
-    dob?: boolean
-    gender?: boolean
     email?: boolean
-    phone?: boolean
     passwordHash?: boolean
-    region?: boolean
-    province?: boolean
-    city?: boolean
-    barangay?: boolean
-    streetAddress?: boolean
     role?: boolean
     createdAt?: boolean
+    barangay?: boolean
+    city?: boolean
+    dob?: boolean
+    firstName?: boolean
+    gender?: boolean
+    lastName?: boolean
+    middleName?: boolean
+    phone?: boolean
+    province?: boolean
+    region?: boolean
+    streetAddress?: boolean
     faultReports?: boolean | User$faultReportsArgs<ExtArgs>
-    workOrdersAssigned?: boolean | User$workOrdersAssignedArgs<ExtArgs>
-    workOrdersCreated?: boolean | User$workOrdersCreatedArgs<ExtArgs>
-    statusLogs?: boolean | User$statusLogsArgs<ExtArgs>
-    searchHistory?: boolean | User$searchHistoryArgs<ExtArgs>
-    notifications?: boolean | User$notificationsArgs<ExtArgs>
     inventoryLogs?: boolean | User$inventoryLogsArgs<ExtArgs>
+    notifications?: boolean | User$notificationsArgs<ExtArgs>
+    searchHistory?: boolean | User$searchHistoryArgs<ExtArgs>
+    statusLogs?: boolean | User$statusLogsArgs<ExtArgs>
+    workOrdersCreated?: boolean | User$workOrdersCreatedArgs<ExtArgs>
+    workOrdersAssigned?: boolean | User$workOrdersAssignedArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    firstName?: boolean
-    middleName?: boolean
-    lastName?: boolean
-    dob?: boolean
-    gender?: boolean
     email?: boolean
-    phone?: boolean
     passwordHash?: boolean
-    region?: boolean
-    province?: boolean
-    city?: boolean
-    barangay?: boolean
-    streetAddress?: boolean
     role?: boolean
     createdAt?: boolean
+    barangay?: boolean
+    city?: boolean
+    dob?: boolean
+    firstName?: boolean
+    gender?: boolean
+    lastName?: boolean
+    middleName?: boolean
+    phone?: boolean
+    province?: boolean
+    region?: boolean
+    streetAddress?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    firstName?: boolean
-    middleName?: boolean
-    lastName?: boolean
-    dob?: boolean
-    gender?: boolean
     email?: boolean
-    phone?: boolean
     passwordHash?: boolean
-    region?: boolean
-    province?: boolean
-    city?: boolean
-    barangay?: boolean
-    streetAddress?: boolean
     role?: boolean
     createdAt?: boolean
+    barangay?: boolean
+    city?: boolean
+    dob?: boolean
+    firstName?: boolean
+    gender?: boolean
+    lastName?: boolean
+    middleName?: boolean
+    phone?: boolean
+    province?: boolean
+    region?: boolean
+    streetAddress?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
     id?: boolean
-    firstName?: boolean
-    middleName?: boolean
-    lastName?: boolean
-    dob?: boolean
-    gender?: boolean
     email?: boolean
-    phone?: boolean
     passwordHash?: boolean
-    region?: boolean
-    province?: boolean
-    city?: boolean
-    barangay?: boolean
-    streetAddress?: boolean
     role?: boolean
     createdAt?: boolean
+    barangay?: boolean
+    city?: boolean
+    dob?: boolean
+    firstName?: boolean
+    gender?: boolean
+    lastName?: boolean
+    middleName?: boolean
+    phone?: boolean
+    province?: boolean
+    region?: boolean
+    streetAddress?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "firstName" | "middleName" | "lastName" | "dob" | "gender" | "email" | "phone" | "passwordHash" | "region" | "province" | "city" | "barangay" | "streetAddress" | "role" | "createdAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "passwordHash" | "role" | "createdAt" | "barangay" | "city" | "dob" | "firstName" | "gender" | "lastName" | "middleName" | "phone" | "province" | "region" | "streetAddress", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     faultReports?: boolean | User$faultReportsArgs<ExtArgs>
-    workOrdersAssigned?: boolean | User$workOrdersAssignedArgs<ExtArgs>
-    workOrdersCreated?: boolean | User$workOrdersCreatedArgs<ExtArgs>
-    statusLogs?: boolean | User$statusLogsArgs<ExtArgs>
-    searchHistory?: boolean | User$searchHistoryArgs<ExtArgs>
-    notifications?: boolean | User$notificationsArgs<ExtArgs>
     inventoryLogs?: boolean | User$inventoryLogsArgs<ExtArgs>
+    notifications?: boolean | User$notificationsArgs<ExtArgs>
+    searchHistory?: boolean | User$searchHistoryArgs<ExtArgs>
+    statusLogs?: boolean | User$statusLogsArgs<ExtArgs>
+    workOrdersCreated?: boolean | User$workOrdersCreatedArgs<ExtArgs>
+    workOrdersAssigned?: boolean | User$workOrdersAssignedArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2164,30 +2164,30 @@ export namespace Prisma {
     name: "User"
     objects: {
       faultReports: Prisma.$FaultReportPayload<ExtArgs>[]
-      workOrdersAssigned: Prisma.$WorkOrderPayload<ExtArgs>[]
-      workOrdersCreated: Prisma.$WorkOrderPayload<ExtArgs>[]
-      statusLogs: Prisma.$StatusLogPayload<ExtArgs>[]
-      searchHistory: Prisma.$SearchHistoryPayload<ExtArgs>[]
-      notifications: Prisma.$NotificationPayload<ExtArgs>[]
       inventoryLogs: Prisma.$InventoryLogPayload<ExtArgs>[]
+      notifications: Prisma.$NotificationPayload<ExtArgs>[]
+      searchHistory: Prisma.$SearchHistoryPayload<ExtArgs>[]
+      statusLogs: Prisma.$StatusLogPayload<ExtArgs>[]
+      workOrdersCreated: Prisma.$WorkOrderPayload<ExtArgs>[]
+      workOrdersAssigned: Prisma.$WorkOrderPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      firstName: string
-      middleName: string | null
-      lastName: string
-      dob: Date | null
-      gender: string | null
       email: string
-      phone: string
       passwordHash: string
-      region: string
-      province: string | null
-      city: string
-      barangay: string
-      streetAddress: string | null
       role: $Enums.Role
       createdAt: Date
+      barangay: string
+      city: string
+      dob: Date | null
+      firstName: string
+      gender: string | null
+      lastName: string
+      middleName: string | null
+      phone: string
+      province: string | null
+      region: string
+      streetAddress: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -2583,12 +2583,12 @@ export namespace Prisma {
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     faultReports<T extends User$faultReportsArgs<ExtArgs> = {}>(args?: Subset<T, User$faultReportsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FaultReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    workOrdersAssigned<T extends User$workOrdersAssignedArgs<ExtArgs> = {}>(args?: Subset<T, User$workOrdersAssignedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkOrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    workOrdersCreated<T extends User$workOrdersCreatedArgs<ExtArgs> = {}>(args?: Subset<T, User$workOrdersCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkOrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    statusLogs<T extends User$statusLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$statusLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StatusLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    searchHistory<T extends User$searchHistoryArgs<ExtArgs> = {}>(args?: Subset<T, User$searchHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SearchHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    notifications<T extends User$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     inventoryLogs<T extends User$inventoryLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$inventoryLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InventoryLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    notifications<T extends User$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    searchHistory<T extends User$searchHistoryArgs<ExtArgs> = {}>(args?: Subset<T, User$searchHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SearchHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    statusLogs<T extends User$statusLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$statusLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StatusLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    workOrdersCreated<T extends User$workOrdersCreatedArgs<ExtArgs> = {}>(args?: Subset<T, User$workOrdersCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkOrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    workOrdersAssigned<T extends User$workOrdersAssignedArgs<ExtArgs> = {}>(args?: Subset<T, User$workOrdersAssignedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkOrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2619,21 +2619,21 @@ export namespace Prisma {
    */
   interface UserFieldRefs {
     readonly id: FieldRef<"User", 'String'>
-    readonly firstName: FieldRef<"User", 'String'>
-    readonly middleName: FieldRef<"User", 'String'>
-    readonly lastName: FieldRef<"User", 'String'>
-    readonly dob: FieldRef<"User", 'DateTime'>
-    readonly gender: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
-    readonly phone: FieldRef<"User", 'String'>
     readonly passwordHash: FieldRef<"User", 'String'>
-    readonly region: FieldRef<"User", 'String'>
-    readonly province: FieldRef<"User", 'String'>
-    readonly city: FieldRef<"User", 'String'>
-    readonly barangay: FieldRef<"User", 'String'>
-    readonly streetAddress: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'Role'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
+    readonly barangay: FieldRef<"User", 'String'>
+    readonly city: FieldRef<"User", 'String'>
+    readonly dob: FieldRef<"User", 'DateTime'>
+    readonly firstName: FieldRef<"User", 'String'>
+    readonly gender: FieldRef<"User", 'String'>
+    readonly lastName: FieldRef<"User", 'String'>
+    readonly middleName: FieldRef<"User", 'String'>
+    readonly phone: FieldRef<"User", 'String'>
+    readonly province: FieldRef<"User", 'String'>
+    readonly region: FieldRef<"User", 'String'>
+    readonly streetAddress: FieldRef<"User", 'String'>
   }
     
 
@@ -3051,99 +3051,27 @@ export namespace Prisma {
   }
 
   /**
-   * User.workOrdersAssigned
+   * User.inventoryLogs
    */
-  export type User$workOrdersAssignedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$inventoryLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the WorkOrder
+     * Select specific fields to fetch from the InventoryLog
      */
-    select?: WorkOrderSelect<ExtArgs> | null
+    select?: InventoryLogSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the WorkOrder
+     * Omit specific fields from the InventoryLog
      */
-    omit?: WorkOrderOmit<ExtArgs> | null
+    omit?: InventoryLogOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: WorkOrderInclude<ExtArgs> | null
-    where?: WorkOrderWhereInput
-    orderBy?: WorkOrderOrderByWithRelationInput | WorkOrderOrderByWithRelationInput[]
-    cursor?: WorkOrderWhereUniqueInput
+    include?: InventoryLogInclude<ExtArgs> | null
+    where?: InventoryLogWhereInput
+    orderBy?: InventoryLogOrderByWithRelationInput | InventoryLogOrderByWithRelationInput[]
+    cursor?: InventoryLogWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: WorkOrderScalarFieldEnum | WorkOrderScalarFieldEnum[]
-  }
-
-  /**
-   * User.workOrdersCreated
-   */
-  export type User$workOrdersCreatedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the WorkOrder
-     */
-    select?: WorkOrderSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the WorkOrder
-     */
-    omit?: WorkOrderOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: WorkOrderInclude<ExtArgs> | null
-    where?: WorkOrderWhereInput
-    orderBy?: WorkOrderOrderByWithRelationInput | WorkOrderOrderByWithRelationInput[]
-    cursor?: WorkOrderWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: WorkOrderScalarFieldEnum | WorkOrderScalarFieldEnum[]
-  }
-
-  /**
-   * User.statusLogs
-   */
-  export type User$statusLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the StatusLog
-     */
-    select?: StatusLogSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the StatusLog
-     */
-    omit?: StatusLogOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: StatusLogInclude<ExtArgs> | null
-    where?: StatusLogWhereInput
-    orderBy?: StatusLogOrderByWithRelationInput | StatusLogOrderByWithRelationInput[]
-    cursor?: StatusLogWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: StatusLogScalarFieldEnum | StatusLogScalarFieldEnum[]
-  }
-
-  /**
-   * User.searchHistory
-   */
-  export type User$searchHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the SearchHistory
-     */
-    select?: SearchHistorySelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the SearchHistory
-     */
-    omit?: SearchHistoryOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: SearchHistoryInclude<ExtArgs> | null
-    where?: SearchHistoryWhereInput
-    orderBy?: SearchHistoryOrderByWithRelationInput | SearchHistoryOrderByWithRelationInput[]
-    cursor?: SearchHistoryWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: SearchHistoryScalarFieldEnum | SearchHistoryScalarFieldEnum[]
+    distinct?: InventoryLogScalarFieldEnum | InventoryLogScalarFieldEnum[]
   }
 
   /**
@@ -3171,27 +3099,99 @@ export namespace Prisma {
   }
 
   /**
-   * User.inventoryLogs
+   * User.searchHistory
    */
-  export type User$inventoryLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$searchHistoryArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the InventoryLog
+     * Select specific fields to fetch from the SearchHistory
      */
-    select?: InventoryLogSelect<ExtArgs> | null
+    select?: SearchHistorySelect<ExtArgs> | null
     /**
-     * Omit specific fields from the InventoryLog
+     * Omit specific fields from the SearchHistory
      */
-    omit?: InventoryLogOmit<ExtArgs> | null
+    omit?: SearchHistoryOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: InventoryLogInclude<ExtArgs> | null
-    where?: InventoryLogWhereInput
-    orderBy?: InventoryLogOrderByWithRelationInput | InventoryLogOrderByWithRelationInput[]
-    cursor?: InventoryLogWhereUniqueInput
+    include?: SearchHistoryInclude<ExtArgs> | null
+    where?: SearchHistoryWhereInput
+    orderBy?: SearchHistoryOrderByWithRelationInput | SearchHistoryOrderByWithRelationInput[]
+    cursor?: SearchHistoryWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: InventoryLogScalarFieldEnum | InventoryLogScalarFieldEnum[]
+    distinct?: SearchHistoryScalarFieldEnum | SearchHistoryScalarFieldEnum[]
+  }
+
+  /**
+   * User.statusLogs
+   */
+  export type User$statusLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the StatusLog
+     */
+    select?: StatusLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the StatusLog
+     */
+    omit?: StatusLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: StatusLogInclude<ExtArgs> | null
+    where?: StatusLogWhereInput
+    orderBy?: StatusLogOrderByWithRelationInput | StatusLogOrderByWithRelationInput[]
+    cursor?: StatusLogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: StatusLogScalarFieldEnum | StatusLogScalarFieldEnum[]
+  }
+
+  /**
+   * User.workOrdersCreated
+   */
+  export type User$workOrdersCreatedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WorkOrder
+     */
+    select?: WorkOrderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WorkOrder
+     */
+    omit?: WorkOrderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WorkOrderInclude<ExtArgs> | null
+    where?: WorkOrderWhereInput
+    orderBy?: WorkOrderOrderByWithRelationInput | WorkOrderOrderByWithRelationInput[]
+    cursor?: WorkOrderWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: WorkOrderScalarFieldEnum | WorkOrderScalarFieldEnum[]
+  }
+
+  /**
+   * User.workOrdersAssigned
+   */
+  export type User$workOrdersAssignedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WorkOrder
+     */
+    select?: WorkOrderSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WorkOrder
+     */
+    omit?: WorkOrderOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: WorkOrderInclude<ExtArgs> | null
+    where?: WorkOrderWhereInput
+    orderBy?: WorkOrderOrderByWithRelationInput | WorkOrderOrderByWithRelationInput[]
+    cursor?: WorkOrderWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: WorkOrderScalarFieldEnum | WorkOrderScalarFieldEnum[]
   }
 
   /**
@@ -5714,9 +5714,9 @@ export namespace Prisma {
     assignedAt?: boolean
     resolvedAt?: boolean
     resolutionNotes?: boolean
-    faultReport?: boolean | FaultReportDefaultArgs<ExtArgs>
-    assignedTo?: boolean | WorkOrder$assignedToArgs<ExtArgs>
     assignedBy?: boolean | UserDefaultArgs<ExtArgs>
+    assignedTo?: boolean | WorkOrder$assignedToArgs<ExtArgs>
+    faultReport?: boolean | FaultReportDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["workOrder"]>
 
   export type WorkOrderSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -5728,9 +5728,9 @@ export namespace Prisma {
     assignedAt?: boolean
     resolvedAt?: boolean
     resolutionNotes?: boolean
-    faultReport?: boolean | FaultReportDefaultArgs<ExtArgs>
-    assignedTo?: boolean | WorkOrder$assignedToArgs<ExtArgs>
     assignedBy?: boolean | UserDefaultArgs<ExtArgs>
+    assignedTo?: boolean | WorkOrder$assignedToArgs<ExtArgs>
+    faultReport?: boolean | FaultReportDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["workOrder"]>
 
   export type WorkOrderSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -5742,9 +5742,9 @@ export namespace Prisma {
     assignedAt?: boolean
     resolvedAt?: boolean
     resolutionNotes?: boolean
-    faultReport?: boolean | FaultReportDefaultArgs<ExtArgs>
-    assignedTo?: boolean | WorkOrder$assignedToArgs<ExtArgs>
     assignedBy?: boolean | UserDefaultArgs<ExtArgs>
+    assignedTo?: boolean | WorkOrder$assignedToArgs<ExtArgs>
+    faultReport?: boolean | FaultReportDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["workOrder"]>
 
   export type WorkOrderSelectScalar = {
@@ -5760,27 +5760,27 @@ export namespace Prisma {
 
   export type WorkOrderOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "faultReportId" | "assignedToId" | "assignedById" | "status" | "assignedAt" | "resolvedAt" | "resolutionNotes", ExtArgs["result"]["workOrder"]>
   export type WorkOrderInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    faultReport?: boolean | FaultReportDefaultArgs<ExtArgs>
-    assignedTo?: boolean | WorkOrder$assignedToArgs<ExtArgs>
     assignedBy?: boolean | UserDefaultArgs<ExtArgs>
+    assignedTo?: boolean | WorkOrder$assignedToArgs<ExtArgs>
+    faultReport?: boolean | FaultReportDefaultArgs<ExtArgs>
   }
   export type WorkOrderIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    faultReport?: boolean | FaultReportDefaultArgs<ExtArgs>
-    assignedTo?: boolean | WorkOrder$assignedToArgs<ExtArgs>
     assignedBy?: boolean | UserDefaultArgs<ExtArgs>
+    assignedTo?: boolean | WorkOrder$assignedToArgs<ExtArgs>
+    faultReport?: boolean | FaultReportDefaultArgs<ExtArgs>
   }
   export type WorkOrderIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    faultReport?: boolean | FaultReportDefaultArgs<ExtArgs>
-    assignedTo?: boolean | WorkOrder$assignedToArgs<ExtArgs>
     assignedBy?: boolean | UserDefaultArgs<ExtArgs>
+    assignedTo?: boolean | WorkOrder$assignedToArgs<ExtArgs>
+    faultReport?: boolean | FaultReportDefaultArgs<ExtArgs>
   }
 
   export type $WorkOrderPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "WorkOrder"
     objects: {
-      faultReport: Prisma.$FaultReportPayload<ExtArgs>
-      assignedTo: Prisma.$UserPayload<ExtArgs> | null
       assignedBy: Prisma.$UserPayload<ExtArgs>
+      assignedTo: Prisma.$UserPayload<ExtArgs> | null
+      faultReport: Prisma.$FaultReportPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6185,9 +6185,9 @@ export namespace Prisma {
    */
   export interface Prisma__WorkOrderClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    faultReport<T extends FaultReportDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FaultReportDefaultArgs<ExtArgs>>): Prisma__FaultReportClient<$Result.GetResult<Prisma.$FaultReportPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    assignedTo<T extends WorkOrder$assignedToArgs<ExtArgs> = {}>(args?: Subset<T, WorkOrder$assignedToArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     assignedBy<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    assignedTo<T extends WorkOrder$assignedToArgs<ExtArgs> = {}>(args?: Subset<T, WorkOrder$assignedToArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    faultReport<T extends FaultReportDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FaultReportDefaultArgs<ExtArgs>>): Prisma__FaultReportClient<$Result.GetResult<Prisma.$FaultReportPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6843,8 +6843,8 @@ export namespace Prisma {
     toStatus?: boolean
     changedAt?: boolean
     reason?: boolean
-    pole?: boolean | PoleDefaultArgs<ExtArgs>
     changedBy?: boolean | UserDefaultArgs<ExtArgs>
+    pole?: boolean | PoleDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["statusLog"]>
 
   export type StatusLogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -6855,8 +6855,8 @@ export namespace Prisma {
     toStatus?: boolean
     changedAt?: boolean
     reason?: boolean
-    pole?: boolean | PoleDefaultArgs<ExtArgs>
     changedBy?: boolean | UserDefaultArgs<ExtArgs>
+    pole?: boolean | PoleDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["statusLog"]>
 
   export type StatusLogSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -6867,8 +6867,8 @@ export namespace Prisma {
     toStatus?: boolean
     changedAt?: boolean
     reason?: boolean
-    pole?: boolean | PoleDefaultArgs<ExtArgs>
     changedBy?: boolean | UserDefaultArgs<ExtArgs>
+    pole?: boolean | PoleDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["statusLog"]>
 
   export type StatusLogSelectScalar = {
@@ -6883,23 +6883,23 @@ export namespace Prisma {
 
   export type StatusLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "poleId" | "changedById" | "fromStatus" | "toStatus" | "changedAt" | "reason", ExtArgs["result"]["statusLog"]>
   export type StatusLogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    pole?: boolean | PoleDefaultArgs<ExtArgs>
     changedBy?: boolean | UserDefaultArgs<ExtArgs>
+    pole?: boolean | PoleDefaultArgs<ExtArgs>
   }
   export type StatusLogIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    pole?: boolean | PoleDefaultArgs<ExtArgs>
     changedBy?: boolean | UserDefaultArgs<ExtArgs>
+    pole?: boolean | PoleDefaultArgs<ExtArgs>
   }
   export type StatusLogIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    pole?: boolean | PoleDefaultArgs<ExtArgs>
     changedBy?: boolean | UserDefaultArgs<ExtArgs>
+    pole?: boolean | PoleDefaultArgs<ExtArgs>
   }
 
   export type $StatusLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "StatusLog"
     objects: {
-      pole: Prisma.$PolePayload<ExtArgs>
       changedBy: Prisma.$UserPayload<ExtArgs>
+      pole: Prisma.$PolePayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -7303,8 +7303,8 @@ export namespace Prisma {
    */
   export interface Prisma__StatusLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    pole<T extends PoleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PoleDefaultArgs<ExtArgs>>): Prisma__PoleClient<$Result.GetResult<Prisma.$PolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     changedBy<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    pole<T extends PoleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PoleDefaultArgs<ExtArgs>>): Prisma__PoleClient<$Result.GetResult<Prisma.$PolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -12275,21 +12275,21 @@ export namespace Prisma {
 
   export const UserScalarFieldEnum: {
     id: 'id',
-    firstName: 'firstName',
-    middleName: 'middleName',
-    lastName: 'lastName',
-    dob: 'dob',
-    gender: 'gender',
     email: 'email',
-    phone: 'phone',
     passwordHash: 'passwordHash',
-    region: 'region',
-    province: 'province',
-    city: 'city',
-    barangay: 'barangay',
-    streetAddress: 'streetAddress',
     role: 'role',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    barangay: 'barangay',
+    city: 'city',
+    dob: 'dob',
+    firstName: 'firstName',
+    gender: 'gender',
+    lastName: 'lastName',
+    middleName: 'middleName',
+    phone: 'phone',
+    province: 'province',
+    region: 'region',
+    streetAddress: 'streetAddress'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -12447,20 +12447,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'DateTime'
-   */
-  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
-    
-
-
-  /**
-   * Reference to a field of type 'DateTime[]'
-   */
-  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Role'
    */
   export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role'>
@@ -12471,6 +12457,20 @@ export namespace Prisma {
    * Reference to a field of type 'Role[]'
    */
   export type ListEnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime'
+   */
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime[]'
+   */
+  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
     
 
 
@@ -12573,54 +12573,54 @@ export namespace Prisma {
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     id?: StringFilter<"User"> | string
-    firstName?: StringFilter<"User"> | string
-    middleName?: StringNullableFilter<"User"> | string | null
-    lastName?: StringFilter<"User"> | string
-    dob?: DateTimeNullableFilter<"User"> | Date | string | null
-    gender?: StringNullableFilter<"User"> | string | null
     email?: StringFilter<"User"> | string
-    phone?: StringFilter<"User"> | string
     passwordHash?: StringFilter<"User"> | string
-    region?: StringFilter<"User"> | string
-    province?: StringNullableFilter<"User"> | string | null
-    city?: StringFilter<"User"> | string
-    barangay?: StringFilter<"User"> | string
-    streetAddress?: StringNullableFilter<"User"> | string | null
     role?: EnumRoleFilter<"User"> | $Enums.Role
     createdAt?: DateTimeFilter<"User"> | Date | string
+    barangay?: StringFilter<"User"> | string
+    city?: StringFilter<"User"> | string
+    dob?: DateTimeNullableFilter<"User"> | Date | string | null
+    firstName?: StringFilter<"User"> | string
+    gender?: StringNullableFilter<"User"> | string | null
+    lastName?: StringFilter<"User"> | string
+    middleName?: StringNullableFilter<"User"> | string | null
+    phone?: StringFilter<"User"> | string
+    province?: StringNullableFilter<"User"> | string | null
+    region?: StringFilter<"User"> | string
+    streetAddress?: StringNullableFilter<"User"> | string | null
     faultReports?: FaultReportListRelationFilter
-    workOrdersAssigned?: WorkOrderListRelationFilter
-    workOrdersCreated?: WorkOrderListRelationFilter
-    statusLogs?: StatusLogListRelationFilter
-    searchHistory?: SearchHistoryListRelationFilter
-    notifications?: NotificationListRelationFilter
     inventoryLogs?: InventoryLogListRelationFilter
+    notifications?: NotificationListRelationFilter
+    searchHistory?: SearchHistoryListRelationFilter
+    statusLogs?: StatusLogListRelationFilter
+    workOrdersCreated?: WorkOrderListRelationFilter
+    workOrdersAssigned?: WorkOrderListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
-    firstName?: SortOrder
-    middleName?: SortOrderInput | SortOrder
-    lastName?: SortOrder
-    dob?: SortOrderInput | SortOrder
-    gender?: SortOrderInput | SortOrder
     email?: SortOrder
-    phone?: SortOrder
     passwordHash?: SortOrder
-    region?: SortOrder
-    province?: SortOrderInput | SortOrder
-    city?: SortOrder
-    barangay?: SortOrder
-    streetAddress?: SortOrderInput | SortOrder
     role?: SortOrder
     createdAt?: SortOrder
+    barangay?: SortOrder
+    city?: SortOrder
+    dob?: SortOrderInput | SortOrder
+    firstName?: SortOrder
+    gender?: SortOrderInput | SortOrder
+    lastName?: SortOrder
+    middleName?: SortOrderInput | SortOrder
+    phone?: SortOrder
+    province?: SortOrderInput | SortOrder
+    region?: SortOrder
+    streetAddress?: SortOrderInput | SortOrder
     faultReports?: FaultReportOrderByRelationAggregateInput
-    workOrdersAssigned?: WorkOrderOrderByRelationAggregateInput
-    workOrdersCreated?: WorkOrderOrderByRelationAggregateInput
-    statusLogs?: StatusLogOrderByRelationAggregateInput
-    searchHistory?: SearchHistoryOrderByRelationAggregateInput
-    notifications?: NotificationOrderByRelationAggregateInput
     inventoryLogs?: InventoryLogOrderByRelationAggregateInput
+    notifications?: NotificationOrderByRelationAggregateInput
+    searchHistory?: SearchHistoryOrderByRelationAggregateInput
+    statusLogs?: StatusLogOrderByRelationAggregateInput
+    workOrdersCreated?: WorkOrderOrderByRelationAggregateInput
+    workOrdersAssigned?: WorkOrderOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -12629,46 +12629,46 @@ export namespace Prisma {
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
-    firstName?: StringFilter<"User"> | string
-    middleName?: StringNullableFilter<"User"> | string | null
-    lastName?: StringFilter<"User"> | string
-    dob?: DateTimeNullableFilter<"User"> | Date | string | null
-    gender?: StringNullableFilter<"User"> | string | null
-    phone?: StringFilter<"User"> | string
     passwordHash?: StringFilter<"User"> | string
-    region?: StringFilter<"User"> | string
-    province?: StringNullableFilter<"User"> | string | null
-    city?: StringFilter<"User"> | string
-    barangay?: StringFilter<"User"> | string
-    streetAddress?: StringNullableFilter<"User"> | string | null
     role?: EnumRoleFilter<"User"> | $Enums.Role
     createdAt?: DateTimeFilter<"User"> | Date | string
+    barangay?: StringFilter<"User"> | string
+    city?: StringFilter<"User"> | string
+    dob?: DateTimeNullableFilter<"User"> | Date | string | null
+    firstName?: StringFilter<"User"> | string
+    gender?: StringNullableFilter<"User"> | string | null
+    lastName?: StringFilter<"User"> | string
+    middleName?: StringNullableFilter<"User"> | string | null
+    phone?: StringFilter<"User"> | string
+    province?: StringNullableFilter<"User"> | string | null
+    region?: StringFilter<"User"> | string
+    streetAddress?: StringNullableFilter<"User"> | string | null
     faultReports?: FaultReportListRelationFilter
-    workOrdersAssigned?: WorkOrderListRelationFilter
-    workOrdersCreated?: WorkOrderListRelationFilter
-    statusLogs?: StatusLogListRelationFilter
-    searchHistory?: SearchHistoryListRelationFilter
-    notifications?: NotificationListRelationFilter
     inventoryLogs?: InventoryLogListRelationFilter
+    notifications?: NotificationListRelationFilter
+    searchHistory?: SearchHistoryListRelationFilter
+    statusLogs?: StatusLogListRelationFilter
+    workOrdersCreated?: WorkOrderListRelationFilter
+    workOrdersAssigned?: WorkOrderListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
-    firstName?: SortOrder
-    middleName?: SortOrderInput | SortOrder
-    lastName?: SortOrder
-    dob?: SortOrderInput | SortOrder
-    gender?: SortOrderInput | SortOrder
     email?: SortOrder
-    phone?: SortOrder
     passwordHash?: SortOrder
-    region?: SortOrder
-    province?: SortOrderInput | SortOrder
-    city?: SortOrder
-    barangay?: SortOrder
-    streetAddress?: SortOrderInput | SortOrder
     role?: SortOrder
     createdAt?: SortOrder
+    barangay?: SortOrder
+    city?: SortOrder
+    dob?: SortOrderInput | SortOrder
+    firstName?: SortOrder
+    gender?: SortOrderInput | SortOrder
+    lastName?: SortOrder
+    middleName?: SortOrderInput | SortOrder
+    phone?: SortOrder
+    province?: SortOrderInput | SortOrder
+    region?: SortOrder
+    streetAddress?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -12679,21 +12679,21 @@ export namespace Prisma {
     OR?: UserScalarWhereWithAggregatesInput[]
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"User"> | string
-    firstName?: StringWithAggregatesFilter<"User"> | string
-    middleName?: StringNullableWithAggregatesFilter<"User"> | string | null
-    lastName?: StringWithAggregatesFilter<"User"> | string
-    dob?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
-    gender?: StringNullableWithAggregatesFilter<"User"> | string | null
     email?: StringWithAggregatesFilter<"User"> | string
-    phone?: StringWithAggregatesFilter<"User"> | string
     passwordHash?: StringWithAggregatesFilter<"User"> | string
-    region?: StringWithAggregatesFilter<"User"> | string
-    province?: StringNullableWithAggregatesFilter<"User"> | string | null
-    city?: StringWithAggregatesFilter<"User"> | string
-    barangay?: StringWithAggregatesFilter<"User"> | string
-    streetAddress?: StringNullableWithAggregatesFilter<"User"> | string | null
     role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    barangay?: StringWithAggregatesFilter<"User"> | string
+    city?: StringWithAggregatesFilter<"User"> | string
+    dob?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    firstName?: StringWithAggregatesFilter<"User"> | string
+    gender?: StringNullableWithAggregatesFilter<"User"> | string | null
+    lastName?: StringWithAggregatesFilter<"User"> | string
+    middleName?: StringNullableWithAggregatesFilter<"User"> | string | null
+    phone?: StringWithAggregatesFilter<"User"> | string
+    province?: StringNullableWithAggregatesFilter<"User"> | string | null
+    region?: StringWithAggregatesFilter<"User"> | string
+    streetAddress?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
 
   export type PoleWhereInput = {
@@ -12859,9 +12859,9 @@ export namespace Prisma {
     assignedAt?: DateTimeFilter<"WorkOrder"> | Date | string
     resolvedAt?: DateTimeNullableFilter<"WorkOrder"> | Date | string | null
     resolutionNotes?: StringNullableFilter<"WorkOrder"> | string | null
-    faultReport?: XOR<FaultReportScalarRelationFilter, FaultReportWhereInput>
-    assignedTo?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     assignedBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+    assignedTo?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    faultReport?: XOR<FaultReportScalarRelationFilter, FaultReportWhereInput>
   }
 
   export type WorkOrderOrderByWithRelationInput = {
@@ -12873,9 +12873,9 @@ export namespace Prisma {
     assignedAt?: SortOrder
     resolvedAt?: SortOrderInput | SortOrder
     resolutionNotes?: SortOrderInput | SortOrder
-    faultReport?: FaultReportOrderByWithRelationInput
-    assignedTo?: UserOrderByWithRelationInput
     assignedBy?: UserOrderByWithRelationInput
+    assignedTo?: UserOrderByWithRelationInput
+    faultReport?: FaultReportOrderByWithRelationInput
   }
 
   export type WorkOrderWhereUniqueInput = Prisma.AtLeast<{
@@ -12890,9 +12890,9 @@ export namespace Prisma {
     assignedAt?: DateTimeFilter<"WorkOrder"> | Date | string
     resolvedAt?: DateTimeNullableFilter<"WorkOrder"> | Date | string | null
     resolutionNotes?: StringNullableFilter<"WorkOrder"> | string | null
-    faultReport?: XOR<FaultReportScalarRelationFilter, FaultReportWhereInput>
-    assignedTo?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     assignedBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+    assignedTo?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    faultReport?: XOR<FaultReportScalarRelationFilter, FaultReportWhereInput>
   }, "id" | "faultReportId">
 
   export type WorkOrderOrderByWithAggregationInput = {
@@ -12934,8 +12934,8 @@ export namespace Prisma {
     toStatus?: EnumPoleStatusFilter<"StatusLog"> | $Enums.PoleStatus
     changedAt?: DateTimeFilter<"StatusLog"> | Date | string
     reason?: StringNullableFilter<"StatusLog"> | string | null
-    pole?: XOR<PoleScalarRelationFilter, PoleWhereInput>
     changedBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+    pole?: XOR<PoleScalarRelationFilter, PoleWhereInput>
   }
 
   export type StatusLogOrderByWithRelationInput = {
@@ -12946,8 +12946,8 @@ export namespace Prisma {
     toStatus?: SortOrder
     changedAt?: SortOrder
     reason?: SortOrderInput | SortOrder
-    pole?: PoleOrderByWithRelationInput
     changedBy?: UserOrderByWithRelationInput
+    pole?: PoleOrderByWithRelationInput
   }
 
   export type StatusLogWhereUniqueInput = Prisma.AtLeast<{
@@ -12961,8 +12961,8 @@ export namespace Prisma {
     toStatus?: EnumPoleStatusFilter<"StatusLog"> | $Enums.PoleStatus
     changedAt?: DateTimeFilter<"StatusLog"> | Date | string
     reason?: StringNullableFilter<"StatusLog"> | string | null
-    pole?: XOR<PoleScalarRelationFilter, PoleWhereInput>
     changedBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+    pole?: XOR<PoleScalarRelationFilter, PoleWhereInput>
   }, "id">
 
   export type StatusLogOrderByWithAggregationInput = {
@@ -13267,163 +13267,163 @@ export namespace Prisma {
 
   export type UserCreateInput = {
     id?: string
-    firstName: string
-    middleName?: string | null
-    lastName: string
-    dob?: Date | string | null
-    gender?: string | null
     email: string
-    phone: string
     passwordHash: string
-    region: string
-    province?: string | null
-    city: string
-    barangay: string
-    streetAddress?: string | null
     role?: $Enums.Role
     createdAt?: Date | string
+    barangay: string
+    city: string
+    dob?: Date | string | null
+    firstName: string
+    gender?: string | null
+    lastName: string
+    middleName?: string | null
+    phone: string
+    province?: string | null
+    region: string
+    streetAddress?: string | null
     faultReports?: FaultReportCreateNestedManyWithoutReportedByInput
-    workOrdersAssigned?: WorkOrderCreateNestedManyWithoutAssignedToInput
-    workOrdersCreated?: WorkOrderCreateNestedManyWithoutAssignedByInput
-    statusLogs?: StatusLogCreateNestedManyWithoutChangedByInput
-    searchHistory?: SearchHistoryCreateNestedManyWithoutUserInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
     inventoryLogs?: InventoryLogCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    searchHistory?: SearchHistoryCreateNestedManyWithoutUserInput
+    statusLogs?: StatusLogCreateNestedManyWithoutChangedByInput
+    workOrdersCreated?: WorkOrderCreateNestedManyWithoutAssignedByInput
+    workOrdersAssigned?: WorkOrderCreateNestedManyWithoutAssignedToInput
   }
 
   export type UserUncheckedCreateInput = {
     id?: string
-    firstName: string
-    middleName?: string | null
-    lastName: string
-    dob?: Date | string | null
-    gender?: string | null
     email: string
-    phone: string
     passwordHash: string
-    region: string
-    province?: string | null
-    city: string
-    barangay: string
-    streetAddress?: string | null
     role?: $Enums.Role
     createdAt?: Date | string
+    barangay: string
+    city: string
+    dob?: Date | string | null
+    firstName: string
+    gender?: string | null
+    lastName: string
+    middleName?: string | null
+    phone: string
+    province?: string | null
+    region: string
+    streetAddress?: string | null
     faultReports?: FaultReportUncheckedCreateNestedManyWithoutReportedByInput
-    workOrdersAssigned?: WorkOrderUncheckedCreateNestedManyWithoutAssignedToInput
-    workOrdersCreated?: WorkOrderUncheckedCreateNestedManyWithoutAssignedByInput
-    statusLogs?: StatusLogUncheckedCreateNestedManyWithoutChangedByInput
-    searchHistory?: SearchHistoryUncheckedCreateNestedManyWithoutUserInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     inventoryLogs?: InventoryLogUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    searchHistory?: SearchHistoryUncheckedCreateNestedManyWithoutUserInput
+    statusLogs?: StatusLogUncheckedCreateNestedManyWithoutChangedByInput
+    workOrdersCreated?: WorkOrderUncheckedCreateNestedManyWithoutAssignedByInput
+    workOrdersAssigned?: WorkOrderUncheckedCreateNestedManyWithoutAssignedToInput
   }
 
   export type UserUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    middleName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: StringFieldUpdateOperationsInput | string
-    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    gender?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
-    region?: StringFieldUpdateOperationsInput | string
-    province?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: StringFieldUpdateOperationsInput | string
-    barangay?: StringFieldUpdateOperationsInput | string
-    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    barangay?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: StringFieldUpdateOperationsInput | string
+    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
     faultReports?: FaultReportUpdateManyWithoutReportedByNestedInput
-    workOrdersAssigned?: WorkOrderUpdateManyWithoutAssignedToNestedInput
-    workOrdersCreated?: WorkOrderUpdateManyWithoutAssignedByNestedInput
-    statusLogs?: StatusLogUpdateManyWithoutChangedByNestedInput
-    searchHistory?: SearchHistoryUpdateManyWithoutUserNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
     inventoryLogs?: InventoryLogUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    searchHistory?: SearchHistoryUpdateManyWithoutUserNestedInput
+    statusLogs?: StatusLogUpdateManyWithoutChangedByNestedInput
+    workOrdersCreated?: WorkOrderUpdateManyWithoutAssignedByNestedInput
+    workOrdersAssigned?: WorkOrderUpdateManyWithoutAssignedToNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    middleName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: StringFieldUpdateOperationsInput | string
-    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    gender?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
-    region?: StringFieldUpdateOperationsInput | string
-    province?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: StringFieldUpdateOperationsInput | string
-    barangay?: StringFieldUpdateOperationsInput | string
-    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    barangay?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: StringFieldUpdateOperationsInput | string
+    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
     faultReports?: FaultReportUncheckedUpdateManyWithoutReportedByNestedInput
-    workOrdersAssigned?: WorkOrderUncheckedUpdateManyWithoutAssignedToNestedInput
-    workOrdersCreated?: WorkOrderUncheckedUpdateManyWithoutAssignedByNestedInput
-    statusLogs?: StatusLogUncheckedUpdateManyWithoutChangedByNestedInput
-    searchHistory?: SearchHistoryUncheckedUpdateManyWithoutUserNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     inventoryLogs?: InventoryLogUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    searchHistory?: SearchHistoryUncheckedUpdateManyWithoutUserNestedInput
+    statusLogs?: StatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+    workOrdersCreated?: WorkOrderUncheckedUpdateManyWithoutAssignedByNestedInput
+    workOrdersAssigned?: WorkOrderUncheckedUpdateManyWithoutAssignedToNestedInput
   }
 
   export type UserCreateManyInput = {
     id?: string
-    firstName: string
-    middleName?: string | null
-    lastName: string
-    dob?: Date | string | null
-    gender?: string | null
     email: string
-    phone: string
     passwordHash: string
-    region: string
-    province?: string | null
-    city: string
-    barangay: string
-    streetAddress?: string | null
     role?: $Enums.Role
     createdAt?: Date | string
+    barangay: string
+    city: string
+    dob?: Date | string | null
+    firstName: string
+    gender?: string | null
+    lastName: string
+    middleName?: string | null
+    phone: string
+    province?: string | null
+    region: string
+    streetAddress?: string | null
   }
 
   export type UserUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    middleName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: StringFieldUpdateOperationsInput | string
-    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    gender?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
-    region?: StringFieldUpdateOperationsInput | string
-    province?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: StringFieldUpdateOperationsInput | string
-    barangay?: StringFieldUpdateOperationsInput | string
-    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    barangay?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: StringFieldUpdateOperationsInput | string
+    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    middleName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: StringFieldUpdateOperationsInput | string
-    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    gender?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
-    region?: StringFieldUpdateOperationsInput | string
-    province?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: StringFieldUpdateOperationsInput | string
-    barangay?: StringFieldUpdateOperationsInput | string
-    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    barangay?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: StringFieldUpdateOperationsInput | string
+    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type PoleCreateInput = {
@@ -13596,9 +13596,9 @@ export namespace Prisma {
     assignedAt?: Date | string
     resolvedAt?: Date | string | null
     resolutionNotes?: string | null
-    faultReport: FaultReportCreateNestedOneWithoutWorkOrderInput
-    assignedTo?: UserCreateNestedOneWithoutWorkOrdersAssignedInput
     assignedBy: UserCreateNestedOneWithoutWorkOrdersCreatedInput
+    assignedTo?: UserCreateNestedOneWithoutWorkOrdersAssignedInput
+    faultReport: FaultReportCreateNestedOneWithoutWorkOrderInput
   }
 
   export type WorkOrderUncheckedCreateInput = {
@@ -13618,9 +13618,9 @@ export namespace Prisma {
     assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resolutionNotes?: NullableStringFieldUpdateOperationsInput | string | null
-    faultReport?: FaultReportUpdateOneRequiredWithoutWorkOrderNestedInput
-    assignedTo?: UserUpdateOneWithoutWorkOrdersAssignedNestedInput
     assignedBy?: UserUpdateOneRequiredWithoutWorkOrdersCreatedNestedInput
+    assignedTo?: UserUpdateOneWithoutWorkOrdersAssignedNestedInput
+    faultReport?: FaultReportUpdateOneRequiredWithoutWorkOrderNestedInput
   }
 
   export type WorkOrderUncheckedUpdateInput = {
@@ -13670,8 +13670,8 @@ export namespace Prisma {
     toStatus: $Enums.PoleStatus
     changedAt?: Date | string
     reason?: string | null
-    pole: PoleCreateNestedOneWithoutStatusLogsInput
     changedBy: UserCreateNestedOneWithoutStatusLogsInput
+    pole: PoleCreateNestedOneWithoutStatusLogsInput
   }
 
   export type StatusLogUncheckedCreateInput = {
@@ -13690,8 +13690,8 @@ export namespace Prisma {
     toStatus?: EnumPoleStatusFieldUpdateOperationsInput | $Enums.PoleStatus
     changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reason?: NullableStringFieldUpdateOperationsInput | string | null
-    pole?: PoleUpdateOneRequiredWithoutStatusLogsNestedInput
     changedBy?: UserUpdateOneRequiredWithoutStatusLogsNestedInput
+    pole?: PoleUpdateOneRequiredWithoutStatusLogsNestedInput
   }
 
   export type StatusLogUncheckedUpdateInput = {
@@ -14034,32 +14034,6 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type StringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
   export type EnumRoleFilter<$PrismaModel = never> = {
     equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
     in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
@@ -14078,28 +14052,42 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type FaultReportListRelationFilter = {
     every?: FaultReportWhereInput
     some?: FaultReportWhereInput
     none?: FaultReportWhereInput
   }
 
-  export type WorkOrderListRelationFilter = {
-    every?: WorkOrderWhereInput
-    some?: WorkOrderWhereInput
-    none?: WorkOrderWhereInput
-  }
-
-  export type StatusLogListRelationFilter = {
-    every?: StatusLogWhereInput
-    some?: StatusLogWhereInput
-    none?: StatusLogWhereInput
-  }
-
-  export type SearchHistoryListRelationFilter = {
-    every?: SearchHistoryWhereInput
-    some?: SearchHistoryWhereInput
-    none?: SearchHistoryWhereInput
+  export type InventoryLogListRelationFilter = {
+    every?: InventoryLogWhereInput
+    some?: InventoryLogWhereInput
+    none?: InventoryLogWhereInput
   }
 
   export type NotificationListRelationFilter = {
@@ -14108,10 +14096,22 @@ export namespace Prisma {
     none?: NotificationWhereInput
   }
 
-  export type InventoryLogListRelationFilter = {
-    every?: InventoryLogWhereInput
-    some?: InventoryLogWhereInput
-    none?: InventoryLogWhereInput
+  export type SearchHistoryListRelationFilter = {
+    every?: SearchHistoryWhereInput
+    some?: SearchHistoryWhereInput
+    none?: SearchHistoryWhereInput
+  }
+
+  export type StatusLogListRelationFilter = {
+    every?: StatusLogWhereInput
+    some?: StatusLogWhereInput
+    none?: StatusLogWhereInput
+  }
+
+  export type WorkOrderListRelationFilter = {
+    every?: WorkOrderWhereInput
+    some?: WorkOrderWhereInput
+    none?: WorkOrderWhereInput
   }
 
   export type SortOrderInput = {
@@ -14123,15 +14123,7 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type WorkOrderOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type StatusLogOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type SearchHistoryOrderByRelationAggregateInput = {
+  export type InventoryLogOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -14139,65 +14131,73 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type InventoryLogOrderByRelationAggregateInput = {
+  export type SearchHistoryOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type StatusLogOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type WorkOrderOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type UserCountOrderByAggregateInput = {
     id?: SortOrder
-    firstName?: SortOrder
-    middleName?: SortOrder
-    lastName?: SortOrder
-    dob?: SortOrder
-    gender?: SortOrder
     email?: SortOrder
-    phone?: SortOrder
     passwordHash?: SortOrder
-    region?: SortOrder
-    province?: SortOrder
-    city?: SortOrder
-    barangay?: SortOrder
-    streetAddress?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
+    barangay?: SortOrder
+    city?: SortOrder
+    dob?: SortOrder
+    firstName?: SortOrder
+    gender?: SortOrder
+    lastName?: SortOrder
+    middleName?: SortOrder
+    phone?: SortOrder
+    province?: SortOrder
+    region?: SortOrder
+    streetAddress?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
     id?: SortOrder
-    firstName?: SortOrder
-    middleName?: SortOrder
-    lastName?: SortOrder
-    dob?: SortOrder
-    gender?: SortOrder
     email?: SortOrder
-    phone?: SortOrder
     passwordHash?: SortOrder
-    region?: SortOrder
-    province?: SortOrder
-    city?: SortOrder
-    barangay?: SortOrder
-    streetAddress?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
+    barangay?: SortOrder
+    city?: SortOrder
+    dob?: SortOrder
+    firstName?: SortOrder
+    gender?: SortOrder
+    lastName?: SortOrder
+    middleName?: SortOrder
+    phone?: SortOrder
+    province?: SortOrder
+    region?: SortOrder
+    streetAddress?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
     id?: SortOrder
-    firstName?: SortOrder
-    middleName?: SortOrder
-    lastName?: SortOrder
-    dob?: SortOrder
-    gender?: SortOrder
     email?: SortOrder
-    phone?: SortOrder
     passwordHash?: SortOrder
-    region?: SortOrder
-    province?: SortOrder
-    city?: SortOrder
-    barangay?: SortOrder
-    streetAddress?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
+    barangay?: SortOrder
+    city?: SortOrder
+    dob?: SortOrder
+    firstName?: SortOrder
+    gender?: SortOrder
+    lastName?: SortOrder
+    middleName?: SortOrder
+    phone?: SortOrder
+    province?: SortOrder
+    region?: SortOrder
+    streetAddress?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -14216,38 +14216,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
-  }
-
-  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    mode?: QueryMode
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type EnumRoleWithAggregatesFilter<$PrismaModel = never> = {
@@ -14272,6 +14240,38 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type FloatFilter<$PrismaModel = never> = {
@@ -14450,14 +14450,14 @@ export namespace Prisma {
     not?: NestedEnumWorkOrderStatusFilter<$PrismaModel> | $Enums.WorkOrderStatus
   }
 
-  export type FaultReportScalarRelationFilter = {
-    is?: FaultReportWhereInput
-    isNot?: FaultReportWhereInput
-  }
-
   export type UserNullableScalarRelationFilter = {
     is?: UserWhereInput | null
     isNot?: UserWhereInput | null
+  }
+
+  export type FaultReportScalarRelationFilter = {
+    is?: FaultReportWhereInput
+    isNot?: FaultReportWhereInput
   }
 
   export type WorkOrderCountOrderByAggregateInput = {
@@ -14763,32 +14763,11 @@ export namespace Prisma {
     connect?: FaultReportWhereUniqueInput | FaultReportWhereUniqueInput[]
   }
 
-  export type WorkOrderCreateNestedManyWithoutAssignedToInput = {
-    create?: XOR<WorkOrderCreateWithoutAssignedToInput, WorkOrderUncheckedCreateWithoutAssignedToInput> | WorkOrderCreateWithoutAssignedToInput[] | WorkOrderUncheckedCreateWithoutAssignedToInput[]
-    connectOrCreate?: WorkOrderCreateOrConnectWithoutAssignedToInput | WorkOrderCreateOrConnectWithoutAssignedToInput[]
-    createMany?: WorkOrderCreateManyAssignedToInputEnvelope
-    connect?: WorkOrderWhereUniqueInput | WorkOrderWhereUniqueInput[]
-  }
-
-  export type WorkOrderCreateNestedManyWithoutAssignedByInput = {
-    create?: XOR<WorkOrderCreateWithoutAssignedByInput, WorkOrderUncheckedCreateWithoutAssignedByInput> | WorkOrderCreateWithoutAssignedByInput[] | WorkOrderUncheckedCreateWithoutAssignedByInput[]
-    connectOrCreate?: WorkOrderCreateOrConnectWithoutAssignedByInput | WorkOrderCreateOrConnectWithoutAssignedByInput[]
-    createMany?: WorkOrderCreateManyAssignedByInputEnvelope
-    connect?: WorkOrderWhereUniqueInput | WorkOrderWhereUniqueInput[]
-  }
-
-  export type StatusLogCreateNestedManyWithoutChangedByInput = {
-    create?: XOR<StatusLogCreateWithoutChangedByInput, StatusLogUncheckedCreateWithoutChangedByInput> | StatusLogCreateWithoutChangedByInput[] | StatusLogUncheckedCreateWithoutChangedByInput[]
-    connectOrCreate?: StatusLogCreateOrConnectWithoutChangedByInput | StatusLogCreateOrConnectWithoutChangedByInput[]
-    createMany?: StatusLogCreateManyChangedByInputEnvelope
-    connect?: StatusLogWhereUniqueInput | StatusLogWhereUniqueInput[]
-  }
-
-  export type SearchHistoryCreateNestedManyWithoutUserInput = {
-    create?: XOR<SearchHistoryCreateWithoutUserInput, SearchHistoryUncheckedCreateWithoutUserInput> | SearchHistoryCreateWithoutUserInput[] | SearchHistoryUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: SearchHistoryCreateOrConnectWithoutUserInput | SearchHistoryCreateOrConnectWithoutUserInput[]
-    createMany?: SearchHistoryCreateManyUserInputEnvelope
-    connect?: SearchHistoryWhereUniqueInput | SearchHistoryWhereUniqueInput[]
+  export type InventoryLogCreateNestedManyWithoutUserInput = {
+    create?: XOR<InventoryLogCreateWithoutUserInput, InventoryLogUncheckedCreateWithoutUserInput> | InventoryLogCreateWithoutUserInput[] | InventoryLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: InventoryLogCreateOrConnectWithoutUserInput | InventoryLogCreateOrConnectWithoutUserInput[]
+    createMany?: InventoryLogCreateManyUserInputEnvelope
+    connect?: InventoryLogWhereUniqueInput | InventoryLogWhereUniqueInput[]
   }
 
   export type NotificationCreateNestedManyWithoutUserInput = {
@@ -14798,11 +14777,32 @@ export namespace Prisma {
     connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
   }
 
-  export type InventoryLogCreateNestedManyWithoutUserInput = {
-    create?: XOR<InventoryLogCreateWithoutUserInput, InventoryLogUncheckedCreateWithoutUserInput> | InventoryLogCreateWithoutUserInput[] | InventoryLogUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: InventoryLogCreateOrConnectWithoutUserInput | InventoryLogCreateOrConnectWithoutUserInput[]
-    createMany?: InventoryLogCreateManyUserInputEnvelope
-    connect?: InventoryLogWhereUniqueInput | InventoryLogWhereUniqueInput[]
+  export type SearchHistoryCreateNestedManyWithoutUserInput = {
+    create?: XOR<SearchHistoryCreateWithoutUserInput, SearchHistoryUncheckedCreateWithoutUserInput> | SearchHistoryCreateWithoutUserInput[] | SearchHistoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SearchHistoryCreateOrConnectWithoutUserInput | SearchHistoryCreateOrConnectWithoutUserInput[]
+    createMany?: SearchHistoryCreateManyUserInputEnvelope
+    connect?: SearchHistoryWhereUniqueInput | SearchHistoryWhereUniqueInput[]
+  }
+
+  export type StatusLogCreateNestedManyWithoutChangedByInput = {
+    create?: XOR<StatusLogCreateWithoutChangedByInput, StatusLogUncheckedCreateWithoutChangedByInput> | StatusLogCreateWithoutChangedByInput[] | StatusLogUncheckedCreateWithoutChangedByInput[]
+    connectOrCreate?: StatusLogCreateOrConnectWithoutChangedByInput | StatusLogCreateOrConnectWithoutChangedByInput[]
+    createMany?: StatusLogCreateManyChangedByInputEnvelope
+    connect?: StatusLogWhereUniqueInput | StatusLogWhereUniqueInput[]
+  }
+
+  export type WorkOrderCreateNestedManyWithoutAssignedByInput = {
+    create?: XOR<WorkOrderCreateWithoutAssignedByInput, WorkOrderUncheckedCreateWithoutAssignedByInput> | WorkOrderCreateWithoutAssignedByInput[] | WorkOrderUncheckedCreateWithoutAssignedByInput[]
+    connectOrCreate?: WorkOrderCreateOrConnectWithoutAssignedByInput | WorkOrderCreateOrConnectWithoutAssignedByInput[]
+    createMany?: WorkOrderCreateManyAssignedByInputEnvelope
+    connect?: WorkOrderWhereUniqueInput | WorkOrderWhereUniqueInput[]
+  }
+
+  export type WorkOrderCreateNestedManyWithoutAssignedToInput = {
+    create?: XOR<WorkOrderCreateWithoutAssignedToInput, WorkOrderUncheckedCreateWithoutAssignedToInput> | WorkOrderCreateWithoutAssignedToInput[] | WorkOrderUncheckedCreateWithoutAssignedToInput[]
+    connectOrCreate?: WorkOrderCreateOrConnectWithoutAssignedToInput | WorkOrderCreateOrConnectWithoutAssignedToInput[]
+    createMany?: WorkOrderCreateManyAssignedToInputEnvelope
+    connect?: WorkOrderWhereUniqueInput | WorkOrderWhereUniqueInput[]
   }
 
   export type FaultReportUncheckedCreateNestedManyWithoutReportedByInput = {
@@ -14812,32 +14812,11 @@ export namespace Prisma {
     connect?: FaultReportWhereUniqueInput | FaultReportWhereUniqueInput[]
   }
 
-  export type WorkOrderUncheckedCreateNestedManyWithoutAssignedToInput = {
-    create?: XOR<WorkOrderCreateWithoutAssignedToInput, WorkOrderUncheckedCreateWithoutAssignedToInput> | WorkOrderCreateWithoutAssignedToInput[] | WorkOrderUncheckedCreateWithoutAssignedToInput[]
-    connectOrCreate?: WorkOrderCreateOrConnectWithoutAssignedToInput | WorkOrderCreateOrConnectWithoutAssignedToInput[]
-    createMany?: WorkOrderCreateManyAssignedToInputEnvelope
-    connect?: WorkOrderWhereUniqueInput | WorkOrderWhereUniqueInput[]
-  }
-
-  export type WorkOrderUncheckedCreateNestedManyWithoutAssignedByInput = {
-    create?: XOR<WorkOrderCreateWithoutAssignedByInput, WorkOrderUncheckedCreateWithoutAssignedByInput> | WorkOrderCreateWithoutAssignedByInput[] | WorkOrderUncheckedCreateWithoutAssignedByInput[]
-    connectOrCreate?: WorkOrderCreateOrConnectWithoutAssignedByInput | WorkOrderCreateOrConnectWithoutAssignedByInput[]
-    createMany?: WorkOrderCreateManyAssignedByInputEnvelope
-    connect?: WorkOrderWhereUniqueInput | WorkOrderWhereUniqueInput[]
-  }
-
-  export type StatusLogUncheckedCreateNestedManyWithoutChangedByInput = {
-    create?: XOR<StatusLogCreateWithoutChangedByInput, StatusLogUncheckedCreateWithoutChangedByInput> | StatusLogCreateWithoutChangedByInput[] | StatusLogUncheckedCreateWithoutChangedByInput[]
-    connectOrCreate?: StatusLogCreateOrConnectWithoutChangedByInput | StatusLogCreateOrConnectWithoutChangedByInput[]
-    createMany?: StatusLogCreateManyChangedByInputEnvelope
-    connect?: StatusLogWhereUniqueInput | StatusLogWhereUniqueInput[]
-  }
-
-  export type SearchHistoryUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<SearchHistoryCreateWithoutUserInput, SearchHistoryUncheckedCreateWithoutUserInput> | SearchHistoryCreateWithoutUserInput[] | SearchHistoryUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: SearchHistoryCreateOrConnectWithoutUserInput | SearchHistoryCreateOrConnectWithoutUserInput[]
-    createMany?: SearchHistoryCreateManyUserInputEnvelope
-    connect?: SearchHistoryWhereUniqueInput | SearchHistoryWhereUniqueInput[]
+  export type InventoryLogUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<InventoryLogCreateWithoutUserInput, InventoryLogUncheckedCreateWithoutUserInput> | InventoryLogCreateWithoutUserInput[] | InventoryLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: InventoryLogCreateOrConnectWithoutUserInput | InventoryLogCreateOrConnectWithoutUserInput[]
+    createMany?: InventoryLogCreateManyUserInputEnvelope
+    connect?: InventoryLogWhereUniqueInput | InventoryLogWhereUniqueInput[]
   }
 
   export type NotificationUncheckedCreateNestedManyWithoutUserInput = {
@@ -14847,23 +14826,36 @@ export namespace Prisma {
     connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
   }
 
-  export type InventoryLogUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<InventoryLogCreateWithoutUserInput, InventoryLogUncheckedCreateWithoutUserInput> | InventoryLogCreateWithoutUserInput[] | InventoryLogUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: InventoryLogCreateOrConnectWithoutUserInput | InventoryLogCreateOrConnectWithoutUserInput[]
-    createMany?: InventoryLogCreateManyUserInputEnvelope
-    connect?: InventoryLogWhereUniqueInput | InventoryLogWhereUniqueInput[]
+  export type SearchHistoryUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<SearchHistoryCreateWithoutUserInput, SearchHistoryUncheckedCreateWithoutUserInput> | SearchHistoryCreateWithoutUserInput[] | SearchHistoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SearchHistoryCreateOrConnectWithoutUserInput | SearchHistoryCreateOrConnectWithoutUserInput[]
+    createMany?: SearchHistoryCreateManyUserInputEnvelope
+    connect?: SearchHistoryWhereUniqueInput | SearchHistoryWhereUniqueInput[]
+  }
+
+  export type StatusLogUncheckedCreateNestedManyWithoutChangedByInput = {
+    create?: XOR<StatusLogCreateWithoutChangedByInput, StatusLogUncheckedCreateWithoutChangedByInput> | StatusLogCreateWithoutChangedByInput[] | StatusLogUncheckedCreateWithoutChangedByInput[]
+    connectOrCreate?: StatusLogCreateOrConnectWithoutChangedByInput | StatusLogCreateOrConnectWithoutChangedByInput[]
+    createMany?: StatusLogCreateManyChangedByInputEnvelope
+    connect?: StatusLogWhereUniqueInput | StatusLogWhereUniqueInput[]
+  }
+
+  export type WorkOrderUncheckedCreateNestedManyWithoutAssignedByInput = {
+    create?: XOR<WorkOrderCreateWithoutAssignedByInput, WorkOrderUncheckedCreateWithoutAssignedByInput> | WorkOrderCreateWithoutAssignedByInput[] | WorkOrderUncheckedCreateWithoutAssignedByInput[]
+    connectOrCreate?: WorkOrderCreateOrConnectWithoutAssignedByInput | WorkOrderCreateOrConnectWithoutAssignedByInput[]
+    createMany?: WorkOrderCreateManyAssignedByInputEnvelope
+    connect?: WorkOrderWhereUniqueInput | WorkOrderWhereUniqueInput[]
+  }
+
+  export type WorkOrderUncheckedCreateNestedManyWithoutAssignedToInput = {
+    create?: XOR<WorkOrderCreateWithoutAssignedToInput, WorkOrderUncheckedCreateWithoutAssignedToInput> | WorkOrderCreateWithoutAssignedToInput[] | WorkOrderUncheckedCreateWithoutAssignedToInput[]
+    connectOrCreate?: WorkOrderCreateOrConnectWithoutAssignedToInput | WorkOrderCreateOrConnectWithoutAssignedToInput[]
+    createMany?: WorkOrderCreateManyAssignedToInputEnvelope
+    connect?: WorkOrderWhereUniqueInput | WorkOrderWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
     set?: string
-  }
-
-  export type NullableStringFieldUpdateOperationsInput = {
-    set?: string | null
-  }
-
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
   }
 
   export type EnumRoleFieldUpdateOperationsInput = {
@@ -14872,6 +14864,14 @@ export namespace Prisma {
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type FaultReportUpdateManyWithoutReportedByNestedInput = {
@@ -14888,60 +14888,18 @@ export namespace Prisma {
     deleteMany?: FaultReportScalarWhereInput | FaultReportScalarWhereInput[]
   }
 
-  export type WorkOrderUpdateManyWithoutAssignedToNestedInput = {
-    create?: XOR<WorkOrderCreateWithoutAssignedToInput, WorkOrderUncheckedCreateWithoutAssignedToInput> | WorkOrderCreateWithoutAssignedToInput[] | WorkOrderUncheckedCreateWithoutAssignedToInput[]
-    connectOrCreate?: WorkOrderCreateOrConnectWithoutAssignedToInput | WorkOrderCreateOrConnectWithoutAssignedToInput[]
-    upsert?: WorkOrderUpsertWithWhereUniqueWithoutAssignedToInput | WorkOrderUpsertWithWhereUniqueWithoutAssignedToInput[]
-    createMany?: WorkOrderCreateManyAssignedToInputEnvelope
-    set?: WorkOrderWhereUniqueInput | WorkOrderWhereUniqueInput[]
-    disconnect?: WorkOrderWhereUniqueInput | WorkOrderWhereUniqueInput[]
-    delete?: WorkOrderWhereUniqueInput | WorkOrderWhereUniqueInput[]
-    connect?: WorkOrderWhereUniqueInput | WorkOrderWhereUniqueInput[]
-    update?: WorkOrderUpdateWithWhereUniqueWithoutAssignedToInput | WorkOrderUpdateWithWhereUniqueWithoutAssignedToInput[]
-    updateMany?: WorkOrderUpdateManyWithWhereWithoutAssignedToInput | WorkOrderUpdateManyWithWhereWithoutAssignedToInput[]
-    deleteMany?: WorkOrderScalarWhereInput | WorkOrderScalarWhereInput[]
-  }
-
-  export type WorkOrderUpdateManyWithoutAssignedByNestedInput = {
-    create?: XOR<WorkOrderCreateWithoutAssignedByInput, WorkOrderUncheckedCreateWithoutAssignedByInput> | WorkOrderCreateWithoutAssignedByInput[] | WorkOrderUncheckedCreateWithoutAssignedByInput[]
-    connectOrCreate?: WorkOrderCreateOrConnectWithoutAssignedByInput | WorkOrderCreateOrConnectWithoutAssignedByInput[]
-    upsert?: WorkOrderUpsertWithWhereUniqueWithoutAssignedByInput | WorkOrderUpsertWithWhereUniqueWithoutAssignedByInput[]
-    createMany?: WorkOrderCreateManyAssignedByInputEnvelope
-    set?: WorkOrderWhereUniqueInput | WorkOrderWhereUniqueInput[]
-    disconnect?: WorkOrderWhereUniqueInput | WorkOrderWhereUniqueInput[]
-    delete?: WorkOrderWhereUniqueInput | WorkOrderWhereUniqueInput[]
-    connect?: WorkOrderWhereUniqueInput | WorkOrderWhereUniqueInput[]
-    update?: WorkOrderUpdateWithWhereUniqueWithoutAssignedByInput | WorkOrderUpdateWithWhereUniqueWithoutAssignedByInput[]
-    updateMany?: WorkOrderUpdateManyWithWhereWithoutAssignedByInput | WorkOrderUpdateManyWithWhereWithoutAssignedByInput[]
-    deleteMany?: WorkOrderScalarWhereInput | WorkOrderScalarWhereInput[]
-  }
-
-  export type StatusLogUpdateManyWithoutChangedByNestedInput = {
-    create?: XOR<StatusLogCreateWithoutChangedByInput, StatusLogUncheckedCreateWithoutChangedByInput> | StatusLogCreateWithoutChangedByInput[] | StatusLogUncheckedCreateWithoutChangedByInput[]
-    connectOrCreate?: StatusLogCreateOrConnectWithoutChangedByInput | StatusLogCreateOrConnectWithoutChangedByInput[]
-    upsert?: StatusLogUpsertWithWhereUniqueWithoutChangedByInput | StatusLogUpsertWithWhereUniqueWithoutChangedByInput[]
-    createMany?: StatusLogCreateManyChangedByInputEnvelope
-    set?: StatusLogWhereUniqueInput | StatusLogWhereUniqueInput[]
-    disconnect?: StatusLogWhereUniqueInput | StatusLogWhereUniqueInput[]
-    delete?: StatusLogWhereUniqueInput | StatusLogWhereUniqueInput[]
-    connect?: StatusLogWhereUniqueInput | StatusLogWhereUniqueInput[]
-    update?: StatusLogUpdateWithWhereUniqueWithoutChangedByInput | StatusLogUpdateWithWhereUniqueWithoutChangedByInput[]
-    updateMany?: StatusLogUpdateManyWithWhereWithoutChangedByInput | StatusLogUpdateManyWithWhereWithoutChangedByInput[]
-    deleteMany?: StatusLogScalarWhereInput | StatusLogScalarWhereInput[]
-  }
-
-  export type SearchHistoryUpdateManyWithoutUserNestedInput = {
-    create?: XOR<SearchHistoryCreateWithoutUserInput, SearchHistoryUncheckedCreateWithoutUserInput> | SearchHistoryCreateWithoutUserInput[] | SearchHistoryUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: SearchHistoryCreateOrConnectWithoutUserInput | SearchHistoryCreateOrConnectWithoutUserInput[]
-    upsert?: SearchHistoryUpsertWithWhereUniqueWithoutUserInput | SearchHistoryUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: SearchHistoryCreateManyUserInputEnvelope
-    set?: SearchHistoryWhereUniqueInput | SearchHistoryWhereUniqueInput[]
-    disconnect?: SearchHistoryWhereUniqueInput | SearchHistoryWhereUniqueInput[]
-    delete?: SearchHistoryWhereUniqueInput | SearchHistoryWhereUniqueInput[]
-    connect?: SearchHistoryWhereUniqueInput | SearchHistoryWhereUniqueInput[]
-    update?: SearchHistoryUpdateWithWhereUniqueWithoutUserInput | SearchHistoryUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: SearchHistoryUpdateManyWithWhereWithoutUserInput | SearchHistoryUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: SearchHistoryScalarWhereInput | SearchHistoryScalarWhereInput[]
+  export type InventoryLogUpdateManyWithoutUserNestedInput = {
+    create?: XOR<InventoryLogCreateWithoutUserInput, InventoryLogUncheckedCreateWithoutUserInput> | InventoryLogCreateWithoutUserInput[] | InventoryLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: InventoryLogCreateOrConnectWithoutUserInput | InventoryLogCreateOrConnectWithoutUserInput[]
+    upsert?: InventoryLogUpsertWithWhereUniqueWithoutUserInput | InventoryLogUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: InventoryLogCreateManyUserInputEnvelope
+    set?: InventoryLogWhereUniqueInput | InventoryLogWhereUniqueInput[]
+    disconnect?: InventoryLogWhereUniqueInput | InventoryLogWhereUniqueInput[]
+    delete?: InventoryLogWhereUniqueInput | InventoryLogWhereUniqueInput[]
+    connect?: InventoryLogWhereUniqueInput | InventoryLogWhereUniqueInput[]
+    update?: InventoryLogUpdateWithWhereUniqueWithoutUserInput | InventoryLogUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: InventoryLogUpdateManyWithWhereWithoutUserInput | InventoryLogUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: InventoryLogScalarWhereInput | InventoryLogScalarWhereInput[]
   }
 
   export type NotificationUpdateManyWithoutUserNestedInput = {
@@ -14958,18 +14916,60 @@ export namespace Prisma {
     deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
   }
 
-  export type InventoryLogUpdateManyWithoutUserNestedInput = {
-    create?: XOR<InventoryLogCreateWithoutUserInput, InventoryLogUncheckedCreateWithoutUserInput> | InventoryLogCreateWithoutUserInput[] | InventoryLogUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: InventoryLogCreateOrConnectWithoutUserInput | InventoryLogCreateOrConnectWithoutUserInput[]
-    upsert?: InventoryLogUpsertWithWhereUniqueWithoutUserInput | InventoryLogUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: InventoryLogCreateManyUserInputEnvelope
-    set?: InventoryLogWhereUniqueInput | InventoryLogWhereUniqueInput[]
-    disconnect?: InventoryLogWhereUniqueInput | InventoryLogWhereUniqueInput[]
-    delete?: InventoryLogWhereUniqueInput | InventoryLogWhereUniqueInput[]
-    connect?: InventoryLogWhereUniqueInput | InventoryLogWhereUniqueInput[]
-    update?: InventoryLogUpdateWithWhereUniqueWithoutUserInput | InventoryLogUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: InventoryLogUpdateManyWithWhereWithoutUserInput | InventoryLogUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: InventoryLogScalarWhereInput | InventoryLogScalarWhereInput[]
+  export type SearchHistoryUpdateManyWithoutUserNestedInput = {
+    create?: XOR<SearchHistoryCreateWithoutUserInput, SearchHistoryUncheckedCreateWithoutUserInput> | SearchHistoryCreateWithoutUserInput[] | SearchHistoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SearchHistoryCreateOrConnectWithoutUserInput | SearchHistoryCreateOrConnectWithoutUserInput[]
+    upsert?: SearchHistoryUpsertWithWhereUniqueWithoutUserInput | SearchHistoryUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: SearchHistoryCreateManyUserInputEnvelope
+    set?: SearchHistoryWhereUniqueInput | SearchHistoryWhereUniqueInput[]
+    disconnect?: SearchHistoryWhereUniqueInput | SearchHistoryWhereUniqueInput[]
+    delete?: SearchHistoryWhereUniqueInput | SearchHistoryWhereUniqueInput[]
+    connect?: SearchHistoryWhereUniqueInput | SearchHistoryWhereUniqueInput[]
+    update?: SearchHistoryUpdateWithWhereUniqueWithoutUserInput | SearchHistoryUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: SearchHistoryUpdateManyWithWhereWithoutUserInput | SearchHistoryUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: SearchHistoryScalarWhereInput | SearchHistoryScalarWhereInput[]
+  }
+
+  export type StatusLogUpdateManyWithoutChangedByNestedInput = {
+    create?: XOR<StatusLogCreateWithoutChangedByInput, StatusLogUncheckedCreateWithoutChangedByInput> | StatusLogCreateWithoutChangedByInput[] | StatusLogUncheckedCreateWithoutChangedByInput[]
+    connectOrCreate?: StatusLogCreateOrConnectWithoutChangedByInput | StatusLogCreateOrConnectWithoutChangedByInput[]
+    upsert?: StatusLogUpsertWithWhereUniqueWithoutChangedByInput | StatusLogUpsertWithWhereUniqueWithoutChangedByInput[]
+    createMany?: StatusLogCreateManyChangedByInputEnvelope
+    set?: StatusLogWhereUniqueInput | StatusLogWhereUniqueInput[]
+    disconnect?: StatusLogWhereUniqueInput | StatusLogWhereUniqueInput[]
+    delete?: StatusLogWhereUniqueInput | StatusLogWhereUniqueInput[]
+    connect?: StatusLogWhereUniqueInput | StatusLogWhereUniqueInput[]
+    update?: StatusLogUpdateWithWhereUniqueWithoutChangedByInput | StatusLogUpdateWithWhereUniqueWithoutChangedByInput[]
+    updateMany?: StatusLogUpdateManyWithWhereWithoutChangedByInput | StatusLogUpdateManyWithWhereWithoutChangedByInput[]
+    deleteMany?: StatusLogScalarWhereInput | StatusLogScalarWhereInput[]
+  }
+
+  export type WorkOrderUpdateManyWithoutAssignedByNestedInput = {
+    create?: XOR<WorkOrderCreateWithoutAssignedByInput, WorkOrderUncheckedCreateWithoutAssignedByInput> | WorkOrderCreateWithoutAssignedByInput[] | WorkOrderUncheckedCreateWithoutAssignedByInput[]
+    connectOrCreate?: WorkOrderCreateOrConnectWithoutAssignedByInput | WorkOrderCreateOrConnectWithoutAssignedByInput[]
+    upsert?: WorkOrderUpsertWithWhereUniqueWithoutAssignedByInput | WorkOrderUpsertWithWhereUniqueWithoutAssignedByInput[]
+    createMany?: WorkOrderCreateManyAssignedByInputEnvelope
+    set?: WorkOrderWhereUniqueInput | WorkOrderWhereUniqueInput[]
+    disconnect?: WorkOrderWhereUniqueInput | WorkOrderWhereUniqueInput[]
+    delete?: WorkOrderWhereUniqueInput | WorkOrderWhereUniqueInput[]
+    connect?: WorkOrderWhereUniqueInput | WorkOrderWhereUniqueInput[]
+    update?: WorkOrderUpdateWithWhereUniqueWithoutAssignedByInput | WorkOrderUpdateWithWhereUniqueWithoutAssignedByInput[]
+    updateMany?: WorkOrderUpdateManyWithWhereWithoutAssignedByInput | WorkOrderUpdateManyWithWhereWithoutAssignedByInput[]
+    deleteMany?: WorkOrderScalarWhereInput | WorkOrderScalarWhereInput[]
+  }
+
+  export type WorkOrderUpdateManyWithoutAssignedToNestedInput = {
+    create?: XOR<WorkOrderCreateWithoutAssignedToInput, WorkOrderUncheckedCreateWithoutAssignedToInput> | WorkOrderCreateWithoutAssignedToInput[] | WorkOrderUncheckedCreateWithoutAssignedToInput[]
+    connectOrCreate?: WorkOrderCreateOrConnectWithoutAssignedToInput | WorkOrderCreateOrConnectWithoutAssignedToInput[]
+    upsert?: WorkOrderUpsertWithWhereUniqueWithoutAssignedToInput | WorkOrderUpsertWithWhereUniqueWithoutAssignedToInput[]
+    createMany?: WorkOrderCreateManyAssignedToInputEnvelope
+    set?: WorkOrderWhereUniqueInput | WorkOrderWhereUniqueInput[]
+    disconnect?: WorkOrderWhereUniqueInput | WorkOrderWhereUniqueInput[]
+    delete?: WorkOrderWhereUniqueInput | WorkOrderWhereUniqueInput[]
+    connect?: WorkOrderWhereUniqueInput | WorkOrderWhereUniqueInput[]
+    update?: WorkOrderUpdateWithWhereUniqueWithoutAssignedToInput | WorkOrderUpdateWithWhereUniqueWithoutAssignedToInput[]
+    updateMany?: WorkOrderUpdateManyWithWhereWithoutAssignedToInput | WorkOrderUpdateManyWithWhereWithoutAssignedToInput[]
+    deleteMany?: WorkOrderScalarWhereInput | WorkOrderScalarWhereInput[]
   }
 
   export type FaultReportUncheckedUpdateManyWithoutReportedByNestedInput = {
@@ -14986,60 +14986,18 @@ export namespace Prisma {
     deleteMany?: FaultReportScalarWhereInput | FaultReportScalarWhereInput[]
   }
 
-  export type WorkOrderUncheckedUpdateManyWithoutAssignedToNestedInput = {
-    create?: XOR<WorkOrderCreateWithoutAssignedToInput, WorkOrderUncheckedCreateWithoutAssignedToInput> | WorkOrderCreateWithoutAssignedToInput[] | WorkOrderUncheckedCreateWithoutAssignedToInput[]
-    connectOrCreate?: WorkOrderCreateOrConnectWithoutAssignedToInput | WorkOrderCreateOrConnectWithoutAssignedToInput[]
-    upsert?: WorkOrderUpsertWithWhereUniqueWithoutAssignedToInput | WorkOrderUpsertWithWhereUniqueWithoutAssignedToInput[]
-    createMany?: WorkOrderCreateManyAssignedToInputEnvelope
-    set?: WorkOrderWhereUniqueInput | WorkOrderWhereUniqueInput[]
-    disconnect?: WorkOrderWhereUniqueInput | WorkOrderWhereUniqueInput[]
-    delete?: WorkOrderWhereUniqueInput | WorkOrderWhereUniqueInput[]
-    connect?: WorkOrderWhereUniqueInput | WorkOrderWhereUniqueInput[]
-    update?: WorkOrderUpdateWithWhereUniqueWithoutAssignedToInput | WorkOrderUpdateWithWhereUniqueWithoutAssignedToInput[]
-    updateMany?: WorkOrderUpdateManyWithWhereWithoutAssignedToInput | WorkOrderUpdateManyWithWhereWithoutAssignedToInput[]
-    deleteMany?: WorkOrderScalarWhereInput | WorkOrderScalarWhereInput[]
-  }
-
-  export type WorkOrderUncheckedUpdateManyWithoutAssignedByNestedInput = {
-    create?: XOR<WorkOrderCreateWithoutAssignedByInput, WorkOrderUncheckedCreateWithoutAssignedByInput> | WorkOrderCreateWithoutAssignedByInput[] | WorkOrderUncheckedCreateWithoutAssignedByInput[]
-    connectOrCreate?: WorkOrderCreateOrConnectWithoutAssignedByInput | WorkOrderCreateOrConnectWithoutAssignedByInput[]
-    upsert?: WorkOrderUpsertWithWhereUniqueWithoutAssignedByInput | WorkOrderUpsertWithWhereUniqueWithoutAssignedByInput[]
-    createMany?: WorkOrderCreateManyAssignedByInputEnvelope
-    set?: WorkOrderWhereUniqueInput | WorkOrderWhereUniqueInput[]
-    disconnect?: WorkOrderWhereUniqueInput | WorkOrderWhereUniqueInput[]
-    delete?: WorkOrderWhereUniqueInput | WorkOrderWhereUniqueInput[]
-    connect?: WorkOrderWhereUniqueInput | WorkOrderWhereUniqueInput[]
-    update?: WorkOrderUpdateWithWhereUniqueWithoutAssignedByInput | WorkOrderUpdateWithWhereUniqueWithoutAssignedByInput[]
-    updateMany?: WorkOrderUpdateManyWithWhereWithoutAssignedByInput | WorkOrderUpdateManyWithWhereWithoutAssignedByInput[]
-    deleteMany?: WorkOrderScalarWhereInput | WorkOrderScalarWhereInput[]
-  }
-
-  export type StatusLogUncheckedUpdateManyWithoutChangedByNestedInput = {
-    create?: XOR<StatusLogCreateWithoutChangedByInput, StatusLogUncheckedCreateWithoutChangedByInput> | StatusLogCreateWithoutChangedByInput[] | StatusLogUncheckedCreateWithoutChangedByInput[]
-    connectOrCreate?: StatusLogCreateOrConnectWithoutChangedByInput | StatusLogCreateOrConnectWithoutChangedByInput[]
-    upsert?: StatusLogUpsertWithWhereUniqueWithoutChangedByInput | StatusLogUpsertWithWhereUniqueWithoutChangedByInput[]
-    createMany?: StatusLogCreateManyChangedByInputEnvelope
-    set?: StatusLogWhereUniqueInput | StatusLogWhereUniqueInput[]
-    disconnect?: StatusLogWhereUniqueInput | StatusLogWhereUniqueInput[]
-    delete?: StatusLogWhereUniqueInput | StatusLogWhereUniqueInput[]
-    connect?: StatusLogWhereUniqueInput | StatusLogWhereUniqueInput[]
-    update?: StatusLogUpdateWithWhereUniqueWithoutChangedByInput | StatusLogUpdateWithWhereUniqueWithoutChangedByInput[]
-    updateMany?: StatusLogUpdateManyWithWhereWithoutChangedByInput | StatusLogUpdateManyWithWhereWithoutChangedByInput[]
-    deleteMany?: StatusLogScalarWhereInput | StatusLogScalarWhereInput[]
-  }
-
-  export type SearchHistoryUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<SearchHistoryCreateWithoutUserInput, SearchHistoryUncheckedCreateWithoutUserInput> | SearchHistoryCreateWithoutUserInput[] | SearchHistoryUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: SearchHistoryCreateOrConnectWithoutUserInput | SearchHistoryCreateOrConnectWithoutUserInput[]
-    upsert?: SearchHistoryUpsertWithWhereUniqueWithoutUserInput | SearchHistoryUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: SearchHistoryCreateManyUserInputEnvelope
-    set?: SearchHistoryWhereUniqueInput | SearchHistoryWhereUniqueInput[]
-    disconnect?: SearchHistoryWhereUniqueInput | SearchHistoryWhereUniqueInput[]
-    delete?: SearchHistoryWhereUniqueInput | SearchHistoryWhereUniqueInput[]
-    connect?: SearchHistoryWhereUniqueInput | SearchHistoryWhereUniqueInput[]
-    update?: SearchHistoryUpdateWithWhereUniqueWithoutUserInput | SearchHistoryUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: SearchHistoryUpdateManyWithWhereWithoutUserInput | SearchHistoryUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: SearchHistoryScalarWhereInput | SearchHistoryScalarWhereInput[]
+  export type InventoryLogUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<InventoryLogCreateWithoutUserInput, InventoryLogUncheckedCreateWithoutUserInput> | InventoryLogCreateWithoutUserInput[] | InventoryLogUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: InventoryLogCreateOrConnectWithoutUserInput | InventoryLogCreateOrConnectWithoutUserInput[]
+    upsert?: InventoryLogUpsertWithWhereUniqueWithoutUserInput | InventoryLogUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: InventoryLogCreateManyUserInputEnvelope
+    set?: InventoryLogWhereUniqueInput | InventoryLogWhereUniqueInput[]
+    disconnect?: InventoryLogWhereUniqueInput | InventoryLogWhereUniqueInput[]
+    delete?: InventoryLogWhereUniqueInput | InventoryLogWhereUniqueInput[]
+    connect?: InventoryLogWhereUniqueInput | InventoryLogWhereUniqueInput[]
+    update?: InventoryLogUpdateWithWhereUniqueWithoutUserInput | InventoryLogUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: InventoryLogUpdateManyWithWhereWithoutUserInput | InventoryLogUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: InventoryLogScalarWhereInput | InventoryLogScalarWhereInput[]
   }
 
   export type NotificationUncheckedUpdateManyWithoutUserNestedInput = {
@@ -15056,18 +15014,60 @@ export namespace Prisma {
     deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
   }
 
-  export type InventoryLogUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<InventoryLogCreateWithoutUserInput, InventoryLogUncheckedCreateWithoutUserInput> | InventoryLogCreateWithoutUserInput[] | InventoryLogUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: InventoryLogCreateOrConnectWithoutUserInput | InventoryLogCreateOrConnectWithoutUserInput[]
-    upsert?: InventoryLogUpsertWithWhereUniqueWithoutUserInput | InventoryLogUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: InventoryLogCreateManyUserInputEnvelope
-    set?: InventoryLogWhereUniqueInput | InventoryLogWhereUniqueInput[]
-    disconnect?: InventoryLogWhereUniqueInput | InventoryLogWhereUniqueInput[]
-    delete?: InventoryLogWhereUniqueInput | InventoryLogWhereUniqueInput[]
-    connect?: InventoryLogWhereUniqueInput | InventoryLogWhereUniqueInput[]
-    update?: InventoryLogUpdateWithWhereUniqueWithoutUserInput | InventoryLogUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: InventoryLogUpdateManyWithWhereWithoutUserInput | InventoryLogUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: InventoryLogScalarWhereInput | InventoryLogScalarWhereInput[]
+  export type SearchHistoryUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<SearchHistoryCreateWithoutUserInput, SearchHistoryUncheckedCreateWithoutUserInput> | SearchHistoryCreateWithoutUserInput[] | SearchHistoryUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: SearchHistoryCreateOrConnectWithoutUserInput | SearchHistoryCreateOrConnectWithoutUserInput[]
+    upsert?: SearchHistoryUpsertWithWhereUniqueWithoutUserInput | SearchHistoryUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: SearchHistoryCreateManyUserInputEnvelope
+    set?: SearchHistoryWhereUniqueInput | SearchHistoryWhereUniqueInput[]
+    disconnect?: SearchHistoryWhereUniqueInput | SearchHistoryWhereUniqueInput[]
+    delete?: SearchHistoryWhereUniqueInput | SearchHistoryWhereUniqueInput[]
+    connect?: SearchHistoryWhereUniqueInput | SearchHistoryWhereUniqueInput[]
+    update?: SearchHistoryUpdateWithWhereUniqueWithoutUserInput | SearchHistoryUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: SearchHistoryUpdateManyWithWhereWithoutUserInput | SearchHistoryUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: SearchHistoryScalarWhereInput | SearchHistoryScalarWhereInput[]
+  }
+
+  export type StatusLogUncheckedUpdateManyWithoutChangedByNestedInput = {
+    create?: XOR<StatusLogCreateWithoutChangedByInput, StatusLogUncheckedCreateWithoutChangedByInput> | StatusLogCreateWithoutChangedByInput[] | StatusLogUncheckedCreateWithoutChangedByInput[]
+    connectOrCreate?: StatusLogCreateOrConnectWithoutChangedByInput | StatusLogCreateOrConnectWithoutChangedByInput[]
+    upsert?: StatusLogUpsertWithWhereUniqueWithoutChangedByInput | StatusLogUpsertWithWhereUniqueWithoutChangedByInput[]
+    createMany?: StatusLogCreateManyChangedByInputEnvelope
+    set?: StatusLogWhereUniqueInput | StatusLogWhereUniqueInput[]
+    disconnect?: StatusLogWhereUniqueInput | StatusLogWhereUniqueInput[]
+    delete?: StatusLogWhereUniqueInput | StatusLogWhereUniqueInput[]
+    connect?: StatusLogWhereUniqueInput | StatusLogWhereUniqueInput[]
+    update?: StatusLogUpdateWithWhereUniqueWithoutChangedByInput | StatusLogUpdateWithWhereUniqueWithoutChangedByInput[]
+    updateMany?: StatusLogUpdateManyWithWhereWithoutChangedByInput | StatusLogUpdateManyWithWhereWithoutChangedByInput[]
+    deleteMany?: StatusLogScalarWhereInput | StatusLogScalarWhereInput[]
+  }
+
+  export type WorkOrderUncheckedUpdateManyWithoutAssignedByNestedInput = {
+    create?: XOR<WorkOrderCreateWithoutAssignedByInput, WorkOrderUncheckedCreateWithoutAssignedByInput> | WorkOrderCreateWithoutAssignedByInput[] | WorkOrderUncheckedCreateWithoutAssignedByInput[]
+    connectOrCreate?: WorkOrderCreateOrConnectWithoutAssignedByInput | WorkOrderCreateOrConnectWithoutAssignedByInput[]
+    upsert?: WorkOrderUpsertWithWhereUniqueWithoutAssignedByInput | WorkOrderUpsertWithWhereUniqueWithoutAssignedByInput[]
+    createMany?: WorkOrderCreateManyAssignedByInputEnvelope
+    set?: WorkOrderWhereUniqueInput | WorkOrderWhereUniqueInput[]
+    disconnect?: WorkOrderWhereUniqueInput | WorkOrderWhereUniqueInput[]
+    delete?: WorkOrderWhereUniqueInput | WorkOrderWhereUniqueInput[]
+    connect?: WorkOrderWhereUniqueInput | WorkOrderWhereUniqueInput[]
+    update?: WorkOrderUpdateWithWhereUniqueWithoutAssignedByInput | WorkOrderUpdateWithWhereUniqueWithoutAssignedByInput[]
+    updateMany?: WorkOrderUpdateManyWithWhereWithoutAssignedByInput | WorkOrderUpdateManyWithWhereWithoutAssignedByInput[]
+    deleteMany?: WorkOrderScalarWhereInput | WorkOrderScalarWhereInput[]
+  }
+
+  export type WorkOrderUncheckedUpdateManyWithoutAssignedToNestedInput = {
+    create?: XOR<WorkOrderCreateWithoutAssignedToInput, WorkOrderUncheckedCreateWithoutAssignedToInput> | WorkOrderCreateWithoutAssignedToInput[] | WorkOrderUncheckedCreateWithoutAssignedToInput[]
+    connectOrCreate?: WorkOrderCreateOrConnectWithoutAssignedToInput | WorkOrderCreateOrConnectWithoutAssignedToInput[]
+    upsert?: WorkOrderUpsertWithWhereUniqueWithoutAssignedToInput | WorkOrderUpsertWithWhereUniqueWithoutAssignedToInput[]
+    createMany?: WorkOrderCreateManyAssignedToInputEnvelope
+    set?: WorkOrderWhereUniqueInput | WorkOrderWhereUniqueInput[]
+    disconnect?: WorkOrderWhereUniqueInput | WorkOrderWhereUniqueInput[]
+    delete?: WorkOrderWhereUniqueInput | WorkOrderWhereUniqueInput[]
+    connect?: WorkOrderWhereUniqueInput | WorkOrderWhereUniqueInput[]
+    update?: WorkOrderUpdateWithWhereUniqueWithoutAssignedToInput | WorkOrderUpdateWithWhereUniqueWithoutAssignedToInput[]
+    updateMany?: WorkOrderUpdateManyWithWhereWithoutAssignedToInput | WorkOrderUpdateManyWithWhereWithoutAssignedToInput[]
+    deleteMany?: WorkOrderScalarWhereInput | WorkOrderScalarWhereInput[]
   }
 
   export type FaultReportCreateNestedManyWithoutPoleInput = {
@@ -15234,10 +15234,10 @@ export namespace Prisma {
     update?: XOR<XOR<WorkOrderUpdateToOneWithWhereWithoutFaultReportInput, WorkOrderUpdateWithoutFaultReportInput>, WorkOrderUncheckedUpdateWithoutFaultReportInput>
   }
 
-  export type FaultReportCreateNestedOneWithoutWorkOrderInput = {
-    create?: XOR<FaultReportCreateWithoutWorkOrderInput, FaultReportUncheckedCreateWithoutWorkOrderInput>
-    connectOrCreate?: FaultReportCreateOrConnectWithoutWorkOrderInput
-    connect?: FaultReportWhereUniqueInput
+  export type UserCreateNestedOneWithoutWorkOrdersCreatedInput = {
+    create?: XOR<UserCreateWithoutWorkOrdersCreatedInput, UserUncheckedCreateWithoutWorkOrdersCreatedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutWorkOrdersCreatedInput
+    connect?: UserWhereUniqueInput
   }
 
   export type UserCreateNestedOneWithoutWorkOrdersAssignedInput = {
@@ -15246,22 +15246,22 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type UserCreateNestedOneWithoutWorkOrdersCreatedInput = {
-    create?: XOR<UserCreateWithoutWorkOrdersCreatedInput, UserUncheckedCreateWithoutWorkOrdersCreatedInput>
-    connectOrCreate?: UserCreateOrConnectWithoutWorkOrdersCreatedInput
-    connect?: UserWhereUniqueInput
+  export type FaultReportCreateNestedOneWithoutWorkOrderInput = {
+    create?: XOR<FaultReportCreateWithoutWorkOrderInput, FaultReportUncheckedCreateWithoutWorkOrderInput>
+    connectOrCreate?: FaultReportCreateOrConnectWithoutWorkOrderInput
+    connect?: FaultReportWhereUniqueInput
   }
 
   export type EnumWorkOrderStatusFieldUpdateOperationsInput = {
     set?: $Enums.WorkOrderStatus
   }
 
-  export type FaultReportUpdateOneRequiredWithoutWorkOrderNestedInput = {
-    create?: XOR<FaultReportCreateWithoutWorkOrderInput, FaultReportUncheckedCreateWithoutWorkOrderInput>
-    connectOrCreate?: FaultReportCreateOrConnectWithoutWorkOrderInput
-    upsert?: FaultReportUpsertWithoutWorkOrderInput
-    connect?: FaultReportWhereUniqueInput
-    update?: XOR<XOR<FaultReportUpdateToOneWithWhereWithoutWorkOrderInput, FaultReportUpdateWithoutWorkOrderInput>, FaultReportUncheckedUpdateWithoutWorkOrderInput>
+  export type UserUpdateOneRequiredWithoutWorkOrdersCreatedNestedInput = {
+    create?: XOR<UserCreateWithoutWorkOrdersCreatedInput, UserUncheckedCreateWithoutWorkOrdersCreatedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutWorkOrdersCreatedInput
+    upsert?: UserUpsertWithoutWorkOrdersCreatedInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutWorkOrdersCreatedInput, UserUpdateWithoutWorkOrdersCreatedInput>, UserUncheckedUpdateWithoutWorkOrdersCreatedInput>
   }
 
   export type UserUpdateOneWithoutWorkOrdersAssignedNestedInput = {
@@ -15274,18 +15274,12 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutWorkOrdersAssignedInput, UserUpdateWithoutWorkOrdersAssignedInput>, UserUncheckedUpdateWithoutWorkOrdersAssignedInput>
   }
 
-  export type UserUpdateOneRequiredWithoutWorkOrdersCreatedNestedInput = {
-    create?: XOR<UserCreateWithoutWorkOrdersCreatedInput, UserUncheckedCreateWithoutWorkOrdersCreatedInput>
-    connectOrCreate?: UserCreateOrConnectWithoutWorkOrdersCreatedInput
-    upsert?: UserUpsertWithoutWorkOrdersCreatedInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutWorkOrdersCreatedInput, UserUpdateWithoutWorkOrdersCreatedInput>, UserUncheckedUpdateWithoutWorkOrdersCreatedInput>
-  }
-
-  export type PoleCreateNestedOneWithoutStatusLogsInput = {
-    create?: XOR<PoleCreateWithoutStatusLogsInput, PoleUncheckedCreateWithoutStatusLogsInput>
-    connectOrCreate?: PoleCreateOrConnectWithoutStatusLogsInput
-    connect?: PoleWhereUniqueInput
+  export type FaultReportUpdateOneRequiredWithoutWorkOrderNestedInput = {
+    create?: XOR<FaultReportCreateWithoutWorkOrderInput, FaultReportUncheckedCreateWithoutWorkOrderInput>
+    connectOrCreate?: FaultReportCreateOrConnectWithoutWorkOrderInput
+    upsert?: FaultReportUpsertWithoutWorkOrderInput
+    connect?: FaultReportWhereUniqueInput
+    update?: XOR<XOR<FaultReportUpdateToOneWithWhereWithoutWorkOrderInput, FaultReportUpdateWithoutWorkOrderInput>, FaultReportUncheckedUpdateWithoutWorkOrderInput>
   }
 
   export type UserCreateNestedOneWithoutStatusLogsInput = {
@@ -15294,12 +15288,10 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type PoleUpdateOneRequiredWithoutStatusLogsNestedInput = {
+  export type PoleCreateNestedOneWithoutStatusLogsInput = {
     create?: XOR<PoleCreateWithoutStatusLogsInput, PoleUncheckedCreateWithoutStatusLogsInput>
     connectOrCreate?: PoleCreateOrConnectWithoutStatusLogsInput
-    upsert?: PoleUpsertWithoutStatusLogsInput
     connect?: PoleWhereUniqueInput
-    update?: XOR<XOR<PoleUpdateToOneWithWhereWithoutStatusLogsInput, PoleUpdateWithoutStatusLogsInput>, PoleUncheckedUpdateWithoutStatusLogsInput>
   }
 
   export type UserUpdateOneRequiredWithoutStatusLogsNestedInput = {
@@ -15308,6 +15300,14 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutStatusLogsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutStatusLogsInput, UserUpdateWithoutStatusLogsInput>, UserUncheckedUpdateWithoutStatusLogsInput>
+  }
+
+  export type PoleUpdateOneRequiredWithoutStatusLogsNestedInput = {
+    create?: XOR<PoleCreateWithoutStatusLogsInput, PoleUncheckedCreateWithoutStatusLogsInput>
+    connectOrCreate?: PoleCreateOrConnectWithoutStatusLogsInput
+    upsert?: PoleUpsertWithoutStatusLogsInput
+    connect?: PoleWhereUniqueInput
+    update?: XOR<XOR<PoleUpdateToOneWithWhereWithoutStatusLogsInput, PoleUpdateWithoutStatusLogsInput>, PoleUncheckedUpdateWithoutStatusLogsInput>
   }
 
   export type UserCreateNestedOneWithoutSearchHistoryInput = {
@@ -15442,31 +15442,6 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type NestedStringNullableFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
   export type NestedEnumRoleFilter<$PrismaModel = never> = {
     equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
     in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
@@ -15483,6 +15458,31 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
@@ -15513,48 +15513,6 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel> | null
-    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedStringNullableFilter<$PrismaModel>
-    _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type NestedIntNullableFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
-    lt?: number | IntFieldRefInput<$PrismaModel>
-    lte?: number | IntFieldRefInput<$PrismaModel>
-    gt?: number | IntFieldRefInput<$PrismaModel>
-    gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
-  }
-
   export type NestedEnumRoleWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
     in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
@@ -15577,6 +15535,48 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type NestedFloatFilter<$PrismaModel = never> = {
@@ -15760,119 +15760,29 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type WorkOrderCreateWithoutAssignedToInput = {
+  export type InventoryLogCreateWithoutUserInput = {
     id?: string
-    status?: $Enums.WorkOrderStatus
-    assignedAt?: Date | string
-    resolvedAt?: Date | string | null
-    resolutionNotes?: string | null
-    faultReport: FaultReportCreateNestedOneWithoutWorkOrderInput
-    assignedBy: UserCreateNestedOneWithoutWorkOrdersCreatedInput
+    change: number
+    note?: string | null
+    createdAt?: Date | string
+    item: InventoryItemCreateNestedOneWithoutLogsInput
   }
 
-  export type WorkOrderUncheckedCreateWithoutAssignedToInput = {
+  export type InventoryLogUncheckedCreateWithoutUserInput = {
     id?: string
-    faultReportId: string
-    assignedById: string
-    status?: $Enums.WorkOrderStatus
-    assignedAt?: Date | string
-    resolvedAt?: Date | string | null
-    resolutionNotes?: string | null
-  }
-
-  export type WorkOrderCreateOrConnectWithoutAssignedToInput = {
-    where: WorkOrderWhereUniqueInput
-    create: XOR<WorkOrderCreateWithoutAssignedToInput, WorkOrderUncheckedCreateWithoutAssignedToInput>
-  }
-
-  export type WorkOrderCreateManyAssignedToInputEnvelope = {
-    data: WorkOrderCreateManyAssignedToInput | WorkOrderCreateManyAssignedToInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type WorkOrderCreateWithoutAssignedByInput = {
-    id?: string
-    status?: $Enums.WorkOrderStatus
-    assignedAt?: Date | string
-    resolvedAt?: Date | string | null
-    resolutionNotes?: string | null
-    faultReport: FaultReportCreateNestedOneWithoutWorkOrderInput
-    assignedTo?: UserCreateNestedOneWithoutWorkOrdersAssignedInput
-  }
-
-  export type WorkOrderUncheckedCreateWithoutAssignedByInput = {
-    id?: string
-    faultReportId: string
-    assignedToId?: string | null
-    status?: $Enums.WorkOrderStatus
-    assignedAt?: Date | string
-    resolvedAt?: Date | string | null
-    resolutionNotes?: string | null
-  }
-
-  export type WorkOrderCreateOrConnectWithoutAssignedByInput = {
-    where: WorkOrderWhereUniqueInput
-    create: XOR<WorkOrderCreateWithoutAssignedByInput, WorkOrderUncheckedCreateWithoutAssignedByInput>
-  }
-
-  export type WorkOrderCreateManyAssignedByInputEnvelope = {
-    data: WorkOrderCreateManyAssignedByInput | WorkOrderCreateManyAssignedByInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type StatusLogCreateWithoutChangedByInput = {
-    id?: string
-    fromStatus: $Enums.PoleStatus
-    toStatus: $Enums.PoleStatus
-    changedAt?: Date | string
-    reason?: string | null
-    pole: PoleCreateNestedOneWithoutStatusLogsInput
-  }
-
-  export type StatusLogUncheckedCreateWithoutChangedByInput = {
-    id?: string
-    poleId: string
-    fromStatus: $Enums.PoleStatus
-    toStatus: $Enums.PoleStatus
-    changedAt?: Date | string
-    reason?: string | null
-  }
-
-  export type StatusLogCreateOrConnectWithoutChangedByInput = {
-    where: StatusLogWhereUniqueInput
-    create: XOR<StatusLogCreateWithoutChangedByInput, StatusLogUncheckedCreateWithoutChangedByInput>
-  }
-
-  export type StatusLogCreateManyChangedByInputEnvelope = {
-    data: StatusLogCreateManyChangedByInput | StatusLogCreateManyChangedByInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type SearchHistoryCreateWithoutUserInput = {
-    id?: string
-    title: string
-    description: string
-    lat?: number | null
-    lng?: number | null
+    itemId: string
+    change: number
+    note?: string | null
     createdAt?: Date | string
   }
 
-  export type SearchHistoryUncheckedCreateWithoutUserInput = {
-    id?: string
-    title: string
-    description: string
-    lat?: number | null
-    lng?: number | null
-    createdAt?: Date | string
+  export type InventoryLogCreateOrConnectWithoutUserInput = {
+    where: InventoryLogWhereUniqueInput
+    create: XOR<InventoryLogCreateWithoutUserInput, InventoryLogUncheckedCreateWithoutUserInput>
   }
 
-  export type SearchHistoryCreateOrConnectWithoutUserInput = {
-    where: SearchHistoryWhereUniqueInput
-    create: XOR<SearchHistoryCreateWithoutUserInput, SearchHistoryUncheckedCreateWithoutUserInput>
-  }
-
-  export type SearchHistoryCreateManyUserInputEnvelope = {
-    data: SearchHistoryCreateManyUserInput | SearchHistoryCreateManyUserInput[]
+  export type InventoryLogCreateManyUserInputEnvelope = {
+    data: InventoryLogCreateManyUserInput | InventoryLogCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -15904,29 +15814,119 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type InventoryLogCreateWithoutUserInput = {
+  export type SearchHistoryCreateWithoutUserInput = {
     id?: string
-    change: number
-    note?: string | null
-    createdAt?: Date | string
-    item: InventoryItemCreateNestedOneWithoutLogsInput
-  }
-
-  export type InventoryLogUncheckedCreateWithoutUserInput = {
-    id?: string
-    itemId: string
-    change: number
-    note?: string | null
+    title: string
+    description: string
+    lat?: number | null
+    lng?: number | null
     createdAt?: Date | string
   }
 
-  export type InventoryLogCreateOrConnectWithoutUserInput = {
-    where: InventoryLogWhereUniqueInput
-    create: XOR<InventoryLogCreateWithoutUserInput, InventoryLogUncheckedCreateWithoutUserInput>
+  export type SearchHistoryUncheckedCreateWithoutUserInput = {
+    id?: string
+    title: string
+    description: string
+    lat?: number | null
+    lng?: number | null
+    createdAt?: Date | string
   }
 
-  export type InventoryLogCreateManyUserInputEnvelope = {
-    data: InventoryLogCreateManyUserInput | InventoryLogCreateManyUserInput[]
+  export type SearchHistoryCreateOrConnectWithoutUserInput = {
+    where: SearchHistoryWhereUniqueInput
+    create: XOR<SearchHistoryCreateWithoutUserInput, SearchHistoryUncheckedCreateWithoutUserInput>
+  }
+
+  export type SearchHistoryCreateManyUserInputEnvelope = {
+    data: SearchHistoryCreateManyUserInput | SearchHistoryCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type StatusLogCreateWithoutChangedByInput = {
+    id?: string
+    fromStatus: $Enums.PoleStatus
+    toStatus: $Enums.PoleStatus
+    changedAt?: Date | string
+    reason?: string | null
+    pole: PoleCreateNestedOneWithoutStatusLogsInput
+  }
+
+  export type StatusLogUncheckedCreateWithoutChangedByInput = {
+    id?: string
+    poleId: string
+    fromStatus: $Enums.PoleStatus
+    toStatus: $Enums.PoleStatus
+    changedAt?: Date | string
+    reason?: string | null
+  }
+
+  export type StatusLogCreateOrConnectWithoutChangedByInput = {
+    where: StatusLogWhereUniqueInput
+    create: XOR<StatusLogCreateWithoutChangedByInput, StatusLogUncheckedCreateWithoutChangedByInput>
+  }
+
+  export type StatusLogCreateManyChangedByInputEnvelope = {
+    data: StatusLogCreateManyChangedByInput | StatusLogCreateManyChangedByInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type WorkOrderCreateWithoutAssignedByInput = {
+    id?: string
+    status?: $Enums.WorkOrderStatus
+    assignedAt?: Date | string
+    resolvedAt?: Date | string | null
+    resolutionNotes?: string | null
+    assignedTo?: UserCreateNestedOneWithoutWorkOrdersAssignedInput
+    faultReport: FaultReportCreateNestedOneWithoutWorkOrderInput
+  }
+
+  export type WorkOrderUncheckedCreateWithoutAssignedByInput = {
+    id?: string
+    faultReportId: string
+    assignedToId?: string | null
+    status?: $Enums.WorkOrderStatus
+    assignedAt?: Date | string
+    resolvedAt?: Date | string | null
+    resolutionNotes?: string | null
+  }
+
+  export type WorkOrderCreateOrConnectWithoutAssignedByInput = {
+    where: WorkOrderWhereUniqueInput
+    create: XOR<WorkOrderCreateWithoutAssignedByInput, WorkOrderUncheckedCreateWithoutAssignedByInput>
+  }
+
+  export type WorkOrderCreateManyAssignedByInputEnvelope = {
+    data: WorkOrderCreateManyAssignedByInput | WorkOrderCreateManyAssignedByInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type WorkOrderCreateWithoutAssignedToInput = {
+    id?: string
+    status?: $Enums.WorkOrderStatus
+    assignedAt?: Date | string
+    resolvedAt?: Date | string | null
+    resolutionNotes?: string | null
+    assignedBy: UserCreateNestedOneWithoutWorkOrdersCreatedInput
+    faultReport: FaultReportCreateNestedOneWithoutWorkOrderInput
+  }
+
+  export type WorkOrderUncheckedCreateWithoutAssignedToInput = {
+    id?: string
+    faultReportId: string
+    assignedById: string
+    status?: $Enums.WorkOrderStatus
+    assignedAt?: Date | string
+    resolvedAt?: Date | string | null
+    resolutionNotes?: string | null
+  }
+
+  export type WorkOrderCreateOrConnectWithoutAssignedToInput = {
+    where: WorkOrderWhereUniqueInput
+    create: XOR<WorkOrderCreateWithoutAssignedToInput, WorkOrderUncheckedCreateWithoutAssignedToInput>
+  }
+
+  export type WorkOrderCreateManyAssignedToInputEnvelope = {
+    data: WorkOrderCreateManyAssignedToInput | WorkOrderCreateManyAssignedToInput[]
     skipDuplicates?: boolean
   }
 
@@ -15959,108 +15959,32 @@ export namespace Prisma {
     reportedAt?: DateTimeFilter<"FaultReport"> | Date | string
   }
 
-  export type WorkOrderUpsertWithWhereUniqueWithoutAssignedToInput = {
-    where: WorkOrderWhereUniqueInput
-    update: XOR<WorkOrderUpdateWithoutAssignedToInput, WorkOrderUncheckedUpdateWithoutAssignedToInput>
-    create: XOR<WorkOrderCreateWithoutAssignedToInput, WorkOrderUncheckedCreateWithoutAssignedToInput>
+  export type InventoryLogUpsertWithWhereUniqueWithoutUserInput = {
+    where: InventoryLogWhereUniqueInput
+    update: XOR<InventoryLogUpdateWithoutUserInput, InventoryLogUncheckedUpdateWithoutUserInput>
+    create: XOR<InventoryLogCreateWithoutUserInput, InventoryLogUncheckedCreateWithoutUserInput>
   }
 
-  export type WorkOrderUpdateWithWhereUniqueWithoutAssignedToInput = {
-    where: WorkOrderWhereUniqueInput
-    data: XOR<WorkOrderUpdateWithoutAssignedToInput, WorkOrderUncheckedUpdateWithoutAssignedToInput>
+  export type InventoryLogUpdateWithWhereUniqueWithoutUserInput = {
+    where: InventoryLogWhereUniqueInput
+    data: XOR<InventoryLogUpdateWithoutUserInput, InventoryLogUncheckedUpdateWithoutUserInput>
   }
 
-  export type WorkOrderUpdateManyWithWhereWithoutAssignedToInput = {
-    where: WorkOrderScalarWhereInput
-    data: XOR<WorkOrderUpdateManyMutationInput, WorkOrderUncheckedUpdateManyWithoutAssignedToInput>
+  export type InventoryLogUpdateManyWithWhereWithoutUserInput = {
+    where: InventoryLogScalarWhereInput
+    data: XOR<InventoryLogUpdateManyMutationInput, InventoryLogUncheckedUpdateManyWithoutUserInput>
   }
 
-  export type WorkOrderScalarWhereInput = {
-    AND?: WorkOrderScalarWhereInput | WorkOrderScalarWhereInput[]
-    OR?: WorkOrderScalarWhereInput[]
-    NOT?: WorkOrderScalarWhereInput | WorkOrderScalarWhereInput[]
-    id?: StringFilter<"WorkOrder"> | string
-    faultReportId?: StringFilter<"WorkOrder"> | string
-    assignedToId?: StringNullableFilter<"WorkOrder"> | string | null
-    assignedById?: StringFilter<"WorkOrder"> | string
-    status?: EnumWorkOrderStatusFilter<"WorkOrder"> | $Enums.WorkOrderStatus
-    assignedAt?: DateTimeFilter<"WorkOrder"> | Date | string
-    resolvedAt?: DateTimeNullableFilter<"WorkOrder"> | Date | string | null
-    resolutionNotes?: StringNullableFilter<"WorkOrder"> | string | null
-  }
-
-  export type WorkOrderUpsertWithWhereUniqueWithoutAssignedByInput = {
-    where: WorkOrderWhereUniqueInput
-    update: XOR<WorkOrderUpdateWithoutAssignedByInput, WorkOrderUncheckedUpdateWithoutAssignedByInput>
-    create: XOR<WorkOrderCreateWithoutAssignedByInput, WorkOrderUncheckedCreateWithoutAssignedByInput>
-  }
-
-  export type WorkOrderUpdateWithWhereUniqueWithoutAssignedByInput = {
-    where: WorkOrderWhereUniqueInput
-    data: XOR<WorkOrderUpdateWithoutAssignedByInput, WorkOrderUncheckedUpdateWithoutAssignedByInput>
-  }
-
-  export type WorkOrderUpdateManyWithWhereWithoutAssignedByInput = {
-    where: WorkOrderScalarWhereInput
-    data: XOR<WorkOrderUpdateManyMutationInput, WorkOrderUncheckedUpdateManyWithoutAssignedByInput>
-  }
-
-  export type StatusLogUpsertWithWhereUniqueWithoutChangedByInput = {
-    where: StatusLogWhereUniqueInput
-    update: XOR<StatusLogUpdateWithoutChangedByInput, StatusLogUncheckedUpdateWithoutChangedByInput>
-    create: XOR<StatusLogCreateWithoutChangedByInput, StatusLogUncheckedCreateWithoutChangedByInput>
-  }
-
-  export type StatusLogUpdateWithWhereUniqueWithoutChangedByInput = {
-    where: StatusLogWhereUniqueInput
-    data: XOR<StatusLogUpdateWithoutChangedByInput, StatusLogUncheckedUpdateWithoutChangedByInput>
-  }
-
-  export type StatusLogUpdateManyWithWhereWithoutChangedByInput = {
-    where: StatusLogScalarWhereInput
-    data: XOR<StatusLogUpdateManyMutationInput, StatusLogUncheckedUpdateManyWithoutChangedByInput>
-  }
-
-  export type StatusLogScalarWhereInput = {
-    AND?: StatusLogScalarWhereInput | StatusLogScalarWhereInput[]
-    OR?: StatusLogScalarWhereInput[]
-    NOT?: StatusLogScalarWhereInput | StatusLogScalarWhereInput[]
-    id?: StringFilter<"StatusLog"> | string
-    poleId?: StringFilter<"StatusLog"> | string
-    changedById?: StringFilter<"StatusLog"> | string
-    fromStatus?: EnumPoleStatusFilter<"StatusLog"> | $Enums.PoleStatus
-    toStatus?: EnumPoleStatusFilter<"StatusLog"> | $Enums.PoleStatus
-    changedAt?: DateTimeFilter<"StatusLog"> | Date | string
-    reason?: StringNullableFilter<"StatusLog"> | string | null
-  }
-
-  export type SearchHistoryUpsertWithWhereUniqueWithoutUserInput = {
-    where: SearchHistoryWhereUniqueInput
-    update: XOR<SearchHistoryUpdateWithoutUserInput, SearchHistoryUncheckedUpdateWithoutUserInput>
-    create: XOR<SearchHistoryCreateWithoutUserInput, SearchHistoryUncheckedCreateWithoutUserInput>
-  }
-
-  export type SearchHistoryUpdateWithWhereUniqueWithoutUserInput = {
-    where: SearchHistoryWhereUniqueInput
-    data: XOR<SearchHistoryUpdateWithoutUserInput, SearchHistoryUncheckedUpdateWithoutUserInput>
-  }
-
-  export type SearchHistoryUpdateManyWithWhereWithoutUserInput = {
-    where: SearchHistoryScalarWhereInput
-    data: XOR<SearchHistoryUpdateManyMutationInput, SearchHistoryUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type SearchHistoryScalarWhereInput = {
-    AND?: SearchHistoryScalarWhereInput | SearchHistoryScalarWhereInput[]
-    OR?: SearchHistoryScalarWhereInput[]
-    NOT?: SearchHistoryScalarWhereInput | SearchHistoryScalarWhereInput[]
-    id?: StringFilter<"SearchHistory"> | string
-    userId?: StringFilter<"SearchHistory"> | string
-    title?: StringFilter<"SearchHistory"> | string
-    description?: StringFilter<"SearchHistory"> | string
-    lat?: FloatNullableFilter<"SearchHistory"> | number | null
-    lng?: FloatNullableFilter<"SearchHistory"> | number | null
-    createdAt?: DateTimeFilter<"SearchHistory"> | Date | string
+  export type InventoryLogScalarWhereInput = {
+    AND?: InventoryLogScalarWhereInput | InventoryLogScalarWhereInput[]
+    OR?: InventoryLogScalarWhereInput[]
+    NOT?: InventoryLogScalarWhereInput | InventoryLogScalarWhereInput[]
+    id?: StringFilter<"InventoryLog"> | string
+    itemId?: StringFilter<"InventoryLog"> | string
+    userId?: StringFilter<"InventoryLog"> | string
+    change?: IntFilter<"InventoryLog"> | number
+    note?: StringNullableFilter<"InventoryLog"> | string | null
+    createdAt?: DateTimeFilter<"InventoryLog"> | Date | string
   }
 
   export type NotificationUpsertWithWhereUniqueWithoutUserInput = {
@@ -16092,32 +16016,108 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Notification"> | Date | string
   }
 
-  export type InventoryLogUpsertWithWhereUniqueWithoutUserInput = {
-    where: InventoryLogWhereUniqueInput
-    update: XOR<InventoryLogUpdateWithoutUserInput, InventoryLogUncheckedUpdateWithoutUserInput>
-    create: XOR<InventoryLogCreateWithoutUserInput, InventoryLogUncheckedCreateWithoutUserInput>
+  export type SearchHistoryUpsertWithWhereUniqueWithoutUserInput = {
+    where: SearchHistoryWhereUniqueInput
+    update: XOR<SearchHistoryUpdateWithoutUserInput, SearchHistoryUncheckedUpdateWithoutUserInput>
+    create: XOR<SearchHistoryCreateWithoutUserInput, SearchHistoryUncheckedCreateWithoutUserInput>
   }
 
-  export type InventoryLogUpdateWithWhereUniqueWithoutUserInput = {
-    where: InventoryLogWhereUniqueInput
-    data: XOR<InventoryLogUpdateWithoutUserInput, InventoryLogUncheckedUpdateWithoutUserInput>
+  export type SearchHistoryUpdateWithWhereUniqueWithoutUserInput = {
+    where: SearchHistoryWhereUniqueInput
+    data: XOR<SearchHistoryUpdateWithoutUserInput, SearchHistoryUncheckedUpdateWithoutUserInput>
   }
 
-  export type InventoryLogUpdateManyWithWhereWithoutUserInput = {
-    where: InventoryLogScalarWhereInput
-    data: XOR<InventoryLogUpdateManyMutationInput, InventoryLogUncheckedUpdateManyWithoutUserInput>
+  export type SearchHistoryUpdateManyWithWhereWithoutUserInput = {
+    where: SearchHistoryScalarWhereInput
+    data: XOR<SearchHistoryUpdateManyMutationInput, SearchHistoryUncheckedUpdateManyWithoutUserInput>
   }
 
-  export type InventoryLogScalarWhereInput = {
-    AND?: InventoryLogScalarWhereInput | InventoryLogScalarWhereInput[]
-    OR?: InventoryLogScalarWhereInput[]
-    NOT?: InventoryLogScalarWhereInput | InventoryLogScalarWhereInput[]
-    id?: StringFilter<"InventoryLog"> | string
-    itemId?: StringFilter<"InventoryLog"> | string
-    userId?: StringFilter<"InventoryLog"> | string
-    change?: IntFilter<"InventoryLog"> | number
-    note?: StringNullableFilter<"InventoryLog"> | string | null
-    createdAt?: DateTimeFilter<"InventoryLog"> | Date | string
+  export type SearchHistoryScalarWhereInput = {
+    AND?: SearchHistoryScalarWhereInput | SearchHistoryScalarWhereInput[]
+    OR?: SearchHistoryScalarWhereInput[]
+    NOT?: SearchHistoryScalarWhereInput | SearchHistoryScalarWhereInput[]
+    id?: StringFilter<"SearchHistory"> | string
+    userId?: StringFilter<"SearchHistory"> | string
+    title?: StringFilter<"SearchHistory"> | string
+    description?: StringFilter<"SearchHistory"> | string
+    lat?: FloatNullableFilter<"SearchHistory"> | number | null
+    lng?: FloatNullableFilter<"SearchHistory"> | number | null
+    createdAt?: DateTimeFilter<"SearchHistory"> | Date | string
+  }
+
+  export type StatusLogUpsertWithWhereUniqueWithoutChangedByInput = {
+    where: StatusLogWhereUniqueInput
+    update: XOR<StatusLogUpdateWithoutChangedByInput, StatusLogUncheckedUpdateWithoutChangedByInput>
+    create: XOR<StatusLogCreateWithoutChangedByInput, StatusLogUncheckedCreateWithoutChangedByInput>
+  }
+
+  export type StatusLogUpdateWithWhereUniqueWithoutChangedByInput = {
+    where: StatusLogWhereUniqueInput
+    data: XOR<StatusLogUpdateWithoutChangedByInput, StatusLogUncheckedUpdateWithoutChangedByInput>
+  }
+
+  export type StatusLogUpdateManyWithWhereWithoutChangedByInput = {
+    where: StatusLogScalarWhereInput
+    data: XOR<StatusLogUpdateManyMutationInput, StatusLogUncheckedUpdateManyWithoutChangedByInput>
+  }
+
+  export type StatusLogScalarWhereInput = {
+    AND?: StatusLogScalarWhereInput | StatusLogScalarWhereInput[]
+    OR?: StatusLogScalarWhereInput[]
+    NOT?: StatusLogScalarWhereInput | StatusLogScalarWhereInput[]
+    id?: StringFilter<"StatusLog"> | string
+    poleId?: StringFilter<"StatusLog"> | string
+    changedById?: StringFilter<"StatusLog"> | string
+    fromStatus?: EnumPoleStatusFilter<"StatusLog"> | $Enums.PoleStatus
+    toStatus?: EnumPoleStatusFilter<"StatusLog"> | $Enums.PoleStatus
+    changedAt?: DateTimeFilter<"StatusLog"> | Date | string
+    reason?: StringNullableFilter<"StatusLog"> | string | null
+  }
+
+  export type WorkOrderUpsertWithWhereUniqueWithoutAssignedByInput = {
+    where: WorkOrderWhereUniqueInput
+    update: XOR<WorkOrderUpdateWithoutAssignedByInput, WorkOrderUncheckedUpdateWithoutAssignedByInput>
+    create: XOR<WorkOrderCreateWithoutAssignedByInput, WorkOrderUncheckedCreateWithoutAssignedByInput>
+  }
+
+  export type WorkOrderUpdateWithWhereUniqueWithoutAssignedByInput = {
+    where: WorkOrderWhereUniqueInput
+    data: XOR<WorkOrderUpdateWithoutAssignedByInput, WorkOrderUncheckedUpdateWithoutAssignedByInput>
+  }
+
+  export type WorkOrderUpdateManyWithWhereWithoutAssignedByInput = {
+    where: WorkOrderScalarWhereInput
+    data: XOR<WorkOrderUpdateManyMutationInput, WorkOrderUncheckedUpdateManyWithoutAssignedByInput>
+  }
+
+  export type WorkOrderScalarWhereInput = {
+    AND?: WorkOrderScalarWhereInput | WorkOrderScalarWhereInput[]
+    OR?: WorkOrderScalarWhereInput[]
+    NOT?: WorkOrderScalarWhereInput | WorkOrderScalarWhereInput[]
+    id?: StringFilter<"WorkOrder"> | string
+    faultReportId?: StringFilter<"WorkOrder"> | string
+    assignedToId?: StringNullableFilter<"WorkOrder"> | string | null
+    assignedById?: StringFilter<"WorkOrder"> | string
+    status?: EnumWorkOrderStatusFilter<"WorkOrder"> | $Enums.WorkOrderStatus
+    assignedAt?: DateTimeFilter<"WorkOrder"> | Date | string
+    resolvedAt?: DateTimeNullableFilter<"WorkOrder"> | Date | string | null
+    resolutionNotes?: StringNullableFilter<"WorkOrder"> | string | null
+  }
+
+  export type WorkOrderUpsertWithWhereUniqueWithoutAssignedToInput = {
+    where: WorkOrderWhereUniqueInput
+    update: XOR<WorkOrderUpdateWithoutAssignedToInput, WorkOrderUncheckedUpdateWithoutAssignedToInput>
+    create: XOR<WorkOrderCreateWithoutAssignedToInput, WorkOrderUncheckedCreateWithoutAssignedToInput>
+  }
+
+  export type WorkOrderUpdateWithWhereUniqueWithoutAssignedToInput = {
+    where: WorkOrderWhereUniqueInput
+    data: XOR<WorkOrderUpdateWithoutAssignedToInput, WorkOrderUncheckedUpdateWithoutAssignedToInput>
+  }
+
+  export type WorkOrderUpdateManyWithWhereWithoutAssignedToInput = {
+    where: WorkOrderScalarWhereInput
+    data: XOR<WorkOrderUpdateManyMutationInput, WorkOrderUncheckedUpdateManyWithoutAssignedToInput>
   }
 
   export type FaultReportCreateWithoutPoleInput = {
@@ -16243,52 +16243,52 @@ export namespace Prisma {
 
   export type UserCreateWithoutFaultReportsInput = {
     id?: string
-    firstName: string
-    middleName?: string | null
-    lastName: string
-    dob?: Date | string | null
-    gender?: string | null
     email: string
-    phone: string
     passwordHash: string
-    region: string
-    province?: string | null
-    city: string
-    barangay: string
-    streetAddress?: string | null
     role?: $Enums.Role
     createdAt?: Date | string
-    workOrdersAssigned?: WorkOrderCreateNestedManyWithoutAssignedToInput
-    workOrdersCreated?: WorkOrderCreateNestedManyWithoutAssignedByInput
-    statusLogs?: StatusLogCreateNestedManyWithoutChangedByInput
-    searchHistory?: SearchHistoryCreateNestedManyWithoutUserInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
+    barangay: string
+    city: string
+    dob?: Date | string | null
+    firstName: string
+    gender?: string | null
+    lastName: string
+    middleName?: string | null
+    phone: string
+    province?: string | null
+    region: string
+    streetAddress?: string | null
     inventoryLogs?: InventoryLogCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    searchHistory?: SearchHistoryCreateNestedManyWithoutUserInput
+    statusLogs?: StatusLogCreateNestedManyWithoutChangedByInput
+    workOrdersCreated?: WorkOrderCreateNestedManyWithoutAssignedByInput
+    workOrdersAssigned?: WorkOrderCreateNestedManyWithoutAssignedToInput
   }
 
   export type UserUncheckedCreateWithoutFaultReportsInput = {
     id?: string
-    firstName: string
-    middleName?: string | null
-    lastName: string
-    dob?: Date | string | null
-    gender?: string | null
     email: string
-    phone: string
     passwordHash: string
-    region: string
-    province?: string | null
-    city: string
-    barangay: string
-    streetAddress?: string | null
     role?: $Enums.Role
     createdAt?: Date | string
-    workOrdersAssigned?: WorkOrderUncheckedCreateNestedManyWithoutAssignedToInput
-    workOrdersCreated?: WorkOrderUncheckedCreateNestedManyWithoutAssignedByInput
-    statusLogs?: StatusLogUncheckedCreateNestedManyWithoutChangedByInput
-    searchHistory?: SearchHistoryUncheckedCreateNestedManyWithoutUserInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    barangay: string
+    city: string
+    dob?: Date | string | null
+    firstName: string
+    gender?: string | null
+    lastName: string
+    middleName?: string | null
+    phone: string
+    province?: string | null
+    region: string
+    streetAddress?: string | null
     inventoryLogs?: InventoryLogUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    searchHistory?: SearchHistoryUncheckedCreateNestedManyWithoutUserInput
+    statusLogs?: StatusLogUncheckedCreateNestedManyWithoutChangedByInput
+    workOrdersCreated?: WorkOrderUncheckedCreateNestedManyWithoutAssignedByInput
+    workOrdersAssigned?: WorkOrderUncheckedCreateNestedManyWithoutAssignedToInput
   }
 
   export type UserCreateOrConnectWithoutFaultReportsInput = {
@@ -16302,8 +16302,8 @@ export namespace Prisma {
     assignedAt?: Date | string
     resolvedAt?: Date | string | null
     resolutionNotes?: string | null
-    assignedTo?: UserCreateNestedOneWithoutWorkOrdersAssignedInput
     assignedBy: UserCreateNestedOneWithoutWorkOrdersCreatedInput
+    assignedTo?: UserCreateNestedOneWithoutWorkOrdersAssignedInput
   }
 
   export type WorkOrderUncheckedCreateWithoutFaultReportInput = {
@@ -16371,52 +16371,52 @@ export namespace Prisma {
 
   export type UserUpdateWithoutFaultReportsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    middleName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: StringFieldUpdateOperationsInput | string
-    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    gender?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
-    region?: StringFieldUpdateOperationsInput | string
-    province?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: StringFieldUpdateOperationsInput | string
-    barangay?: StringFieldUpdateOperationsInput | string
-    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    workOrdersAssigned?: WorkOrderUpdateManyWithoutAssignedToNestedInput
-    workOrdersCreated?: WorkOrderUpdateManyWithoutAssignedByNestedInput
-    statusLogs?: StatusLogUpdateManyWithoutChangedByNestedInput
-    searchHistory?: SearchHistoryUpdateManyWithoutUserNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    barangay?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: StringFieldUpdateOperationsInput | string
+    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
     inventoryLogs?: InventoryLogUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    searchHistory?: SearchHistoryUpdateManyWithoutUserNestedInput
+    statusLogs?: StatusLogUpdateManyWithoutChangedByNestedInput
+    workOrdersCreated?: WorkOrderUpdateManyWithoutAssignedByNestedInput
+    workOrdersAssigned?: WorkOrderUpdateManyWithoutAssignedToNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFaultReportsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    middleName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: StringFieldUpdateOperationsInput | string
-    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    gender?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
-    region?: StringFieldUpdateOperationsInput | string
-    province?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: StringFieldUpdateOperationsInput | string
-    barangay?: StringFieldUpdateOperationsInput | string
-    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    workOrdersAssigned?: WorkOrderUncheckedUpdateManyWithoutAssignedToNestedInput
-    workOrdersCreated?: WorkOrderUncheckedUpdateManyWithoutAssignedByNestedInput
-    statusLogs?: StatusLogUncheckedUpdateManyWithoutChangedByNestedInput
-    searchHistory?: SearchHistoryUncheckedUpdateManyWithoutUserNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    barangay?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: StringFieldUpdateOperationsInput | string
+    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
     inventoryLogs?: InventoryLogUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    searchHistory?: SearchHistoryUncheckedUpdateManyWithoutUserNestedInput
+    statusLogs?: StatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+    workOrdersCreated?: WorkOrderUncheckedUpdateManyWithoutAssignedByNestedInput
+    workOrdersAssigned?: WorkOrderUncheckedUpdateManyWithoutAssignedToNestedInput
   }
 
   export type WorkOrderUpsertWithoutFaultReportInput = {
@@ -16436,8 +16436,8 @@ export namespace Prisma {
     assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resolutionNotes?: NullableStringFieldUpdateOperationsInput | string | null
-    assignedTo?: UserUpdateOneWithoutWorkOrdersAssignedNestedInput
     assignedBy?: UserUpdateOneRequiredWithoutWorkOrdersCreatedNestedInput
+    assignedTo?: UserUpdateOneWithoutWorkOrdersAssignedNestedInput
   }
 
   export type WorkOrderUncheckedUpdateWithoutFaultReportInput = {
@@ -16448,6 +16448,116 @@ export namespace Prisma {
     assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resolutionNotes?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type UserCreateWithoutWorkOrdersCreatedInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    barangay: string
+    city: string
+    dob?: Date | string | null
+    firstName: string
+    gender?: string | null
+    lastName: string
+    middleName?: string | null
+    phone: string
+    province?: string | null
+    region: string
+    streetAddress?: string | null
+    faultReports?: FaultReportCreateNestedManyWithoutReportedByInput
+    inventoryLogs?: InventoryLogCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    searchHistory?: SearchHistoryCreateNestedManyWithoutUserInput
+    statusLogs?: StatusLogCreateNestedManyWithoutChangedByInput
+    workOrdersAssigned?: WorkOrderCreateNestedManyWithoutAssignedToInput
+  }
+
+  export type UserUncheckedCreateWithoutWorkOrdersCreatedInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    barangay: string
+    city: string
+    dob?: Date | string | null
+    firstName: string
+    gender?: string | null
+    lastName: string
+    middleName?: string | null
+    phone: string
+    province?: string | null
+    region: string
+    streetAddress?: string | null
+    faultReports?: FaultReportUncheckedCreateNestedManyWithoutReportedByInput
+    inventoryLogs?: InventoryLogUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    searchHistory?: SearchHistoryUncheckedCreateNestedManyWithoutUserInput
+    statusLogs?: StatusLogUncheckedCreateNestedManyWithoutChangedByInput
+    workOrdersAssigned?: WorkOrderUncheckedCreateNestedManyWithoutAssignedToInput
+  }
+
+  export type UserCreateOrConnectWithoutWorkOrdersCreatedInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutWorkOrdersCreatedInput, UserUncheckedCreateWithoutWorkOrdersCreatedInput>
+  }
+
+  export type UserCreateWithoutWorkOrdersAssignedInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    barangay: string
+    city: string
+    dob?: Date | string | null
+    firstName: string
+    gender?: string | null
+    lastName: string
+    middleName?: string | null
+    phone: string
+    province?: string | null
+    region: string
+    streetAddress?: string | null
+    faultReports?: FaultReportCreateNestedManyWithoutReportedByInput
+    inventoryLogs?: InventoryLogCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    searchHistory?: SearchHistoryCreateNestedManyWithoutUserInput
+    statusLogs?: StatusLogCreateNestedManyWithoutChangedByInput
+    workOrdersCreated?: WorkOrderCreateNestedManyWithoutAssignedByInput
+  }
+
+  export type UserUncheckedCreateWithoutWorkOrdersAssignedInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    barangay: string
+    city: string
+    dob?: Date | string | null
+    firstName: string
+    gender?: string | null
+    lastName: string
+    middleName?: string | null
+    phone: string
+    province?: string | null
+    region: string
+    streetAddress?: string | null
+    faultReports?: FaultReportUncheckedCreateNestedManyWithoutReportedByInput
+    inventoryLogs?: InventoryLogUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    searchHistory?: SearchHistoryUncheckedCreateNestedManyWithoutUserInput
+    statusLogs?: StatusLogUncheckedCreateNestedManyWithoutChangedByInput
+    workOrdersCreated?: WorkOrderUncheckedCreateNestedManyWithoutAssignedByInput
+  }
+
+  export type UserCreateOrConnectWithoutWorkOrdersAssignedInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutWorkOrdersAssignedInput, UserUncheckedCreateWithoutWorkOrdersAssignedInput>
   }
 
   export type FaultReportCreateWithoutWorkOrderInput = {
@@ -16475,114 +16585,126 @@ export namespace Prisma {
     create: XOR<FaultReportCreateWithoutWorkOrderInput, FaultReportUncheckedCreateWithoutWorkOrderInput>
   }
 
-  export type UserCreateWithoutWorkOrdersAssignedInput = {
-    id?: string
-    firstName: string
-    middleName?: string | null
-    lastName: string
-    dob?: Date | string | null
-    gender?: string | null
-    email: string
-    phone: string
-    passwordHash: string
-    region: string
-    province?: string | null
-    city: string
-    barangay: string
-    streetAddress?: string | null
-    role?: $Enums.Role
-    createdAt?: Date | string
-    faultReports?: FaultReportCreateNestedManyWithoutReportedByInput
-    workOrdersCreated?: WorkOrderCreateNestedManyWithoutAssignedByInput
-    statusLogs?: StatusLogCreateNestedManyWithoutChangedByInput
-    searchHistory?: SearchHistoryCreateNestedManyWithoutUserInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    inventoryLogs?: InventoryLogCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutWorkOrdersAssignedInput = {
-    id?: string
-    firstName: string
-    middleName?: string | null
-    lastName: string
-    dob?: Date | string | null
-    gender?: string | null
-    email: string
-    phone: string
-    passwordHash: string
-    region: string
-    province?: string | null
-    city: string
-    barangay: string
-    streetAddress?: string | null
-    role?: $Enums.Role
-    createdAt?: Date | string
-    faultReports?: FaultReportUncheckedCreateNestedManyWithoutReportedByInput
-    workOrdersCreated?: WorkOrderUncheckedCreateNestedManyWithoutAssignedByInput
-    statusLogs?: StatusLogUncheckedCreateNestedManyWithoutChangedByInput
-    searchHistory?: SearchHistoryUncheckedCreateNestedManyWithoutUserInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    inventoryLogs?: InventoryLogUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutWorkOrdersAssignedInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutWorkOrdersAssignedInput, UserUncheckedCreateWithoutWorkOrdersAssignedInput>
-  }
-
-  export type UserCreateWithoutWorkOrdersCreatedInput = {
-    id?: string
-    firstName: string
-    middleName?: string | null
-    lastName: string
-    dob?: Date | string | null
-    gender?: string | null
-    email: string
-    phone: string
-    passwordHash: string
-    region: string
-    province?: string | null
-    city: string
-    barangay: string
-    streetAddress?: string | null
-    role?: $Enums.Role
-    createdAt?: Date | string
-    faultReports?: FaultReportCreateNestedManyWithoutReportedByInput
-    workOrdersAssigned?: WorkOrderCreateNestedManyWithoutAssignedToInput
-    statusLogs?: StatusLogCreateNestedManyWithoutChangedByInput
-    searchHistory?: SearchHistoryCreateNestedManyWithoutUserInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    inventoryLogs?: InventoryLogCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutWorkOrdersCreatedInput = {
-    id?: string
-    firstName: string
-    middleName?: string | null
-    lastName: string
-    dob?: Date | string | null
-    gender?: string | null
-    email: string
-    phone: string
-    passwordHash: string
-    region: string
-    province?: string | null
-    city: string
-    barangay: string
-    streetAddress?: string | null
-    role?: $Enums.Role
-    createdAt?: Date | string
-    faultReports?: FaultReportUncheckedCreateNestedManyWithoutReportedByInput
-    workOrdersAssigned?: WorkOrderUncheckedCreateNestedManyWithoutAssignedToInput
-    statusLogs?: StatusLogUncheckedCreateNestedManyWithoutChangedByInput
-    searchHistory?: SearchHistoryUncheckedCreateNestedManyWithoutUserInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    inventoryLogs?: InventoryLogUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutWorkOrdersCreatedInput = {
-    where: UserWhereUniqueInput
+  export type UserUpsertWithoutWorkOrdersCreatedInput = {
+    update: XOR<UserUpdateWithoutWorkOrdersCreatedInput, UserUncheckedUpdateWithoutWorkOrdersCreatedInput>
     create: XOR<UserCreateWithoutWorkOrdersCreatedInput, UserUncheckedCreateWithoutWorkOrdersCreatedInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutWorkOrdersCreatedInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutWorkOrdersCreatedInput, UserUncheckedUpdateWithoutWorkOrdersCreatedInput>
+  }
+
+  export type UserUpdateWithoutWorkOrdersCreatedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    barangay?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: StringFieldUpdateOperationsInput | string
+    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    faultReports?: FaultReportUpdateManyWithoutReportedByNestedInput
+    inventoryLogs?: InventoryLogUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    searchHistory?: SearchHistoryUpdateManyWithoutUserNestedInput
+    statusLogs?: StatusLogUpdateManyWithoutChangedByNestedInput
+    workOrdersAssigned?: WorkOrderUpdateManyWithoutAssignedToNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutWorkOrdersCreatedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    barangay?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: StringFieldUpdateOperationsInput | string
+    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    faultReports?: FaultReportUncheckedUpdateManyWithoutReportedByNestedInput
+    inventoryLogs?: InventoryLogUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    searchHistory?: SearchHistoryUncheckedUpdateManyWithoutUserNestedInput
+    statusLogs?: StatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+    workOrdersAssigned?: WorkOrderUncheckedUpdateManyWithoutAssignedToNestedInput
+  }
+
+  export type UserUpsertWithoutWorkOrdersAssignedInput = {
+    update: XOR<UserUpdateWithoutWorkOrdersAssignedInput, UserUncheckedUpdateWithoutWorkOrdersAssignedInput>
+    create: XOR<UserCreateWithoutWorkOrdersAssignedInput, UserUncheckedCreateWithoutWorkOrdersAssignedInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutWorkOrdersAssignedInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutWorkOrdersAssignedInput, UserUncheckedUpdateWithoutWorkOrdersAssignedInput>
+  }
+
+  export type UserUpdateWithoutWorkOrdersAssignedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    barangay?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: StringFieldUpdateOperationsInput | string
+    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    faultReports?: FaultReportUpdateManyWithoutReportedByNestedInput
+    inventoryLogs?: InventoryLogUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    searchHistory?: SearchHistoryUpdateManyWithoutUserNestedInput
+    statusLogs?: StatusLogUpdateManyWithoutChangedByNestedInput
+    workOrdersCreated?: WorkOrderUpdateManyWithoutAssignedByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutWorkOrdersAssignedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    barangay?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: StringFieldUpdateOperationsInput | string
+    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    faultReports?: FaultReportUncheckedUpdateManyWithoutReportedByNestedInput
+    inventoryLogs?: InventoryLogUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    searchHistory?: SearchHistoryUncheckedUpdateManyWithoutUserNestedInput
+    statusLogs?: StatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+    workOrdersCreated?: WorkOrderUncheckedUpdateManyWithoutAssignedByNestedInput
   }
 
   export type FaultReportUpsertWithoutWorkOrderInput = {
@@ -16616,126 +16738,59 @@ export namespace Prisma {
     reportedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type UserUpsertWithoutWorkOrdersAssignedInput = {
-    update: XOR<UserUpdateWithoutWorkOrdersAssignedInput, UserUncheckedUpdateWithoutWorkOrdersAssignedInput>
-    create: XOR<UserCreateWithoutWorkOrdersAssignedInput, UserUncheckedCreateWithoutWorkOrdersAssignedInput>
-    where?: UserWhereInput
+  export type UserCreateWithoutStatusLogsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    barangay: string
+    city: string
+    dob?: Date | string | null
+    firstName: string
+    gender?: string | null
+    lastName: string
+    middleName?: string | null
+    phone: string
+    province?: string | null
+    region: string
+    streetAddress?: string | null
+    faultReports?: FaultReportCreateNestedManyWithoutReportedByInput
+    inventoryLogs?: InventoryLogCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    searchHistory?: SearchHistoryCreateNestedManyWithoutUserInput
+    workOrdersCreated?: WorkOrderCreateNestedManyWithoutAssignedByInput
+    workOrdersAssigned?: WorkOrderCreateNestedManyWithoutAssignedToInput
   }
 
-  export type UserUpdateToOneWithWhereWithoutWorkOrdersAssignedInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutWorkOrdersAssignedInput, UserUncheckedUpdateWithoutWorkOrdersAssignedInput>
+  export type UserUncheckedCreateWithoutStatusLogsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    barangay: string
+    city: string
+    dob?: Date | string | null
+    firstName: string
+    gender?: string | null
+    lastName: string
+    middleName?: string | null
+    phone: string
+    province?: string | null
+    region: string
+    streetAddress?: string | null
+    faultReports?: FaultReportUncheckedCreateNestedManyWithoutReportedByInput
+    inventoryLogs?: InventoryLogUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    searchHistory?: SearchHistoryUncheckedCreateNestedManyWithoutUserInput
+    workOrdersCreated?: WorkOrderUncheckedCreateNestedManyWithoutAssignedByInput
+    workOrdersAssigned?: WorkOrderUncheckedCreateNestedManyWithoutAssignedToInput
   }
 
-  export type UserUpdateWithoutWorkOrdersAssignedInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    middleName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: StringFieldUpdateOperationsInput | string
-    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    gender?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
-    passwordHash?: StringFieldUpdateOperationsInput | string
-    region?: StringFieldUpdateOperationsInput | string
-    province?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: StringFieldUpdateOperationsInput | string
-    barangay?: StringFieldUpdateOperationsInput | string
-    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    faultReports?: FaultReportUpdateManyWithoutReportedByNestedInput
-    workOrdersCreated?: WorkOrderUpdateManyWithoutAssignedByNestedInput
-    statusLogs?: StatusLogUpdateManyWithoutChangedByNestedInput
-    searchHistory?: SearchHistoryUpdateManyWithoutUserNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    inventoryLogs?: InventoryLogUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutWorkOrdersAssignedInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    middleName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: StringFieldUpdateOperationsInput | string
-    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    gender?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
-    passwordHash?: StringFieldUpdateOperationsInput | string
-    region?: StringFieldUpdateOperationsInput | string
-    province?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: StringFieldUpdateOperationsInput | string
-    barangay?: StringFieldUpdateOperationsInput | string
-    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    faultReports?: FaultReportUncheckedUpdateManyWithoutReportedByNestedInput
-    workOrdersCreated?: WorkOrderUncheckedUpdateManyWithoutAssignedByNestedInput
-    statusLogs?: StatusLogUncheckedUpdateManyWithoutChangedByNestedInput
-    searchHistory?: SearchHistoryUncheckedUpdateManyWithoutUserNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    inventoryLogs?: InventoryLogUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUpsertWithoutWorkOrdersCreatedInput = {
-    update: XOR<UserUpdateWithoutWorkOrdersCreatedInput, UserUncheckedUpdateWithoutWorkOrdersCreatedInput>
-    create: XOR<UserCreateWithoutWorkOrdersCreatedInput, UserUncheckedCreateWithoutWorkOrdersCreatedInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutWorkOrdersCreatedInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutWorkOrdersCreatedInput, UserUncheckedUpdateWithoutWorkOrdersCreatedInput>
-  }
-
-  export type UserUpdateWithoutWorkOrdersCreatedInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    middleName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: StringFieldUpdateOperationsInput | string
-    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    gender?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
-    passwordHash?: StringFieldUpdateOperationsInput | string
-    region?: StringFieldUpdateOperationsInput | string
-    province?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: StringFieldUpdateOperationsInput | string
-    barangay?: StringFieldUpdateOperationsInput | string
-    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    faultReports?: FaultReportUpdateManyWithoutReportedByNestedInput
-    workOrdersAssigned?: WorkOrderUpdateManyWithoutAssignedToNestedInput
-    statusLogs?: StatusLogUpdateManyWithoutChangedByNestedInput
-    searchHistory?: SearchHistoryUpdateManyWithoutUserNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    inventoryLogs?: InventoryLogUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutWorkOrdersCreatedInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    middleName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: StringFieldUpdateOperationsInput | string
-    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    gender?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
-    passwordHash?: StringFieldUpdateOperationsInput | string
-    region?: StringFieldUpdateOperationsInput | string
-    province?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: StringFieldUpdateOperationsInput | string
-    barangay?: StringFieldUpdateOperationsInput | string
-    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    faultReports?: FaultReportUncheckedUpdateManyWithoutReportedByNestedInput
-    workOrdersAssigned?: WorkOrderUncheckedUpdateManyWithoutAssignedToNestedInput
-    statusLogs?: StatusLogUncheckedUpdateManyWithoutChangedByNestedInput
-    searchHistory?: SearchHistoryUncheckedUpdateManyWithoutUserNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    inventoryLogs?: InventoryLogUncheckedUpdateManyWithoutUserNestedInput
+  export type UserCreateOrConnectWithoutStatusLogsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutStatusLogsInput, UserUncheckedCreateWithoutStatusLogsInput>
   }
 
   export type PoleCreateWithoutStatusLogsInput = {
@@ -16769,59 +16824,65 @@ export namespace Prisma {
     create: XOR<PoleCreateWithoutStatusLogsInput, PoleUncheckedCreateWithoutStatusLogsInput>
   }
 
-  export type UserCreateWithoutStatusLogsInput = {
-    id?: string
-    firstName: string
-    middleName?: string | null
-    lastName: string
-    dob?: Date | string | null
-    gender?: string | null
-    email: string
-    phone: string
-    passwordHash: string
-    region: string
-    province?: string | null
-    city: string
-    barangay: string
-    streetAddress?: string | null
-    role?: $Enums.Role
-    createdAt?: Date | string
-    faultReports?: FaultReportCreateNestedManyWithoutReportedByInput
-    workOrdersAssigned?: WorkOrderCreateNestedManyWithoutAssignedToInput
-    workOrdersCreated?: WorkOrderCreateNestedManyWithoutAssignedByInput
-    searchHistory?: SearchHistoryCreateNestedManyWithoutUserInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-    inventoryLogs?: InventoryLogCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutStatusLogsInput = {
-    id?: string
-    firstName: string
-    middleName?: string | null
-    lastName: string
-    dob?: Date | string | null
-    gender?: string | null
-    email: string
-    phone: string
-    passwordHash: string
-    region: string
-    province?: string | null
-    city: string
-    barangay: string
-    streetAddress?: string | null
-    role?: $Enums.Role
-    createdAt?: Date | string
-    faultReports?: FaultReportUncheckedCreateNestedManyWithoutReportedByInput
-    workOrdersAssigned?: WorkOrderUncheckedCreateNestedManyWithoutAssignedToInput
-    workOrdersCreated?: WorkOrderUncheckedCreateNestedManyWithoutAssignedByInput
-    searchHistory?: SearchHistoryUncheckedCreateNestedManyWithoutUserInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-    inventoryLogs?: InventoryLogUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutStatusLogsInput = {
-    where: UserWhereUniqueInput
+  export type UserUpsertWithoutStatusLogsInput = {
+    update: XOR<UserUpdateWithoutStatusLogsInput, UserUncheckedUpdateWithoutStatusLogsInput>
     create: XOR<UserCreateWithoutStatusLogsInput, UserUncheckedCreateWithoutStatusLogsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutStatusLogsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutStatusLogsInput, UserUncheckedUpdateWithoutStatusLogsInput>
+  }
+
+  export type UserUpdateWithoutStatusLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    barangay?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: StringFieldUpdateOperationsInput | string
+    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    faultReports?: FaultReportUpdateManyWithoutReportedByNestedInput
+    inventoryLogs?: InventoryLogUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    searchHistory?: SearchHistoryUpdateManyWithoutUserNestedInput
+    workOrdersCreated?: WorkOrderUpdateManyWithoutAssignedByNestedInput
+    workOrdersAssigned?: WorkOrderUpdateManyWithoutAssignedToNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutStatusLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    barangay?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: StringFieldUpdateOperationsInput | string
+    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    faultReports?: FaultReportUncheckedUpdateManyWithoutReportedByNestedInput
+    inventoryLogs?: InventoryLogUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    searchHistory?: SearchHistoryUncheckedUpdateManyWithoutUserNestedInput
+    workOrdersCreated?: WorkOrderUncheckedUpdateManyWithoutAssignedByNestedInput
+    workOrdersAssigned?: WorkOrderUncheckedUpdateManyWithoutAssignedToNestedInput
   }
 
   export type PoleUpsertWithoutStatusLogsInput = {
@@ -16861,115 +16922,54 @@ export namespace Prisma {
     faultReports?: FaultReportUncheckedUpdateManyWithoutPoleNestedInput
   }
 
-  export type UserUpsertWithoutStatusLogsInput = {
-    update: XOR<UserUpdateWithoutStatusLogsInput, UserUncheckedUpdateWithoutStatusLogsInput>
-    create: XOR<UserCreateWithoutStatusLogsInput, UserUncheckedCreateWithoutStatusLogsInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutStatusLogsInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutStatusLogsInput, UserUncheckedUpdateWithoutStatusLogsInput>
-  }
-
-  export type UserUpdateWithoutStatusLogsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    middleName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: StringFieldUpdateOperationsInput | string
-    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    gender?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
-    passwordHash?: StringFieldUpdateOperationsInput | string
-    region?: StringFieldUpdateOperationsInput | string
-    province?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: StringFieldUpdateOperationsInput | string
-    barangay?: StringFieldUpdateOperationsInput | string
-    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    faultReports?: FaultReportUpdateManyWithoutReportedByNestedInput
-    workOrdersAssigned?: WorkOrderUpdateManyWithoutAssignedToNestedInput
-    workOrdersCreated?: WorkOrderUpdateManyWithoutAssignedByNestedInput
-    searchHistory?: SearchHistoryUpdateManyWithoutUserNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-    inventoryLogs?: InventoryLogUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutStatusLogsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    middleName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: StringFieldUpdateOperationsInput | string
-    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    gender?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
-    passwordHash?: StringFieldUpdateOperationsInput | string
-    region?: StringFieldUpdateOperationsInput | string
-    province?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: StringFieldUpdateOperationsInput | string
-    barangay?: StringFieldUpdateOperationsInput | string
-    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    faultReports?: FaultReportUncheckedUpdateManyWithoutReportedByNestedInput
-    workOrdersAssigned?: WorkOrderUncheckedUpdateManyWithoutAssignedToNestedInput
-    workOrdersCreated?: WorkOrderUncheckedUpdateManyWithoutAssignedByNestedInput
-    searchHistory?: SearchHistoryUncheckedUpdateManyWithoutUserNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
-    inventoryLogs?: InventoryLogUncheckedUpdateManyWithoutUserNestedInput
-  }
-
   export type UserCreateWithoutSearchHistoryInput = {
     id?: string
-    firstName: string
-    middleName?: string | null
-    lastName: string
-    dob?: Date | string | null
-    gender?: string | null
     email: string
-    phone: string
     passwordHash: string
-    region: string
-    province?: string | null
-    city: string
-    barangay: string
-    streetAddress?: string | null
     role?: $Enums.Role
     createdAt?: Date | string
+    barangay: string
+    city: string
+    dob?: Date | string | null
+    firstName: string
+    gender?: string | null
+    lastName: string
+    middleName?: string | null
+    phone: string
+    province?: string | null
+    region: string
+    streetAddress?: string | null
     faultReports?: FaultReportCreateNestedManyWithoutReportedByInput
-    workOrdersAssigned?: WorkOrderCreateNestedManyWithoutAssignedToInput
-    workOrdersCreated?: WorkOrderCreateNestedManyWithoutAssignedByInput
-    statusLogs?: StatusLogCreateNestedManyWithoutChangedByInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
     inventoryLogs?: InventoryLogCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    statusLogs?: StatusLogCreateNestedManyWithoutChangedByInput
+    workOrdersCreated?: WorkOrderCreateNestedManyWithoutAssignedByInput
+    workOrdersAssigned?: WorkOrderCreateNestedManyWithoutAssignedToInput
   }
 
   export type UserUncheckedCreateWithoutSearchHistoryInput = {
     id?: string
-    firstName: string
-    middleName?: string | null
-    lastName: string
-    dob?: Date | string | null
-    gender?: string | null
     email: string
-    phone: string
     passwordHash: string
-    region: string
-    province?: string | null
-    city: string
-    barangay: string
-    streetAddress?: string | null
     role?: $Enums.Role
     createdAt?: Date | string
+    barangay: string
+    city: string
+    dob?: Date | string | null
+    firstName: string
+    gender?: string | null
+    lastName: string
+    middleName?: string | null
+    phone: string
+    province?: string | null
+    region: string
+    streetAddress?: string | null
     faultReports?: FaultReportUncheckedCreateNestedManyWithoutReportedByInput
-    workOrdersAssigned?: WorkOrderUncheckedCreateNestedManyWithoutAssignedToInput
-    workOrdersCreated?: WorkOrderUncheckedCreateNestedManyWithoutAssignedByInput
-    statusLogs?: StatusLogUncheckedCreateNestedManyWithoutChangedByInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
     inventoryLogs?: InventoryLogUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    statusLogs?: StatusLogUncheckedCreateNestedManyWithoutChangedByInput
+    workOrdersCreated?: WorkOrderUncheckedCreateNestedManyWithoutAssignedByInput
+    workOrdersAssigned?: WorkOrderUncheckedCreateNestedManyWithoutAssignedToInput
   }
 
   export type UserCreateOrConnectWithoutSearchHistoryInput = {
@@ -16990,102 +16990,102 @@ export namespace Prisma {
 
   export type UserUpdateWithoutSearchHistoryInput = {
     id?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    middleName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: StringFieldUpdateOperationsInput | string
-    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    gender?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
-    region?: StringFieldUpdateOperationsInput | string
-    province?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: StringFieldUpdateOperationsInput | string
-    barangay?: StringFieldUpdateOperationsInput | string
-    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    barangay?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: StringFieldUpdateOperationsInput | string
+    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
     faultReports?: FaultReportUpdateManyWithoutReportedByNestedInput
-    workOrdersAssigned?: WorkOrderUpdateManyWithoutAssignedToNestedInput
-    workOrdersCreated?: WorkOrderUpdateManyWithoutAssignedByNestedInput
-    statusLogs?: StatusLogUpdateManyWithoutChangedByNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
     inventoryLogs?: InventoryLogUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    statusLogs?: StatusLogUpdateManyWithoutChangedByNestedInput
+    workOrdersCreated?: WorkOrderUpdateManyWithoutAssignedByNestedInput
+    workOrdersAssigned?: WorkOrderUpdateManyWithoutAssignedToNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSearchHistoryInput = {
     id?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    middleName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: StringFieldUpdateOperationsInput | string
-    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    gender?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
-    region?: StringFieldUpdateOperationsInput | string
-    province?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: StringFieldUpdateOperationsInput | string
-    barangay?: StringFieldUpdateOperationsInput | string
-    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    barangay?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: StringFieldUpdateOperationsInput | string
+    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
     faultReports?: FaultReportUncheckedUpdateManyWithoutReportedByNestedInput
-    workOrdersAssigned?: WorkOrderUncheckedUpdateManyWithoutAssignedToNestedInput
-    workOrdersCreated?: WorkOrderUncheckedUpdateManyWithoutAssignedByNestedInput
-    statusLogs?: StatusLogUncheckedUpdateManyWithoutChangedByNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
     inventoryLogs?: InventoryLogUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    statusLogs?: StatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+    workOrdersCreated?: WorkOrderUncheckedUpdateManyWithoutAssignedByNestedInput
+    workOrdersAssigned?: WorkOrderUncheckedUpdateManyWithoutAssignedToNestedInput
   }
 
   export type UserCreateWithoutNotificationsInput = {
     id?: string
-    firstName: string
-    middleName?: string | null
-    lastName: string
-    dob?: Date | string | null
-    gender?: string | null
     email: string
-    phone: string
     passwordHash: string
-    region: string
-    province?: string | null
-    city: string
-    barangay: string
-    streetAddress?: string | null
     role?: $Enums.Role
     createdAt?: Date | string
+    barangay: string
+    city: string
+    dob?: Date | string | null
+    firstName: string
+    gender?: string | null
+    lastName: string
+    middleName?: string | null
+    phone: string
+    province?: string | null
+    region: string
+    streetAddress?: string | null
     faultReports?: FaultReportCreateNestedManyWithoutReportedByInput
-    workOrdersAssigned?: WorkOrderCreateNestedManyWithoutAssignedToInput
-    workOrdersCreated?: WorkOrderCreateNestedManyWithoutAssignedByInput
-    statusLogs?: StatusLogCreateNestedManyWithoutChangedByInput
-    searchHistory?: SearchHistoryCreateNestedManyWithoutUserInput
     inventoryLogs?: InventoryLogCreateNestedManyWithoutUserInput
+    searchHistory?: SearchHistoryCreateNestedManyWithoutUserInput
+    statusLogs?: StatusLogCreateNestedManyWithoutChangedByInput
+    workOrdersCreated?: WorkOrderCreateNestedManyWithoutAssignedByInput
+    workOrdersAssigned?: WorkOrderCreateNestedManyWithoutAssignedToInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
     id?: string
-    firstName: string
-    middleName?: string | null
-    lastName: string
-    dob?: Date | string | null
-    gender?: string | null
     email: string
-    phone: string
     passwordHash: string
-    region: string
-    province?: string | null
-    city: string
-    barangay: string
-    streetAddress?: string | null
     role?: $Enums.Role
     createdAt?: Date | string
+    barangay: string
+    city: string
+    dob?: Date | string | null
+    firstName: string
+    gender?: string | null
+    lastName: string
+    middleName?: string | null
+    phone: string
+    province?: string | null
+    region: string
+    streetAddress?: string | null
     faultReports?: FaultReportUncheckedCreateNestedManyWithoutReportedByInput
-    workOrdersAssigned?: WorkOrderUncheckedCreateNestedManyWithoutAssignedToInput
-    workOrdersCreated?: WorkOrderUncheckedCreateNestedManyWithoutAssignedByInput
-    statusLogs?: StatusLogUncheckedCreateNestedManyWithoutChangedByInput
-    searchHistory?: SearchHistoryUncheckedCreateNestedManyWithoutUserInput
     inventoryLogs?: InventoryLogUncheckedCreateNestedManyWithoutUserInput
+    searchHistory?: SearchHistoryUncheckedCreateNestedManyWithoutUserInput
+    statusLogs?: StatusLogUncheckedCreateNestedManyWithoutChangedByInput
+    workOrdersCreated?: WorkOrderUncheckedCreateNestedManyWithoutAssignedByInput
+    workOrdersAssigned?: WorkOrderUncheckedCreateNestedManyWithoutAssignedToInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -17106,52 +17106,52 @@ export namespace Prisma {
 
   export type UserUpdateWithoutNotificationsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    middleName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: StringFieldUpdateOperationsInput | string
-    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    gender?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
-    region?: StringFieldUpdateOperationsInput | string
-    province?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: StringFieldUpdateOperationsInput | string
-    barangay?: StringFieldUpdateOperationsInput | string
-    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    barangay?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: StringFieldUpdateOperationsInput | string
+    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
     faultReports?: FaultReportUpdateManyWithoutReportedByNestedInput
-    workOrdersAssigned?: WorkOrderUpdateManyWithoutAssignedToNestedInput
-    workOrdersCreated?: WorkOrderUpdateManyWithoutAssignedByNestedInput
-    statusLogs?: StatusLogUpdateManyWithoutChangedByNestedInput
-    searchHistory?: SearchHistoryUpdateManyWithoutUserNestedInput
     inventoryLogs?: InventoryLogUpdateManyWithoutUserNestedInput
+    searchHistory?: SearchHistoryUpdateManyWithoutUserNestedInput
+    statusLogs?: StatusLogUpdateManyWithoutChangedByNestedInput
+    workOrdersCreated?: WorkOrderUpdateManyWithoutAssignedByNestedInput
+    workOrdersAssigned?: WorkOrderUpdateManyWithoutAssignedToNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    middleName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: StringFieldUpdateOperationsInput | string
-    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    gender?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
-    region?: StringFieldUpdateOperationsInput | string
-    province?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: StringFieldUpdateOperationsInput | string
-    barangay?: StringFieldUpdateOperationsInput | string
-    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    barangay?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: StringFieldUpdateOperationsInput | string
+    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
     faultReports?: FaultReportUncheckedUpdateManyWithoutReportedByNestedInput
-    workOrdersAssigned?: WorkOrderUncheckedUpdateManyWithoutAssignedToNestedInput
-    workOrdersCreated?: WorkOrderUncheckedUpdateManyWithoutAssignedByNestedInput
-    statusLogs?: StatusLogUncheckedUpdateManyWithoutChangedByNestedInput
-    searchHistory?: SearchHistoryUncheckedUpdateManyWithoutUserNestedInput
     inventoryLogs?: InventoryLogUncheckedUpdateManyWithoutUserNestedInput
+    searchHistory?: SearchHistoryUncheckedUpdateManyWithoutUserNestedInput
+    statusLogs?: StatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+    workOrdersCreated?: WorkOrderUncheckedUpdateManyWithoutAssignedByNestedInput
+    workOrdersAssigned?: WorkOrderUncheckedUpdateManyWithoutAssignedToNestedInput
   }
 
   export type InventoryLogCreateWithoutItemInput = {
@@ -17227,52 +17227,52 @@ export namespace Prisma {
 
   export type UserCreateWithoutInventoryLogsInput = {
     id?: string
-    firstName: string
-    middleName?: string | null
-    lastName: string
-    dob?: Date | string | null
-    gender?: string | null
     email: string
-    phone: string
     passwordHash: string
-    region: string
-    province?: string | null
-    city: string
-    barangay: string
-    streetAddress?: string | null
     role?: $Enums.Role
     createdAt?: Date | string
+    barangay: string
+    city: string
+    dob?: Date | string | null
+    firstName: string
+    gender?: string | null
+    lastName: string
+    middleName?: string | null
+    phone: string
+    province?: string | null
+    region: string
+    streetAddress?: string | null
     faultReports?: FaultReportCreateNestedManyWithoutReportedByInput
-    workOrdersAssigned?: WorkOrderCreateNestedManyWithoutAssignedToInput
-    workOrdersCreated?: WorkOrderCreateNestedManyWithoutAssignedByInput
-    statusLogs?: StatusLogCreateNestedManyWithoutChangedByInput
-    searchHistory?: SearchHistoryCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    searchHistory?: SearchHistoryCreateNestedManyWithoutUserInput
+    statusLogs?: StatusLogCreateNestedManyWithoutChangedByInput
+    workOrdersCreated?: WorkOrderCreateNestedManyWithoutAssignedByInput
+    workOrdersAssigned?: WorkOrderCreateNestedManyWithoutAssignedToInput
   }
 
   export type UserUncheckedCreateWithoutInventoryLogsInput = {
     id?: string
-    firstName: string
-    middleName?: string | null
-    lastName: string
-    dob?: Date | string | null
-    gender?: string | null
     email: string
-    phone: string
     passwordHash: string
-    region: string
-    province?: string | null
-    city: string
-    barangay: string
-    streetAddress?: string | null
     role?: $Enums.Role
     createdAt?: Date | string
+    barangay: string
+    city: string
+    dob?: Date | string | null
+    firstName: string
+    gender?: string | null
+    lastName: string
+    middleName?: string | null
+    phone: string
+    province?: string | null
+    region: string
+    streetAddress?: string | null
     faultReports?: FaultReportUncheckedCreateNestedManyWithoutReportedByInput
-    workOrdersAssigned?: WorkOrderUncheckedCreateNestedManyWithoutAssignedToInput
-    workOrdersCreated?: WorkOrderUncheckedCreateNestedManyWithoutAssignedByInput
-    statusLogs?: StatusLogUncheckedCreateNestedManyWithoutChangedByInput
-    searchHistory?: SearchHistoryUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    searchHistory?: SearchHistoryUncheckedCreateNestedManyWithoutUserInput
+    statusLogs?: StatusLogUncheckedCreateNestedManyWithoutChangedByInput
+    workOrdersCreated?: WorkOrderUncheckedCreateNestedManyWithoutAssignedByInput
+    workOrdersAssigned?: WorkOrderUncheckedCreateNestedManyWithoutAssignedToInput
   }
 
   export type UserCreateOrConnectWithoutInventoryLogsInput = {
@@ -17328,52 +17328,52 @@ export namespace Prisma {
 
   export type UserUpdateWithoutInventoryLogsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    middleName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: StringFieldUpdateOperationsInput | string
-    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    gender?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
-    region?: StringFieldUpdateOperationsInput | string
-    province?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: StringFieldUpdateOperationsInput | string
-    barangay?: StringFieldUpdateOperationsInput | string
-    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    barangay?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: StringFieldUpdateOperationsInput | string
+    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
     faultReports?: FaultReportUpdateManyWithoutReportedByNestedInput
-    workOrdersAssigned?: WorkOrderUpdateManyWithoutAssignedToNestedInput
-    workOrdersCreated?: WorkOrderUpdateManyWithoutAssignedByNestedInput
-    statusLogs?: StatusLogUpdateManyWithoutChangedByNestedInput
-    searchHistory?: SearchHistoryUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    searchHistory?: SearchHistoryUpdateManyWithoutUserNestedInput
+    statusLogs?: StatusLogUpdateManyWithoutChangedByNestedInput
+    workOrdersCreated?: WorkOrderUpdateManyWithoutAssignedByNestedInput
+    workOrdersAssigned?: WorkOrderUpdateManyWithoutAssignedToNestedInput
   }
 
   export type UserUncheckedUpdateWithoutInventoryLogsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    middleName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: StringFieldUpdateOperationsInput | string
-    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    gender?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
-    phone?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
-    region?: StringFieldUpdateOperationsInput | string
-    province?: NullableStringFieldUpdateOperationsInput | string | null
-    city?: StringFieldUpdateOperationsInput | string
-    barangay?: StringFieldUpdateOperationsInput | string
-    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    barangay?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: StringFieldUpdateOperationsInput | string
+    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
     faultReports?: FaultReportUncheckedUpdateManyWithoutReportedByNestedInput
-    workOrdersAssigned?: WorkOrderUncheckedUpdateManyWithoutAssignedToNestedInput
-    workOrdersCreated?: WorkOrderUncheckedUpdateManyWithoutAssignedByNestedInput
-    statusLogs?: StatusLogUncheckedUpdateManyWithoutChangedByNestedInput
-    searchHistory?: SearchHistoryUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    searchHistory?: SearchHistoryUncheckedUpdateManyWithoutUserNestedInput
+    statusLogs?: StatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+    workOrdersCreated?: WorkOrderUncheckedUpdateManyWithoutAssignedByNestedInput
+    workOrdersAssigned?: WorkOrderUncheckedUpdateManyWithoutAssignedToNestedInput
   }
 
   export type FaultReportCreateManyReportedByInput = {
@@ -17385,41 +17385,11 @@ export namespace Prisma {
     reportedAt?: Date | string
   }
 
-  export type WorkOrderCreateManyAssignedToInput = {
+  export type InventoryLogCreateManyUserInput = {
     id?: string
-    faultReportId: string
-    assignedById: string
-    status?: $Enums.WorkOrderStatus
-    assignedAt?: Date | string
-    resolvedAt?: Date | string | null
-    resolutionNotes?: string | null
-  }
-
-  export type WorkOrderCreateManyAssignedByInput = {
-    id?: string
-    faultReportId: string
-    assignedToId?: string | null
-    status?: $Enums.WorkOrderStatus
-    assignedAt?: Date | string
-    resolvedAt?: Date | string | null
-    resolutionNotes?: string | null
-  }
-
-  export type StatusLogCreateManyChangedByInput = {
-    id?: string
-    poleId: string
-    fromStatus: $Enums.PoleStatus
-    toStatus: $Enums.PoleStatus
-    changedAt?: Date | string
-    reason?: string | null
-  }
-
-  export type SearchHistoryCreateManyUserInput = {
-    id?: string
-    title: string
-    description: string
-    lat?: number | null
-    lng?: number | null
+    itemId: string
+    change: number
+    note?: string | null
     createdAt?: Date | string
   }
 
@@ -17432,12 +17402,42 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
-  export type InventoryLogCreateManyUserInput = {
+  export type SearchHistoryCreateManyUserInput = {
     id?: string
-    itemId: string
-    change: number
-    note?: string | null
+    title: string
+    description: string
+    lat?: number | null
+    lng?: number | null
     createdAt?: Date | string
+  }
+
+  export type StatusLogCreateManyChangedByInput = {
+    id?: string
+    poleId: string
+    fromStatus: $Enums.PoleStatus
+    toStatus: $Enums.PoleStatus
+    changedAt?: Date | string
+    reason?: string | null
+  }
+
+  export type WorkOrderCreateManyAssignedByInput = {
+    id?: string
+    faultReportId: string
+    assignedToId?: string | null
+    status?: $Enums.WorkOrderStatus
+    assignedAt?: Date | string
+    resolvedAt?: Date | string | null
+    resolutionNotes?: string | null
+  }
+
+  export type WorkOrderCreateManyAssignedToInput = {
+    id?: string
+    faultReportId: string
+    assignedById: string
+    status?: $Enums.WorkOrderStatus
+    assignedAt?: Date | string
+    resolvedAt?: Date | string | null
+    resolutionNotes?: string | null
   }
 
   export type FaultReportUpdateWithoutReportedByInput = {
@@ -17469,117 +17469,27 @@ export namespace Prisma {
     reportedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type WorkOrderUpdateWithoutAssignedToInput = {
+  export type InventoryLogUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    status?: EnumWorkOrderStatusFieldUpdateOperationsInput | $Enums.WorkOrderStatus
-    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    resolutionNotes?: NullableStringFieldUpdateOperationsInput | string | null
-    faultReport?: FaultReportUpdateOneRequiredWithoutWorkOrderNestedInput
-    assignedBy?: UserUpdateOneRequiredWithoutWorkOrdersCreatedNestedInput
+    change?: IntFieldUpdateOperationsInput | number
+    note?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    item?: InventoryItemUpdateOneRequiredWithoutLogsNestedInput
   }
 
-  export type WorkOrderUncheckedUpdateWithoutAssignedToInput = {
+  export type InventoryLogUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    faultReportId?: StringFieldUpdateOperationsInput | string
-    assignedById?: StringFieldUpdateOperationsInput | string
-    status?: EnumWorkOrderStatusFieldUpdateOperationsInput | $Enums.WorkOrderStatus
-    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    resolutionNotes?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type WorkOrderUncheckedUpdateManyWithoutAssignedToInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    faultReportId?: StringFieldUpdateOperationsInput | string
-    assignedById?: StringFieldUpdateOperationsInput | string
-    status?: EnumWorkOrderStatusFieldUpdateOperationsInput | $Enums.WorkOrderStatus
-    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    resolutionNotes?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type WorkOrderUpdateWithoutAssignedByInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    status?: EnumWorkOrderStatusFieldUpdateOperationsInput | $Enums.WorkOrderStatus
-    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    resolutionNotes?: NullableStringFieldUpdateOperationsInput | string | null
-    faultReport?: FaultReportUpdateOneRequiredWithoutWorkOrderNestedInput
-    assignedTo?: UserUpdateOneWithoutWorkOrdersAssignedNestedInput
-  }
-
-  export type WorkOrderUncheckedUpdateWithoutAssignedByInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    faultReportId?: StringFieldUpdateOperationsInput | string
-    assignedToId?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: EnumWorkOrderStatusFieldUpdateOperationsInput | $Enums.WorkOrderStatus
-    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    resolutionNotes?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type WorkOrderUncheckedUpdateManyWithoutAssignedByInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    faultReportId?: StringFieldUpdateOperationsInput | string
-    assignedToId?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: EnumWorkOrderStatusFieldUpdateOperationsInput | $Enums.WorkOrderStatus
-    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    resolutionNotes?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type StatusLogUpdateWithoutChangedByInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    fromStatus?: EnumPoleStatusFieldUpdateOperationsInput | $Enums.PoleStatus
-    toStatus?: EnumPoleStatusFieldUpdateOperationsInput | $Enums.PoleStatus
-    changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reason?: NullableStringFieldUpdateOperationsInput | string | null
-    pole?: PoleUpdateOneRequiredWithoutStatusLogsNestedInput
-  }
-
-  export type StatusLogUncheckedUpdateWithoutChangedByInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    poleId?: StringFieldUpdateOperationsInput | string
-    fromStatus?: EnumPoleStatusFieldUpdateOperationsInput | $Enums.PoleStatus
-    toStatus?: EnumPoleStatusFieldUpdateOperationsInput | $Enums.PoleStatus
-    changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reason?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type StatusLogUncheckedUpdateManyWithoutChangedByInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    poleId?: StringFieldUpdateOperationsInput | string
-    fromStatus?: EnumPoleStatusFieldUpdateOperationsInput | $Enums.PoleStatus
-    toStatus?: EnumPoleStatusFieldUpdateOperationsInput | $Enums.PoleStatus
-    changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reason?: NullableStringFieldUpdateOperationsInput | string | null
-  }
-
-  export type SearchHistoryUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    lat?: NullableFloatFieldUpdateOperationsInput | number | null
-    lng?: NullableFloatFieldUpdateOperationsInput | number | null
+    itemId?: StringFieldUpdateOperationsInput | string
+    change?: IntFieldUpdateOperationsInput | number
+    note?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type SearchHistoryUncheckedUpdateWithoutUserInput = {
+  export type InventoryLogUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    lat?: NullableFloatFieldUpdateOperationsInput | number | null
-    lng?: NullableFloatFieldUpdateOperationsInput | number | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type SearchHistoryUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: StringFieldUpdateOperationsInput | string
-    lat?: NullableFloatFieldUpdateOperationsInput | number | null
-    lng?: NullableFloatFieldUpdateOperationsInput | number | null
+    itemId?: StringFieldUpdateOperationsInput | string
+    change?: IntFieldUpdateOperationsInput | number
+    note?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -17610,28 +17520,118 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type InventoryLogUpdateWithoutUserInput = {
+  export type SearchHistoryUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    change?: IntFieldUpdateOperationsInput | number
-    note?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    item?: InventoryItemUpdateOneRequiredWithoutLogsNestedInput
-  }
-
-  export type InventoryLogUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    itemId?: StringFieldUpdateOperationsInput | string
-    change?: IntFieldUpdateOperationsInput | number
-    note?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    lat?: NullableFloatFieldUpdateOperationsInput | number | null
+    lng?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type InventoryLogUncheckedUpdateManyWithoutUserInput = {
+  export type SearchHistoryUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    itemId?: StringFieldUpdateOperationsInput | string
-    change?: IntFieldUpdateOperationsInput | number
-    note?: NullableStringFieldUpdateOperationsInput | string | null
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    lat?: NullableFloatFieldUpdateOperationsInput | number | null
+    lng?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SearchHistoryUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    lat?: NullableFloatFieldUpdateOperationsInput | number | null
+    lng?: NullableFloatFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StatusLogUpdateWithoutChangedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    fromStatus?: EnumPoleStatusFieldUpdateOperationsInput | $Enums.PoleStatus
+    toStatus?: EnumPoleStatusFieldUpdateOperationsInput | $Enums.PoleStatus
+    changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+    pole?: PoleUpdateOneRequiredWithoutStatusLogsNestedInput
+  }
+
+  export type StatusLogUncheckedUpdateWithoutChangedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    poleId?: StringFieldUpdateOperationsInput | string
+    fromStatus?: EnumPoleStatusFieldUpdateOperationsInput | $Enums.PoleStatus
+    toStatus?: EnumPoleStatusFieldUpdateOperationsInput | $Enums.PoleStatus
+    changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type StatusLogUncheckedUpdateManyWithoutChangedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    poleId?: StringFieldUpdateOperationsInput | string
+    fromStatus?: EnumPoleStatusFieldUpdateOperationsInput | $Enums.PoleStatus
+    toStatus?: EnumPoleStatusFieldUpdateOperationsInput | $Enums.PoleStatus
+    changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type WorkOrderUpdateWithoutAssignedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumWorkOrderStatusFieldUpdateOperationsInput | $Enums.WorkOrderStatus
+    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resolutionNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedTo?: UserUpdateOneWithoutWorkOrdersAssignedNestedInput
+    faultReport?: FaultReportUpdateOneRequiredWithoutWorkOrderNestedInput
+  }
+
+  export type WorkOrderUncheckedUpdateWithoutAssignedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    faultReportId?: StringFieldUpdateOperationsInput | string
+    assignedToId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumWorkOrderStatusFieldUpdateOperationsInput | $Enums.WorkOrderStatus
+    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resolutionNotes?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type WorkOrderUncheckedUpdateManyWithoutAssignedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    faultReportId?: StringFieldUpdateOperationsInput | string
+    assignedToId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumWorkOrderStatusFieldUpdateOperationsInput | $Enums.WorkOrderStatus
+    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resolutionNotes?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type WorkOrderUpdateWithoutAssignedToInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumWorkOrderStatusFieldUpdateOperationsInput | $Enums.WorkOrderStatus
+    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resolutionNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedBy?: UserUpdateOneRequiredWithoutWorkOrdersCreatedNestedInput
+    faultReport?: FaultReportUpdateOneRequiredWithoutWorkOrderNestedInput
+  }
+
+  export type WorkOrderUncheckedUpdateWithoutAssignedToInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    faultReportId?: StringFieldUpdateOperationsInput | string
+    assignedById?: StringFieldUpdateOperationsInput | string
+    status?: EnumWorkOrderStatusFieldUpdateOperationsInput | $Enums.WorkOrderStatus
+    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resolutionNotes?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type WorkOrderUncheckedUpdateManyWithoutAssignedToInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    faultReportId?: StringFieldUpdateOperationsInput | string
+    assignedById?: StringFieldUpdateOperationsInput | string
+    status?: EnumWorkOrderStatusFieldUpdateOperationsInput | $Enums.WorkOrderStatus
+    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resolutionNotes?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type FaultReportCreateManyPoleInput = {

@@ -95,9 +95,9 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 relative">
-      <div className="absolute top-10 mb-5">
+      <div className="absolute top-4 sm:top-10 mb-5">
         <h1
-          className="w-full max-w-118 mx-auto font-['Koulen'] text-[86px] font-normal text-brand-blue text-center select-none"
+          className="w-full mx-auto font-['Koulen'] text-[48px] sm:text-[64px] md:text-[86px] font-normal text-brand-blue text-center select-none leading-none"
           style={{
             textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
             WebkitTextStrokeWidth: "1px",
@@ -107,7 +107,7 @@ export default function RegisterPage() {
           il<span className="text-[#F4D35E]">lumen</span>ate
         </h1>
       </div>
-      <div className="w-full max-w-5xl bg-white rounded-2xl shadow-xl overflow-hidden pt-30">
+      <div className="w-full max-w-5xl bg-white rounded-2xl shadow-xl overflow-hidden pt-24 sm:pt-30">
         <div className="p-8">
           <h2 className="text-center text-2xl font-bold text-blue-800 mb-6">
             Create an Account

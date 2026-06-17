@@ -62,7 +62,7 @@ export default async function TechnicianDashboardPage() {
   const firstName = session.user.name?.split(' ')[0] ?? 'there'
 
   return (
-    <div className="p-8 space-y-8 max-w-[1400px]">
+    <div className="p-4 sm:p-8 space-y-8 max-w-[1400px]">
       <div>
         <h1 className="text-2xl font-bold text-gray-900">Hi, {firstName}</h1>
         <p className="text-sm text-gray-500 mt-1">
