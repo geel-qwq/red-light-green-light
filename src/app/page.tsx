@@ -16,10 +16,15 @@ import {
   Settings,
   Wrench,
   BarChart,
+  BarChartIcon,
   MapPin,
   MessageSquare,
   Send,
   Bot,
+  CheckCircle,
+  Siren,
+  Lightbulb,
+  Zap,
 } from "lucide-react";
 import Link from "next/link";
 import Logo from "@/components/Logo";
@@ -537,7 +542,7 @@ export default function Page() {
                 </div>
 
                 <div className="py-2">
-                  {roleMenuConfig[effectiveRole].map((item, idx) => {
+                  {effectiveRole && roleMenuConfig[effectiveRole]?.map((item, idx) => {
                     const Icon = item.icon;
                     return (
                       <button

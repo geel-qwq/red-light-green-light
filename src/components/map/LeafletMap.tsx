@@ -2,11 +2,14 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { MapContainer, TileLayer, Marker, ZoomControl, CircleMarker, useMap, useMapEvents } from 'react-leaflet';
+import {
+  MapContainer, TileLayer, Marker, ZoomControl,
+  useMap, useMapEvents,
+} from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+import LocationDetails from '../LocationDetails';
 
-// ── Existing red-pin marker icon ──
 const customMarkerIcon = new L.DivIcon({
   className: 'bg-transparent',
   html: `<div style="color: #b23b3b; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
@@ -30,13 +33,8 @@ const customMarkerIconBounce = new L.DivIcon({
   iconAnchor: [16, 32],
 });
 
-// ── Pole/light status, mirroring polemap.tsx's statusColor + LocationDetails'
 type PoleStatus = 'ACTIVE' | 'FAULTY' | 'UNDER_MAINTENANCE' | 'DECOMMISSIONED';
 
-// ── Status → icon file in public/marker_icons ──
-// NOTE: these filenames are placeholders — rename them (and the extension,
-// if you're using .svg instead of .png) to match whatever actually lives
-// in public/marker_icons.
 const STATUS_ICON_FILE: Record<PoleStatus, string> = {
   ACTIVE:            '/marker_icons/lamp-active.png',
   FAULTY:            '/marker_icons/lamp-faulty.png',
@@ -46,12 +44,8 @@ const STATUS_ICON_FILE: Record<PoleStatus, string> = {
 
 type LightVisualState = 'default' | 'hovered' | 'selected';
 
-// Base icon size in px — hover/selected just scale this up via CSS below,
-// so bump this single number if the icons read too small/large overall.
 const STREETLIGHT_ICON_PX = 22;
 
-// Finite (status × state) combinations, so build each L.Icon once and
-// reuse it across markers/re-renders instead of recreating on every render.
 const statusIconCache = new Map<string, L.Icon>();
 
 function getStatusIcon(status: PoleStatus, state: LightVisualState): L.Icon {
@@ -73,7 +67,6 @@ function getStatusIcon(status: PoleStatus, state: LightVisualState): L.Icon {
   return icon;
 }
 
-// ── Flies the map to a new position whenever targetLocation changes ──
 function MapUpdater({ targetLocation }: { targetLocation?: [number, number] | null }) {
   const map = useMap();
   useEffect(() => {
@@ -86,11 +79,21 @@ function MapUpdater({ targetLocation }: { targetLocation?: [number, number] | nu
   return null;
 }
 
-// --- Real Streetlight Fetcher Component ---
-function StreetlightLayer() {
-  const [lights, setLights] = useState<[number, number][]>([]);
-  const [isFetching, setIsFetching] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+interface OsmLight {
+  position: [number, number];
+  status: PoleStatus;
+}
+
+interface StreetlightLayerProps {
+  onLightClick: (pos: [number, number]) => void;
+  selectedLight: [number, number] | null;
+}
+
+function StreetlightLayer({ onLightClick, selectedLight }: StreetlightLayerProps) {
+  const [lights,       setLights]       = useState<OsmLight[]>([]);
+  const [isFetching,   setIsFetching]   = useState(false);
+  const [error,        setError]        = useState<string | null>(null);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const abortRef    = useRef<AbortController | null>(null);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -156,7 +159,6 @@ function StreetlightLayer() {
     setError('Could not load streetlight data right now.');
   };
 
-  // Re-fetch whenever the map viewport stops moving
   const map = useMapEvents({
     moveend: () => {
       if (debounceRef.current) clearTimeout(debounceRef.current);
@@ -164,7 +166,6 @@ function StreetlightLayer() {
     },
   });
 
-  // Initial fetch on mount
   useEffect(() => {
     fetchLights(map);
     return () => {
@@ -181,7 +182,6 @@ function StreetlightLayer() {
 
   return (
     <>
-      {/* Fetch status toasts */}
       {isFetching && (
         <div className="absolute top-20 right-4 z-[400] bg-white px-3 py-1 rounded-full shadow-md text-xs font-bold text-slate-600 border border-slate-200">
           Fetching live streetlights...
@@ -198,48 +198,30 @@ function StreetlightLayer() {
         </div>
       )}
 
-      {!isFetching && !error && lights.length > 0 && session?.user && (
-        <div className="absolute top-4 right-4 z-[400] flex items-center gap-2">
-          <div className="bg-white px-3 py-1 rounded-full shadow-md text-xs font-bold text-slate-600 border border-slate-200">
-            {lights.length} lights
-          </div>
-          <button
-            onClick={async () => {
-              setRegisteringAll(true);
-              try {
-                await bulkRegisterOsmPoles(
-                  lights.map((l) => ({ lat: l[0], lng: l[1] })),
-                );
-              } finally {
-                setRegisteringAll(false);
-              }
-            }}
-            disabled={registeringAll}
-            className="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md border border-blue-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {registeringAll ? "Registering..." : `Register All`}
-          </button>
-        </div>
-      )}
+      {lights.map((light, index) => {
+        const state: LightVisualState = isSelected(light.position)
+          ? 'selected'
+          : hoveredIndex === index
+            ? 'hovered'
+            : 'default';
 
-      {lights.map((light, index) => (
-        <CircleMarker
-          key={`light-${light[0]}-${light[1]}-${index}`}
-          center={light}
-          radius={4}
-          pathOptions={{
-            color: '#dba65d',
-            fillColor: '#FFD700',
-            fillOpacity: 0.8,
-            weight: 1,
-          }}
-        />
-      ))}
+        return (
+          <Marker
+            key={`light-${light.position[0]}-${light.position[1]}-${index}`}
+            position={light.position}
+            icon={getStatusIcon(light.status, state)}
+            eventHandlers={{
+              click:      () => onLightClick(light.position),
+              mouseover:  () => setHoveredIndex(index),
+              mouseout:   () => setHoveredIndex(null),
+            }}
+          />
+        );
+      })}
     </>
   );
 }
 
-// ── Main component props ──
 interface LeafletMapProps {
   targetLocation?: [number, number] | null;
   onMarkerClick?:  () => void;
@@ -248,7 +230,6 @@ interface LeafletMapProps {
 export default function LeafletMap({ targetLocation, onMarkerClick }: LeafletMapProps) {
   const defaultCenter: [number, number] = [14.6507, 120.9842];
 
-  // Forces MapContainer to remount cleanly after a search
   const mapKey = targetLocation ? `${targetLocation[0]}-${targetLocation[1]}` : 'default-map';
 
   const [activeLight,   setActiveLight]   = useState<[number, number] | null>(null);
@@ -257,7 +238,7 @@ export default function LeafletMap({ targetLocation, onMarkerClick }: LeafletMap
   const handleLightClick = (pos: [number, number]) => {
     setActiveLight(pos);
     setSelectedLight(pos);
-    setShowDetails(true);       // open panel automatically
+    setShowDetails(true);
     onMarkerClick?.();
   };
 
@@ -277,9 +258,6 @@ export default function LeafletMap({ targetLocation, onMarkerClick }: LeafletMap
           animation: markerBounce 0.45s ease;
         }
 
-        /* Status-coded streetlight icons — replaces the old CircleMarker's
-           radius/opacity/weight feedback with a scale + drop-shadow, and
-           reuses the same bounce keyframes above for the "selected" pop. */
         .streetlight-status-icon {
           transition: transform 0.2s ease, filter 0.2s ease;
           transform-origin: center center;
@@ -301,7 +279,6 @@ export default function LeafletMap({ targetLocation, onMarkerClick }: LeafletMap
 
   const [showDetails, setShowDetails] = useState(false);
 
-  // Close panel when clicking outside the map or the panel itself
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       const t = e.target as HTMLElement;
