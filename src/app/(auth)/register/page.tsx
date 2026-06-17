@@ -3,7 +3,7 @@
 
 import { useActionState, useEffect, useState } from "react";
 import { registerUser } from "@/actions/auth";
-import { User, Phone, Mail, Lock, MapPin, Eye, EyeOff } from "lucide-react";
+import { CircleUserRound, Phone, Mail, Lock, MapPin, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 
 // Types for the PSGC API
@@ -16,6 +16,9 @@ export default function RegisterPage() {
   const [state, formAction, isPending] = useActionState(registerUser, null);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [gender, setGender] = useState("");
+  const [region, setRegion] = useState("");
+  const [dob, setDob] = useState("");
 
   // Geographic State
   const [regions, setRegions] = useState<LocationNode[]>([]);
@@ -95,9 +98,9 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 relative">
-      <div className="absolute top-4 sm:top-10 mb-5">
+      <div className="absolute top-4 sm:top-2 mb-5">
         <h1
-          className="w-full mx-auto font-['Koulen'] text-[48px] sm:text-[64px] md:text-[86px] font-normal text-brand-blue text-center select-none leading-none"
+          className="w-full mx-auto font-['Koulen'] text-[48px] sm:text-[64px] md:text-[60px] text-brand-blue text-center select-none leading-none"
           style={{
             textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
             WebkitTextStrokeWidth: "1px",
@@ -107,20 +110,20 @@ export default function RegisterPage() {
           il<span className="text-[#F4D35E]">lumen</span>ate
         </h1>
       </div>
-      <div className="w-full max-w-5xl bg-white rounded-2xl shadow-xl overflow-hidden pt-24 sm:pt-30">
+      <div className="w-full max-w-5xl bg-white rounded-2xl shadow-xl overflow-hidden pt-30">
         <div className="p-8">
-          <h2 className="text-center text-2xl font-bold text-blue-800 mb-6">
+          <h2 className="text-center text-2xl font-['Instrument_Sans'] text-brand-blue mb-6">
             Create an Account
           </h2>
 
           <form action={formAction} className="space-y-5">
             {/* Personal Information */}
             <div>
-              <h3 className="flex items-center gap-2 text-blue-700 font-semibold mb-3">
-                <User size={18} />
+              <h3 className="flex items-center gap-2 text-brand-blue font-['Instrument_Sans'] mb-3">
+                <CircleUserRound size={18} />
                 Personal Information
               </h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 label:text-brand-blue">
                 <Field label="First Name" required>
                   <input
                     name="firstName"
@@ -149,21 +152,24 @@ export default function RegisterPage() {
                 </Field>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 bg-transparent">
                 <Field label="Date of Birth">
                   <input
                     name="dob"
                     type="date"
                     placeholder="MM / DD / YYYY"
-                    className={inputClass}
+                    className={`${inputClass} ${dob ? "bg-white!" : "bg-transparent!"} hover:cursor-pointer`}
+                    value={dob}
+                    onChange={(e) => setDob(e.target.value)}
                   />
                 </Field>
                 <Field label="Gender" hint="(Optional)">
-                  <select name="gender" defaultValue="" className={inputClass}>
+                  <select name="gender" value={gender} onChange={(e) => setGender(e.target.value)} className={`${inputClass} ${gender ? "bg-white!" : "bg-transparent!"} hover:cursor-pointer`}>
                     <option value="" disabled>Select gender</option>
                     <option value="male">Male</option>
-                    <option value="female">Female</option>
+                    <option value="female">Female</option>   
                     <option value="other">Other</option>
+                    
                   </select>
                 </Field>
               </div>
@@ -171,8 +177,8 @@ export default function RegisterPage() {
 
             {/* Contact Information */}
             <div>
-              <h3 className="flex items-center gap-2 text-blue-700 font-semibold mb-3">
-                <Phone size={18} />
+              <h3 className="flex items-center gap-2 text-brand-blue font-['Instrument_Sans'] mb-3">
+                <Phone size={18} color="#1E3A8A" fill="#1E3A8A"/>
                 Contact Information
               </h3>
 
@@ -206,14 +212,10 @@ export default function RegisterPage() {
               {/* DYNAMIC LOCATION DROPDOWNS */}
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
                 <Field label="Region" required>
-                  <select
-                    name="region"
-                    defaultValue=""
-                    required
-                    className={inputClass}
-                    onChange={handleRegionChange}
-                  >
-                    <option value="" disabled>Select region</option>
+                  <select name="region" value={region} onChange={(e) => setRegion(e.target.value)} className={`${inputClass} ${region ? "bg-white!" : "bg-transparent!"} hover:cursor-pointer`}>
+                    <option value="" disabled>
+                      Select region
+                    </option>
                     {regions.map((reg) => (
                       <option key={reg.code} value={reg.name} data-code={reg.code}>
                         {reg.name}
@@ -295,8 +297,8 @@ export default function RegisterPage() {
             </div>
 
             {/* Account Information */}
-            <div className="bg-gray-50 -mx-8 px-8 py-6 mt-6 rounded-b-2xl">
-              <h3 className="flex items-center gap-2 text-blue-700 font-semibold mb-3">
+            <div className="-mx-8 px-8 py-6 mt-6">
+              <h3 className="flex items-center gap-2 text-brand-blue font-['Instrument_Sans'] mb-3">
                 <Lock size={18} />
                 Account Information
               </h3>
@@ -316,9 +318,9 @@ export default function RegisterPage() {
                     <button
                       type="button"
                       onClick={() => setShowPassword((v) => !v)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:cursor-pointer hover:opacity-50 transition-opacity"
                     >
-                      {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                      {showPassword ? <EyeOff size={16} color="#1E3A8A"/> : <Eye size={16} color="#1E3A8A"/>}
                     </button>
                   </div>
                 </Field>
@@ -336,21 +338,21 @@ export default function RegisterPage() {
                     <button
                       type="button"
                       onClick={() => setShowConfirm((v) => !v)}
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:cursor-pointer hover:opacity-50 transition-opacity"
                     >
-                      {showConfirm ? <EyeOff size={16} /> : <Eye size={16} />}
+                      {showConfirm ? <EyeOff size={16} color="#1E3A8A"/> : <Eye size={16} color="#1E3A8A"/>}
                     </button>
                   </div>
                 </Field>
               </div>
 
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-center gap-3 mt-4 text-sm">
-                <label className="flex items-center gap-2">
-                  <input type="checkbox" name="terms" required className="accent-blue-700" />
+                <label className="flex items-center gap-2 font-['Instrument_Sans'] text-brand-blue">
+                  <input type="checkbox" name="terms" required className="accent-brand-blue hover:cursor-pointer" />
                   I Agree with Terms &amp; Conditions <span className="text-red-500">*</span>
                 </label>
-                <label className="flex items-center gap-2">
-                  <input type="checkbox" name="privacy" required className="accent-blue-700" />
+                <label className="flex items-center gap-2 font-['Instrument_Sans'] text-brand-blue">
+                  <input type="checkbox" name="privacy" required className="accent-brand-blue hover:cursor-pointer"/>
                   I Agree with Privacy Policy <span className="text-red-500">*</span>
                 </label>
               </div>
@@ -362,14 +364,14 @@ export default function RegisterPage() {
               <button
                 type="submit"
                 disabled={isPending}
-                className="w-full mt-5 py-3 rounded-md bg-blue-800 text-white font-medium hover:bg-blue-900 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
+                className="w-full bg-brand-blue text-white mt-5 py-2 rounded-[18px] text-lg font-['Instrument_Sans'] hover:bg-brand-royal-blue cursor-pointer disabled:opacity-50 transition-colors"
               >
                 {isPending ? "Registering..." : "Register"}
               </button>
 
-              <p className="text-center text-sm mt-3 text-gray-600">
+              <p className="text-center text-sm mt-4 font-['Instrument_Sans'] text-brand-blue">
                 Already have an account?{" "}
-                <Link href="/login" className="text-yellow-500 font-medium hover:underline">
+                <Link href="/login" className="text-yellow-500 font-['Instrument_Sans'] hover:underline">
                   Login
                 </Link>
               </p>
@@ -382,7 +384,7 @@ export default function RegisterPage() {
 }
 
 const inputClass =
-  "w-full px-3 py-2 rounded-md border border-gray-300 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-700 focus:border-blue-700";
+  "bg-white w-full px-3 py-2 rounded-[12px] shadow-[0_2px_2px_0px_rgba(0,0,0,0.25)] border border-brand-blue text-sm text-brand-blue placeholder:text-gray-400 focus:ring-2 focus:ring-red-5";
 
 function Field({
   label,
@@ -397,9 +399,9 @@ function Field({
 }) {
   return (
     <div>
-      <label className="block text-sm font-medium text-gray-700 mb-1">
+      <label className="block text-sm font-['Instrument_Sans'] text-brand-blue mb-1">
         {label} {required && <span className="text-red-500">*</span>}
-        {hint && <span className="text-gray-400 font-normal text-xs ml-1">{hint}</span>}
+        {hint && <span className="text-gray-500 font-['Instrument_Sans'] text-xs ml-1">{hint}</span>}
       </label>
       {children}
     </div>

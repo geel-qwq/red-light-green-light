@@ -8,6 +8,7 @@
   --color-brand-cornflower-blue: #6495ED;
   --color-brand-royal-blue: #4169E1;
   --color-brand-goldenrod: #DAA520;
+  --color-brand-muted-gold: #DBA65D;
 
   /* This maps 'font-instrument' to the Next.js Google font variable */
   --font-instrument: var(--font-instrument);
@@ -21,4 +22,30 @@
   --shadow-figma: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
   --radius-figma: 23px;
 
+  /* Animations !! */
+  --animate-slide-up-fade: slide-up-fade 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-scale-in: scale-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+
+  @keyframes slide-up-fade {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scale-in {
+    0% {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
 }

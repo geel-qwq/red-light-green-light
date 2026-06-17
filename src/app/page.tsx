@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useRef, useEffect } from "react";
@@ -16,13 +17,9 @@ import {
   Wrench,
   BarChart,
   MapPin,
-  MessageSquare, 
-  Send, 
+  MessageSquare,
+  Send,
   Bot,
-  CheckCircle,
-  Siren,
-  Lightbulb,
-  Zap,
 } from "lucide-react";
 import Link from "next/link";
 import Logo from "@/components/Logo";
@@ -199,7 +196,7 @@ export default function Page() {
   const containerRef = useRef<HTMLDivElement>(null);
   const recentPanelRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
-  const chatEndRef = useRef<HTMLDivElement>(null); 
+  const chatEndRef = useRef<HTMLDivElement>(null);
 
   const [isDashboardOpen, setIsDashboardOpen] = useState(false);
   const [recentActivities, setRecentActivities] = useState<Activity[]>([]);
@@ -237,7 +234,7 @@ export default function Page() {
           });
         }
       })
-      .catch(() => {});
+      .catch(() => { });
   }, []);
 
   useEffect(() => {
@@ -417,21 +414,32 @@ export default function Page() {
 
   // Click outside click trap routines
   useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
-        setShowSuggestions(false);
-        setIsFilterOpen(false);
-      }
-      if (recentPanelRef.current && !recentPanelRef.current.contains(e.target as Node)) {
-        setIsRecentOpen(false);
-      }
-      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
-        setIsMenuOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  const handleClickOutside = (e: MouseEvent) => {
+    const target = e.target as HTMLElement;
+
+    // Ignore Leaflet map interactions
+    if (target.closest(".leaflet-container")) {
+      return;
+    }
+
+    if (containerRef.current && !containerRef.current.contains(target)) {
+      setShowSuggestions(false);
+      setIsFilterOpen(false);
+    }
+
+    if (recentPanelRef.current && !recentPanelRef.current.contains(target)) {
+      setIsRecentOpen(false);
+    }
+
+    if (menuRef.current && !menuRef.current.contains(target)) {
+      setIsMenuOpen(false);
+    }
+  };
+
+  document.addEventListener("mousedown", handleClickOutside);
+
+  return () => document.removeEventListener("mousedown", handleClickOutside);
+}, []);
 
   const selectResult = (result: SearchResult) => {
     const lat = parseFloat(result.lat);
@@ -484,32 +492,44 @@ export default function Page() {
     <GuestRedirectWrapper>
     <div className="flex h-screen w-full overflow-hidden bg-[#e5e7eb] font-sans relative">
 
-      {/* Mobile sidebar toggle */}
-      <button
-        onClick={() => setIsMenuOpen(!isMenuOpen)}
-        className="fixed top-4 left-4 z-50 md:hidden w-10 h-10 rounded-xl bg-[#2f4383] border-2 border-[#dba65d] flex items-center justify-center"
-      >
-        <Menu className="w-5 h-5 text-[#dba65d]" strokeWidth={2} />
-      </button>
-
       {/* 1. LEFT SIDEBAR */}
-      <aside className={`${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 fixed md:relative w-[72px] bg-[#2f4383] flex flex-col items-center py-5 z-40 shadow-xl justify-between transition-transform duration-200`}>
-        <div className="flex flex-col items-center gap-8 w-full">
-          {/* HAMBURGER MENU WITH ROLE-BASED DROPDOWN */}
-          <div className="relative" ref={menuRef}>
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className={`w-[42px] h-[42px] rounded-xl border-2 flex items-center justify-center transition-colors ${isMenuOpen ? "bg-[#3b529a] border-transparent" : "border-[#dba65d] hover:bg-[#3b529a]"}`}
-            >
-              <Menu
-                className={`w-6 h-6 ${isMenuOpen ? "text-white" : "text-[#dba65d]"}`}
-                strokeWidth={2}
-              />
-            </button>
+      <style>{`
+  @keyframes bounce-click {
+    0%   { transform: scale(1); }
+    30%  { transform: scale(0.82); }
+    60%  { transform: scale(1.18); }
+    80%  { transform: scale(0.95); }
+    100% { transform: scale(1); }
+  }
+  .sidebar-btn-bounce:active .sidebar-icon-btn {
+    animation: bounce-click 0.35s ease forwards;
+  }
+`}</style>
+
+      <aside className="w-[64px] bg-brand-blue/90 backdrop-blur-[0.5px] flex flex-col items-center py-5 z-40 shadow-xl justify-between">
+        <div className="flex flex-col items-center w-full">
+          <div
+            className="relative w-full py-3 flex flex-col items-center gap-1.5"
+            ref={menuRef}
+          >
+            <div className="sidebar-btn-bounce w-full flex flex-col items-center gap-1.5">
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className={`sidebar-icon-btn w-[38px] h-[38px] rounded-[2px] border-2 flex items-center justify-center transition-colors hover:cursor-pointer hover:rounded-full hover:bg-[#dba65d] hover:border-[#dba65d] group ${isMenuOpen ? "bg-[#dba65d] border-[#dba65d]" : "border-[#dba65d]"}`}
+              >
+                <Menu
+                  className={`w-5 h-5 group-hover:text-white ${isMenuOpen ? "text-white" : "text-[#dba65d]"}`}
+                  strokeWidth={2}
+                />
+              </button>
+              <span className="text-[#dba65d] text-[10px] text-center px-0.5 font-bold tracking-wide leading-tight">
+                Menu
+              </span>
+            </div>
 
             {/* Dropdown Menu Overlay */}
-            {isMenuOpen && sessionUser && effectiveRole && (
-              <div className="absolute top-0 left-[60px] md:left-[60px] right-0 md:right-auto w-auto md:w-60 bg-white rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100 overflow-hidden flex flex-col z-50 animate-in fade-in slide-in-from-left-2 duration-200">
+            {isMenuOpen && (
+              <div className="absolute top-0 left-[60px] w-60 bg-white rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100 overflow-hidden flex flex-col z-50 animate-in fade-in slide-in-from-left-2 duration-200">
                 <div className="px-4 py-3 bg-[#f8fafc] border-b border-gray-100 flex items-center justify-between">
                   <span className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">
                     {effectiveRole} Menu
@@ -517,22 +537,14 @@ export default function Page() {
                 </div>
 
                 <div className="py-2">
-                  {roleMenuConfig[effectiveRole]?.map((item, idx) => {
+                  {roleMenuConfig[effectiveRole].map((item, idx) => {
                     const Icon = item.icon;
                     return (
                       <button
                         key={idx}
-                        onClick={() => {
-                          if (item.key === "overview") {
-                            setIsOverviewOpen(true);
-                          } else if (item.route) {
-                            router.push(item.route);
-                          }
-                          setIsMenuOpen(false);
-                        }}
-                        className="flex items-center gap-3 px-4 py-2.5 w-full text-left text-[14px] font-medium text-gray-700 hover:bg-[#f1f5f9] hover:text-[#2f4383] transition-colors"
+                        className="flex items-center gap-3 px-4 py-2.5 w-full text-left text-[14px] font-medium text-gray-700 hover:bg-[#dba65d] hover:text-white transition-colors group"
                       >
-                        <Icon className="w-4 h-4 text-gray-400" />
+                        <Icon className="w-4 h-4 text-gray-400 group-hover:text-white transition-colors" />
                         {item.title}
                       </button>
                     );
@@ -542,19 +554,64 @@ export default function Page() {
             )}
           </div>
 
-          {/* RECENTS SIDE-TAB TRIGGER */}
+          {/* #2 FLOATING ACTION TRIGGER: System Overview */}
+          {(effectiveRole === "admin" || effectiveRole === "superadmin") && (
+            <div
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsOverviewOpen(!isOverviewOpen);
+              }}
+              className={`sidebar-btn-bounce w-full py-3 flex flex-col items-center gap-1.5 cursor-pointer transition-colors hover:cursor-pointer hover:bg-[#3b529a]/50 group ${isOverviewOpen ? "bg-[#3b529a] border-l-4 border-[#dba65d]" : "border-l-4 border-transparent"}`}
+            >
+              <button
+                className={`sidebar-icon-btn w-[38px] h-[38px] rounded-[2px] border-2 border-[#dba65d] flex items-center justify-center hover:rounded-full hover:cursor-pointer hover:bg-[#dba65d] transition-all group-hover:bg-[#dba65d] ${isOverviewOpen ? "bg-[#dba65d]" : ""}`}
+              >
+                <BarChartIcon
+                  className={`w-5 h-5 group-hover:text-white ${isOverviewOpen ? "text-white" : "text-[#dba65d]"}`}
+                  strokeWidth={2}
+                />
+              </button>
+              <span className="text-[#dba65d] text-[10px] text-center px-0.5 font-bold tracking-wide leading-tight">
+                System Overview
+              </span>
+            </div>
+          )}
+
+          {effectiveRole === "user" && (
+            <div
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsOverviewOpen(!isOverviewOpen);
+              }}
+              className={`sidebar-btn-bounce w-full py-3 flex flex-col items-center gap-1.5 cursor-pointer transition-colors hover:cursor-pointer hover:bg-[#3b529a]/50 group ${isOverviewOpen ? "bg-[#3b529a] border-l-4 border-[#dba65d]" : "border-l-4 border-transparent"}`}
+            >
+              <button
+                className={`sidebar-icon-btn w-[38px] h-[38px] rounded-[2px] border-2 border-[#dba65d] flex items-center justify-center hover:rounded-full transition-all group-hover:bg-[#dba65d] ${isOverviewOpen ? "bg-[#dba65d]" : ""}`}
+              >
+                <BarChartIcon
+                  className={`w-5 h-5 group-hover:text-white ${isOverviewOpen ? "text-white" : "text-[#dba65d]"}`}
+                  strokeWidth={2}
+                />
+              </button>
+              <span className="text-[#dba65d] text-[10px] text-center px-0.5 font-bold tracking-wide leading-tight">
+                My Dashboard
+              </span>
+            </div>
+          )}
+
+          {/* #3 RECENTS SIDE-TAB TRIGGER */}
           <div
             onClick={(e) => {
               e.stopPropagation();
               setIsRecentOpen(!isRecentOpen);
             }}
-            className={`w-full py-3 flex flex-col items-center gap-1.5 cursor-pointer transition-colors ${isRecentOpen ? "bg-[#3b529a] border-l-4 border-[#dba65d]" : "hover:bg-[#3b529a]/50 border-l-4 border-transparent"}`}
+            className={`sidebar-btn-bounce w-full py-3 flex flex-col items-center gap-1.5 cursor-pointer transition-colors justify-center hover:cursor-pointer hover:bg-[#3b529a]/50 group ${isRecentOpen ? "bg-[#3b529a] border-l-4 border-[#dba65d]" : "border-l-4 border-transparent"}`}
           >
             <button
-              className={`w-[38px] h-[38px] rounded-full border-2 border-[#dba65d] flex items-center justify-center ${isRecentOpen ? "bg-[#dba65d]" : ""}`}
+              className={`sidebar-icon-btn w-[38px] h-[38px] rounded-[2px] border-2 border-[#dba65d] flex items-center justify-center hover:rounded-full transition-all hover:cursor-pointer group-hover:bg-[#dba65d] ${isRecentOpen ? "bg-[#dba65d]" : ""}`}
             >
               <Clock
-                className={`w-5 h-5 ${isRecentOpen ? "text-white" : "text-[#dba65d]"}`}
+                className={`w-5 h-5 group-hover:text-white ${isRecentOpen ? "text-white" : "text-[#dba65d]"}`}
                 strokeWidth={2}
               />
             </button>
@@ -562,26 +619,44 @@ export default function Page() {
               Recents
             </span>
           </div>
+
         </div>
 
+        {/* Bottom language button */}
         <div className="flex flex-col items-center w-full">
-          <button className="w-[42px] h-[42px] flex items-center justify-center hover:bg-[#3b529a] rounded-lg transition-colors">
-            <Languages className="w-6 h-6 text-[#dba65d]" />
-          </button>
+          <div className="sidebar-btn-bounce">
+            <button className="sidebar-icon-btn w-[42px] h-[42px] flex items-center justify-center hover:bg-[#dba65d] rounded-lg transition-colors group">
+              <Languages className="w-6 h-6 text-[#dba65d] group-hover:text-white transition-colors" />
+            </button>
+          </div>
         </div>
       </aside>
 
       {/* 2. MAIN MAP PAGE SPACE */}
       <main className="flex-1 relative flex flex-col">
-        <Map targetLocation={searchedLocation} />
+        <Map targetLocation={searchedLocation} onMarkerClick={() => setShowSuggestions(false)}/>
 
         {/* TOP SYSTEM LOGO NAVIGATION BAR */}
-        <header className="absolute top-0 left-0 w-full h-[70px] bg-[#2f4383]/90 backdrop-blur-sm z-30 flex justify-between items-center px-4 sm:px-8 border-b border-[#2f4383]/50 pointer-events-auto">
-          <div className="flex flex-col justify-center">
-            <Logo className="w-auto h-[44px]" />
+        <header className="absolute top-0 left-0 w-full h-auto bg-brand-blue/90 backdrop-blur-[0.5px] z-30 flex justify-between items-center px-4 sm:px-8 border-b border-[#2f4383]/50 pointer-events-auto">
+          <div className="-ml-5 flex justify-center">
+            <Logo className="mt-3 w-auto h-[44px]" />
+            {/* ilLUMENate */}
+            <div className="flex flex-col">
+              <h1
+                className="w-auto max-w-118 mx-auto text-[42px] font-koulen text-white text-center select-none"
+                style={{
+                  textShadow: "0px 4px 4px rgba(0, 0, 0, 0.25)",
+                  WebkitTextStrokeWidth: "1px",
+                  WebkitTextStrokeColor: "#1E3A8A",
+                  font: "'koulen'"
+                }}
+              >
+                il<span className="text-[#F4D35E]">lumen</span>ate
+              </h1>
+            </div>
             {/* REAL-TIME CLIENT-SIDE REVERSE GEOLOCATION NODE FIELD TEXT DISPLAY */}
             <p className="text-[11px] text-amber-300 font-bold tracking-wider uppercase pl-1 flex items-center gap-1">
-              <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-ping" />
+              <span className="ml-5 mr-2 w-1.5 h-1.5 bg-emerald-400 rounded-full animate-ping" />
               Location Context: {gpsLocation}
             </p>
           </div>
@@ -643,11 +718,9 @@ export default function Page() {
 
         {/* FLOATING MAP CONTROLS CODES */}
         <div className="absolute inset-0 z-10 pointer-events-none mt-[70px]">
-          <div ref={containerRef} className="absolute top-4 left-4 right-4 md:left-6 md:right-auto pointer-events-auto md:w-[750px]">
+          <div ref={containerRef} className="absolute top-4 left-4 right-4 md:left-6 md:right-auto pointer-events-auto md:w-[480px] transition-all duration-300 hover:w-[650px] hover:cursor-pointer">
             <div className="relative flex items-center w-full bg-white rounded-[20px] shadow-sm border border-slate-300 px-3 py-2">
-              <div className="flex-grow flex items-center">
-                <Search className="w-5 h-5 text-gray-500 ml-1 flex-shrink-0" />
-                <div className="w-[1px] h-6 bg-slate-300 mx-3 flex-shrink-0"></div>
+              <div className="flex items-center flex-1">
                 <input
                   type="text"
                   placeholder={isSearching ? "Searching..." : "Search Location"}
@@ -655,8 +728,9 @@ export default function Page() {
                   onChange={(e) => setSearchInput(e.target.value)}
                   onKeyDown={handleKeyDown}
                   onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
-                  className="w-full bg-transparent outline-none text-gray-800 placeholder:text-gray-400 text-[15px] font-medium"
+                  className="flex-1 bg-transparent outline-none text-gray-800 placeholder:text-gray-400 text-[15px] font-medium"
                 />
+                <div className="w-[1px] h-6 bg-slate-300 mx-3 shrink-0"></div>
               </div>
 
               <div className="hidden sm:flex items-center gap-2 ml-4 flex-shrink-0">
@@ -698,7 +772,12 @@ export default function Page() {
             </div>
 
             {showSuggestions && suggestions.length > 0 && (
-              <div className="mt-3 flex flex-col gap-3 max-h-[60vh] overflow-y-auto">
+              <div
+                className={`mt-3 flex flex-col gap-3 max-h-[60vh] overflow-y-auto transition-all duration-200 ease-out ${showSuggestions && suggestions.length > 0
+                    ? "opacity-100 translate-y-0 pointer-events-auto"
+                    : "opacity-0 -translate-y-2 pointer-events-none"
+                  }`}
+              >
                 {suggestions.map((result, index) => {
                   const addressParts = result.display_name.split(",");
                   const mainTitle = addressParts[0].toUpperCase();
@@ -709,7 +788,7 @@ export default function Page() {
                     <button
                       key={result.place_id}
                       onClick={() => selectResult(result)}
-                      className="flex items-center gap-5 w-full text-left p-4 bg-white rounded-2xl shadow-sm border border-slate-300 hover:shadow-md hover:border-slate-400 transition-all"
+                      className="flex items-center gap-5 w-full text-left p-4 bg-white rounded-2xl shadow-sm border border-slate-300 hover:shadow-md hover:border-slate-400 hover:bg-gray-300 transition-all hover:cursor-pointer"
                     >
                       <StreetLampIcon hasWarning={showWarning} />
                       <div className="flex flex-col pr-2">
@@ -725,14 +804,14 @@ export default function Page() {
 
           {/* --- NEW FLOATING SYSTEM METRICS MODAL GLASS OVERLAY CONTROLLER --- */}
           {isOverviewOpen && (effectiveRole === "admin" || effectiveRole === "superadmin") && (
-            <div className="absolute inset-0 z-50 pointer-events-auto bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4 md:p-8 animate-in fade-in duration-200">
+            <div className="absolute inset-0 z-50 pointer-events-auto flex items-center justify-center p-4 md:p-8 animate-in fade-in duration-200">
               {/* Clicking outside the modal dashboard card cancels it */}
               <div className="absolute inset-0" onClick={() => setIsOverviewOpen(false)} />
-              
-              <div className="relative z-10 w-[90vw] max-w-6xl h-[80vh] bg-white/95 backdrop-blur-md border border-white rounded-[24px] shadow-[0_20px_50px_rgba(0,0,0,0.3)] flex flex-col p-6 md:p-8 overflow-y-auto">
-                
+
+              <div className="relative z-10 w-[90vw] max-w-6xl h-[80vh] bg-white/95 border border-white rounded-[24px] shadow-[0_20px_50px_rgba(0,0,0,0.3)] flex flex-col p-6 md:p-8 overflow-y-auto">
+
                 {/* Dismiss Modal Trigger Button */}
-                <button 
+                <button
                   onClick={() => setIsOverviewOpen(false)}
                   className="absolute top-6 right-6 text-gray-400 hover:text-gray-700 bg-gray-100 hover:bg-gray-200 w-8 h-8 flex items-center justify-center rounded-full transition-colors cursor-pointer"
                 >
@@ -810,11 +889,11 @@ export default function Page() {
                     </div>
                     <div>
                       <h3 className="text-sm font-bold tracking-wide">LumenCHAT</h3>
-                      <p className="text-[11px] text-slate-300 font-medium">your chatbot assistant</p>
+                      <p className="text-[11px] text-slate-300 font-medium">Your AI chatbot assistant</p>
                     </div>
                   </div>
                   <button onClick={() => setIsChatOpen(false)} className="p-1 hover:bg-white/10 rounded-full transition-colors">
-                    <X className="w-5 h-5 text-slate-300 hover:text-white" />
+                    <X className="w-5 h-5 text-slate-300 hover:text-white hover:cursor-pointer" />
                   </button>
                 </div>
 
@@ -856,7 +935,7 @@ export default function Page() {
 
             <button
               onClick={() => setIsChatOpen(!isChatOpen)}
-              className={`w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-200 ${isChatOpen ? "bg-white border border-slate-200 text-gray-700 hover:bg-slate-50 rotate-90" : "bg-[#dba65d] text-white hover:bg-[#c59553] scale-100 hover:scale-105"}`}
+              className={`w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-200 ${isChatOpen ? "bg-white border border-slate-200 text-gray-700 hover:bg-slate-50 rotate-90" : "bg-[#dba65d] text-white hover:bg-[#c59553] scale-100 hover:scale-105 hover:cursor-pointer"}`}
             >
               {isChatOpen ? <X className="w-6 h-6" /> : <MessageSquare className="w-6 h-6" />}
             </button>
