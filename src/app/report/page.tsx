@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useState, useEffect, useRef, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { MapPin, AlertTriangle, Camera, Send, Loader2, CheckCircle, ArrowLeft, Navigation } from "lucide-react";
@@ -27,8 +27,7 @@ interface Pole {
   barangay: string;
 }
 
-export default function ReportPage() {
-  const router = useRouter();
+function ReportPageInner() {
   const searchParams = useSearchParams();
   const [selectedPole, setSelectedPole] = useState<Pole | null>(null);
   const [faultType, setFaultType] = useState("");
@@ -295,5 +294,13 @@ export default function ReportPage() {
         </button>
       </form>
     </div>
+  );
+}
+
+export default function ReportPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gray-50 dark:bg-slate-900 flex items-center justify-center text-sm text-gray-500">Loading...</div>}>
+      <ReportPageInner />
+    </Suspense>
   );
 }
