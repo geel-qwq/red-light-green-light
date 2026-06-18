@@ -14,12 +14,12 @@ export default async function DashboardLayout({
   if (!session) redirect("/login");
 
   return (
-    <div className="flex min-h-screen bg-gray-50 dark:bg-slate-900">
+    <div className="flex h-screen bg-gray-50 dark:bg-slate-900">
       {/* Mobile sidebar toggle */}
       <MobileSidebarToggle />
 
       {/* Sidebar */}
-      <aside id="dashboard-sidebar" className="fixed -translate-x-full md:relative md:translate-x-0 w-72 md:w-56 bg-white dark:bg-slate-800 border-r border-gray-100 dark:border-slate-700 flex flex-col justify-between z-40 transition-transform duration-200 md:min-h-screen">
+      <aside id="dashboard-sidebar" className="fixed inset-y-0 left-0 -translate-x-full md:relative md:translate-x-0 w-72 md:w-56 bg-white dark:bg-slate-800 border-r border-gray-100 dark:border-slate-700 flex flex-col justify-between z-40 transition-transform duration-200 h-screen overflow-hidden">
         <div className="flex flex-col flex-1">
           {/* Header */}
           <div className="px-6 py-5 border-b border-gray-100 dark:border-slate-700">

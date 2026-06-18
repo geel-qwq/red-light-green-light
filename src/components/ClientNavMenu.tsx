@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from 'react'
+import { createPortal } from 'react-dom'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Role } from '@/lib/generated/prisma/client'
@@ -53,19 +54,24 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { href: '/superadmin/dashboard', label: 'Dashboard',  icon: LayoutDashboard,  roles: [Role.SUPERADMIN] },
-  { href: '/admin/dashboard', label: 'Dashboard',       icon: LayoutDashboard,  roles: [Role.ADMIN] },
-  { href: '/technician/dashboard', label: 'Dashboard',  icon: LayoutDashboard,  roles: [Role.TECHNICIAN] },
-  { href: '/user/dashboard',  label: 'Dashboard',       icon: LayoutDashboard,  roles: [Role.USER] },
-  { href: '/',                label: 'Map View',        icon: Map,              roles: [Role.USER] },
-  { href: '/superadmin/users', label: 'User & Role Management', icon: Users,    roles: [Role.SUPERADMIN] },
-  { href: '/admin/users',      label: 'User Management',        icon: Users,    roles: [Role.ADMIN] },
-  { href: '/admin/poles',     label: 'Pole Data',       icon: MapPin,           roles: [Role.ADMIN] },
-  { href: '/poles',           label: 'Poles',           icon: MapPin,           roles: [Role.SUPERADMIN, Role.TECHNICIAN] },
-  { href: '/faults',          label: 'Fault Reports',   icon: AlertTriangle,    roles: [Role.SUPERADMIN, Role.TECHNICIAN, Role.USER, Role.ADMIN] },
-  { href: '/workorders',      label: 'Work Orders',     icon: ClipboardList,    roles: [Role.SUPERADMIN, Role.TECHNICIAN, Role.ADMIN] },
-  { href: '/technician/inventory', label: 'Inventory',   icon: Package,         roles: [Role.TECHNICIAN] },
-  { href: '/reports',         label: 'Reports',         icon: BarChart3,        roles: [Role.SUPERADMIN, Role.ADMIN] },
+  { href: '/superadmin/dashboard', label: 'Dashboard', icon: LayoutDashboard, roles: [Role.SUPERADMIN] },
+  { href: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard, roles: [Role.ADMIN] },
+  { href: '/technician/dashboard', label: 'Dashboard', icon: LayoutDashboard, roles: [Role.TECHNICIAN] },
+  { href: '/user/dashboard', label: 'Dashboard', icon: LayoutDashboard, roles: [Role.USER] },
+  { href: '/', label: 'Map View', icon: Map, roles: [Role.USER] },
+  { href: '/superadmin/users', label: 'User & Role Management', icon: Users, roles: [Role.SUPERADMIN] },
+  { href: '/superadmin/technician-applications', label: 'Technician Apps', icon: Wrench, roles: [Role.SUPERADMIN] },
+  { href: '/admin/users', label: 'User Management', icon: Users, roles: [Role.ADMIN] },
+  { href: '/admin/technician-applications', label: 'Technician Apps', icon: Wrench, roles: [Role.ADMIN] },
+  { href: '/admin/poles', label: 'Pole Data', icon: MapPin, roles: [Role.ADMIN] },
+  { href: '/poles', label: 'Poles', icon: MapPin, roles: [Role.SUPERADMIN, Role.TECHNICIAN] },
+  { href: '/faults', label: 'Fault Reports', icon: AlertTriangle, roles: [Role.SUPERADMIN, Role.TECHNICIAN, Role.USER, Role.ADMIN] },
+  { href: '/my-reports', label: 'My Reports', icon: ClipboardList, roles: [Role.USER] },
+  { href: '/workorders', label: 'Work Orders', icon: ClipboardList, roles: [Role.SUPERADMIN, Role.TECHNICIAN, Role.ADMIN] },
+  { href: '/technician/work-queue', label: 'Work Queue', icon: ClipboardList, roles: [Role.TECHNICIAN] },
+  { href: '/technician/inventory', label: 'Inventory', icon: Package, roles: [Role.TECHNICIAN] },
+  { href: '/technician/field-map', label: 'Field Map', icon: Map, roles: [Role.TECHNICIAN] },
+  { href: '/reports', label: 'Reports', icon: BarChart3, roles: [Role.SUPERADMIN, Role.ADMIN] },
 ]
 
 interface Props {
@@ -76,6 +82,17 @@ interface Props {
 export default function ClientNavMenu({ userRole, userName }: Props) {
   const [isOverviewOpen, setIsOverviewOpen] = useState(false)
   const pathname = usePathname()
+
+  function closeSidebarOnMobile() {
+    if (window.innerWidth >= 768) return
+    const sidebar = document.getElementById("dashboard-sidebar")
+    const overlay = document.getElementById("sidebar-overlay")
+    if (sidebar) {
+      sidebar.classList.add("-translate-x-full")
+      sidebar.classList.remove("translate-x-0")
+    }
+    if (overlay) overlay.classList.add("hidden")
+  }
   const [overviewData, setOverviewData] = useState<SystemData | null>(null)
   const [overviewLoading, setOverviewLoading] = useState(false)
   const [notifications, setNotifications] = useState<Notification[]>([])
@@ -127,11 +144,11 @@ export default function ClientNavMenu({ userRole, userName }: Props) {
             <Link
               key={item.href + item.label}
               href={item.href}
-              className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
-                isActive
+              onClick={closeSidebarOnMobile}
+              className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${isActive
                   ? 'bg-[#f0f4ff] dark:bg-slate-700 text-[#2f4383] dark:text-slate-100 font-semibold'
                   : 'text-gray-600 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-700 hover:text-gray-900 dark:hover:text-slate-100'
-              }`}
+                }`}
             >
               <item.icon className="w-4 h-4 text-gray-400 dark:text-slate-400 shrink-0" />
               {item.label}
@@ -142,7 +159,14 @@ export default function ClientNavMenu({ userRole, userName }: Props) {
         {/* System Overview — only for SUPERADMIN and ADMIN */}
         {(userRole === Role.SUPERADMIN || userRole === Role.ADMIN) && (
           <button
-            onClick={() => { setOverviewData(null); setIsOverviewOpen(true) }}
+            onClick={async () => {
+              setOverviewData(null);
+              setOverviewLoading(true);
+              setIsOverviewOpen(true);
+              const data = await getSystemOverview();
+              setOverviewData(data);
+              setOverviewLoading(false);
+            }}
             className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-600 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-700 hover:text-gray-900 dark:hover:text-slate-100 transition-colors text-left"
           >
             <BarChart3 className="w-4 h-4 text-amber-500 shrink-0" />
@@ -183,35 +207,43 @@ export default function ClientNavMenu({ userRole, userName }: Props) {
           </button>
         </div>
 
-        {/* Notification dropdown */}
-        {isNotifOpen && (
-          <>
-            <div className="fixed inset-0 z-40" onClick={() => setIsNotifOpen(false)} />
-            <div className="fixed bottom-auto left-1/2 -translate-x-1/2 md:left-auto md:right-4 md:translate-x-0 md:bottom-auto md:top-20 w-[calc(100vw-1rem)] sm:w-80 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-gray-100 dark:border-slate-700 z-50 max-h-96 flex flex-col">
-              <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100 dark:border-slate-700">
-                <span className="text-sm font-semibold text-gray-700 dark:text-slate-200">Notifications</span>
-                {unreadCount > 0 && (
-                  <button onClick={handleMarkAllRead} className="text-xs text-blue-600 dark:text-blue-400 hover:underline">
-                    Mark all read
+        {/* Notification modal */}
+        {isNotifOpen && typeof document !== 'undefined' && createPortal(
+          <div className="fixed inset-0 z-[100] bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4">
+            <div className="absolute inset-0" onClick={() => setIsNotifOpen(false)} />
+            <div className="relative z-10 w-full sm:w-[95vw] md:w-[90vw] max-w-2xl max-h-[85vh] sm:max-h-[80vh] bg-white dark:bg-slate-800 rounded-[16px] sm:rounded-[24px] shadow-2xl flex flex-col overflow-hidden">
+              <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-slate-700">
+                <span className="text-lg font-semibold text-gray-700 dark:text-slate-200">Notifications</span>
+                <div className="flex items-center gap-3">
+                  {unreadCount > 0 && (
+                    <button onClick={handleMarkAllRead} className="text-sm text-blue-600 dark:text-blue-400 hover:underline">
+                      Mark all read
+                    </button>
+                  )}
+                  <button
+                    onClick={() => setIsNotifOpen(false)}
+                    className="text-gray-400 dark:text-slate-400 hover:text-gray-700 dark:hover:text-slate-200 bg-gray-100 dark:bg-slate-700 hover:bg-gray-200 dark:hover:bg-slate-600 w-8 h-8 flex items-center justify-center rounded-full transition-colors cursor-pointer"
+                  >
+                    <X className="w-4 h-4" />
                   </button>
-                )}
+                </div>
               </div>
-              <div className="flex-1 overflow-y-auto">
+              <div className="flex-1 overflow-y-auto p-2">
                 {notifications.length === 0 ? (
-                  <p className="text-center text-gray-400 dark:text-slate-400 text-sm py-8">No notifications yet.</p>
+                  <p className="text-center text-gray-400 dark:text-slate-400 text-sm py-12">No notifications yet.</p>
                 ) : (
                   <div className="divide-y divide-gray-50 dark:divide-slate-700">
                     {notifications.map((n) => (
                       <button
                         key={n.id}
                         onClick={() => handleMarkRead(n.id)}
-                        className={`w-full text-left px-4 py-3 hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors ${!n.read ? 'bg-blue-50/40 dark:bg-blue-900/20' : ''}`}
+                        className={`w-full text-left px-4 py-3 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors ${!n.read ? 'bg-blue-50/40 dark:bg-blue-900/20' : ''}`}
                       >
-                        <div className="flex items-start gap-2">
-                          <div className={`mt-0.5 w-2 h-2 rounded-full shrink-0 ${!n.read ? 'bg-blue-500' : 'bg-transparent'}`} />
+                        <div className="flex items-start gap-3">
+                          <div className={`mt-1.5 w-2 h-2 rounded-full shrink-0 ${!n.read ? 'bg-blue-500' : 'bg-transparent'}`} />
                           <div className="flex-1 min-w-0">
                             <p className="text-sm font-medium text-gray-800 dark:text-slate-100">{n.title}</p>
-                            <p className="text-xs text-gray-500 dark:text-slate-400 mt-0.5 line-clamp-2">{n.message}</p>
+                            <p className="text-xs text-gray-500 dark:text-slate-400 mt-0.5">{n.message}</p>
                           </div>
                         </div>
                       </button>
@@ -220,13 +252,13 @@ export default function ClientNavMenu({ userRole, userName }: Props) {
                 )}
               </div>
             </div>
-          </>
-        )}
+          </div>
+        , document.body)}
       </div>
 
       {/* System Overview Modal */}
-      {isOverviewOpen && (
-        <div className="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4">
+      {isOverviewOpen && typeof document !== 'undefined' && createPortal(
+        <div className="fixed inset-0 z-[100] bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4">
           <div className="absolute inset-0" onClick={() => setIsOverviewOpen(false)} />
           <div className="relative z-10 w-full sm:w-[95vw] md:w-[90vw] max-w-6xl h-[85vh] sm:h-[80vh] bg-white dark:bg-slate-800 rounded-[16px] sm:rounded-[24px] shadow-2xl flex flex-col p-4 sm:p-6 md:p-8 overflow-y-auto">
             <button
@@ -306,7 +338,7 @@ export default function ClientNavMenu({ userRole, userName }: Props) {
             )}
           </div>
         </div>
-      )}
+      , document.body)}
     </>
   )
 }

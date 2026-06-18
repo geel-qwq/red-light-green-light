@@ -34,6 +34,11 @@ export type FaultReport = $Result.DefaultSelection<Prisma.$FaultReportPayload>
  */
 export type WorkOrder = $Result.DefaultSelection<Prisma.$WorkOrderPayload>
 /**
+ * Model MaintenanceLog
+ * 
+ */
+export type MaintenanceLog = $Result.DefaultSelection<Prisma.$MaintenanceLogPayload>
+/**
  * Model StatusLog
  * 
  */
@@ -63,12 +68,26 @@ export type InventoryItem = $Result.DefaultSelection<Prisma.$InventoryItemPayloa
  * 
  */
 export type InventoryLog = $Result.DefaultSelection<Prisma.$InventoryLogPayload>
+/**
+ * Model TechnicianApplication
+ * 
+ */
+export type TechnicianApplication = $Result.DefaultSelection<Prisma.$TechnicianApplicationPayload>
 
 /**
  * Enums
  */
 export namespace $Enums {
-  export const Role: {
+  export const ApplicationStatus: {
+  PENDING: 'PENDING',
+  VERIFIED: 'VERIFIED',
+  REJECTED: 'REJECTED'
+};
+
+export type ApplicationStatus = (typeof ApplicationStatus)[keyof typeof ApplicationStatus]
+
+
+export const Role: {
   SUPERADMIN: 'SUPERADMIN',
   ADMIN: 'ADMIN',
   TECHNICIAN: 'TECHNICIAN',
@@ -121,6 +140,10 @@ export const WorkOrderStatus: {
 export type WorkOrderStatus = (typeof WorkOrderStatus)[keyof typeof WorkOrderStatus]
 
 }
+
+export type ApplicationStatus = $Enums.ApplicationStatus
+
+export const ApplicationStatus: typeof $Enums.ApplicationStatus
 
 export type Role = $Enums.Role
 
@@ -304,6 +327,16 @@ export class PrismaClient<
   get workOrder(): Prisma.WorkOrderDelegate<ExtArgs, ClientOptions>;
 
   /**
+   * `prisma.maintenanceLog`: Exposes CRUD operations for the **MaintenanceLog** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MaintenanceLogs
+    * const maintenanceLogs = await prisma.maintenanceLog.findMany()
+    * ```
+    */
+  get maintenanceLog(): Prisma.MaintenanceLogDelegate<ExtArgs, ClientOptions>;
+
+  /**
    * `prisma.statusLog`: Exposes CRUD operations for the **StatusLog** model.
     * Example usage:
     * ```ts
@@ -362,6 +395,16 @@ export class PrismaClient<
     * ```
     */
   get inventoryLog(): Prisma.InventoryLogDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.technicianApplication`: Exposes CRUD operations for the **TechnicianApplication** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more TechnicianApplications
+    * const technicianApplications = await prisma.technicianApplication.findMany()
+    * ```
+    */
+  get technicianApplication(): Prisma.TechnicianApplicationDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -800,12 +843,14 @@ export namespace Prisma {
     Pole: 'Pole',
     FaultReport: 'FaultReport',
     WorkOrder: 'WorkOrder',
+    MaintenanceLog: 'MaintenanceLog',
     StatusLog: 'StatusLog',
     SearchHistory: 'SearchHistory',
     PasswordResetToken: 'PasswordResetToken',
     Notification: 'Notification',
     InventoryItem: 'InventoryItem',
-    InventoryLog: 'InventoryLog'
+    InventoryLog: 'InventoryLog',
+    TechnicianApplication: 'TechnicianApplication'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -821,7 +866,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "pole" | "faultReport" | "workOrder" | "statusLog" | "searchHistory" | "passwordResetToken" | "notification" | "inventoryItem" | "inventoryLog"
+      modelProps: "user" | "pole" | "faultReport" | "workOrder" | "maintenanceLog" | "statusLog" | "searchHistory" | "passwordResetToken" | "notification" | "inventoryItem" | "inventoryLog" | "technicianApplication"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1118,6 +1163,80 @@ export namespace Prisma {
           count: {
             args: Prisma.WorkOrderCountArgs<ExtArgs>
             result: $Utils.Optional<WorkOrderCountAggregateOutputType> | number
+          }
+        }
+      }
+      MaintenanceLog: {
+        payload: Prisma.$MaintenanceLogPayload<ExtArgs>
+        fields: Prisma.MaintenanceLogFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MaintenanceLogFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceLogPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MaintenanceLogFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceLogPayload>
+          }
+          findFirst: {
+            args: Prisma.MaintenanceLogFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceLogPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MaintenanceLogFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceLogPayload>
+          }
+          findMany: {
+            args: Prisma.MaintenanceLogFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceLogPayload>[]
+          }
+          create: {
+            args: Prisma.MaintenanceLogCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceLogPayload>
+          }
+          createMany: {
+            args: Prisma.MaintenanceLogCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MaintenanceLogCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceLogPayload>[]
+          }
+          delete: {
+            args: Prisma.MaintenanceLogDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceLogPayload>
+          }
+          update: {
+            args: Prisma.MaintenanceLogUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceLogPayload>
+          }
+          deleteMany: {
+            args: Prisma.MaintenanceLogDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MaintenanceLogUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MaintenanceLogUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceLogPayload>[]
+          }
+          upsert: {
+            args: Prisma.MaintenanceLogUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MaintenanceLogPayload>
+          }
+          aggregate: {
+            args: Prisma.MaintenanceLogAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMaintenanceLog>
+          }
+          groupBy: {
+            args: Prisma.MaintenanceLogGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MaintenanceLogGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MaintenanceLogCountArgs<ExtArgs>
+            result: $Utils.Optional<MaintenanceLogCountAggregateOutputType> | number
           }
         }
       }
@@ -1565,6 +1684,80 @@ export namespace Prisma {
           }
         }
       }
+      TechnicianApplication: {
+        payload: Prisma.$TechnicianApplicationPayload<ExtArgs>
+        fields: Prisma.TechnicianApplicationFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TechnicianApplicationFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TechnicianApplicationPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TechnicianApplicationFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TechnicianApplicationPayload>
+          }
+          findFirst: {
+            args: Prisma.TechnicianApplicationFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TechnicianApplicationPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TechnicianApplicationFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TechnicianApplicationPayload>
+          }
+          findMany: {
+            args: Prisma.TechnicianApplicationFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TechnicianApplicationPayload>[]
+          }
+          create: {
+            args: Prisma.TechnicianApplicationCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TechnicianApplicationPayload>
+          }
+          createMany: {
+            args: Prisma.TechnicianApplicationCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TechnicianApplicationCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TechnicianApplicationPayload>[]
+          }
+          delete: {
+            args: Prisma.TechnicianApplicationDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TechnicianApplicationPayload>
+          }
+          update: {
+            args: Prisma.TechnicianApplicationUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TechnicianApplicationPayload>
+          }
+          deleteMany: {
+            args: Prisma.TechnicianApplicationDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TechnicianApplicationUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TechnicianApplicationUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TechnicianApplicationPayload>[]
+          }
+          upsert: {
+            args: Prisma.TechnicianApplicationUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TechnicianApplicationPayload>
+          }
+          aggregate: {
+            args: Prisma.TechnicianApplicationAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTechnicianApplication>
+          }
+          groupBy: {
+            args: Prisma.TechnicianApplicationGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TechnicianApplicationGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TechnicianApplicationCountArgs<ExtArgs>
+            result: $Utils.Optional<TechnicianApplicationCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1677,12 +1870,14 @@ export namespace Prisma {
     pole?: PoleOmit
     faultReport?: FaultReportOmit
     workOrder?: WorkOrderOmit
+    maintenanceLog?: MaintenanceLogOmit
     statusLog?: StatusLogOmit
     searchHistory?: SearchHistoryOmit
     passwordResetToken?: PasswordResetTokenOmit
     notification?: NotificationOmit
     inventoryItem?: InventoryItemOmit
     inventoryLog?: InventoryLogOmit
+    technicianApplication?: TechnicianApplicationOmit
   }
 
   /* Types for Logging */
@@ -1770,6 +1965,10 @@ export namespace Prisma {
     statusLogs: number
     workOrdersCreated: number
     workOrdersAssigned: number
+    maintenanceLogs: number
+    technicianApplications: number
+    verifiedApplications: number
+    rejectedApplications: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1780,6 +1979,10 @@ export namespace Prisma {
     statusLogs?: boolean | UserCountOutputTypeCountStatusLogsArgs
     workOrdersCreated?: boolean | UserCountOutputTypeCountWorkOrdersCreatedArgs
     workOrdersAssigned?: boolean | UserCountOutputTypeCountWorkOrdersAssignedArgs
+    maintenanceLogs?: boolean | UserCountOutputTypeCountMaintenanceLogsArgs
+    technicianApplications?: boolean | UserCountOutputTypeCountTechnicianApplicationsArgs
+    verifiedApplications?: boolean | UserCountOutputTypeCountVerifiedApplicationsArgs
+    rejectedApplications?: boolean | UserCountOutputTypeCountRejectedApplicationsArgs
   }
 
   // Custom InputTypes
@@ -1842,6 +2045,34 @@ export namespace Prisma {
     where?: WorkOrderWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountMaintenanceLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaintenanceLogWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountTechnicianApplicationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TechnicianApplicationWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountVerifiedApplicationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TechnicianApplicationWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountRejectedApplicationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TechnicianApplicationWhereInput
+  }
+
 
   /**
    * Count Type PoleCountOutputType
@@ -1880,6 +2111,37 @@ export namespace Prisma {
    */
   export type PoleCountOutputTypeCountStatusLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: StatusLogWhereInput
+  }
+
+
+  /**
+   * Count Type WorkOrderCountOutputType
+   */
+
+  export type WorkOrderCountOutputType = {
+    maintenanceLogs: number
+  }
+
+  export type WorkOrderCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    maintenanceLogs?: boolean | WorkOrderCountOutputTypeCountMaintenanceLogsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * WorkOrderCountOutputType without action
+   */
+  export type WorkOrderCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WorkOrderCountOutputType
+     */
+    select?: WorkOrderCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * WorkOrderCountOutputType without action
+   */
+  export type WorkOrderCountOutputTypeCountMaintenanceLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaintenanceLogWhereInput
   }
 
 
@@ -2177,6 +2439,10 @@ export namespace Prisma {
     statusLogs?: boolean | User$statusLogsArgs<ExtArgs>
     workOrdersCreated?: boolean | User$workOrdersCreatedArgs<ExtArgs>
     workOrdersAssigned?: boolean | User$workOrdersAssignedArgs<ExtArgs>
+    maintenanceLogs?: boolean | User$maintenanceLogsArgs<ExtArgs>
+    technicianApplications?: boolean | User$technicianApplicationsArgs<ExtArgs>
+    verifiedApplications?: boolean | User$verifiedApplicationsArgs<ExtArgs>
+    rejectedApplications?: boolean | User$rejectedApplicationsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2246,6 +2512,10 @@ export namespace Prisma {
     statusLogs?: boolean | User$statusLogsArgs<ExtArgs>
     workOrdersCreated?: boolean | User$workOrdersCreatedArgs<ExtArgs>
     workOrdersAssigned?: boolean | User$workOrdersAssignedArgs<ExtArgs>
+    maintenanceLogs?: boolean | User$maintenanceLogsArgs<ExtArgs>
+    technicianApplications?: boolean | User$technicianApplicationsArgs<ExtArgs>
+    verifiedApplications?: boolean | User$verifiedApplicationsArgs<ExtArgs>
+    rejectedApplications?: boolean | User$rejectedApplicationsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2261,6 +2531,10 @@ export namespace Prisma {
       statusLogs: Prisma.$StatusLogPayload<ExtArgs>[]
       workOrdersCreated: Prisma.$WorkOrderPayload<ExtArgs>[]
       workOrdersAssigned: Prisma.$WorkOrderPayload<ExtArgs>[]
+      maintenanceLogs: Prisma.$MaintenanceLogPayload<ExtArgs>[]
+      technicianApplications: Prisma.$TechnicianApplicationPayload<ExtArgs>[]
+      verifiedApplications: Prisma.$TechnicianApplicationPayload<ExtArgs>[]
+      rejectedApplications: Prisma.$TechnicianApplicationPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2680,6 +2954,10 @@ export namespace Prisma {
     statusLogs<T extends User$statusLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$statusLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StatusLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     workOrdersCreated<T extends User$workOrdersCreatedArgs<ExtArgs> = {}>(args?: Subset<T, User$workOrdersCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkOrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     workOrdersAssigned<T extends User$workOrdersAssignedArgs<ExtArgs> = {}>(args?: Subset<T, User$workOrdersAssignedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WorkOrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    maintenanceLogs<T extends User$maintenanceLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$maintenanceLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenanceLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    technicianApplications<T extends User$technicianApplicationsArgs<ExtArgs> = {}>(args?: Subset<T, User$technicianApplicationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TechnicianApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    verifiedApplications<T extends User$verifiedApplicationsArgs<ExtArgs> = {}>(args?: Subset<T, User$verifiedApplicationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TechnicianApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    rejectedApplications<T extends User$rejectedApplicationsArgs<ExtArgs> = {}>(args?: Subset<T, User$rejectedApplicationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TechnicianApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3283,6 +3561,102 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: WorkOrderScalarFieldEnum | WorkOrderScalarFieldEnum[]
+  }
+
+  /**
+   * User.maintenanceLogs
+   */
+  export type User$maintenanceLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceLog
+     */
+    select?: MaintenanceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceLog
+     */
+    omit?: MaintenanceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceLogInclude<ExtArgs> | null
+    where?: MaintenanceLogWhereInput
+    orderBy?: MaintenanceLogOrderByWithRelationInput | MaintenanceLogOrderByWithRelationInput[]
+    cursor?: MaintenanceLogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MaintenanceLogScalarFieldEnum | MaintenanceLogScalarFieldEnum[]
+  }
+
+  /**
+   * User.technicianApplications
+   */
+  export type User$technicianApplicationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TechnicianApplication
+     */
+    select?: TechnicianApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TechnicianApplication
+     */
+    omit?: TechnicianApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TechnicianApplicationInclude<ExtArgs> | null
+    where?: TechnicianApplicationWhereInput
+    orderBy?: TechnicianApplicationOrderByWithRelationInput | TechnicianApplicationOrderByWithRelationInput[]
+    cursor?: TechnicianApplicationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TechnicianApplicationScalarFieldEnum | TechnicianApplicationScalarFieldEnum[]
+  }
+
+  /**
+   * User.verifiedApplications
+   */
+  export type User$verifiedApplicationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TechnicianApplication
+     */
+    select?: TechnicianApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TechnicianApplication
+     */
+    omit?: TechnicianApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TechnicianApplicationInclude<ExtArgs> | null
+    where?: TechnicianApplicationWhereInput
+    orderBy?: TechnicianApplicationOrderByWithRelationInput | TechnicianApplicationOrderByWithRelationInput[]
+    cursor?: TechnicianApplicationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TechnicianApplicationScalarFieldEnum | TechnicianApplicationScalarFieldEnum[]
+  }
+
+  /**
+   * User.rejectedApplications
+   */
+  export type User$rejectedApplicationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TechnicianApplication
+     */
+    select?: TechnicianApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TechnicianApplication
+     */
+    omit?: TechnicianApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TechnicianApplicationInclude<ExtArgs> | null
+    where?: TechnicianApplicationWhereInput
+    orderBy?: TechnicianApplicationOrderByWithRelationInput | TechnicianApplicationOrderByWithRelationInput[]
+    cursor?: TechnicianApplicationWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TechnicianApplicationScalarFieldEnum | TechnicianApplicationScalarFieldEnum[]
   }
 
   /**
@@ -4503,17 +4877,34 @@ export namespace Prisma {
 
   export type AggregateFaultReport = {
     _count: FaultReportCountAggregateOutputType | null
+    _avg: FaultReportAvgAggregateOutputType | null
+    _sum: FaultReportSumAggregateOutputType | null
     _min: FaultReportMinAggregateOutputType | null
     _max: FaultReportMaxAggregateOutputType | null
+  }
+
+  export type FaultReportAvgAggregateOutputType = {
+    latitude: number | null
+    longitude: number | null
+  }
+
+  export type FaultReportSumAggregateOutputType = {
+    latitude: number | null
+    longitude: number | null
   }
 
   export type FaultReportMinAggregateOutputType = {
     id: string | null
     poleId: string | null
     reportedById: string | null
+    reporterName: string | null
+    reporterEmail: string | null
+    reporterPhone: string | null
     description: string | null
     faultType: $Enums.FaultType | null
     status: $Enums.ReportStatus | null
+    latitude: number | null
+    longitude: number | null
     reportedAt: Date | null
   }
 
@@ -4521,9 +4912,14 @@ export namespace Prisma {
     id: string | null
     poleId: string | null
     reportedById: string | null
+    reporterName: string | null
+    reporterEmail: string | null
+    reporterPhone: string | null
     description: string | null
     faultType: $Enums.FaultType | null
     status: $Enums.ReportStatus | null
+    latitude: number | null
+    longitude: number | null
     reportedAt: Date | null
   }
 
@@ -4531,21 +4927,41 @@ export namespace Prisma {
     id: number
     poleId: number
     reportedById: number
+    reporterName: number
+    reporterEmail: number
+    reporterPhone: number
     description: number
     faultType: number
     status: number
+    latitude: number
+    longitude: number
     reportedAt: number
     _all: number
   }
 
 
+  export type FaultReportAvgAggregateInputType = {
+    latitude?: true
+    longitude?: true
+  }
+
+  export type FaultReportSumAggregateInputType = {
+    latitude?: true
+    longitude?: true
+  }
+
   export type FaultReportMinAggregateInputType = {
     id?: true
     poleId?: true
     reportedById?: true
+    reporterName?: true
+    reporterEmail?: true
+    reporterPhone?: true
     description?: true
     faultType?: true
     status?: true
+    latitude?: true
+    longitude?: true
     reportedAt?: true
   }
 
@@ -4553,9 +4969,14 @@ export namespace Prisma {
     id?: true
     poleId?: true
     reportedById?: true
+    reporterName?: true
+    reporterEmail?: true
+    reporterPhone?: true
     description?: true
     faultType?: true
     status?: true
+    latitude?: true
+    longitude?: true
     reportedAt?: true
   }
 
@@ -4563,9 +4984,14 @@ export namespace Prisma {
     id?: true
     poleId?: true
     reportedById?: true
+    reporterName?: true
+    reporterEmail?: true
+    reporterPhone?: true
     description?: true
     faultType?: true
     status?: true
+    latitude?: true
+    longitude?: true
     reportedAt?: true
     _all?: true
   }
@@ -4608,6 +5034,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: FaultReportAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: FaultReportSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: FaultReportMinAggregateInputType
@@ -4638,6 +5076,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: FaultReportCountAggregateInputType | true
+    _avg?: FaultReportAvgAggregateInputType
+    _sum?: FaultReportSumAggregateInputType
     _min?: FaultReportMinAggregateInputType
     _max?: FaultReportMaxAggregateInputType
   }
@@ -4645,12 +5085,19 @@ export namespace Prisma {
   export type FaultReportGroupByOutputType = {
     id: string
     poleId: string
-    reportedById: string
+    reportedById: string | null
+    reporterName: string | null
+    reporterEmail: string | null
+    reporterPhone: string | null
     description: string
     faultType: $Enums.FaultType
     status: $Enums.ReportStatus
+    latitude: number | null
+    longitude: number | null
     reportedAt: Date
     _count: FaultReportCountAggregateOutputType | null
+    _avg: FaultReportAvgAggregateOutputType | null
+    _sum: FaultReportSumAggregateOutputType | null
     _min: FaultReportMinAggregateOutputType | null
     _max: FaultReportMaxAggregateOutputType | null
   }
@@ -4673,12 +5120,17 @@ export namespace Prisma {
     id?: boolean
     poleId?: boolean
     reportedById?: boolean
+    reporterName?: boolean
+    reporterEmail?: boolean
+    reporterPhone?: boolean
     description?: boolean
     faultType?: boolean
     status?: boolean
+    latitude?: boolean
+    longitude?: boolean
     reportedAt?: boolean
     pole?: boolean | PoleDefaultArgs<ExtArgs>
-    reportedBy?: boolean | UserDefaultArgs<ExtArgs>
+    reportedBy?: boolean | FaultReport$reportedByArgs<ExtArgs>
     workOrder?: boolean | FaultReport$workOrderArgs<ExtArgs>
   }, ExtArgs["result"]["faultReport"]>
 
@@ -4686,65 +5138,85 @@ export namespace Prisma {
     id?: boolean
     poleId?: boolean
     reportedById?: boolean
+    reporterName?: boolean
+    reporterEmail?: boolean
+    reporterPhone?: boolean
     description?: boolean
     faultType?: boolean
     status?: boolean
+    latitude?: boolean
+    longitude?: boolean
     reportedAt?: boolean
     pole?: boolean | PoleDefaultArgs<ExtArgs>
-    reportedBy?: boolean | UserDefaultArgs<ExtArgs>
+    reportedBy?: boolean | FaultReport$reportedByArgs<ExtArgs>
   }, ExtArgs["result"]["faultReport"]>
 
   export type FaultReportSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     poleId?: boolean
     reportedById?: boolean
+    reporterName?: boolean
+    reporterEmail?: boolean
+    reporterPhone?: boolean
     description?: boolean
     faultType?: boolean
     status?: boolean
+    latitude?: boolean
+    longitude?: boolean
     reportedAt?: boolean
     pole?: boolean | PoleDefaultArgs<ExtArgs>
-    reportedBy?: boolean | UserDefaultArgs<ExtArgs>
+    reportedBy?: boolean | FaultReport$reportedByArgs<ExtArgs>
   }, ExtArgs["result"]["faultReport"]>
 
   export type FaultReportSelectScalar = {
     id?: boolean
     poleId?: boolean
     reportedById?: boolean
+    reporterName?: boolean
+    reporterEmail?: boolean
+    reporterPhone?: boolean
     description?: boolean
     faultType?: boolean
     status?: boolean
+    latitude?: boolean
+    longitude?: boolean
     reportedAt?: boolean
   }
 
-  export type FaultReportOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "poleId" | "reportedById" | "description" | "faultType" | "status" | "reportedAt", ExtArgs["result"]["faultReport"]>
+  export type FaultReportOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "poleId" | "reportedById" | "reporterName" | "reporterEmail" | "reporterPhone" | "description" | "faultType" | "status" | "latitude" | "longitude" | "reportedAt", ExtArgs["result"]["faultReport"]>
   export type FaultReportInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     pole?: boolean | PoleDefaultArgs<ExtArgs>
-    reportedBy?: boolean | UserDefaultArgs<ExtArgs>
+    reportedBy?: boolean | FaultReport$reportedByArgs<ExtArgs>
     workOrder?: boolean | FaultReport$workOrderArgs<ExtArgs>
   }
   export type FaultReportIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     pole?: boolean | PoleDefaultArgs<ExtArgs>
-    reportedBy?: boolean | UserDefaultArgs<ExtArgs>
+    reportedBy?: boolean | FaultReport$reportedByArgs<ExtArgs>
   }
   export type FaultReportIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     pole?: boolean | PoleDefaultArgs<ExtArgs>
-    reportedBy?: boolean | UserDefaultArgs<ExtArgs>
+    reportedBy?: boolean | FaultReport$reportedByArgs<ExtArgs>
   }
 
   export type $FaultReportPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "FaultReport"
     objects: {
       pole: Prisma.$PolePayload<ExtArgs>
-      reportedBy: Prisma.$UserPayload<ExtArgs>
+      reportedBy: Prisma.$UserPayload<ExtArgs> | null
       workOrder: Prisma.$WorkOrderPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       poleId: string
-      reportedById: string
+      reportedById: string | null
+      reporterName: string | null
+      reporterEmail: string | null
+      reporterPhone: string | null
       description: string
       faultType: $Enums.FaultType
       status: $Enums.ReportStatus
+      latitude: number | null
+      longitude: number | null
       reportedAt: Date
     }, ExtArgs["result"]["faultReport"]>
     composites: {}
@@ -5141,7 +5613,7 @@ export namespace Prisma {
   export interface Prisma__FaultReportClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     pole<T extends PoleDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PoleDefaultArgs<ExtArgs>>): Prisma__PoleClient<$Result.GetResult<Prisma.$PolePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    reportedBy<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    reportedBy<T extends FaultReport$reportedByArgs<ExtArgs> = {}>(args?: Subset<T, FaultReport$reportedByArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     workOrder<T extends FaultReport$workOrderArgs<ExtArgs> = {}>(args?: Subset<T, FaultReport$workOrderArgs<ExtArgs>>): Prisma__WorkOrderClient<$Result.GetResult<Prisma.$WorkOrderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -5175,9 +5647,14 @@ export namespace Prisma {
     readonly id: FieldRef<"FaultReport", 'String'>
     readonly poleId: FieldRef<"FaultReport", 'String'>
     readonly reportedById: FieldRef<"FaultReport", 'String'>
+    readonly reporterName: FieldRef<"FaultReport", 'String'>
+    readonly reporterEmail: FieldRef<"FaultReport", 'String'>
+    readonly reporterPhone: FieldRef<"FaultReport", 'String'>
     readonly description: FieldRef<"FaultReport", 'String'>
     readonly faultType: FieldRef<"FaultReport", 'FaultType'>
     readonly status: FieldRef<"FaultReport", 'ReportStatus'>
+    readonly latitude: FieldRef<"FaultReport", 'Float'>
+    readonly longitude: FieldRef<"FaultReport", 'Float'>
     readonly reportedAt: FieldRef<"FaultReport", 'DateTime'>
   }
     
@@ -5580,6 +6057,25 @@ export namespace Prisma {
   }
 
   /**
+   * FaultReport.reportedBy
+   */
+  export type FaultReport$reportedByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
    * FaultReport.workOrder
    */
   export type FaultReport$workOrderArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5808,6 +6304,8 @@ export namespace Prisma {
     assignedBy?: boolean | UserDefaultArgs<ExtArgs>
     assignedTo?: boolean | WorkOrder$assignedToArgs<ExtArgs>
     faultReport?: boolean | FaultReportDefaultArgs<ExtArgs>
+    maintenanceLogs?: boolean | WorkOrder$maintenanceLogsArgs<ExtArgs>
+    _count?: boolean | WorkOrderCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["workOrder"]>
 
   export type WorkOrderSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -5854,6 +6352,8 @@ export namespace Prisma {
     assignedBy?: boolean | UserDefaultArgs<ExtArgs>
     assignedTo?: boolean | WorkOrder$assignedToArgs<ExtArgs>
     faultReport?: boolean | FaultReportDefaultArgs<ExtArgs>
+    maintenanceLogs?: boolean | WorkOrder$maintenanceLogsArgs<ExtArgs>
+    _count?: boolean | WorkOrderCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type WorkOrderIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     assignedBy?: boolean | UserDefaultArgs<ExtArgs>
@@ -5872,6 +6372,7 @@ export namespace Prisma {
       assignedBy: Prisma.$UserPayload<ExtArgs>
       assignedTo: Prisma.$UserPayload<ExtArgs> | null
       faultReport: Prisma.$FaultReportPayload<ExtArgs>
+      maintenanceLogs: Prisma.$MaintenanceLogPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6279,6 +6780,7 @@ export namespace Prisma {
     assignedBy<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     assignedTo<T extends WorkOrder$assignedToArgs<ExtArgs> = {}>(args?: Subset<T, WorkOrder$assignedToArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     faultReport<T extends FaultReportDefaultArgs<ExtArgs> = {}>(args?: Subset<T, FaultReportDefaultArgs<ExtArgs>>): Prisma__FaultReportClient<$Result.GetResult<Prisma.$FaultReportPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    maintenanceLogs<T extends WorkOrder$maintenanceLogsArgs<ExtArgs> = {}>(args?: Subset<T, WorkOrder$maintenanceLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenanceLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6736,6 +7238,30 @@ export namespace Prisma {
   }
 
   /**
+   * WorkOrder.maintenanceLogs
+   */
+  export type WorkOrder$maintenanceLogsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceLog
+     */
+    select?: MaintenanceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceLog
+     */
+    omit?: MaintenanceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceLogInclude<ExtArgs> | null
+    where?: MaintenanceLogWhereInput
+    orderBy?: MaintenanceLogOrderByWithRelationInput | MaintenanceLogOrderByWithRelationInput[]
+    cursor?: MaintenanceLogWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MaintenanceLogScalarFieldEnum | MaintenanceLogScalarFieldEnum[]
+  }
+
+  /**
    * WorkOrder without action
    */
   export type WorkOrderDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6751,6 +7277,1137 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: WorkOrderInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model MaintenanceLog
+   */
+
+  export type AggregateMaintenanceLog = {
+    _count: MaintenanceLogCountAggregateOutputType | null
+    _avg: MaintenanceLogAvgAggregateOutputType | null
+    _sum: MaintenanceLogSumAggregateOutputType | null
+    _min: MaintenanceLogMinAggregateOutputType | null
+    _max: MaintenanceLogMaxAggregateOutputType | null
+  }
+
+  export type MaintenanceLogAvgAggregateOutputType = {
+    timeSpent: number | null
+  }
+
+  export type MaintenanceLogSumAggregateOutputType = {
+    timeSpent: number | null
+  }
+
+  export type MaintenanceLogMinAggregateOutputType = {
+    id: string | null
+    workOrderId: string | null
+    technicianId: string | null
+    partsUsed: string | null
+    timeSpent: number | null
+    notes: string | null
+    createdAt: Date | null
+  }
+
+  export type MaintenanceLogMaxAggregateOutputType = {
+    id: string | null
+    workOrderId: string | null
+    technicianId: string | null
+    partsUsed: string | null
+    timeSpent: number | null
+    notes: string | null
+    createdAt: Date | null
+  }
+
+  export type MaintenanceLogCountAggregateOutputType = {
+    id: number
+    workOrderId: number
+    technicianId: number
+    partsUsed: number
+    timeSpent: number
+    notes: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type MaintenanceLogAvgAggregateInputType = {
+    timeSpent?: true
+  }
+
+  export type MaintenanceLogSumAggregateInputType = {
+    timeSpent?: true
+  }
+
+  export type MaintenanceLogMinAggregateInputType = {
+    id?: true
+    workOrderId?: true
+    technicianId?: true
+    partsUsed?: true
+    timeSpent?: true
+    notes?: true
+    createdAt?: true
+  }
+
+  export type MaintenanceLogMaxAggregateInputType = {
+    id?: true
+    workOrderId?: true
+    technicianId?: true
+    partsUsed?: true
+    timeSpent?: true
+    notes?: true
+    createdAt?: true
+  }
+
+  export type MaintenanceLogCountAggregateInputType = {
+    id?: true
+    workOrderId?: true
+    technicianId?: true
+    partsUsed?: true
+    timeSpent?: true
+    notes?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type MaintenanceLogAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MaintenanceLog to aggregate.
+     */
+    where?: MaintenanceLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MaintenanceLogs to fetch.
+     */
+    orderBy?: MaintenanceLogOrderByWithRelationInput | MaintenanceLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MaintenanceLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MaintenanceLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MaintenanceLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MaintenanceLogs
+    **/
+    _count?: true | MaintenanceLogCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MaintenanceLogAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MaintenanceLogSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MaintenanceLogMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MaintenanceLogMaxAggregateInputType
+  }
+
+  export type GetMaintenanceLogAggregateType<T extends MaintenanceLogAggregateArgs> = {
+        [P in keyof T & keyof AggregateMaintenanceLog]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMaintenanceLog[P]>
+      : GetScalarType<T[P], AggregateMaintenanceLog[P]>
+  }
+
+
+
+
+  export type MaintenanceLogGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MaintenanceLogWhereInput
+    orderBy?: MaintenanceLogOrderByWithAggregationInput | MaintenanceLogOrderByWithAggregationInput[]
+    by: MaintenanceLogScalarFieldEnum[] | MaintenanceLogScalarFieldEnum
+    having?: MaintenanceLogScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MaintenanceLogCountAggregateInputType | true
+    _avg?: MaintenanceLogAvgAggregateInputType
+    _sum?: MaintenanceLogSumAggregateInputType
+    _min?: MaintenanceLogMinAggregateInputType
+    _max?: MaintenanceLogMaxAggregateInputType
+  }
+
+  export type MaintenanceLogGroupByOutputType = {
+    id: string
+    workOrderId: string
+    technicianId: string
+    partsUsed: string | null
+    timeSpent: number | null
+    notes: string | null
+    createdAt: Date
+    _count: MaintenanceLogCountAggregateOutputType | null
+    _avg: MaintenanceLogAvgAggregateOutputType | null
+    _sum: MaintenanceLogSumAggregateOutputType | null
+    _min: MaintenanceLogMinAggregateOutputType | null
+    _max: MaintenanceLogMaxAggregateOutputType | null
+  }
+
+  type GetMaintenanceLogGroupByPayload<T extends MaintenanceLogGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MaintenanceLogGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MaintenanceLogGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MaintenanceLogGroupByOutputType[P]>
+            : GetScalarType<T[P], MaintenanceLogGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MaintenanceLogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    workOrderId?: boolean
+    technicianId?: boolean
+    partsUsed?: boolean
+    timeSpent?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    workOrder?: boolean | WorkOrderDefaultArgs<ExtArgs>
+    technician?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["maintenanceLog"]>
+
+  export type MaintenanceLogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    workOrderId?: boolean
+    technicianId?: boolean
+    partsUsed?: boolean
+    timeSpent?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    workOrder?: boolean | WorkOrderDefaultArgs<ExtArgs>
+    technician?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["maintenanceLog"]>
+
+  export type MaintenanceLogSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    workOrderId?: boolean
+    technicianId?: boolean
+    partsUsed?: boolean
+    timeSpent?: boolean
+    notes?: boolean
+    createdAt?: boolean
+    workOrder?: boolean | WorkOrderDefaultArgs<ExtArgs>
+    technician?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["maintenanceLog"]>
+
+  export type MaintenanceLogSelectScalar = {
+    id?: boolean
+    workOrderId?: boolean
+    technicianId?: boolean
+    partsUsed?: boolean
+    timeSpent?: boolean
+    notes?: boolean
+    createdAt?: boolean
+  }
+
+  export type MaintenanceLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "workOrderId" | "technicianId" | "partsUsed" | "timeSpent" | "notes" | "createdAt", ExtArgs["result"]["maintenanceLog"]>
+  export type MaintenanceLogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    workOrder?: boolean | WorkOrderDefaultArgs<ExtArgs>
+    technician?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type MaintenanceLogIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    workOrder?: boolean | WorkOrderDefaultArgs<ExtArgs>
+    technician?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type MaintenanceLogIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    workOrder?: boolean | WorkOrderDefaultArgs<ExtArgs>
+    technician?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $MaintenanceLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MaintenanceLog"
+    objects: {
+      workOrder: Prisma.$WorkOrderPayload<ExtArgs>
+      technician: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      workOrderId: string
+      technicianId: string
+      partsUsed: string | null
+      timeSpent: number | null
+      notes: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["maintenanceLog"]>
+    composites: {}
+  }
+
+  type MaintenanceLogGetPayload<S extends boolean | null | undefined | MaintenanceLogDefaultArgs> = $Result.GetResult<Prisma.$MaintenanceLogPayload, S>
+
+  type MaintenanceLogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MaintenanceLogFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MaintenanceLogCountAggregateInputType | true
+    }
+
+  export interface MaintenanceLogDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MaintenanceLog'], meta: { name: 'MaintenanceLog' } }
+    /**
+     * Find zero or one MaintenanceLog that matches the filter.
+     * @param {MaintenanceLogFindUniqueArgs} args - Arguments to find a MaintenanceLog
+     * @example
+     * // Get one MaintenanceLog
+     * const maintenanceLog = await prisma.maintenanceLog.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MaintenanceLogFindUniqueArgs>(args: SelectSubset<T, MaintenanceLogFindUniqueArgs<ExtArgs>>): Prisma__MaintenanceLogClient<$Result.GetResult<Prisma.$MaintenanceLogPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MaintenanceLog that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MaintenanceLogFindUniqueOrThrowArgs} args - Arguments to find a MaintenanceLog
+     * @example
+     * // Get one MaintenanceLog
+     * const maintenanceLog = await prisma.maintenanceLog.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MaintenanceLogFindUniqueOrThrowArgs>(args: SelectSubset<T, MaintenanceLogFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MaintenanceLogClient<$Result.GetResult<Prisma.$MaintenanceLogPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MaintenanceLog that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceLogFindFirstArgs} args - Arguments to find a MaintenanceLog
+     * @example
+     * // Get one MaintenanceLog
+     * const maintenanceLog = await prisma.maintenanceLog.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MaintenanceLogFindFirstArgs>(args?: SelectSubset<T, MaintenanceLogFindFirstArgs<ExtArgs>>): Prisma__MaintenanceLogClient<$Result.GetResult<Prisma.$MaintenanceLogPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MaintenanceLog that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceLogFindFirstOrThrowArgs} args - Arguments to find a MaintenanceLog
+     * @example
+     * // Get one MaintenanceLog
+     * const maintenanceLog = await prisma.maintenanceLog.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MaintenanceLogFindFirstOrThrowArgs>(args?: SelectSubset<T, MaintenanceLogFindFirstOrThrowArgs<ExtArgs>>): Prisma__MaintenanceLogClient<$Result.GetResult<Prisma.$MaintenanceLogPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MaintenanceLogs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceLogFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MaintenanceLogs
+     * const maintenanceLogs = await prisma.maintenanceLog.findMany()
+     * 
+     * // Get first 10 MaintenanceLogs
+     * const maintenanceLogs = await prisma.maintenanceLog.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const maintenanceLogWithIdOnly = await prisma.maintenanceLog.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MaintenanceLogFindManyArgs>(args?: SelectSubset<T, MaintenanceLogFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenanceLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MaintenanceLog.
+     * @param {MaintenanceLogCreateArgs} args - Arguments to create a MaintenanceLog.
+     * @example
+     * // Create one MaintenanceLog
+     * const MaintenanceLog = await prisma.maintenanceLog.create({
+     *   data: {
+     *     // ... data to create a MaintenanceLog
+     *   }
+     * })
+     * 
+     */
+    create<T extends MaintenanceLogCreateArgs>(args: SelectSubset<T, MaintenanceLogCreateArgs<ExtArgs>>): Prisma__MaintenanceLogClient<$Result.GetResult<Prisma.$MaintenanceLogPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MaintenanceLogs.
+     * @param {MaintenanceLogCreateManyArgs} args - Arguments to create many MaintenanceLogs.
+     * @example
+     * // Create many MaintenanceLogs
+     * const maintenanceLog = await prisma.maintenanceLog.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MaintenanceLogCreateManyArgs>(args?: SelectSubset<T, MaintenanceLogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MaintenanceLogs and returns the data saved in the database.
+     * @param {MaintenanceLogCreateManyAndReturnArgs} args - Arguments to create many MaintenanceLogs.
+     * @example
+     * // Create many MaintenanceLogs
+     * const maintenanceLog = await prisma.maintenanceLog.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MaintenanceLogs and only return the `id`
+     * const maintenanceLogWithIdOnly = await prisma.maintenanceLog.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MaintenanceLogCreateManyAndReturnArgs>(args?: SelectSubset<T, MaintenanceLogCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenanceLogPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a MaintenanceLog.
+     * @param {MaintenanceLogDeleteArgs} args - Arguments to delete one MaintenanceLog.
+     * @example
+     * // Delete one MaintenanceLog
+     * const MaintenanceLog = await prisma.maintenanceLog.delete({
+     *   where: {
+     *     // ... filter to delete one MaintenanceLog
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MaintenanceLogDeleteArgs>(args: SelectSubset<T, MaintenanceLogDeleteArgs<ExtArgs>>): Prisma__MaintenanceLogClient<$Result.GetResult<Prisma.$MaintenanceLogPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MaintenanceLog.
+     * @param {MaintenanceLogUpdateArgs} args - Arguments to update one MaintenanceLog.
+     * @example
+     * // Update one MaintenanceLog
+     * const maintenanceLog = await prisma.maintenanceLog.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MaintenanceLogUpdateArgs>(args: SelectSubset<T, MaintenanceLogUpdateArgs<ExtArgs>>): Prisma__MaintenanceLogClient<$Result.GetResult<Prisma.$MaintenanceLogPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MaintenanceLogs.
+     * @param {MaintenanceLogDeleteManyArgs} args - Arguments to filter MaintenanceLogs to delete.
+     * @example
+     * // Delete a few MaintenanceLogs
+     * const { count } = await prisma.maintenanceLog.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MaintenanceLogDeleteManyArgs>(args?: SelectSubset<T, MaintenanceLogDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MaintenanceLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceLogUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MaintenanceLogs
+     * const maintenanceLog = await prisma.maintenanceLog.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MaintenanceLogUpdateManyArgs>(args: SelectSubset<T, MaintenanceLogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MaintenanceLogs and returns the data updated in the database.
+     * @param {MaintenanceLogUpdateManyAndReturnArgs} args - Arguments to update many MaintenanceLogs.
+     * @example
+     * // Update many MaintenanceLogs
+     * const maintenanceLog = await prisma.maintenanceLog.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MaintenanceLogs and only return the `id`
+     * const maintenanceLogWithIdOnly = await prisma.maintenanceLog.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MaintenanceLogUpdateManyAndReturnArgs>(args: SelectSubset<T, MaintenanceLogUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MaintenanceLogPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one MaintenanceLog.
+     * @param {MaintenanceLogUpsertArgs} args - Arguments to update or create a MaintenanceLog.
+     * @example
+     * // Update or create a MaintenanceLog
+     * const maintenanceLog = await prisma.maintenanceLog.upsert({
+     *   create: {
+     *     // ... data to create a MaintenanceLog
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MaintenanceLog we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MaintenanceLogUpsertArgs>(args: SelectSubset<T, MaintenanceLogUpsertArgs<ExtArgs>>): Prisma__MaintenanceLogClient<$Result.GetResult<Prisma.$MaintenanceLogPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MaintenanceLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceLogCountArgs} args - Arguments to filter MaintenanceLogs to count.
+     * @example
+     * // Count the number of MaintenanceLogs
+     * const count = await prisma.maintenanceLog.count({
+     *   where: {
+     *     // ... the filter for the MaintenanceLogs we want to count
+     *   }
+     * })
+    **/
+    count<T extends MaintenanceLogCountArgs>(
+      args?: Subset<T, MaintenanceLogCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MaintenanceLogCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MaintenanceLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceLogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MaintenanceLogAggregateArgs>(args: Subset<T, MaintenanceLogAggregateArgs>): Prisma.PrismaPromise<GetMaintenanceLogAggregateType<T>>
+
+    /**
+     * Group by MaintenanceLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MaintenanceLogGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MaintenanceLogGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MaintenanceLogGroupByArgs['orderBy'] }
+        : { orderBy?: MaintenanceLogGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MaintenanceLogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMaintenanceLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MaintenanceLog model
+   */
+  readonly fields: MaintenanceLogFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MaintenanceLog.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MaintenanceLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    workOrder<T extends WorkOrderDefaultArgs<ExtArgs> = {}>(args?: Subset<T, WorkOrderDefaultArgs<ExtArgs>>): Prisma__WorkOrderClient<$Result.GetResult<Prisma.$WorkOrderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    technician<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MaintenanceLog model
+   */
+  interface MaintenanceLogFieldRefs {
+    readonly id: FieldRef<"MaintenanceLog", 'String'>
+    readonly workOrderId: FieldRef<"MaintenanceLog", 'String'>
+    readonly technicianId: FieldRef<"MaintenanceLog", 'String'>
+    readonly partsUsed: FieldRef<"MaintenanceLog", 'String'>
+    readonly timeSpent: FieldRef<"MaintenanceLog", 'Int'>
+    readonly notes: FieldRef<"MaintenanceLog", 'String'>
+    readonly createdAt: FieldRef<"MaintenanceLog", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MaintenanceLog findUnique
+   */
+  export type MaintenanceLogFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceLog
+     */
+    select?: MaintenanceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceLog
+     */
+    omit?: MaintenanceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceLogInclude<ExtArgs> | null
+    /**
+     * Filter, which MaintenanceLog to fetch.
+     */
+    where: MaintenanceLogWhereUniqueInput
+  }
+
+  /**
+   * MaintenanceLog findUniqueOrThrow
+   */
+  export type MaintenanceLogFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceLog
+     */
+    select?: MaintenanceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceLog
+     */
+    omit?: MaintenanceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceLogInclude<ExtArgs> | null
+    /**
+     * Filter, which MaintenanceLog to fetch.
+     */
+    where: MaintenanceLogWhereUniqueInput
+  }
+
+  /**
+   * MaintenanceLog findFirst
+   */
+  export type MaintenanceLogFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceLog
+     */
+    select?: MaintenanceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceLog
+     */
+    omit?: MaintenanceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceLogInclude<ExtArgs> | null
+    /**
+     * Filter, which MaintenanceLog to fetch.
+     */
+    where?: MaintenanceLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MaintenanceLogs to fetch.
+     */
+    orderBy?: MaintenanceLogOrderByWithRelationInput | MaintenanceLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MaintenanceLogs.
+     */
+    cursor?: MaintenanceLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MaintenanceLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MaintenanceLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MaintenanceLogs.
+     */
+    distinct?: MaintenanceLogScalarFieldEnum | MaintenanceLogScalarFieldEnum[]
+  }
+
+  /**
+   * MaintenanceLog findFirstOrThrow
+   */
+  export type MaintenanceLogFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceLog
+     */
+    select?: MaintenanceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceLog
+     */
+    omit?: MaintenanceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceLogInclude<ExtArgs> | null
+    /**
+     * Filter, which MaintenanceLog to fetch.
+     */
+    where?: MaintenanceLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MaintenanceLogs to fetch.
+     */
+    orderBy?: MaintenanceLogOrderByWithRelationInput | MaintenanceLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MaintenanceLogs.
+     */
+    cursor?: MaintenanceLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MaintenanceLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MaintenanceLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MaintenanceLogs.
+     */
+    distinct?: MaintenanceLogScalarFieldEnum | MaintenanceLogScalarFieldEnum[]
+  }
+
+  /**
+   * MaintenanceLog findMany
+   */
+  export type MaintenanceLogFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceLog
+     */
+    select?: MaintenanceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceLog
+     */
+    omit?: MaintenanceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceLogInclude<ExtArgs> | null
+    /**
+     * Filter, which MaintenanceLogs to fetch.
+     */
+    where?: MaintenanceLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MaintenanceLogs to fetch.
+     */
+    orderBy?: MaintenanceLogOrderByWithRelationInput | MaintenanceLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MaintenanceLogs.
+     */
+    cursor?: MaintenanceLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MaintenanceLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MaintenanceLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MaintenanceLogs.
+     */
+    distinct?: MaintenanceLogScalarFieldEnum | MaintenanceLogScalarFieldEnum[]
+  }
+
+  /**
+   * MaintenanceLog create
+   */
+  export type MaintenanceLogCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceLog
+     */
+    select?: MaintenanceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceLog
+     */
+    omit?: MaintenanceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceLogInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MaintenanceLog.
+     */
+    data: XOR<MaintenanceLogCreateInput, MaintenanceLogUncheckedCreateInput>
+  }
+
+  /**
+   * MaintenanceLog createMany
+   */
+  export type MaintenanceLogCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MaintenanceLogs.
+     */
+    data: MaintenanceLogCreateManyInput | MaintenanceLogCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MaintenanceLog createManyAndReturn
+   */
+  export type MaintenanceLogCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceLog
+     */
+    select?: MaintenanceLogSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceLog
+     */
+    omit?: MaintenanceLogOmit<ExtArgs> | null
+    /**
+     * The data used to create many MaintenanceLogs.
+     */
+    data: MaintenanceLogCreateManyInput | MaintenanceLogCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceLogIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MaintenanceLog update
+   */
+  export type MaintenanceLogUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceLog
+     */
+    select?: MaintenanceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceLog
+     */
+    omit?: MaintenanceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceLogInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MaintenanceLog.
+     */
+    data: XOR<MaintenanceLogUpdateInput, MaintenanceLogUncheckedUpdateInput>
+    /**
+     * Choose, which MaintenanceLog to update.
+     */
+    where: MaintenanceLogWhereUniqueInput
+  }
+
+  /**
+   * MaintenanceLog updateMany
+   */
+  export type MaintenanceLogUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MaintenanceLogs.
+     */
+    data: XOR<MaintenanceLogUpdateManyMutationInput, MaintenanceLogUncheckedUpdateManyInput>
+    /**
+     * Filter which MaintenanceLogs to update
+     */
+    where?: MaintenanceLogWhereInput
+    /**
+     * Limit how many MaintenanceLogs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MaintenanceLog updateManyAndReturn
+   */
+  export type MaintenanceLogUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceLog
+     */
+    select?: MaintenanceLogSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceLog
+     */
+    omit?: MaintenanceLogOmit<ExtArgs> | null
+    /**
+     * The data used to update MaintenanceLogs.
+     */
+    data: XOR<MaintenanceLogUpdateManyMutationInput, MaintenanceLogUncheckedUpdateManyInput>
+    /**
+     * Filter which MaintenanceLogs to update
+     */
+    where?: MaintenanceLogWhereInput
+    /**
+     * Limit how many MaintenanceLogs to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceLogIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MaintenanceLog upsert
+   */
+  export type MaintenanceLogUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceLog
+     */
+    select?: MaintenanceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceLog
+     */
+    omit?: MaintenanceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceLogInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MaintenanceLog to update in case it exists.
+     */
+    where: MaintenanceLogWhereUniqueInput
+    /**
+     * In case the MaintenanceLog found by the `where` argument doesn't exist, create a new MaintenanceLog with this data.
+     */
+    create: XOR<MaintenanceLogCreateInput, MaintenanceLogUncheckedCreateInput>
+    /**
+     * In case the MaintenanceLog was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MaintenanceLogUpdateInput, MaintenanceLogUncheckedUpdateInput>
+  }
+
+  /**
+   * MaintenanceLog delete
+   */
+  export type MaintenanceLogDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceLog
+     */
+    select?: MaintenanceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceLog
+     */
+    omit?: MaintenanceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceLogInclude<ExtArgs> | null
+    /**
+     * Filter which MaintenanceLog to delete.
+     */
+    where: MaintenanceLogWhereUniqueInput
+  }
+
+  /**
+   * MaintenanceLog deleteMany
+   */
+  export type MaintenanceLogDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MaintenanceLogs to delete
+     */
+    where?: MaintenanceLogWhereInput
+    /**
+     * Limit how many MaintenanceLogs to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MaintenanceLog without action
+   */
+  export type MaintenanceLogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MaintenanceLog
+     */
+    select?: MaintenanceLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MaintenanceLog
+     */
+    omit?: MaintenanceLogOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MaintenanceLogInclude<ExtArgs> | null
   }
 
 
@@ -13364,6 +15021,1214 @@ export namespace Prisma {
 
 
   /**
+   * Model TechnicianApplication
+   */
+
+  export type AggregateTechnicianApplication = {
+    _count: TechnicianApplicationCountAggregateOutputType | null
+    _min: TechnicianApplicationMinAggregateOutputType | null
+    _max: TechnicianApplicationMaxAggregateOutputType | null
+  }
+
+  export type TechnicianApplicationMinAggregateOutputType = {
+    id: string | null
+    applicantId: string | null
+    skills: string | null
+    reason: string | null
+    status: $Enums.ApplicationStatus | null
+    verifiedById: string | null
+    verifiedAt: Date | null
+    rejectedById: string | null
+    rejectedAt: Date | null
+    rejectedReason: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TechnicianApplicationMaxAggregateOutputType = {
+    id: string | null
+    applicantId: string | null
+    skills: string | null
+    reason: string | null
+    status: $Enums.ApplicationStatus | null
+    verifiedById: string | null
+    verifiedAt: Date | null
+    rejectedById: string | null
+    rejectedAt: Date | null
+    rejectedReason: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TechnicianApplicationCountAggregateOutputType = {
+    id: number
+    applicantId: number
+    skills: number
+    reason: number
+    status: number
+    verifiedById: number
+    verifiedAt: number
+    rejectedById: number
+    rejectedAt: number
+    rejectedReason: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type TechnicianApplicationMinAggregateInputType = {
+    id?: true
+    applicantId?: true
+    skills?: true
+    reason?: true
+    status?: true
+    verifiedById?: true
+    verifiedAt?: true
+    rejectedById?: true
+    rejectedAt?: true
+    rejectedReason?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TechnicianApplicationMaxAggregateInputType = {
+    id?: true
+    applicantId?: true
+    skills?: true
+    reason?: true
+    status?: true
+    verifiedById?: true
+    verifiedAt?: true
+    rejectedById?: true
+    rejectedAt?: true
+    rejectedReason?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TechnicianApplicationCountAggregateInputType = {
+    id?: true
+    applicantId?: true
+    skills?: true
+    reason?: true
+    status?: true
+    verifiedById?: true
+    verifiedAt?: true
+    rejectedById?: true
+    rejectedAt?: true
+    rejectedReason?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type TechnicianApplicationAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TechnicianApplication to aggregate.
+     */
+    where?: TechnicianApplicationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TechnicianApplications to fetch.
+     */
+    orderBy?: TechnicianApplicationOrderByWithRelationInput | TechnicianApplicationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TechnicianApplicationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TechnicianApplications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TechnicianApplications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned TechnicianApplications
+    **/
+    _count?: true | TechnicianApplicationCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TechnicianApplicationMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TechnicianApplicationMaxAggregateInputType
+  }
+
+  export type GetTechnicianApplicationAggregateType<T extends TechnicianApplicationAggregateArgs> = {
+        [P in keyof T & keyof AggregateTechnicianApplication]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTechnicianApplication[P]>
+      : GetScalarType<T[P], AggregateTechnicianApplication[P]>
+  }
+
+
+
+
+  export type TechnicianApplicationGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TechnicianApplicationWhereInput
+    orderBy?: TechnicianApplicationOrderByWithAggregationInput | TechnicianApplicationOrderByWithAggregationInput[]
+    by: TechnicianApplicationScalarFieldEnum[] | TechnicianApplicationScalarFieldEnum
+    having?: TechnicianApplicationScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TechnicianApplicationCountAggregateInputType | true
+    _min?: TechnicianApplicationMinAggregateInputType
+    _max?: TechnicianApplicationMaxAggregateInputType
+  }
+
+  export type TechnicianApplicationGroupByOutputType = {
+    id: string
+    applicantId: string
+    skills: string
+    reason: string
+    status: $Enums.ApplicationStatus
+    verifiedById: string | null
+    verifiedAt: Date | null
+    rejectedById: string | null
+    rejectedAt: Date | null
+    rejectedReason: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: TechnicianApplicationCountAggregateOutputType | null
+    _min: TechnicianApplicationMinAggregateOutputType | null
+    _max: TechnicianApplicationMaxAggregateOutputType | null
+  }
+
+  type GetTechnicianApplicationGroupByPayload<T extends TechnicianApplicationGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TechnicianApplicationGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TechnicianApplicationGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TechnicianApplicationGroupByOutputType[P]>
+            : GetScalarType<T[P], TechnicianApplicationGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TechnicianApplicationSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    applicantId?: boolean
+    skills?: boolean
+    reason?: boolean
+    status?: boolean
+    verifiedById?: boolean
+    verifiedAt?: boolean
+    rejectedById?: boolean
+    rejectedAt?: boolean
+    rejectedReason?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    applicant?: boolean | UserDefaultArgs<ExtArgs>
+    verifiedBy?: boolean | TechnicianApplication$verifiedByArgs<ExtArgs>
+    rejectedBy?: boolean | TechnicianApplication$rejectedByArgs<ExtArgs>
+  }, ExtArgs["result"]["technicianApplication"]>
+
+  export type TechnicianApplicationSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    applicantId?: boolean
+    skills?: boolean
+    reason?: boolean
+    status?: boolean
+    verifiedById?: boolean
+    verifiedAt?: boolean
+    rejectedById?: boolean
+    rejectedAt?: boolean
+    rejectedReason?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    applicant?: boolean | UserDefaultArgs<ExtArgs>
+    verifiedBy?: boolean | TechnicianApplication$verifiedByArgs<ExtArgs>
+    rejectedBy?: boolean | TechnicianApplication$rejectedByArgs<ExtArgs>
+  }, ExtArgs["result"]["technicianApplication"]>
+
+  export type TechnicianApplicationSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    applicantId?: boolean
+    skills?: boolean
+    reason?: boolean
+    status?: boolean
+    verifiedById?: boolean
+    verifiedAt?: boolean
+    rejectedById?: boolean
+    rejectedAt?: boolean
+    rejectedReason?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    applicant?: boolean | UserDefaultArgs<ExtArgs>
+    verifiedBy?: boolean | TechnicianApplication$verifiedByArgs<ExtArgs>
+    rejectedBy?: boolean | TechnicianApplication$rejectedByArgs<ExtArgs>
+  }, ExtArgs["result"]["technicianApplication"]>
+
+  export type TechnicianApplicationSelectScalar = {
+    id?: boolean
+    applicantId?: boolean
+    skills?: boolean
+    reason?: boolean
+    status?: boolean
+    verifiedById?: boolean
+    verifiedAt?: boolean
+    rejectedById?: boolean
+    rejectedAt?: boolean
+    rejectedReason?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type TechnicianApplicationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "applicantId" | "skills" | "reason" | "status" | "verifiedById" | "verifiedAt" | "rejectedById" | "rejectedAt" | "rejectedReason" | "createdAt" | "updatedAt", ExtArgs["result"]["technicianApplication"]>
+  export type TechnicianApplicationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    applicant?: boolean | UserDefaultArgs<ExtArgs>
+    verifiedBy?: boolean | TechnicianApplication$verifiedByArgs<ExtArgs>
+    rejectedBy?: boolean | TechnicianApplication$rejectedByArgs<ExtArgs>
+  }
+  export type TechnicianApplicationIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    applicant?: boolean | UserDefaultArgs<ExtArgs>
+    verifiedBy?: boolean | TechnicianApplication$verifiedByArgs<ExtArgs>
+    rejectedBy?: boolean | TechnicianApplication$rejectedByArgs<ExtArgs>
+  }
+  export type TechnicianApplicationIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    applicant?: boolean | UserDefaultArgs<ExtArgs>
+    verifiedBy?: boolean | TechnicianApplication$verifiedByArgs<ExtArgs>
+    rejectedBy?: boolean | TechnicianApplication$rejectedByArgs<ExtArgs>
+  }
+
+  export type $TechnicianApplicationPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "TechnicianApplication"
+    objects: {
+      applicant: Prisma.$UserPayload<ExtArgs>
+      verifiedBy: Prisma.$UserPayload<ExtArgs> | null
+      rejectedBy: Prisma.$UserPayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      applicantId: string
+      skills: string
+      reason: string
+      status: $Enums.ApplicationStatus
+      verifiedById: string | null
+      verifiedAt: Date | null
+      rejectedById: string | null
+      rejectedAt: Date | null
+      rejectedReason: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["technicianApplication"]>
+    composites: {}
+  }
+
+  type TechnicianApplicationGetPayload<S extends boolean | null | undefined | TechnicianApplicationDefaultArgs> = $Result.GetResult<Prisma.$TechnicianApplicationPayload, S>
+
+  type TechnicianApplicationCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TechnicianApplicationFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TechnicianApplicationCountAggregateInputType | true
+    }
+
+  export interface TechnicianApplicationDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['TechnicianApplication'], meta: { name: 'TechnicianApplication' } }
+    /**
+     * Find zero or one TechnicianApplication that matches the filter.
+     * @param {TechnicianApplicationFindUniqueArgs} args - Arguments to find a TechnicianApplication
+     * @example
+     * // Get one TechnicianApplication
+     * const technicianApplication = await prisma.technicianApplication.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TechnicianApplicationFindUniqueArgs>(args: SelectSubset<T, TechnicianApplicationFindUniqueArgs<ExtArgs>>): Prisma__TechnicianApplicationClient<$Result.GetResult<Prisma.$TechnicianApplicationPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one TechnicianApplication that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TechnicianApplicationFindUniqueOrThrowArgs} args - Arguments to find a TechnicianApplication
+     * @example
+     * // Get one TechnicianApplication
+     * const technicianApplication = await prisma.technicianApplication.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TechnicianApplicationFindUniqueOrThrowArgs>(args: SelectSubset<T, TechnicianApplicationFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TechnicianApplicationClient<$Result.GetResult<Prisma.$TechnicianApplicationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TechnicianApplication that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TechnicianApplicationFindFirstArgs} args - Arguments to find a TechnicianApplication
+     * @example
+     * // Get one TechnicianApplication
+     * const technicianApplication = await prisma.technicianApplication.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TechnicianApplicationFindFirstArgs>(args?: SelectSubset<T, TechnicianApplicationFindFirstArgs<ExtArgs>>): Prisma__TechnicianApplicationClient<$Result.GetResult<Prisma.$TechnicianApplicationPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first TechnicianApplication that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TechnicianApplicationFindFirstOrThrowArgs} args - Arguments to find a TechnicianApplication
+     * @example
+     * // Get one TechnicianApplication
+     * const technicianApplication = await prisma.technicianApplication.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TechnicianApplicationFindFirstOrThrowArgs>(args?: SelectSubset<T, TechnicianApplicationFindFirstOrThrowArgs<ExtArgs>>): Prisma__TechnicianApplicationClient<$Result.GetResult<Prisma.$TechnicianApplicationPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more TechnicianApplications that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TechnicianApplicationFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all TechnicianApplications
+     * const technicianApplications = await prisma.technicianApplication.findMany()
+     * 
+     * // Get first 10 TechnicianApplications
+     * const technicianApplications = await prisma.technicianApplication.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const technicianApplicationWithIdOnly = await prisma.technicianApplication.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends TechnicianApplicationFindManyArgs>(args?: SelectSubset<T, TechnicianApplicationFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TechnicianApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a TechnicianApplication.
+     * @param {TechnicianApplicationCreateArgs} args - Arguments to create a TechnicianApplication.
+     * @example
+     * // Create one TechnicianApplication
+     * const TechnicianApplication = await prisma.technicianApplication.create({
+     *   data: {
+     *     // ... data to create a TechnicianApplication
+     *   }
+     * })
+     * 
+     */
+    create<T extends TechnicianApplicationCreateArgs>(args: SelectSubset<T, TechnicianApplicationCreateArgs<ExtArgs>>): Prisma__TechnicianApplicationClient<$Result.GetResult<Prisma.$TechnicianApplicationPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many TechnicianApplications.
+     * @param {TechnicianApplicationCreateManyArgs} args - Arguments to create many TechnicianApplications.
+     * @example
+     * // Create many TechnicianApplications
+     * const technicianApplication = await prisma.technicianApplication.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TechnicianApplicationCreateManyArgs>(args?: SelectSubset<T, TechnicianApplicationCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many TechnicianApplications and returns the data saved in the database.
+     * @param {TechnicianApplicationCreateManyAndReturnArgs} args - Arguments to create many TechnicianApplications.
+     * @example
+     * // Create many TechnicianApplications
+     * const technicianApplication = await prisma.technicianApplication.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many TechnicianApplications and only return the `id`
+     * const technicianApplicationWithIdOnly = await prisma.technicianApplication.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TechnicianApplicationCreateManyAndReturnArgs>(args?: SelectSubset<T, TechnicianApplicationCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TechnicianApplicationPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a TechnicianApplication.
+     * @param {TechnicianApplicationDeleteArgs} args - Arguments to delete one TechnicianApplication.
+     * @example
+     * // Delete one TechnicianApplication
+     * const TechnicianApplication = await prisma.technicianApplication.delete({
+     *   where: {
+     *     // ... filter to delete one TechnicianApplication
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TechnicianApplicationDeleteArgs>(args: SelectSubset<T, TechnicianApplicationDeleteArgs<ExtArgs>>): Prisma__TechnicianApplicationClient<$Result.GetResult<Prisma.$TechnicianApplicationPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one TechnicianApplication.
+     * @param {TechnicianApplicationUpdateArgs} args - Arguments to update one TechnicianApplication.
+     * @example
+     * // Update one TechnicianApplication
+     * const technicianApplication = await prisma.technicianApplication.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TechnicianApplicationUpdateArgs>(args: SelectSubset<T, TechnicianApplicationUpdateArgs<ExtArgs>>): Prisma__TechnicianApplicationClient<$Result.GetResult<Prisma.$TechnicianApplicationPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more TechnicianApplications.
+     * @param {TechnicianApplicationDeleteManyArgs} args - Arguments to filter TechnicianApplications to delete.
+     * @example
+     * // Delete a few TechnicianApplications
+     * const { count } = await prisma.technicianApplication.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TechnicianApplicationDeleteManyArgs>(args?: SelectSubset<T, TechnicianApplicationDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TechnicianApplications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TechnicianApplicationUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many TechnicianApplications
+     * const technicianApplication = await prisma.technicianApplication.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TechnicianApplicationUpdateManyArgs>(args: SelectSubset<T, TechnicianApplicationUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more TechnicianApplications and returns the data updated in the database.
+     * @param {TechnicianApplicationUpdateManyAndReturnArgs} args - Arguments to update many TechnicianApplications.
+     * @example
+     * // Update many TechnicianApplications
+     * const technicianApplication = await prisma.technicianApplication.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more TechnicianApplications and only return the `id`
+     * const technicianApplicationWithIdOnly = await prisma.technicianApplication.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TechnicianApplicationUpdateManyAndReturnArgs>(args: SelectSubset<T, TechnicianApplicationUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TechnicianApplicationPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one TechnicianApplication.
+     * @param {TechnicianApplicationUpsertArgs} args - Arguments to update or create a TechnicianApplication.
+     * @example
+     * // Update or create a TechnicianApplication
+     * const technicianApplication = await prisma.technicianApplication.upsert({
+     *   create: {
+     *     // ... data to create a TechnicianApplication
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the TechnicianApplication we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TechnicianApplicationUpsertArgs>(args: SelectSubset<T, TechnicianApplicationUpsertArgs<ExtArgs>>): Prisma__TechnicianApplicationClient<$Result.GetResult<Prisma.$TechnicianApplicationPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of TechnicianApplications.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TechnicianApplicationCountArgs} args - Arguments to filter TechnicianApplications to count.
+     * @example
+     * // Count the number of TechnicianApplications
+     * const count = await prisma.technicianApplication.count({
+     *   where: {
+     *     // ... the filter for the TechnicianApplications we want to count
+     *   }
+     * })
+    **/
+    count<T extends TechnicianApplicationCountArgs>(
+      args?: Subset<T, TechnicianApplicationCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TechnicianApplicationCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a TechnicianApplication.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TechnicianApplicationAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TechnicianApplicationAggregateArgs>(args: Subset<T, TechnicianApplicationAggregateArgs>): Prisma.PrismaPromise<GetTechnicianApplicationAggregateType<T>>
+
+    /**
+     * Group by TechnicianApplication.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TechnicianApplicationGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TechnicianApplicationGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TechnicianApplicationGroupByArgs['orderBy'] }
+        : { orderBy?: TechnicianApplicationGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TechnicianApplicationGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTechnicianApplicationGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the TechnicianApplication model
+   */
+  readonly fields: TechnicianApplicationFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for TechnicianApplication.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TechnicianApplicationClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    applicant<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    verifiedBy<T extends TechnicianApplication$verifiedByArgs<ExtArgs> = {}>(args?: Subset<T, TechnicianApplication$verifiedByArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    rejectedBy<T extends TechnicianApplication$rejectedByArgs<ExtArgs> = {}>(args?: Subset<T, TechnicianApplication$rejectedByArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the TechnicianApplication model
+   */
+  interface TechnicianApplicationFieldRefs {
+    readonly id: FieldRef<"TechnicianApplication", 'String'>
+    readonly applicantId: FieldRef<"TechnicianApplication", 'String'>
+    readonly skills: FieldRef<"TechnicianApplication", 'String'>
+    readonly reason: FieldRef<"TechnicianApplication", 'String'>
+    readonly status: FieldRef<"TechnicianApplication", 'ApplicationStatus'>
+    readonly verifiedById: FieldRef<"TechnicianApplication", 'String'>
+    readonly verifiedAt: FieldRef<"TechnicianApplication", 'DateTime'>
+    readonly rejectedById: FieldRef<"TechnicianApplication", 'String'>
+    readonly rejectedAt: FieldRef<"TechnicianApplication", 'DateTime'>
+    readonly rejectedReason: FieldRef<"TechnicianApplication", 'String'>
+    readonly createdAt: FieldRef<"TechnicianApplication", 'DateTime'>
+    readonly updatedAt: FieldRef<"TechnicianApplication", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * TechnicianApplication findUnique
+   */
+  export type TechnicianApplicationFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TechnicianApplication
+     */
+    select?: TechnicianApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TechnicianApplication
+     */
+    omit?: TechnicianApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TechnicianApplicationInclude<ExtArgs> | null
+    /**
+     * Filter, which TechnicianApplication to fetch.
+     */
+    where: TechnicianApplicationWhereUniqueInput
+  }
+
+  /**
+   * TechnicianApplication findUniqueOrThrow
+   */
+  export type TechnicianApplicationFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TechnicianApplication
+     */
+    select?: TechnicianApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TechnicianApplication
+     */
+    omit?: TechnicianApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TechnicianApplicationInclude<ExtArgs> | null
+    /**
+     * Filter, which TechnicianApplication to fetch.
+     */
+    where: TechnicianApplicationWhereUniqueInput
+  }
+
+  /**
+   * TechnicianApplication findFirst
+   */
+  export type TechnicianApplicationFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TechnicianApplication
+     */
+    select?: TechnicianApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TechnicianApplication
+     */
+    omit?: TechnicianApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TechnicianApplicationInclude<ExtArgs> | null
+    /**
+     * Filter, which TechnicianApplication to fetch.
+     */
+    where?: TechnicianApplicationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TechnicianApplications to fetch.
+     */
+    orderBy?: TechnicianApplicationOrderByWithRelationInput | TechnicianApplicationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TechnicianApplications.
+     */
+    cursor?: TechnicianApplicationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TechnicianApplications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TechnicianApplications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TechnicianApplications.
+     */
+    distinct?: TechnicianApplicationScalarFieldEnum | TechnicianApplicationScalarFieldEnum[]
+  }
+
+  /**
+   * TechnicianApplication findFirstOrThrow
+   */
+  export type TechnicianApplicationFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TechnicianApplication
+     */
+    select?: TechnicianApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TechnicianApplication
+     */
+    omit?: TechnicianApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TechnicianApplicationInclude<ExtArgs> | null
+    /**
+     * Filter, which TechnicianApplication to fetch.
+     */
+    where?: TechnicianApplicationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TechnicianApplications to fetch.
+     */
+    orderBy?: TechnicianApplicationOrderByWithRelationInput | TechnicianApplicationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for TechnicianApplications.
+     */
+    cursor?: TechnicianApplicationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TechnicianApplications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TechnicianApplications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TechnicianApplications.
+     */
+    distinct?: TechnicianApplicationScalarFieldEnum | TechnicianApplicationScalarFieldEnum[]
+  }
+
+  /**
+   * TechnicianApplication findMany
+   */
+  export type TechnicianApplicationFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TechnicianApplication
+     */
+    select?: TechnicianApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TechnicianApplication
+     */
+    omit?: TechnicianApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TechnicianApplicationInclude<ExtArgs> | null
+    /**
+     * Filter, which TechnicianApplications to fetch.
+     */
+    where?: TechnicianApplicationWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of TechnicianApplications to fetch.
+     */
+    orderBy?: TechnicianApplicationOrderByWithRelationInput | TechnicianApplicationOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing TechnicianApplications.
+     */
+    cursor?: TechnicianApplicationWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` TechnicianApplications from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` TechnicianApplications.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of TechnicianApplications.
+     */
+    distinct?: TechnicianApplicationScalarFieldEnum | TechnicianApplicationScalarFieldEnum[]
+  }
+
+  /**
+   * TechnicianApplication create
+   */
+  export type TechnicianApplicationCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TechnicianApplication
+     */
+    select?: TechnicianApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TechnicianApplication
+     */
+    omit?: TechnicianApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TechnicianApplicationInclude<ExtArgs> | null
+    /**
+     * The data needed to create a TechnicianApplication.
+     */
+    data: XOR<TechnicianApplicationCreateInput, TechnicianApplicationUncheckedCreateInput>
+  }
+
+  /**
+   * TechnicianApplication createMany
+   */
+  export type TechnicianApplicationCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many TechnicianApplications.
+     */
+    data: TechnicianApplicationCreateManyInput | TechnicianApplicationCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * TechnicianApplication createManyAndReturn
+   */
+  export type TechnicianApplicationCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TechnicianApplication
+     */
+    select?: TechnicianApplicationSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TechnicianApplication
+     */
+    omit?: TechnicianApplicationOmit<ExtArgs> | null
+    /**
+     * The data used to create many TechnicianApplications.
+     */
+    data: TechnicianApplicationCreateManyInput | TechnicianApplicationCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TechnicianApplicationIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TechnicianApplication update
+   */
+  export type TechnicianApplicationUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TechnicianApplication
+     */
+    select?: TechnicianApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TechnicianApplication
+     */
+    omit?: TechnicianApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TechnicianApplicationInclude<ExtArgs> | null
+    /**
+     * The data needed to update a TechnicianApplication.
+     */
+    data: XOR<TechnicianApplicationUpdateInput, TechnicianApplicationUncheckedUpdateInput>
+    /**
+     * Choose, which TechnicianApplication to update.
+     */
+    where: TechnicianApplicationWhereUniqueInput
+  }
+
+  /**
+   * TechnicianApplication updateMany
+   */
+  export type TechnicianApplicationUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update TechnicianApplications.
+     */
+    data: XOR<TechnicianApplicationUpdateManyMutationInput, TechnicianApplicationUncheckedUpdateManyInput>
+    /**
+     * Filter which TechnicianApplications to update
+     */
+    where?: TechnicianApplicationWhereInput
+    /**
+     * Limit how many TechnicianApplications to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * TechnicianApplication updateManyAndReturn
+   */
+  export type TechnicianApplicationUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TechnicianApplication
+     */
+    select?: TechnicianApplicationSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the TechnicianApplication
+     */
+    omit?: TechnicianApplicationOmit<ExtArgs> | null
+    /**
+     * The data used to update TechnicianApplications.
+     */
+    data: XOR<TechnicianApplicationUpdateManyMutationInput, TechnicianApplicationUncheckedUpdateManyInput>
+    /**
+     * Filter which TechnicianApplications to update
+     */
+    where?: TechnicianApplicationWhereInput
+    /**
+     * Limit how many TechnicianApplications to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TechnicianApplicationIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * TechnicianApplication upsert
+   */
+  export type TechnicianApplicationUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TechnicianApplication
+     */
+    select?: TechnicianApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TechnicianApplication
+     */
+    omit?: TechnicianApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TechnicianApplicationInclude<ExtArgs> | null
+    /**
+     * The filter to search for the TechnicianApplication to update in case it exists.
+     */
+    where: TechnicianApplicationWhereUniqueInput
+    /**
+     * In case the TechnicianApplication found by the `where` argument doesn't exist, create a new TechnicianApplication with this data.
+     */
+    create: XOR<TechnicianApplicationCreateInput, TechnicianApplicationUncheckedCreateInput>
+    /**
+     * In case the TechnicianApplication was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TechnicianApplicationUpdateInput, TechnicianApplicationUncheckedUpdateInput>
+  }
+
+  /**
+   * TechnicianApplication delete
+   */
+  export type TechnicianApplicationDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TechnicianApplication
+     */
+    select?: TechnicianApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TechnicianApplication
+     */
+    omit?: TechnicianApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TechnicianApplicationInclude<ExtArgs> | null
+    /**
+     * Filter which TechnicianApplication to delete.
+     */
+    where: TechnicianApplicationWhereUniqueInput
+  }
+
+  /**
+   * TechnicianApplication deleteMany
+   */
+  export type TechnicianApplicationDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which TechnicianApplications to delete
+     */
+    where?: TechnicianApplicationWhereInput
+    /**
+     * Limit how many TechnicianApplications to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * TechnicianApplication.verifiedBy
+   */
+  export type TechnicianApplication$verifiedByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * TechnicianApplication.rejectedBy
+   */
+  export type TechnicianApplication$rejectedByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * TechnicianApplication without action
+   */
+  export type TechnicianApplicationDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the TechnicianApplication
+     */
+    select?: TechnicianApplicationSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the TechnicianApplication
+     */
+    omit?: TechnicianApplicationOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TechnicianApplicationInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -13418,9 +16283,14 @@ export namespace Prisma {
     id: 'id',
     poleId: 'poleId',
     reportedById: 'reportedById',
+    reporterName: 'reporterName',
+    reporterEmail: 'reporterEmail',
+    reporterPhone: 'reporterPhone',
     description: 'description',
     faultType: 'faultType',
     status: 'status',
+    latitude: 'latitude',
+    longitude: 'longitude',
     reportedAt: 'reportedAt'
   };
 
@@ -13439,6 +16309,19 @@ export namespace Prisma {
   };
 
   export type WorkOrderScalarFieldEnum = (typeof WorkOrderScalarFieldEnum)[keyof typeof WorkOrderScalarFieldEnum]
+
+
+  export const MaintenanceLogScalarFieldEnum: {
+    id: 'id',
+    workOrderId: 'workOrderId',
+    technicianId: 'technicianId',
+    partsUsed: 'partsUsed',
+    timeSpent: 'timeSpent',
+    notes: 'notes',
+    createdAt: 'createdAt'
+  };
+
+  export type MaintenanceLogScalarFieldEnum = (typeof MaintenanceLogScalarFieldEnum)[keyof typeof MaintenanceLogScalarFieldEnum]
 
 
   export const StatusLogScalarFieldEnum: {
@@ -13517,6 +16400,24 @@ export namespace Prisma {
   };
 
   export type InventoryLogScalarFieldEnum = (typeof InventoryLogScalarFieldEnum)[keyof typeof InventoryLogScalarFieldEnum]
+
+
+  export const TechnicianApplicationScalarFieldEnum: {
+    id: 'id',
+    applicantId: 'applicantId',
+    skills: 'skills',
+    reason: 'reason',
+    status: 'status',
+    verifiedById: 'verifiedById',
+    verifiedAt: 'verifiedAt',
+    rejectedById: 'rejectedById',
+    rejectedAt: 'rejectedAt',
+    rejectedReason: 'rejectedReason',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type TechnicianApplicationScalarFieldEnum = (typeof TechnicianApplicationScalarFieldEnum)[keyof typeof TechnicianApplicationScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -13661,13 +16562,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-    
-
-
-  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -13678,6 +16572,27 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
+   * Reference to a field of type 'ApplicationStatus'
+   */
+  export type EnumApplicationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ApplicationStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'ApplicationStatus[]'
+   */
+  export type ListEnumApplicationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ApplicationStatus[]'>
     
   /**
    * Deep Input Types
@@ -13711,6 +16626,10 @@ export namespace Prisma {
     statusLogs?: StatusLogListRelationFilter
     workOrdersCreated?: WorkOrderListRelationFilter
     workOrdersAssigned?: WorkOrderListRelationFilter
+    maintenanceLogs?: MaintenanceLogListRelationFilter
+    technicianApplications?: TechnicianApplicationListRelationFilter
+    verifiedApplications?: TechnicianApplicationListRelationFilter
+    rejectedApplications?: TechnicianApplicationListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -13737,6 +16656,10 @@ export namespace Prisma {
     statusLogs?: StatusLogOrderByRelationAggregateInput
     workOrdersCreated?: WorkOrderOrderByRelationAggregateInput
     workOrdersAssigned?: WorkOrderOrderByRelationAggregateInput
+    maintenanceLogs?: MaintenanceLogOrderByRelationAggregateInput
+    technicianApplications?: TechnicianApplicationOrderByRelationAggregateInput
+    verifiedApplications?: TechnicianApplicationOrderByRelationAggregateInput
+    rejectedApplications?: TechnicianApplicationOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -13766,6 +16689,10 @@ export namespace Prisma {
     statusLogs?: StatusLogListRelationFilter
     workOrdersCreated?: WorkOrderListRelationFilter
     workOrdersAssigned?: WorkOrderListRelationFilter
+    maintenanceLogs?: MaintenanceLogListRelationFilter
+    technicianApplications?: TechnicianApplicationListRelationFilter
+    verifiedApplications?: TechnicianApplicationListRelationFilter
+    rejectedApplications?: TechnicianApplicationListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -13898,23 +16825,33 @@ export namespace Prisma {
     NOT?: FaultReportWhereInput | FaultReportWhereInput[]
     id?: StringFilter<"FaultReport"> | string
     poleId?: StringFilter<"FaultReport"> | string
-    reportedById?: StringFilter<"FaultReport"> | string
+    reportedById?: StringNullableFilter<"FaultReport"> | string | null
+    reporterName?: StringNullableFilter<"FaultReport"> | string | null
+    reporterEmail?: StringNullableFilter<"FaultReport"> | string | null
+    reporterPhone?: StringNullableFilter<"FaultReport"> | string | null
     description?: StringFilter<"FaultReport"> | string
     faultType?: EnumFaultTypeFilter<"FaultReport"> | $Enums.FaultType
     status?: EnumReportStatusFilter<"FaultReport"> | $Enums.ReportStatus
+    latitude?: FloatNullableFilter<"FaultReport"> | number | null
+    longitude?: FloatNullableFilter<"FaultReport"> | number | null
     reportedAt?: DateTimeFilter<"FaultReport"> | Date | string
     pole?: XOR<PoleScalarRelationFilter, PoleWhereInput>
-    reportedBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+    reportedBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     workOrder?: XOR<WorkOrderNullableScalarRelationFilter, WorkOrderWhereInput> | null
   }
 
   export type FaultReportOrderByWithRelationInput = {
     id?: SortOrder
     poleId?: SortOrder
-    reportedById?: SortOrder
+    reportedById?: SortOrderInput | SortOrder
+    reporterName?: SortOrderInput | SortOrder
+    reporterEmail?: SortOrderInput | SortOrder
+    reporterPhone?: SortOrderInput | SortOrder
     description?: SortOrder
     faultType?: SortOrder
     status?: SortOrder
+    latitude?: SortOrderInput | SortOrder
+    longitude?: SortOrderInput | SortOrder
     reportedAt?: SortOrder
     pole?: PoleOrderByWithRelationInput
     reportedBy?: UserOrderByWithRelationInput
@@ -13927,27 +16864,39 @@ export namespace Prisma {
     OR?: FaultReportWhereInput[]
     NOT?: FaultReportWhereInput | FaultReportWhereInput[]
     poleId?: StringFilter<"FaultReport"> | string
-    reportedById?: StringFilter<"FaultReport"> | string
+    reportedById?: StringNullableFilter<"FaultReport"> | string | null
+    reporterName?: StringNullableFilter<"FaultReport"> | string | null
+    reporterEmail?: StringNullableFilter<"FaultReport"> | string | null
+    reporterPhone?: StringNullableFilter<"FaultReport"> | string | null
     description?: StringFilter<"FaultReport"> | string
     faultType?: EnumFaultTypeFilter<"FaultReport"> | $Enums.FaultType
     status?: EnumReportStatusFilter<"FaultReport"> | $Enums.ReportStatus
+    latitude?: FloatNullableFilter<"FaultReport"> | number | null
+    longitude?: FloatNullableFilter<"FaultReport"> | number | null
     reportedAt?: DateTimeFilter<"FaultReport"> | Date | string
     pole?: XOR<PoleScalarRelationFilter, PoleWhereInput>
-    reportedBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+    reportedBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     workOrder?: XOR<WorkOrderNullableScalarRelationFilter, WorkOrderWhereInput> | null
   }, "id">
 
   export type FaultReportOrderByWithAggregationInput = {
     id?: SortOrder
     poleId?: SortOrder
-    reportedById?: SortOrder
+    reportedById?: SortOrderInput | SortOrder
+    reporterName?: SortOrderInput | SortOrder
+    reporterEmail?: SortOrderInput | SortOrder
+    reporterPhone?: SortOrderInput | SortOrder
     description?: SortOrder
     faultType?: SortOrder
     status?: SortOrder
+    latitude?: SortOrderInput | SortOrder
+    longitude?: SortOrderInput | SortOrder
     reportedAt?: SortOrder
     _count?: FaultReportCountOrderByAggregateInput
+    _avg?: FaultReportAvgOrderByAggregateInput
     _max?: FaultReportMaxOrderByAggregateInput
     _min?: FaultReportMinOrderByAggregateInput
+    _sum?: FaultReportSumOrderByAggregateInput
   }
 
   export type FaultReportScalarWhereWithAggregatesInput = {
@@ -13956,10 +16905,15 @@ export namespace Prisma {
     NOT?: FaultReportScalarWhereWithAggregatesInput | FaultReportScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"FaultReport"> | string
     poleId?: StringWithAggregatesFilter<"FaultReport"> | string
-    reportedById?: StringWithAggregatesFilter<"FaultReport"> | string
+    reportedById?: StringNullableWithAggregatesFilter<"FaultReport"> | string | null
+    reporterName?: StringNullableWithAggregatesFilter<"FaultReport"> | string | null
+    reporterEmail?: StringNullableWithAggregatesFilter<"FaultReport"> | string | null
+    reporterPhone?: StringNullableWithAggregatesFilter<"FaultReport"> | string | null
     description?: StringWithAggregatesFilter<"FaultReport"> | string
     faultType?: EnumFaultTypeWithAggregatesFilter<"FaultReport"> | $Enums.FaultType
     status?: EnumReportStatusWithAggregatesFilter<"FaultReport"> | $Enums.ReportStatus
+    latitude?: FloatNullableWithAggregatesFilter<"FaultReport"> | number | null
+    longitude?: FloatNullableWithAggregatesFilter<"FaultReport"> | number | null
     reportedAt?: DateTimeWithAggregatesFilter<"FaultReport"> | Date | string
   }
 
@@ -13978,6 +16932,7 @@ export namespace Prisma {
     assignedBy?: XOR<UserScalarRelationFilter, UserWhereInput>
     assignedTo?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     faultReport?: XOR<FaultReportScalarRelationFilter, FaultReportWhereInput>
+    maintenanceLogs?: MaintenanceLogListRelationFilter
   }
 
   export type WorkOrderOrderByWithRelationInput = {
@@ -13992,6 +16947,7 @@ export namespace Prisma {
     assignedBy?: UserOrderByWithRelationInput
     assignedTo?: UserOrderByWithRelationInput
     faultReport?: FaultReportOrderByWithRelationInput
+    maintenanceLogs?: MaintenanceLogOrderByRelationAggregateInput
   }
 
   export type WorkOrderWhereUniqueInput = Prisma.AtLeast<{
@@ -14009,6 +16965,7 @@ export namespace Prisma {
     assignedBy?: XOR<UserScalarRelationFilter, UserWhereInput>
     assignedTo?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     faultReport?: XOR<FaultReportScalarRelationFilter, FaultReportWhereInput>
+    maintenanceLogs?: MaintenanceLogListRelationFilter
   }, "id" | "faultReportId">
 
   export type WorkOrderOrderByWithAggregationInput = {
@@ -14037,6 +16994,76 @@ export namespace Prisma {
     assignedAt?: DateTimeWithAggregatesFilter<"WorkOrder"> | Date | string
     resolvedAt?: DateTimeNullableWithAggregatesFilter<"WorkOrder"> | Date | string | null
     resolutionNotes?: StringNullableWithAggregatesFilter<"WorkOrder"> | string | null
+  }
+
+  export type MaintenanceLogWhereInput = {
+    AND?: MaintenanceLogWhereInput | MaintenanceLogWhereInput[]
+    OR?: MaintenanceLogWhereInput[]
+    NOT?: MaintenanceLogWhereInput | MaintenanceLogWhereInput[]
+    id?: StringFilter<"MaintenanceLog"> | string
+    workOrderId?: StringFilter<"MaintenanceLog"> | string
+    technicianId?: StringFilter<"MaintenanceLog"> | string
+    partsUsed?: StringNullableFilter<"MaintenanceLog"> | string | null
+    timeSpent?: IntNullableFilter<"MaintenanceLog"> | number | null
+    notes?: StringNullableFilter<"MaintenanceLog"> | string | null
+    createdAt?: DateTimeFilter<"MaintenanceLog"> | Date | string
+    workOrder?: XOR<WorkOrderScalarRelationFilter, WorkOrderWhereInput>
+    technician?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type MaintenanceLogOrderByWithRelationInput = {
+    id?: SortOrder
+    workOrderId?: SortOrder
+    technicianId?: SortOrder
+    partsUsed?: SortOrderInput | SortOrder
+    timeSpent?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    workOrder?: WorkOrderOrderByWithRelationInput
+    technician?: UserOrderByWithRelationInput
+  }
+
+  export type MaintenanceLogWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MaintenanceLogWhereInput | MaintenanceLogWhereInput[]
+    OR?: MaintenanceLogWhereInput[]
+    NOT?: MaintenanceLogWhereInput | MaintenanceLogWhereInput[]
+    workOrderId?: StringFilter<"MaintenanceLog"> | string
+    technicianId?: StringFilter<"MaintenanceLog"> | string
+    partsUsed?: StringNullableFilter<"MaintenanceLog"> | string | null
+    timeSpent?: IntNullableFilter<"MaintenanceLog"> | number | null
+    notes?: StringNullableFilter<"MaintenanceLog"> | string | null
+    createdAt?: DateTimeFilter<"MaintenanceLog"> | Date | string
+    workOrder?: XOR<WorkOrderScalarRelationFilter, WorkOrderWhereInput>
+    technician?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type MaintenanceLogOrderByWithAggregationInput = {
+    id?: SortOrder
+    workOrderId?: SortOrder
+    technicianId?: SortOrder
+    partsUsed?: SortOrderInput | SortOrder
+    timeSpent?: SortOrderInput | SortOrder
+    notes?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: MaintenanceLogCountOrderByAggregateInput
+    _avg?: MaintenanceLogAvgOrderByAggregateInput
+    _max?: MaintenanceLogMaxOrderByAggregateInput
+    _min?: MaintenanceLogMinOrderByAggregateInput
+    _sum?: MaintenanceLogSumOrderByAggregateInput
+  }
+
+  export type MaintenanceLogScalarWhereWithAggregatesInput = {
+    AND?: MaintenanceLogScalarWhereWithAggregatesInput | MaintenanceLogScalarWhereWithAggregatesInput[]
+    OR?: MaintenanceLogScalarWhereWithAggregatesInput[]
+    NOT?: MaintenanceLogScalarWhereWithAggregatesInput | MaintenanceLogScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MaintenanceLog"> | string
+    workOrderId?: StringWithAggregatesFilter<"MaintenanceLog"> | string
+    technicianId?: StringWithAggregatesFilter<"MaintenanceLog"> | string
+    partsUsed?: StringNullableWithAggregatesFilter<"MaintenanceLog"> | string | null
+    timeSpent?: IntNullableWithAggregatesFilter<"MaintenanceLog"> | number | null
+    notes?: StringNullableWithAggregatesFilter<"MaintenanceLog"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"MaintenanceLog"> | Date | string
   }
 
   export type StatusLogWhereInput = {
@@ -14438,6 +17465,102 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"InventoryLog"> | Date | string
   }
 
+  export type TechnicianApplicationWhereInput = {
+    AND?: TechnicianApplicationWhereInput | TechnicianApplicationWhereInput[]
+    OR?: TechnicianApplicationWhereInput[]
+    NOT?: TechnicianApplicationWhereInput | TechnicianApplicationWhereInput[]
+    id?: StringFilter<"TechnicianApplication"> | string
+    applicantId?: StringFilter<"TechnicianApplication"> | string
+    skills?: StringFilter<"TechnicianApplication"> | string
+    reason?: StringFilter<"TechnicianApplication"> | string
+    status?: EnumApplicationStatusFilter<"TechnicianApplication"> | $Enums.ApplicationStatus
+    verifiedById?: StringNullableFilter<"TechnicianApplication"> | string | null
+    verifiedAt?: DateTimeNullableFilter<"TechnicianApplication"> | Date | string | null
+    rejectedById?: StringNullableFilter<"TechnicianApplication"> | string | null
+    rejectedAt?: DateTimeNullableFilter<"TechnicianApplication"> | Date | string | null
+    rejectedReason?: StringNullableFilter<"TechnicianApplication"> | string | null
+    createdAt?: DateTimeFilter<"TechnicianApplication"> | Date | string
+    updatedAt?: DateTimeFilter<"TechnicianApplication"> | Date | string
+    applicant?: XOR<UserScalarRelationFilter, UserWhereInput>
+    verifiedBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    rejectedBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  }
+
+  export type TechnicianApplicationOrderByWithRelationInput = {
+    id?: SortOrder
+    applicantId?: SortOrder
+    skills?: SortOrder
+    reason?: SortOrder
+    status?: SortOrder
+    verifiedById?: SortOrderInput | SortOrder
+    verifiedAt?: SortOrderInput | SortOrder
+    rejectedById?: SortOrderInput | SortOrder
+    rejectedAt?: SortOrderInput | SortOrder
+    rejectedReason?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    applicant?: UserOrderByWithRelationInput
+    verifiedBy?: UserOrderByWithRelationInput
+    rejectedBy?: UserOrderByWithRelationInput
+  }
+
+  export type TechnicianApplicationWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: TechnicianApplicationWhereInput | TechnicianApplicationWhereInput[]
+    OR?: TechnicianApplicationWhereInput[]
+    NOT?: TechnicianApplicationWhereInput | TechnicianApplicationWhereInput[]
+    applicantId?: StringFilter<"TechnicianApplication"> | string
+    skills?: StringFilter<"TechnicianApplication"> | string
+    reason?: StringFilter<"TechnicianApplication"> | string
+    status?: EnumApplicationStatusFilter<"TechnicianApplication"> | $Enums.ApplicationStatus
+    verifiedById?: StringNullableFilter<"TechnicianApplication"> | string | null
+    verifiedAt?: DateTimeNullableFilter<"TechnicianApplication"> | Date | string | null
+    rejectedById?: StringNullableFilter<"TechnicianApplication"> | string | null
+    rejectedAt?: DateTimeNullableFilter<"TechnicianApplication"> | Date | string | null
+    rejectedReason?: StringNullableFilter<"TechnicianApplication"> | string | null
+    createdAt?: DateTimeFilter<"TechnicianApplication"> | Date | string
+    updatedAt?: DateTimeFilter<"TechnicianApplication"> | Date | string
+    applicant?: XOR<UserScalarRelationFilter, UserWhereInput>
+    verifiedBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    rejectedBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+  }, "id">
+
+  export type TechnicianApplicationOrderByWithAggregationInput = {
+    id?: SortOrder
+    applicantId?: SortOrder
+    skills?: SortOrder
+    reason?: SortOrder
+    status?: SortOrder
+    verifiedById?: SortOrderInput | SortOrder
+    verifiedAt?: SortOrderInput | SortOrder
+    rejectedById?: SortOrderInput | SortOrder
+    rejectedAt?: SortOrderInput | SortOrder
+    rejectedReason?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: TechnicianApplicationCountOrderByAggregateInput
+    _max?: TechnicianApplicationMaxOrderByAggregateInput
+    _min?: TechnicianApplicationMinOrderByAggregateInput
+  }
+
+  export type TechnicianApplicationScalarWhereWithAggregatesInput = {
+    AND?: TechnicianApplicationScalarWhereWithAggregatesInput | TechnicianApplicationScalarWhereWithAggregatesInput[]
+    OR?: TechnicianApplicationScalarWhereWithAggregatesInput[]
+    NOT?: TechnicianApplicationScalarWhereWithAggregatesInput | TechnicianApplicationScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"TechnicianApplication"> | string
+    applicantId?: StringWithAggregatesFilter<"TechnicianApplication"> | string
+    skills?: StringWithAggregatesFilter<"TechnicianApplication"> | string
+    reason?: StringWithAggregatesFilter<"TechnicianApplication"> | string
+    status?: EnumApplicationStatusWithAggregatesFilter<"TechnicianApplication"> | $Enums.ApplicationStatus
+    verifiedById?: StringNullableWithAggregatesFilter<"TechnicianApplication"> | string | null
+    verifiedAt?: DateTimeNullableWithAggregatesFilter<"TechnicianApplication"> | Date | string | null
+    rejectedById?: StringNullableWithAggregatesFilter<"TechnicianApplication"> | string | null
+    rejectedAt?: DateTimeNullableWithAggregatesFilter<"TechnicianApplication"> | Date | string | null
+    rejectedReason?: StringNullableWithAggregatesFilter<"TechnicianApplication"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"TechnicianApplication"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"TechnicianApplication"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -14462,6 +17585,10 @@ export namespace Prisma {
     statusLogs?: StatusLogCreateNestedManyWithoutChangedByInput
     workOrdersCreated?: WorkOrderCreateNestedManyWithoutAssignedByInput
     workOrdersAssigned?: WorkOrderCreateNestedManyWithoutAssignedToInput
+    maintenanceLogs?: MaintenanceLogCreateNestedManyWithoutTechnicianInput
+    technicianApplications?: TechnicianApplicationCreateNestedManyWithoutApplicantInput
+    verifiedApplications?: TechnicianApplicationCreateNestedManyWithoutVerifiedByInput
+    rejectedApplications?: TechnicianApplicationCreateNestedManyWithoutRejectedByInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -14488,6 +17615,10 @@ export namespace Prisma {
     statusLogs?: StatusLogUncheckedCreateNestedManyWithoutChangedByInput
     workOrdersCreated?: WorkOrderUncheckedCreateNestedManyWithoutAssignedByInput
     workOrdersAssigned?: WorkOrderUncheckedCreateNestedManyWithoutAssignedToInput
+    maintenanceLogs?: MaintenanceLogUncheckedCreateNestedManyWithoutTechnicianInput
+    technicianApplications?: TechnicianApplicationUncheckedCreateNestedManyWithoutApplicantInput
+    verifiedApplications?: TechnicianApplicationUncheckedCreateNestedManyWithoutVerifiedByInput
+    rejectedApplications?: TechnicianApplicationUncheckedCreateNestedManyWithoutRejectedByInput
   }
 
   export type UserUpdateInput = {
@@ -14514,6 +17645,10 @@ export namespace Prisma {
     statusLogs?: StatusLogUpdateManyWithoutChangedByNestedInput
     workOrdersCreated?: WorkOrderUpdateManyWithoutAssignedByNestedInput
     workOrdersAssigned?: WorkOrderUpdateManyWithoutAssignedToNestedInput
+    maintenanceLogs?: MaintenanceLogUpdateManyWithoutTechnicianNestedInput
+    technicianApplications?: TechnicianApplicationUpdateManyWithoutApplicantNestedInput
+    verifiedApplications?: TechnicianApplicationUpdateManyWithoutVerifiedByNestedInput
+    rejectedApplications?: TechnicianApplicationUpdateManyWithoutRejectedByNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -14540,6 +17675,10 @@ export namespace Prisma {
     statusLogs?: StatusLogUncheckedUpdateManyWithoutChangedByNestedInput
     workOrdersCreated?: WorkOrderUncheckedUpdateManyWithoutAssignedByNestedInput
     workOrdersAssigned?: WorkOrderUncheckedUpdateManyWithoutAssignedToNestedInput
+    maintenanceLogs?: MaintenanceLogUncheckedUpdateManyWithoutTechnicianNestedInput
+    technicianApplications?: TechnicianApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+    verifiedApplications?: TechnicianApplicationUncheckedUpdateManyWithoutVerifiedByNestedInput
+    rejectedApplications?: TechnicianApplicationUncheckedUpdateManyWithoutRejectedByNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -14693,44 +17832,64 @@ export namespace Prisma {
 
   export type FaultReportCreateInput = {
     id?: string
+    reporterName?: string | null
+    reporterEmail?: string | null
+    reporterPhone?: string | null
     description: string
     faultType: $Enums.FaultType
     status?: $Enums.ReportStatus
+    latitude?: number | null
+    longitude?: number | null
     reportedAt?: Date | string
     pole: PoleCreateNestedOneWithoutFaultReportsInput
-    reportedBy: UserCreateNestedOneWithoutFaultReportsInput
+    reportedBy?: UserCreateNestedOneWithoutFaultReportsInput
     workOrder?: WorkOrderCreateNestedOneWithoutFaultReportInput
   }
 
   export type FaultReportUncheckedCreateInput = {
     id?: string
     poleId: string
-    reportedById: string
+    reportedById?: string | null
+    reporterName?: string | null
+    reporterEmail?: string | null
+    reporterPhone?: string | null
     description: string
     faultType: $Enums.FaultType
     status?: $Enums.ReportStatus
+    latitude?: number | null
+    longitude?: number | null
     reportedAt?: Date | string
     workOrder?: WorkOrderUncheckedCreateNestedOneWithoutFaultReportInput
   }
 
   export type FaultReportUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    reporterName?: NullableStringFieldUpdateOperationsInput | string | null
+    reporterEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    reporterPhone?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     faultType?: EnumFaultTypeFieldUpdateOperationsInput | $Enums.FaultType
     status?: EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     reportedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pole?: PoleUpdateOneRequiredWithoutFaultReportsNestedInput
-    reportedBy?: UserUpdateOneRequiredWithoutFaultReportsNestedInput
+    reportedBy?: UserUpdateOneWithoutFaultReportsNestedInput
     workOrder?: WorkOrderUpdateOneWithoutFaultReportNestedInput
   }
 
   export type FaultReportUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     poleId?: StringFieldUpdateOperationsInput | string
-    reportedById?: StringFieldUpdateOperationsInput | string
+    reportedById?: NullableStringFieldUpdateOperationsInput | string | null
+    reporterName?: NullableStringFieldUpdateOperationsInput | string | null
+    reporterEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    reporterPhone?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     faultType?: EnumFaultTypeFieldUpdateOperationsInput | $Enums.FaultType
     status?: EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     reportedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workOrder?: WorkOrderUncheckedUpdateOneWithoutFaultReportNestedInput
   }
@@ -14738,28 +17897,43 @@ export namespace Prisma {
   export type FaultReportCreateManyInput = {
     id?: string
     poleId: string
-    reportedById: string
+    reportedById?: string | null
+    reporterName?: string | null
+    reporterEmail?: string | null
+    reporterPhone?: string | null
     description: string
     faultType: $Enums.FaultType
     status?: $Enums.ReportStatus
+    latitude?: number | null
+    longitude?: number | null
     reportedAt?: Date | string
   }
 
   export type FaultReportUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    reporterName?: NullableStringFieldUpdateOperationsInput | string | null
+    reporterEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    reporterPhone?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     faultType?: EnumFaultTypeFieldUpdateOperationsInput | $Enums.FaultType
     status?: EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     reportedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FaultReportUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     poleId?: StringFieldUpdateOperationsInput | string
-    reportedById?: StringFieldUpdateOperationsInput | string
+    reportedById?: NullableStringFieldUpdateOperationsInput | string | null
+    reporterName?: NullableStringFieldUpdateOperationsInput | string | null
+    reporterEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    reporterPhone?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     faultType?: EnumFaultTypeFieldUpdateOperationsInput | $Enums.FaultType
     status?: EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     reportedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -14772,6 +17946,7 @@ export namespace Prisma {
     assignedBy: UserCreateNestedOneWithoutWorkOrdersCreatedInput
     assignedTo?: UserCreateNestedOneWithoutWorkOrdersAssignedInput
     faultReport: FaultReportCreateNestedOneWithoutWorkOrderInput
+    maintenanceLogs?: MaintenanceLogCreateNestedManyWithoutWorkOrderInput
   }
 
   export type WorkOrderUncheckedCreateInput = {
@@ -14783,6 +17958,7 @@ export namespace Prisma {
     assignedAt?: Date | string
     resolvedAt?: Date | string | null
     resolutionNotes?: string | null
+    maintenanceLogs?: MaintenanceLogUncheckedCreateNestedManyWithoutWorkOrderInput
   }
 
   export type WorkOrderUpdateInput = {
@@ -14794,6 +17970,7 @@ export namespace Prisma {
     assignedBy?: UserUpdateOneRequiredWithoutWorkOrdersCreatedNestedInput
     assignedTo?: UserUpdateOneWithoutWorkOrdersAssignedNestedInput
     faultReport?: FaultReportUpdateOneRequiredWithoutWorkOrderNestedInput
+    maintenanceLogs?: MaintenanceLogUpdateManyWithoutWorkOrderNestedInput
   }
 
   export type WorkOrderUncheckedUpdateInput = {
@@ -14805,6 +17982,7 @@ export namespace Prisma {
     assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resolutionNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    maintenanceLogs?: MaintenanceLogUncheckedUpdateManyWithoutWorkOrderNestedInput
   }
 
   export type WorkOrderCreateManyInput = {
@@ -14835,6 +18013,74 @@ export namespace Prisma {
     assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resolutionNotes?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MaintenanceLogCreateInput = {
+    id?: string
+    partsUsed?: string | null
+    timeSpent?: number | null
+    notes?: string | null
+    createdAt?: Date | string
+    workOrder: WorkOrderCreateNestedOneWithoutMaintenanceLogsInput
+    technician: UserCreateNestedOneWithoutMaintenanceLogsInput
+  }
+
+  export type MaintenanceLogUncheckedCreateInput = {
+    id?: string
+    workOrderId: string
+    technicianId: string
+    partsUsed?: string | null
+    timeSpent?: number | null
+    notes?: string | null
+    createdAt?: Date | string
+  }
+
+  export type MaintenanceLogUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    partsUsed?: NullableStringFieldUpdateOperationsInput | string | null
+    timeSpent?: NullableIntFieldUpdateOperationsInput | number | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    workOrder?: WorkOrderUpdateOneRequiredWithoutMaintenanceLogsNestedInput
+    technician?: UserUpdateOneRequiredWithoutMaintenanceLogsNestedInput
+  }
+
+  export type MaintenanceLogUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    workOrderId?: StringFieldUpdateOperationsInput | string
+    technicianId?: StringFieldUpdateOperationsInput | string
+    partsUsed?: NullableStringFieldUpdateOperationsInput | string | null
+    timeSpent?: NullableIntFieldUpdateOperationsInput | number | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MaintenanceLogCreateManyInput = {
+    id?: string
+    workOrderId: string
+    technicianId: string
+    partsUsed?: string | null
+    timeSpent?: number | null
+    notes?: string | null
+    createdAt?: Date | string
+  }
+
+  export type MaintenanceLogUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    partsUsed?: NullableStringFieldUpdateOperationsInput | string | null
+    timeSpent?: NullableIntFieldUpdateOperationsInput | number | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MaintenanceLogUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    workOrderId?: StringFieldUpdateOperationsInput | string
+    technicianId?: StringFieldUpdateOperationsInput | string
+    partsUsed?: NullableStringFieldUpdateOperationsInput | string | null
+    timeSpent?: NullableIntFieldUpdateOperationsInput | number | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type StatusLogCreateInput = {
@@ -15255,6 +18501,108 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type TechnicianApplicationCreateInput = {
+    id?: string
+    skills: string
+    reason: string
+    status?: $Enums.ApplicationStatus
+    verifiedAt?: Date | string | null
+    rejectedAt?: Date | string | null
+    rejectedReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    applicant: UserCreateNestedOneWithoutTechnicianApplicationsInput
+    verifiedBy?: UserCreateNestedOneWithoutVerifiedApplicationsInput
+    rejectedBy?: UserCreateNestedOneWithoutRejectedApplicationsInput
+  }
+
+  export type TechnicianApplicationUncheckedCreateInput = {
+    id?: string
+    applicantId: string
+    skills: string
+    reason: string
+    status?: $Enums.ApplicationStatus
+    verifiedById?: string | null
+    verifiedAt?: Date | string | null
+    rejectedById?: string | null
+    rejectedAt?: Date | string | null
+    rejectedReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TechnicianApplicationUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    skills?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectedReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    applicant?: UserUpdateOneRequiredWithoutTechnicianApplicationsNestedInput
+    verifiedBy?: UserUpdateOneWithoutVerifiedApplicationsNestedInput
+    rejectedBy?: UserUpdateOneWithoutRejectedApplicationsNestedInput
+  }
+
+  export type TechnicianApplicationUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    applicantId?: StringFieldUpdateOperationsInput | string
+    skills?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    verifiedById?: NullableStringFieldUpdateOperationsInput | string | null
+    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectedById?: NullableStringFieldUpdateOperationsInput | string | null
+    rejectedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectedReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TechnicianApplicationCreateManyInput = {
+    id?: string
+    applicantId: string
+    skills: string
+    reason: string
+    status?: $Enums.ApplicationStatus
+    verifiedById?: string | null
+    verifiedAt?: Date | string | null
+    rejectedById?: string | null
+    rejectedAt?: Date | string | null
+    rejectedReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TechnicianApplicationUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    skills?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectedReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TechnicianApplicationUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    applicantId?: StringFieldUpdateOperationsInput | string
+    skills?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    verifiedById?: NullableStringFieldUpdateOperationsInput | string | null
+    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectedById?: NullableStringFieldUpdateOperationsInput | string | null
+    rejectedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectedReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -15350,6 +18698,18 @@ export namespace Prisma {
     none?: WorkOrderWhereInput
   }
 
+  export type MaintenanceLogListRelationFilter = {
+    every?: MaintenanceLogWhereInput
+    some?: MaintenanceLogWhereInput
+    none?: MaintenanceLogWhereInput
+  }
+
+  export type TechnicianApplicationListRelationFilter = {
+    every?: TechnicianApplicationWhereInput
+    some?: TechnicianApplicationWhereInput
+    none?: TechnicianApplicationWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -15376,6 +18736,14 @@ export namespace Prisma {
   }
 
   export type WorkOrderOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MaintenanceLogOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type TechnicianApplicationOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -15614,14 +18982,25 @@ export namespace Prisma {
     not?: NestedEnumReportStatusFilter<$PrismaModel> | $Enums.ReportStatus
   }
 
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
   export type PoleScalarRelationFilter = {
     is?: PoleWhereInput
     isNot?: PoleWhereInput
   }
 
-  export type UserScalarRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
+  export type UserNullableScalarRelationFilter = {
+    is?: UserWhereInput | null
+    isNot?: UserWhereInput | null
   }
 
   export type WorkOrderNullableScalarRelationFilter = {
@@ -15633,19 +19012,34 @@ export namespace Prisma {
     id?: SortOrder
     poleId?: SortOrder
     reportedById?: SortOrder
+    reporterName?: SortOrder
+    reporterEmail?: SortOrder
+    reporterPhone?: SortOrder
     description?: SortOrder
     faultType?: SortOrder
     status?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
     reportedAt?: SortOrder
+  }
+
+  export type FaultReportAvgOrderByAggregateInput = {
+    latitude?: SortOrder
+    longitude?: SortOrder
   }
 
   export type FaultReportMaxOrderByAggregateInput = {
     id?: SortOrder
     poleId?: SortOrder
     reportedById?: SortOrder
+    reporterName?: SortOrder
+    reporterEmail?: SortOrder
+    reporterPhone?: SortOrder
     description?: SortOrder
     faultType?: SortOrder
     status?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
     reportedAt?: SortOrder
   }
 
@@ -15653,10 +19047,20 @@ export namespace Prisma {
     id?: SortOrder
     poleId?: SortOrder
     reportedById?: SortOrder
+    reporterName?: SortOrder
+    reporterEmail?: SortOrder
+    reporterPhone?: SortOrder
     description?: SortOrder
     faultType?: SortOrder
     status?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
     reportedAt?: SortOrder
+  }
+
+  export type FaultReportSumOrderByAggregateInput = {
+    latitude?: SortOrder
+    longitude?: SortOrder
   }
 
   export type EnumFaultTypeWithAggregatesFilter<$PrismaModel = never> = {
@@ -15679,6 +19083,22 @@ export namespace Prisma {
     _max?: NestedEnumReportStatusFilter<$PrismaModel>
   }
 
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
   export type EnumWorkOrderStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.WorkOrderStatus | EnumWorkOrderStatusFieldRefInput<$PrismaModel>
     in?: $Enums.WorkOrderStatus[] | ListEnumWorkOrderStatusFieldRefInput<$PrismaModel>
@@ -15686,9 +19106,9 @@ export namespace Prisma {
     not?: NestedEnumWorkOrderStatusFilter<$PrismaModel> | $Enums.WorkOrderStatus
   }
 
-  export type UserNullableScalarRelationFilter = {
-    is?: UserWhereInput | null
-    isNot?: UserWhereInput | null
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
   }
 
   export type FaultReportScalarRelationFilter = {
@@ -15739,6 +19159,76 @@ export namespace Prisma {
     _max?: NestedEnumWorkOrderStatusFilter<$PrismaModel>
   }
 
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type WorkOrderScalarRelationFilter = {
+    is?: WorkOrderWhereInput
+    isNot?: WorkOrderWhereInput
+  }
+
+  export type MaintenanceLogCountOrderByAggregateInput = {
+    id?: SortOrder
+    workOrderId?: SortOrder
+    technicianId?: SortOrder
+    partsUsed?: SortOrder
+    timeSpent?: SortOrder
+    notes?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MaintenanceLogAvgOrderByAggregateInput = {
+    timeSpent?: SortOrder
+  }
+
+  export type MaintenanceLogMaxOrderByAggregateInput = {
+    id?: SortOrder
+    workOrderId?: SortOrder
+    technicianId?: SortOrder
+    partsUsed?: SortOrder
+    timeSpent?: SortOrder
+    notes?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MaintenanceLogMinOrderByAggregateInput = {
+    id?: SortOrder
+    workOrderId?: SortOrder
+    technicianId?: SortOrder
+    partsUsed?: SortOrder
+    timeSpent?: SortOrder
+    notes?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MaintenanceLogSumOrderByAggregateInput = {
+    timeSpent?: SortOrder
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
   export type StatusLogCountOrderByAggregateInput = {
     id?: SortOrder
     poleId?: SortOrder
@@ -15767,17 +19257,6 @@ export namespace Prisma {
     toStatus?: SortOrder
     changedAt?: SortOrder
     reason?: SortOrder
-  }
-
-  export type FloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
   export type SearchHistoryCountOrderByAggregateInput = {
@@ -15818,22 +19297,6 @@ export namespace Prisma {
   export type SearchHistorySumOrderByAggregateInput = {
     lat?: SortOrder
     lng?: SortOrder
-  }
-
-  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedFloatNullableFilter<$PrismaModel>
-    _min?: NestedFloatNullableFilter<$PrismaModel>
-    _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
   export type PasswordResetTokenCountOrderByAggregateInput = {
@@ -16019,6 +19482,68 @@ export namespace Prisma {
     change?: SortOrder
   }
 
+  export type EnumApplicationStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ApplicationStatus | EnumApplicationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumApplicationStatusFilter<$PrismaModel> | $Enums.ApplicationStatus
+  }
+
+  export type TechnicianApplicationCountOrderByAggregateInput = {
+    id?: SortOrder
+    applicantId?: SortOrder
+    skills?: SortOrder
+    reason?: SortOrder
+    status?: SortOrder
+    verifiedById?: SortOrder
+    verifiedAt?: SortOrder
+    rejectedById?: SortOrder
+    rejectedAt?: SortOrder
+    rejectedReason?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TechnicianApplicationMaxOrderByAggregateInput = {
+    id?: SortOrder
+    applicantId?: SortOrder
+    skills?: SortOrder
+    reason?: SortOrder
+    status?: SortOrder
+    verifiedById?: SortOrder
+    verifiedAt?: SortOrder
+    rejectedById?: SortOrder
+    rejectedAt?: SortOrder
+    rejectedReason?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TechnicianApplicationMinOrderByAggregateInput = {
+    id?: SortOrder
+    applicantId?: SortOrder
+    skills?: SortOrder
+    reason?: SortOrder
+    status?: SortOrder
+    verifiedById?: SortOrder
+    verifiedAt?: SortOrder
+    rejectedById?: SortOrder
+    rejectedAt?: SortOrder
+    rejectedReason?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumApplicationStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ApplicationStatus | EnumApplicationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumApplicationStatusWithAggregatesFilter<$PrismaModel> | $Enums.ApplicationStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumApplicationStatusFilter<$PrismaModel>
+    _max?: NestedEnumApplicationStatusFilter<$PrismaModel>
+  }
+
   export type FaultReportCreateNestedManyWithoutReportedByInput = {
     create?: XOR<FaultReportCreateWithoutReportedByInput, FaultReportUncheckedCreateWithoutReportedByInput> | FaultReportCreateWithoutReportedByInput[] | FaultReportUncheckedCreateWithoutReportedByInput[]
     connectOrCreate?: FaultReportCreateOrConnectWithoutReportedByInput | FaultReportCreateOrConnectWithoutReportedByInput[]
@@ -16068,6 +19593,34 @@ export namespace Prisma {
     connect?: WorkOrderWhereUniqueInput | WorkOrderWhereUniqueInput[]
   }
 
+  export type MaintenanceLogCreateNestedManyWithoutTechnicianInput = {
+    create?: XOR<MaintenanceLogCreateWithoutTechnicianInput, MaintenanceLogUncheckedCreateWithoutTechnicianInput> | MaintenanceLogCreateWithoutTechnicianInput[] | MaintenanceLogUncheckedCreateWithoutTechnicianInput[]
+    connectOrCreate?: MaintenanceLogCreateOrConnectWithoutTechnicianInput | MaintenanceLogCreateOrConnectWithoutTechnicianInput[]
+    createMany?: MaintenanceLogCreateManyTechnicianInputEnvelope
+    connect?: MaintenanceLogWhereUniqueInput | MaintenanceLogWhereUniqueInput[]
+  }
+
+  export type TechnicianApplicationCreateNestedManyWithoutApplicantInput = {
+    create?: XOR<TechnicianApplicationCreateWithoutApplicantInput, TechnicianApplicationUncheckedCreateWithoutApplicantInput> | TechnicianApplicationCreateWithoutApplicantInput[] | TechnicianApplicationUncheckedCreateWithoutApplicantInput[]
+    connectOrCreate?: TechnicianApplicationCreateOrConnectWithoutApplicantInput | TechnicianApplicationCreateOrConnectWithoutApplicantInput[]
+    createMany?: TechnicianApplicationCreateManyApplicantInputEnvelope
+    connect?: TechnicianApplicationWhereUniqueInput | TechnicianApplicationWhereUniqueInput[]
+  }
+
+  export type TechnicianApplicationCreateNestedManyWithoutVerifiedByInput = {
+    create?: XOR<TechnicianApplicationCreateWithoutVerifiedByInput, TechnicianApplicationUncheckedCreateWithoutVerifiedByInput> | TechnicianApplicationCreateWithoutVerifiedByInput[] | TechnicianApplicationUncheckedCreateWithoutVerifiedByInput[]
+    connectOrCreate?: TechnicianApplicationCreateOrConnectWithoutVerifiedByInput | TechnicianApplicationCreateOrConnectWithoutVerifiedByInput[]
+    createMany?: TechnicianApplicationCreateManyVerifiedByInputEnvelope
+    connect?: TechnicianApplicationWhereUniqueInput | TechnicianApplicationWhereUniqueInput[]
+  }
+
+  export type TechnicianApplicationCreateNestedManyWithoutRejectedByInput = {
+    create?: XOR<TechnicianApplicationCreateWithoutRejectedByInput, TechnicianApplicationUncheckedCreateWithoutRejectedByInput> | TechnicianApplicationCreateWithoutRejectedByInput[] | TechnicianApplicationUncheckedCreateWithoutRejectedByInput[]
+    connectOrCreate?: TechnicianApplicationCreateOrConnectWithoutRejectedByInput | TechnicianApplicationCreateOrConnectWithoutRejectedByInput[]
+    createMany?: TechnicianApplicationCreateManyRejectedByInputEnvelope
+    connect?: TechnicianApplicationWhereUniqueInput | TechnicianApplicationWhereUniqueInput[]
+  }
+
   export type FaultReportUncheckedCreateNestedManyWithoutReportedByInput = {
     create?: XOR<FaultReportCreateWithoutReportedByInput, FaultReportUncheckedCreateWithoutReportedByInput> | FaultReportCreateWithoutReportedByInput[] | FaultReportUncheckedCreateWithoutReportedByInput[]
     connectOrCreate?: FaultReportCreateOrConnectWithoutReportedByInput | FaultReportCreateOrConnectWithoutReportedByInput[]
@@ -16115,6 +19668,34 @@ export namespace Prisma {
     connectOrCreate?: WorkOrderCreateOrConnectWithoutAssignedToInput | WorkOrderCreateOrConnectWithoutAssignedToInput[]
     createMany?: WorkOrderCreateManyAssignedToInputEnvelope
     connect?: WorkOrderWhereUniqueInput | WorkOrderWhereUniqueInput[]
+  }
+
+  export type MaintenanceLogUncheckedCreateNestedManyWithoutTechnicianInput = {
+    create?: XOR<MaintenanceLogCreateWithoutTechnicianInput, MaintenanceLogUncheckedCreateWithoutTechnicianInput> | MaintenanceLogCreateWithoutTechnicianInput[] | MaintenanceLogUncheckedCreateWithoutTechnicianInput[]
+    connectOrCreate?: MaintenanceLogCreateOrConnectWithoutTechnicianInput | MaintenanceLogCreateOrConnectWithoutTechnicianInput[]
+    createMany?: MaintenanceLogCreateManyTechnicianInputEnvelope
+    connect?: MaintenanceLogWhereUniqueInput | MaintenanceLogWhereUniqueInput[]
+  }
+
+  export type TechnicianApplicationUncheckedCreateNestedManyWithoutApplicantInput = {
+    create?: XOR<TechnicianApplicationCreateWithoutApplicantInput, TechnicianApplicationUncheckedCreateWithoutApplicantInput> | TechnicianApplicationCreateWithoutApplicantInput[] | TechnicianApplicationUncheckedCreateWithoutApplicantInput[]
+    connectOrCreate?: TechnicianApplicationCreateOrConnectWithoutApplicantInput | TechnicianApplicationCreateOrConnectWithoutApplicantInput[]
+    createMany?: TechnicianApplicationCreateManyApplicantInputEnvelope
+    connect?: TechnicianApplicationWhereUniqueInput | TechnicianApplicationWhereUniqueInput[]
+  }
+
+  export type TechnicianApplicationUncheckedCreateNestedManyWithoutVerifiedByInput = {
+    create?: XOR<TechnicianApplicationCreateWithoutVerifiedByInput, TechnicianApplicationUncheckedCreateWithoutVerifiedByInput> | TechnicianApplicationCreateWithoutVerifiedByInput[] | TechnicianApplicationUncheckedCreateWithoutVerifiedByInput[]
+    connectOrCreate?: TechnicianApplicationCreateOrConnectWithoutVerifiedByInput | TechnicianApplicationCreateOrConnectWithoutVerifiedByInput[]
+    createMany?: TechnicianApplicationCreateManyVerifiedByInputEnvelope
+    connect?: TechnicianApplicationWhereUniqueInput | TechnicianApplicationWhereUniqueInput[]
+  }
+
+  export type TechnicianApplicationUncheckedCreateNestedManyWithoutRejectedByInput = {
+    create?: XOR<TechnicianApplicationCreateWithoutRejectedByInput, TechnicianApplicationUncheckedCreateWithoutRejectedByInput> | TechnicianApplicationCreateWithoutRejectedByInput[] | TechnicianApplicationUncheckedCreateWithoutRejectedByInput[]
+    connectOrCreate?: TechnicianApplicationCreateOrConnectWithoutRejectedByInput | TechnicianApplicationCreateOrConnectWithoutRejectedByInput[]
+    createMany?: TechnicianApplicationCreateManyRejectedByInputEnvelope
+    connect?: TechnicianApplicationWhereUniqueInput | TechnicianApplicationWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -16235,6 +19816,62 @@ export namespace Prisma {
     deleteMany?: WorkOrderScalarWhereInput | WorkOrderScalarWhereInput[]
   }
 
+  export type MaintenanceLogUpdateManyWithoutTechnicianNestedInput = {
+    create?: XOR<MaintenanceLogCreateWithoutTechnicianInput, MaintenanceLogUncheckedCreateWithoutTechnicianInput> | MaintenanceLogCreateWithoutTechnicianInput[] | MaintenanceLogUncheckedCreateWithoutTechnicianInput[]
+    connectOrCreate?: MaintenanceLogCreateOrConnectWithoutTechnicianInput | MaintenanceLogCreateOrConnectWithoutTechnicianInput[]
+    upsert?: MaintenanceLogUpsertWithWhereUniqueWithoutTechnicianInput | MaintenanceLogUpsertWithWhereUniqueWithoutTechnicianInput[]
+    createMany?: MaintenanceLogCreateManyTechnicianInputEnvelope
+    set?: MaintenanceLogWhereUniqueInput | MaintenanceLogWhereUniqueInput[]
+    disconnect?: MaintenanceLogWhereUniqueInput | MaintenanceLogWhereUniqueInput[]
+    delete?: MaintenanceLogWhereUniqueInput | MaintenanceLogWhereUniqueInput[]
+    connect?: MaintenanceLogWhereUniqueInput | MaintenanceLogWhereUniqueInput[]
+    update?: MaintenanceLogUpdateWithWhereUniqueWithoutTechnicianInput | MaintenanceLogUpdateWithWhereUniqueWithoutTechnicianInput[]
+    updateMany?: MaintenanceLogUpdateManyWithWhereWithoutTechnicianInput | MaintenanceLogUpdateManyWithWhereWithoutTechnicianInput[]
+    deleteMany?: MaintenanceLogScalarWhereInput | MaintenanceLogScalarWhereInput[]
+  }
+
+  export type TechnicianApplicationUpdateManyWithoutApplicantNestedInput = {
+    create?: XOR<TechnicianApplicationCreateWithoutApplicantInput, TechnicianApplicationUncheckedCreateWithoutApplicantInput> | TechnicianApplicationCreateWithoutApplicantInput[] | TechnicianApplicationUncheckedCreateWithoutApplicantInput[]
+    connectOrCreate?: TechnicianApplicationCreateOrConnectWithoutApplicantInput | TechnicianApplicationCreateOrConnectWithoutApplicantInput[]
+    upsert?: TechnicianApplicationUpsertWithWhereUniqueWithoutApplicantInput | TechnicianApplicationUpsertWithWhereUniqueWithoutApplicantInput[]
+    createMany?: TechnicianApplicationCreateManyApplicantInputEnvelope
+    set?: TechnicianApplicationWhereUniqueInput | TechnicianApplicationWhereUniqueInput[]
+    disconnect?: TechnicianApplicationWhereUniqueInput | TechnicianApplicationWhereUniqueInput[]
+    delete?: TechnicianApplicationWhereUniqueInput | TechnicianApplicationWhereUniqueInput[]
+    connect?: TechnicianApplicationWhereUniqueInput | TechnicianApplicationWhereUniqueInput[]
+    update?: TechnicianApplicationUpdateWithWhereUniqueWithoutApplicantInput | TechnicianApplicationUpdateWithWhereUniqueWithoutApplicantInput[]
+    updateMany?: TechnicianApplicationUpdateManyWithWhereWithoutApplicantInput | TechnicianApplicationUpdateManyWithWhereWithoutApplicantInput[]
+    deleteMany?: TechnicianApplicationScalarWhereInput | TechnicianApplicationScalarWhereInput[]
+  }
+
+  export type TechnicianApplicationUpdateManyWithoutVerifiedByNestedInput = {
+    create?: XOR<TechnicianApplicationCreateWithoutVerifiedByInput, TechnicianApplicationUncheckedCreateWithoutVerifiedByInput> | TechnicianApplicationCreateWithoutVerifiedByInput[] | TechnicianApplicationUncheckedCreateWithoutVerifiedByInput[]
+    connectOrCreate?: TechnicianApplicationCreateOrConnectWithoutVerifiedByInput | TechnicianApplicationCreateOrConnectWithoutVerifiedByInput[]
+    upsert?: TechnicianApplicationUpsertWithWhereUniqueWithoutVerifiedByInput | TechnicianApplicationUpsertWithWhereUniqueWithoutVerifiedByInput[]
+    createMany?: TechnicianApplicationCreateManyVerifiedByInputEnvelope
+    set?: TechnicianApplicationWhereUniqueInput | TechnicianApplicationWhereUniqueInput[]
+    disconnect?: TechnicianApplicationWhereUniqueInput | TechnicianApplicationWhereUniqueInput[]
+    delete?: TechnicianApplicationWhereUniqueInput | TechnicianApplicationWhereUniqueInput[]
+    connect?: TechnicianApplicationWhereUniqueInput | TechnicianApplicationWhereUniqueInput[]
+    update?: TechnicianApplicationUpdateWithWhereUniqueWithoutVerifiedByInput | TechnicianApplicationUpdateWithWhereUniqueWithoutVerifiedByInput[]
+    updateMany?: TechnicianApplicationUpdateManyWithWhereWithoutVerifiedByInput | TechnicianApplicationUpdateManyWithWhereWithoutVerifiedByInput[]
+    deleteMany?: TechnicianApplicationScalarWhereInput | TechnicianApplicationScalarWhereInput[]
+  }
+
+  export type TechnicianApplicationUpdateManyWithoutRejectedByNestedInput = {
+    create?: XOR<TechnicianApplicationCreateWithoutRejectedByInput, TechnicianApplicationUncheckedCreateWithoutRejectedByInput> | TechnicianApplicationCreateWithoutRejectedByInput[] | TechnicianApplicationUncheckedCreateWithoutRejectedByInput[]
+    connectOrCreate?: TechnicianApplicationCreateOrConnectWithoutRejectedByInput | TechnicianApplicationCreateOrConnectWithoutRejectedByInput[]
+    upsert?: TechnicianApplicationUpsertWithWhereUniqueWithoutRejectedByInput | TechnicianApplicationUpsertWithWhereUniqueWithoutRejectedByInput[]
+    createMany?: TechnicianApplicationCreateManyRejectedByInputEnvelope
+    set?: TechnicianApplicationWhereUniqueInput | TechnicianApplicationWhereUniqueInput[]
+    disconnect?: TechnicianApplicationWhereUniqueInput | TechnicianApplicationWhereUniqueInput[]
+    delete?: TechnicianApplicationWhereUniqueInput | TechnicianApplicationWhereUniqueInput[]
+    connect?: TechnicianApplicationWhereUniqueInput | TechnicianApplicationWhereUniqueInput[]
+    update?: TechnicianApplicationUpdateWithWhereUniqueWithoutRejectedByInput | TechnicianApplicationUpdateWithWhereUniqueWithoutRejectedByInput[]
+    updateMany?: TechnicianApplicationUpdateManyWithWhereWithoutRejectedByInput | TechnicianApplicationUpdateManyWithWhereWithoutRejectedByInput[]
+    deleteMany?: TechnicianApplicationScalarWhereInput | TechnicianApplicationScalarWhereInput[]
+  }
+
   export type FaultReportUncheckedUpdateManyWithoutReportedByNestedInput = {
     create?: XOR<FaultReportCreateWithoutReportedByInput, FaultReportUncheckedCreateWithoutReportedByInput> | FaultReportCreateWithoutReportedByInput[] | FaultReportUncheckedCreateWithoutReportedByInput[]
     connectOrCreate?: FaultReportCreateOrConnectWithoutReportedByInput | FaultReportCreateOrConnectWithoutReportedByInput[]
@@ -16331,6 +19968,62 @@ export namespace Prisma {
     update?: WorkOrderUpdateWithWhereUniqueWithoutAssignedToInput | WorkOrderUpdateWithWhereUniqueWithoutAssignedToInput[]
     updateMany?: WorkOrderUpdateManyWithWhereWithoutAssignedToInput | WorkOrderUpdateManyWithWhereWithoutAssignedToInput[]
     deleteMany?: WorkOrderScalarWhereInput | WorkOrderScalarWhereInput[]
+  }
+
+  export type MaintenanceLogUncheckedUpdateManyWithoutTechnicianNestedInput = {
+    create?: XOR<MaintenanceLogCreateWithoutTechnicianInput, MaintenanceLogUncheckedCreateWithoutTechnicianInput> | MaintenanceLogCreateWithoutTechnicianInput[] | MaintenanceLogUncheckedCreateWithoutTechnicianInput[]
+    connectOrCreate?: MaintenanceLogCreateOrConnectWithoutTechnicianInput | MaintenanceLogCreateOrConnectWithoutTechnicianInput[]
+    upsert?: MaintenanceLogUpsertWithWhereUniqueWithoutTechnicianInput | MaintenanceLogUpsertWithWhereUniqueWithoutTechnicianInput[]
+    createMany?: MaintenanceLogCreateManyTechnicianInputEnvelope
+    set?: MaintenanceLogWhereUniqueInput | MaintenanceLogWhereUniqueInput[]
+    disconnect?: MaintenanceLogWhereUniqueInput | MaintenanceLogWhereUniqueInput[]
+    delete?: MaintenanceLogWhereUniqueInput | MaintenanceLogWhereUniqueInput[]
+    connect?: MaintenanceLogWhereUniqueInput | MaintenanceLogWhereUniqueInput[]
+    update?: MaintenanceLogUpdateWithWhereUniqueWithoutTechnicianInput | MaintenanceLogUpdateWithWhereUniqueWithoutTechnicianInput[]
+    updateMany?: MaintenanceLogUpdateManyWithWhereWithoutTechnicianInput | MaintenanceLogUpdateManyWithWhereWithoutTechnicianInput[]
+    deleteMany?: MaintenanceLogScalarWhereInput | MaintenanceLogScalarWhereInput[]
+  }
+
+  export type TechnicianApplicationUncheckedUpdateManyWithoutApplicantNestedInput = {
+    create?: XOR<TechnicianApplicationCreateWithoutApplicantInput, TechnicianApplicationUncheckedCreateWithoutApplicantInput> | TechnicianApplicationCreateWithoutApplicantInput[] | TechnicianApplicationUncheckedCreateWithoutApplicantInput[]
+    connectOrCreate?: TechnicianApplicationCreateOrConnectWithoutApplicantInput | TechnicianApplicationCreateOrConnectWithoutApplicantInput[]
+    upsert?: TechnicianApplicationUpsertWithWhereUniqueWithoutApplicantInput | TechnicianApplicationUpsertWithWhereUniqueWithoutApplicantInput[]
+    createMany?: TechnicianApplicationCreateManyApplicantInputEnvelope
+    set?: TechnicianApplicationWhereUniqueInput | TechnicianApplicationWhereUniqueInput[]
+    disconnect?: TechnicianApplicationWhereUniqueInput | TechnicianApplicationWhereUniqueInput[]
+    delete?: TechnicianApplicationWhereUniqueInput | TechnicianApplicationWhereUniqueInput[]
+    connect?: TechnicianApplicationWhereUniqueInput | TechnicianApplicationWhereUniqueInput[]
+    update?: TechnicianApplicationUpdateWithWhereUniqueWithoutApplicantInput | TechnicianApplicationUpdateWithWhereUniqueWithoutApplicantInput[]
+    updateMany?: TechnicianApplicationUpdateManyWithWhereWithoutApplicantInput | TechnicianApplicationUpdateManyWithWhereWithoutApplicantInput[]
+    deleteMany?: TechnicianApplicationScalarWhereInput | TechnicianApplicationScalarWhereInput[]
+  }
+
+  export type TechnicianApplicationUncheckedUpdateManyWithoutVerifiedByNestedInput = {
+    create?: XOR<TechnicianApplicationCreateWithoutVerifiedByInput, TechnicianApplicationUncheckedCreateWithoutVerifiedByInput> | TechnicianApplicationCreateWithoutVerifiedByInput[] | TechnicianApplicationUncheckedCreateWithoutVerifiedByInput[]
+    connectOrCreate?: TechnicianApplicationCreateOrConnectWithoutVerifiedByInput | TechnicianApplicationCreateOrConnectWithoutVerifiedByInput[]
+    upsert?: TechnicianApplicationUpsertWithWhereUniqueWithoutVerifiedByInput | TechnicianApplicationUpsertWithWhereUniqueWithoutVerifiedByInput[]
+    createMany?: TechnicianApplicationCreateManyVerifiedByInputEnvelope
+    set?: TechnicianApplicationWhereUniqueInput | TechnicianApplicationWhereUniqueInput[]
+    disconnect?: TechnicianApplicationWhereUniqueInput | TechnicianApplicationWhereUniqueInput[]
+    delete?: TechnicianApplicationWhereUniqueInput | TechnicianApplicationWhereUniqueInput[]
+    connect?: TechnicianApplicationWhereUniqueInput | TechnicianApplicationWhereUniqueInput[]
+    update?: TechnicianApplicationUpdateWithWhereUniqueWithoutVerifiedByInput | TechnicianApplicationUpdateWithWhereUniqueWithoutVerifiedByInput[]
+    updateMany?: TechnicianApplicationUpdateManyWithWhereWithoutVerifiedByInput | TechnicianApplicationUpdateManyWithWhereWithoutVerifiedByInput[]
+    deleteMany?: TechnicianApplicationScalarWhereInput | TechnicianApplicationScalarWhereInput[]
+  }
+
+  export type TechnicianApplicationUncheckedUpdateManyWithoutRejectedByNestedInput = {
+    create?: XOR<TechnicianApplicationCreateWithoutRejectedByInput, TechnicianApplicationUncheckedCreateWithoutRejectedByInput> | TechnicianApplicationCreateWithoutRejectedByInput[] | TechnicianApplicationUncheckedCreateWithoutRejectedByInput[]
+    connectOrCreate?: TechnicianApplicationCreateOrConnectWithoutRejectedByInput | TechnicianApplicationCreateOrConnectWithoutRejectedByInput[]
+    upsert?: TechnicianApplicationUpsertWithWhereUniqueWithoutRejectedByInput | TechnicianApplicationUpsertWithWhereUniqueWithoutRejectedByInput[]
+    createMany?: TechnicianApplicationCreateManyRejectedByInputEnvelope
+    set?: TechnicianApplicationWhereUniqueInput | TechnicianApplicationWhereUniqueInput[]
+    disconnect?: TechnicianApplicationWhereUniqueInput | TechnicianApplicationWhereUniqueInput[]
+    delete?: TechnicianApplicationWhereUniqueInput | TechnicianApplicationWhereUniqueInput[]
+    connect?: TechnicianApplicationWhereUniqueInput | TechnicianApplicationWhereUniqueInput[]
+    update?: TechnicianApplicationUpdateWithWhereUniqueWithoutRejectedByInput | TechnicianApplicationUpdateWithWhereUniqueWithoutRejectedByInput[]
+    updateMany?: TechnicianApplicationUpdateManyWithWhereWithoutRejectedByInput | TechnicianApplicationUpdateManyWithWhereWithoutRejectedByInput[]
+    deleteMany?: TechnicianApplicationScalarWhereInput | TechnicianApplicationScalarWhereInput[]
   }
 
   export type FaultReportCreateNestedManyWithoutPoleInput = {
@@ -16461,6 +20154,14 @@ export namespace Prisma {
     set?: $Enums.ReportStatus
   }
 
+  export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type PoleUpdateOneRequiredWithoutFaultReportsNestedInput = {
     create?: XOR<PoleCreateWithoutFaultReportsInput, PoleUncheckedCreateWithoutFaultReportsInput>
     connectOrCreate?: PoleCreateOrConnectWithoutFaultReportsInput
@@ -16469,10 +20170,12 @@ export namespace Prisma {
     update?: XOR<XOR<PoleUpdateToOneWithWhereWithoutFaultReportsInput, PoleUpdateWithoutFaultReportsInput>, PoleUncheckedUpdateWithoutFaultReportsInput>
   }
 
-  export type UserUpdateOneRequiredWithoutFaultReportsNestedInput = {
+  export type UserUpdateOneWithoutFaultReportsNestedInput = {
     create?: XOR<UserCreateWithoutFaultReportsInput, UserUncheckedCreateWithoutFaultReportsInput>
     connectOrCreate?: UserCreateOrConnectWithoutFaultReportsInput
     upsert?: UserUpsertWithoutFaultReportsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutFaultReportsInput, UserUpdateWithoutFaultReportsInput>, UserUncheckedUpdateWithoutFaultReportsInput>
   }
@@ -16515,6 +20218,20 @@ export namespace Prisma {
     connect?: FaultReportWhereUniqueInput
   }
 
+  export type MaintenanceLogCreateNestedManyWithoutWorkOrderInput = {
+    create?: XOR<MaintenanceLogCreateWithoutWorkOrderInput, MaintenanceLogUncheckedCreateWithoutWorkOrderInput> | MaintenanceLogCreateWithoutWorkOrderInput[] | MaintenanceLogUncheckedCreateWithoutWorkOrderInput[]
+    connectOrCreate?: MaintenanceLogCreateOrConnectWithoutWorkOrderInput | MaintenanceLogCreateOrConnectWithoutWorkOrderInput[]
+    createMany?: MaintenanceLogCreateManyWorkOrderInputEnvelope
+    connect?: MaintenanceLogWhereUniqueInput | MaintenanceLogWhereUniqueInput[]
+  }
+
+  export type MaintenanceLogUncheckedCreateNestedManyWithoutWorkOrderInput = {
+    create?: XOR<MaintenanceLogCreateWithoutWorkOrderInput, MaintenanceLogUncheckedCreateWithoutWorkOrderInput> | MaintenanceLogCreateWithoutWorkOrderInput[] | MaintenanceLogUncheckedCreateWithoutWorkOrderInput[]
+    connectOrCreate?: MaintenanceLogCreateOrConnectWithoutWorkOrderInput | MaintenanceLogCreateOrConnectWithoutWorkOrderInput[]
+    createMany?: MaintenanceLogCreateManyWorkOrderInputEnvelope
+    connect?: MaintenanceLogWhereUniqueInput | MaintenanceLogWhereUniqueInput[]
+  }
+
   export type EnumWorkOrderStatusFieldUpdateOperationsInput = {
     set?: $Enums.WorkOrderStatus
   }
@@ -16543,6 +20260,70 @@ export namespace Prisma {
     upsert?: FaultReportUpsertWithoutWorkOrderInput
     connect?: FaultReportWhereUniqueInput
     update?: XOR<XOR<FaultReportUpdateToOneWithWhereWithoutWorkOrderInput, FaultReportUpdateWithoutWorkOrderInput>, FaultReportUncheckedUpdateWithoutWorkOrderInput>
+  }
+
+  export type MaintenanceLogUpdateManyWithoutWorkOrderNestedInput = {
+    create?: XOR<MaintenanceLogCreateWithoutWorkOrderInput, MaintenanceLogUncheckedCreateWithoutWorkOrderInput> | MaintenanceLogCreateWithoutWorkOrderInput[] | MaintenanceLogUncheckedCreateWithoutWorkOrderInput[]
+    connectOrCreate?: MaintenanceLogCreateOrConnectWithoutWorkOrderInput | MaintenanceLogCreateOrConnectWithoutWorkOrderInput[]
+    upsert?: MaintenanceLogUpsertWithWhereUniqueWithoutWorkOrderInput | MaintenanceLogUpsertWithWhereUniqueWithoutWorkOrderInput[]
+    createMany?: MaintenanceLogCreateManyWorkOrderInputEnvelope
+    set?: MaintenanceLogWhereUniqueInput | MaintenanceLogWhereUniqueInput[]
+    disconnect?: MaintenanceLogWhereUniqueInput | MaintenanceLogWhereUniqueInput[]
+    delete?: MaintenanceLogWhereUniqueInput | MaintenanceLogWhereUniqueInput[]
+    connect?: MaintenanceLogWhereUniqueInput | MaintenanceLogWhereUniqueInput[]
+    update?: MaintenanceLogUpdateWithWhereUniqueWithoutWorkOrderInput | MaintenanceLogUpdateWithWhereUniqueWithoutWorkOrderInput[]
+    updateMany?: MaintenanceLogUpdateManyWithWhereWithoutWorkOrderInput | MaintenanceLogUpdateManyWithWhereWithoutWorkOrderInput[]
+    deleteMany?: MaintenanceLogScalarWhereInput | MaintenanceLogScalarWhereInput[]
+  }
+
+  export type MaintenanceLogUncheckedUpdateManyWithoutWorkOrderNestedInput = {
+    create?: XOR<MaintenanceLogCreateWithoutWorkOrderInput, MaintenanceLogUncheckedCreateWithoutWorkOrderInput> | MaintenanceLogCreateWithoutWorkOrderInput[] | MaintenanceLogUncheckedCreateWithoutWorkOrderInput[]
+    connectOrCreate?: MaintenanceLogCreateOrConnectWithoutWorkOrderInput | MaintenanceLogCreateOrConnectWithoutWorkOrderInput[]
+    upsert?: MaintenanceLogUpsertWithWhereUniqueWithoutWorkOrderInput | MaintenanceLogUpsertWithWhereUniqueWithoutWorkOrderInput[]
+    createMany?: MaintenanceLogCreateManyWorkOrderInputEnvelope
+    set?: MaintenanceLogWhereUniqueInput | MaintenanceLogWhereUniqueInput[]
+    disconnect?: MaintenanceLogWhereUniqueInput | MaintenanceLogWhereUniqueInput[]
+    delete?: MaintenanceLogWhereUniqueInput | MaintenanceLogWhereUniqueInput[]
+    connect?: MaintenanceLogWhereUniqueInput | MaintenanceLogWhereUniqueInput[]
+    update?: MaintenanceLogUpdateWithWhereUniqueWithoutWorkOrderInput | MaintenanceLogUpdateWithWhereUniqueWithoutWorkOrderInput[]
+    updateMany?: MaintenanceLogUpdateManyWithWhereWithoutWorkOrderInput | MaintenanceLogUpdateManyWithWhereWithoutWorkOrderInput[]
+    deleteMany?: MaintenanceLogScalarWhereInput | MaintenanceLogScalarWhereInput[]
+  }
+
+  export type WorkOrderCreateNestedOneWithoutMaintenanceLogsInput = {
+    create?: XOR<WorkOrderCreateWithoutMaintenanceLogsInput, WorkOrderUncheckedCreateWithoutMaintenanceLogsInput>
+    connectOrCreate?: WorkOrderCreateOrConnectWithoutMaintenanceLogsInput
+    connect?: WorkOrderWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutMaintenanceLogsInput = {
+    create?: XOR<UserCreateWithoutMaintenanceLogsInput, UserUncheckedCreateWithoutMaintenanceLogsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMaintenanceLogsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type WorkOrderUpdateOneRequiredWithoutMaintenanceLogsNestedInput = {
+    create?: XOR<WorkOrderCreateWithoutMaintenanceLogsInput, WorkOrderUncheckedCreateWithoutMaintenanceLogsInput>
+    connectOrCreate?: WorkOrderCreateOrConnectWithoutMaintenanceLogsInput
+    upsert?: WorkOrderUpsertWithoutMaintenanceLogsInput
+    connect?: WorkOrderWhereUniqueInput
+    update?: XOR<XOR<WorkOrderUpdateToOneWithWhereWithoutMaintenanceLogsInput, WorkOrderUpdateWithoutMaintenanceLogsInput>, WorkOrderUncheckedUpdateWithoutMaintenanceLogsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutMaintenanceLogsNestedInput = {
+    create?: XOR<UserCreateWithoutMaintenanceLogsInput, UserUncheckedCreateWithoutMaintenanceLogsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMaintenanceLogsInput
+    upsert?: UserUpsertWithoutMaintenanceLogsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMaintenanceLogsInput, UserUpdateWithoutMaintenanceLogsInput>, UserUncheckedUpdateWithoutMaintenanceLogsInput>
   }
 
   export type UserCreateNestedOneWithoutStatusLogsInput = {
@@ -16577,14 +20358,6 @@ export namespace Prisma {
     create?: XOR<UserCreateWithoutSearchHistoryInput, UserUncheckedCreateWithoutSearchHistoryInput>
     connectOrCreate?: UserCreateOrConnectWithoutSearchHistoryInput
     connect?: UserWhereUniqueInput
-  }
-
-  export type NullableFloatFieldUpdateOperationsInput = {
-    set?: number | null
-    increment?: number
-    decrement?: number
-    multiply?: number
-    divide?: number
   }
 
   export type UserUpdateOneRequiredWithoutSearchHistoryNestedInput = {
@@ -16689,6 +20462,56 @@ export namespace Prisma {
     upsert?: UserUpsertWithoutInventoryLogsInput
     connect?: UserWhereUniqueInput
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutInventoryLogsInput, UserUpdateWithoutInventoryLogsInput>, UserUncheckedUpdateWithoutInventoryLogsInput>
+  }
+
+  export type UserCreateNestedOneWithoutTechnicianApplicationsInput = {
+    create?: XOR<UserCreateWithoutTechnicianApplicationsInput, UserUncheckedCreateWithoutTechnicianApplicationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTechnicianApplicationsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutVerifiedApplicationsInput = {
+    create?: XOR<UserCreateWithoutVerifiedApplicationsInput, UserUncheckedCreateWithoutVerifiedApplicationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutVerifiedApplicationsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutRejectedApplicationsInput = {
+    create?: XOR<UserCreateWithoutRejectedApplicationsInput, UserUncheckedCreateWithoutRejectedApplicationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRejectedApplicationsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumApplicationStatusFieldUpdateOperationsInput = {
+    set?: $Enums.ApplicationStatus
+  }
+
+  export type UserUpdateOneRequiredWithoutTechnicianApplicationsNestedInput = {
+    create?: XOR<UserCreateWithoutTechnicianApplicationsInput, UserUncheckedCreateWithoutTechnicianApplicationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutTechnicianApplicationsInput
+    upsert?: UserUpsertWithoutTechnicianApplicationsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutTechnicianApplicationsInput, UserUpdateWithoutTechnicianApplicationsInput>, UserUncheckedUpdateWithoutTechnicianApplicationsInput>
+  }
+
+  export type UserUpdateOneWithoutVerifiedApplicationsNestedInput = {
+    create?: XOR<UserCreateWithoutVerifiedApplicationsInput, UserUncheckedCreateWithoutVerifiedApplicationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutVerifiedApplicationsInput
+    upsert?: UserUpsertWithoutVerifiedApplicationsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutVerifiedApplicationsInput, UserUpdateWithoutVerifiedApplicationsInput>, UserUncheckedUpdateWithoutVerifiedApplicationsInput>
+  }
+
+  export type UserUpdateOneWithoutRejectedApplicationsNestedInput = {
+    create?: XOR<UserCreateWithoutRejectedApplicationsInput, UserUncheckedCreateWithoutRejectedApplicationsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRejectedApplicationsInput
+    upsert?: UserUpsertWithoutRejectedApplicationsInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutRejectedApplicationsInput, UserUpdateWithoutRejectedApplicationsInput>, UserUncheckedUpdateWithoutRejectedApplicationsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -16900,6 +20723,17 @@ export namespace Prisma {
     not?: NestedEnumReportStatusFilter<$PrismaModel> | $Enums.ReportStatus
   }
 
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedEnumFaultTypeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.FaultType | EnumFaultTypeFieldRefInput<$PrismaModel>
     in?: $Enums.FaultType[] | ListEnumFaultTypeFieldRefInput<$PrismaModel>
@@ -16920,6 +20754,22 @@ export namespace Prisma {
     _max?: NestedEnumReportStatusFilter<$PrismaModel>
   }
 
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
   export type NestedEnumWorkOrderStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.WorkOrderStatus | EnumWorkOrderStatusFieldRefInput<$PrismaModel>
     in?: $Enums.WorkOrderStatus[] | ListEnumWorkOrderStatusFieldRefInput<$PrismaModel>
@@ -16937,31 +20787,20 @@ export namespace Prisma {
     _max?: NestedEnumWorkOrderStatusFilter<$PrismaModel>
   }
 
-  export type NestedFloatNullableFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel> | null
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
-    lt?: number | FloatFieldRefInput<$PrismaModel>
-    lte?: number | FloatFieldRefInput<$PrismaModel>
-    gt?: number | FloatFieldRefInput<$PrismaModel>
-    gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
     _count?: NestedIntNullableFilter<$PrismaModel>
     _avg?: NestedFloatNullableFilter<$PrismaModel>
-    _sum?: NestedFloatNullableFilter<$PrismaModel>
-    _min?: NestedFloatNullableFilter<$PrismaModel>
-    _max?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type NestedBoolFilter<$PrismaModel = never> = {
@@ -16993,11 +20832,33 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
+  export type NestedEnumApplicationStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.ApplicationStatus | EnumApplicationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumApplicationStatusFilter<$PrismaModel> | $Enums.ApplicationStatus
+  }
+
+  export type NestedEnumApplicationStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.ApplicationStatus | EnumApplicationStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.ApplicationStatus[] | ListEnumApplicationStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumApplicationStatusWithAggregatesFilter<$PrismaModel> | $Enums.ApplicationStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumApplicationStatusFilter<$PrismaModel>
+    _max?: NestedEnumApplicationStatusFilter<$PrismaModel>
+  }
+
   export type FaultReportCreateWithoutReportedByInput = {
     id?: string
+    reporterName?: string | null
+    reporterEmail?: string | null
+    reporterPhone?: string | null
     description: string
     faultType: $Enums.FaultType
     status?: $Enums.ReportStatus
+    latitude?: number | null
+    longitude?: number | null
     reportedAt?: Date | string
     pole: PoleCreateNestedOneWithoutFaultReportsInput
     workOrder?: WorkOrderCreateNestedOneWithoutFaultReportInput
@@ -17006,9 +20867,14 @@ export namespace Prisma {
   export type FaultReportUncheckedCreateWithoutReportedByInput = {
     id?: string
     poleId: string
+    reporterName?: string | null
+    reporterEmail?: string | null
+    reporterPhone?: string | null
     description: string
     faultType: $Enums.FaultType
     status?: $Enums.ReportStatus
+    latitude?: number | null
+    longitude?: number | null
     reportedAt?: Date | string
     workOrder?: WorkOrderUncheckedCreateNestedOneWithoutFaultReportInput
   }
@@ -17141,6 +21007,7 @@ export namespace Prisma {
     resolutionNotes?: string | null
     assignedTo?: UserCreateNestedOneWithoutWorkOrdersAssignedInput
     faultReport: FaultReportCreateNestedOneWithoutWorkOrderInput
+    maintenanceLogs?: MaintenanceLogCreateNestedManyWithoutWorkOrderInput
   }
 
   export type WorkOrderUncheckedCreateWithoutAssignedByInput = {
@@ -17151,6 +21018,7 @@ export namespace Prisma {
     assignedAt?: Date | string
     resolvedAt?: Date | string | null
     resolutionNotes?: string | null
+    maintenanceLogs?: MaintenanceLogUncheckedCreateNestedManyWithoutWorkOrderInput
   }
 
   export type WorkOrderCreateOrConnectWithoutAssignedByInput = {
@@ -17171,6 +21039,7 @@ export namespace Prisma {
     resolutionNotes?: string | null
     assignedBy: UserCreateNestedOneWithoutWorkOrdersCreatedInput
     faultReport: FaultReportCreateNestedOneWithoutWorkOrderInput
+    maintenanceLogs?: MaintenanceLogCreateNestedManyWithoutWorkOrderInput
   }
 
   export type WorkOrderUncheckedCreateWithoutAssignedToInput = {
@@ -17181,6 +21050,7 @@ export namespace Prisma {
     assignedAt?: Date | string
     resolvedAt?: Date | string | null
     resolutionNotes?: string | null
+    maintenanceLogs?: MaintenanceLogUncheckedCreateNestedManyWithoutWorkOrderInput
   }
 
   export type WorkOrderCreateOrConnectWithoutAssignedToInput = {
@@ -17190,6 +21060,148 @@ export namespace Prisma {
 
   export type WorkOrderCreateManyAssignedToInputEnvelope = {
     data: WorkOrderCreateManyAssignedToInput | WorkOrderCreateManyAssignedToInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MaintenanceLogCreateWithoutTechnicianInput = {
+    id?: string
+    partsUsed?: string | null
+    timeSpent?: number | null
+    notes?: string | null
+    createdAt?: Date | string
+    workOrder: WorkOrderCreateNestedOneWithoutMaintenanceLogsInput
+  }
+
+  export type MaintenanceLogUncheckedCreateWithoutTechnicianInput = {
+    id?: string
+    workOrderId: string
+    partsUsed?: string | null
+    timeSpent?: number | null
+    notes?: string | null
+    createdAt?: Date | string
+  }
+
+  export type MaintenanceLogCreateOrConnectWithoutTechnicianInput = {
+    where: MaintenanceLogWhereUniqueInput
+    create: XOR<MaintenanceLogCreateWithoutTechnicianInput, MaintenanceLogUncheckedCreateWithoutTechnicianInput>
+  }
+
+  export type MaintenanceLogCreateManyTechnicianInputEnvelope = {
+    data: MaintenanceLogCreateManyTechnicianInput | MaintenanceLogCreateManyTechnicianInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TechnicianApplicationCreateWithoutApplicantInput = {
+    id?: string
+    skills: string
+    reason: string
+    status?: $Enums.ApplicationStatus
+    verifiedAt?: Date | string | null
+    rejectedAt?: Date | string | null
+    rejectedReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    verifiedBy?: UserCreateNestedOneWithoutVerifiedApplicationsInput
+    rejectedBy?: UserCreateNestedOneWithoutRejectedApplicationsInput
+  }
+
+  export type TechnicianApplicationUncheckedCreateWithoutApplicantInput = {
+    id?: string
+    skills: string
+    reason: string
+    status?: $Enums.ApplicationStatus
+    verifiedById?: string | null
+    verifiedAt?: Date | string | null
+    rejectedById?: string | null
+    rejectedAt?: Date | string | null
+    rejectedReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TechnicianApplicationCreateOrConnectWithoutApplicantInput = {
+    where: TechnicianApplicationWhereUniqueInput
+    create: XOR<TechnicianApplicationCreateWithoutApplicantInput, TechnicianApplicationUncheckedCreateWithoutApplicantInput>
+  }
+
+  export type TechnicianApplicationCreateManyApplicantInputEnvelope = {
+    data: TechnicianApplicationCreateManyApplicantInput | TechnicianApplicationCreateManyApplicantInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TechnicianApplicationCreateWithoutVerifiedByInput = {
+    id?: string
+    skills: string
+    reason: string
+    status?: $Enums.ApplicationStatus
+    verifiedAt?: Date | string | null
+    rejectedAt?: Date | string | null
+    rejectedReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    applicant: UserCreateNestedOneWithoutTechnicianApplicationsInput
+    rejectedBy?: UserCreateNestedOneWithoutRejectedApplicationsInput
+  }
+
+  export type TechnicianApplicationUncheckedCreateWithoutVerifiedByInput = {
+    id?: string
+    applicantId: string
+    skills: string
+    reason: string
+    status?: $Enums.ApplicationStatus
+    verifiedAt?: Date | string | null
+    rejectedById?: string | null
+    rejectedAt?: Date | string | null
+    rejectedReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TechnicianApplicationCreateOrConnectWithoutVerifiedByInput = {
+    where: TechnicianApplicationWhereUniqueInput
+    create: XOR<TechnicianApplicationCreateWithoutVerifiedByInput, TechnicianApplicationUncheckedCreateWithoutVerifiedByInput>
+  }
+
+  export type TechnicianApplicationCreateManyVerifiedByInputEnvelope = {
+    data: TechnicianApplicationCreateManyVerifiedByInput | TechnicianApplicationCreateManyVerifiedByInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TechnicianApplicationCreateWithoutRejectedByInput = {
+    id?: string
+    skills: string
+    reason: string
+    status?: $Enums.ApplicationStatus
+    verifiedAt?: Date | string | null
+    rejectedAt?: Date | string | null
+    rejectedReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    applicant: UserCreateNestedOneWithoutTechnicianApplicationsInput
+    verifiedBy?: UserCreateNestedOneWithoutVerifiedApplicationsInput
+  }
+
+  export type TechnicianApplicationUncheckedCreateWithoutRejectedByInput = {
+    id?: string
+    applicantId: string
+    skills: string
+    reason: string
+    status?: $Enums.ApplicationStatus
+    verifiedById?: string | null
+    verifiedAt?: Date | string | null
+    rejectedAt?: Date | string | null
+    rejectedReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TechnicianApplicationCreateOrConnectWithoutRejectedByInput = {
+    where: TechnicianApplicationWhereUniqueInput
+    create: XOR<TechnicianApplicationCreateWithoutRejectedByInput, TechnicianApplicationUncheckedCreateWithoutRejectedByInput>
+  }
+
+  export type TechnicianApplicationCreateManyRejectedByInputEnvelope = {
+    data: TechnicianApplicationCreateManyRejectedByInput | TechnicianApplicationCreateManyRejectedByInput[]
     skipDuplicates?: boolean
   }
 
@@ -17215,10 +21227,15 @@ export namespace Prisma {
     NOT?: FaultReportScalarWhereInput | FaultReportScalarWhereInput[]
     id?: StringFilter<"FaultReport"> | string
     poleId?: StringFilter<"FaultReport"> | string
-    reportedById?: StringFilter<"FaultReport"> | string
+    reportedById?: StringNullableFilter<"FaultReport"> | string | null
+    reporterName?: StringNullableFilter<"FaultReport"> | string | null
+    reporterEmail?: StringNullableFilter<"FaultReport"> | string | null
+    reporterPhone?: StringNullableFilter<"FaultReport"> | string | null
     description?: StringFilter<"FaultReport"> | string
     faultType?: EnumFaultTypeFilter<"FaultReport"> | $Enums.FaultType
     status?: EnumReportStatusFilter<"FaultReport"> | $Enums.ReportStatus
+    latitude?: FloatNullableFilter<"FaultReport"> | number | null
+    longitude?: FloatNullableFilter<"FaultReport"> | number | null
     reportedAt?: DateTimeFilter<"FaultReport"> | Date | string
   }
 
@@ -17383,22 +21400,127 @@ export namespace Prisma {
     data: XOR<WorkOrderUpdateManyMutationInput, WorkOrderUncheckedUpdateManyWithoutAssignedToInput>
   }
 
+  export type MaintenanceLogUpsertWithWhereUniqueWithoutTechnicianInput = {
+    where: MaintenanceLogWhereUniqueInput
+    update: XOR<MaintenanceLogUpdateWithoutTechnicianInput, MaintenanceLogUncheckedUpdateWithoutTechnicianInput>
+    create: XOR<MaintenanceLogCreateWithoutTechnicianInput, MaintenanceLogUncheckedCreateWithoutTechnicianInput>
+  }
+
+  export type MaintenanceLogUpdateWithWhereUniqueWithoutTechnicianInput = {
+    where: MaintenanceLogWhereUniqueInput
+    data: XOR<MaintenanceLogUpdateWithoutTechnicianInput, MaintenanceLogUncheckedUpdateWithoutTechnicianInput>
+  }
+
+  export type MaintenanceLogUpdateManyWithWhereWithoutTechnicianInput = {
+    where: MaintenanceLogScalarWhereInput
+    data: XOR<MaintenanceLogUpdateManyMutationInput, MaintenanceLogUncheckedUpdateManyWithoutTechnicianInput>
+  }
+
+  export type MaintenanceLogScalarWhereInput = {
+    AND?: MaintenanceLogScalarWhereInput | MaintenanceLogScalarWhereInput[]
+    OR?: MaintenanceLogScalarWhereInput[]
+    NOT?: MaintenanceLogScalarWhereInput | MaintenanceLogScalarWhereInput[]
+    id?: StringFilter<"MaintenanceLog"> | string
+    workOrderId?: StringFilter<"MaintenanceLog"> | string
+    technicianId?: StringFilter<"MaintenanceLog"> | string
+    partsUsed?: StringNullableFilter<"MaintenanceLog"> | string | null
+    timeSpent?: IntNullableFilter<"MaintenanceLog"> | number | null
+    notes?: StringNullableFilter<"MaintenanceLog"> | string | null
+    createdAt?: DateTimeFilter<"MaintenanceLog"> | Date | string
+  }
+
+  export type TechnicianApplicationUpsertWithWhereUniqueWithoutApplicantInput = {
+    where: TechnicianApplicationWhereUniqueInput
+    update: XOR<TechnicianApplicationUpdateWithoutApplicantInput, TechnicianApplicationUncheckedUpdateWithoutApplicantInput>
+    create: XOR<TechnicianApplicationCreateWithoutApplicantInput, TechnicianApplicationUncheckedCreateWithoutApplicantInput>
+  }
+
+  export type TechnicianApplicationUpdateWithWhereUniqueWithoutApplicantInput = {
+    where: TechnicianApplicationWhereUniqueInput
+    data: XOR<TechnicianApplicationUpdateWithoutApplicantInput, TechnicianApplicationUncheckedUpdateWithoutApplicantInput>
+  }
+
+  export type TechnicianApplicationUpdateManyWithWhereWithoutApplicantInput = {
+    where: TechnicianApplicationScalarWhereInput
+    data: XOR<TechnicianApplicationUpdateManyMutationInput, TechnicianApplicationUncheckedUpdateManyWithoutApplicantInput>
+  }
+
+  export type TechnicianApplicationScalarWhereInput = {
+    AND?: TechnicianApplicationScalarWhereInput | TechnicianApplicationScalarWhereInput[]
+    OR?: TechnicianApplicationScalarWhereInput[]
+    NOT?: TechnicianApplicationScalarWhereInput | TechnicianApplicationScalarWhereInput[]
+    id?: StringFilter<"TechnicianApplication"> | string
+    applicantId?: StringFilter<"TechnicianApplication"> | string
+    skills?: StringFilter<"TechnicianApplication"> | string
+    reason?: StringFilter<"TechnicianApplication"> | string
+    status?: EnumApplicationStatusFilter<"TechnicianApplication"> | $Enums.ApplicationStatus
+    verifiedById?: StringNullableFilter<"TechnicianApplication"> | string | null
+    verifiedAt?: DateTimeNullableFilter<"TechnicianApplication"> | Date | string | null
+    rejectedById?: StringNullableFilter<"TechnicianApplication"> | string | null
+    rejectedAt?: DateTimeNullableFilter<"TechnicianApplication"> | Date | string | null
+    rejectedReason?: StringNullableFilter<"TechnicianApplication"> | string | null
+    createdAt?: DateTimeFilter<"TechnicianApplication"> | Date | string
+    updatedAt?: DateTimeFilter<"TechnicianApplication"> | Date | string
+  }
+
+  export type TechnicianApplicationUpsertWithWhereUniqueWithoutVerifiedByInput = {
+    where: TechnicianApplicationWhereUniqueInput
+    update: XOR<TechnicianApplicationUpdateWithoutVerifiedByInput, TechnicianApplicationUncheckedUpdateWithoutVerifiedByInput>
+    create: XOR<TechnicianApplicationCreateWithoutVerifiedByInput, TechnicianApplicationUncheckedCreateWithoutVerifiedByInput>
+  }
+
+  export type TechnicianApplicationUpdateWithWhereUniqueWithoutVerifiedByInput = {
+    where: TechnicianApplicationWhereUniqueInput
+    data: XOR<TechnicianApplicationUpdateWithoutVerifiedByInput, TechnicianApplicationUncheckedUpdateWithoutVerifiedByInput>
+  }
+
+  export type TechnicianApplicationUpdateManyWithWhereWithoutVerifiedByInput = {
+    where: TechnicianApplicationScalarWhereInput
+    data: XOR<TechnicianApplicationUpdateManyMutationInput, TechnicianApplicationUncheckedUpdateManyWithoutVerifiedByInput>
+  }
+
+  export type TechnicianApplicationUpsertWithWhereUniqueWithoutRejectedByInput = {
+    where: TechnicianApplicationWhereUniqueInput
+    update: XOR<TechnicianApplicationUpdateWithoutRejectedByInput, TechnicianApplicationUncheckedUpdateWithoutRejectedByInput>
+    create: XOR<TechnicianApplicationCreateWithoutRejectedByInput, TechnicianApplicationUncheckedCreateWithoutRejectedByInput>
+  }
+
+  export type TechnicianApplicationUpdateWithWhereUniqueWithoutRejectedByInput = {
+    where: TechnicianApplicationWhereUniqueInput
+    data: XOR<TechnicianApplicationUpdateWithoutRejectedByInput, TechnicianApplicationUncheckedUpdateWithoutRejectedByInput>
+  }
+
+  export type TechnicianApplicationUpdateManyWithWhereWithoutRejectedByInput = {
+    where: TechnicianApplicationScalarWhereInput
+    data: XOR<TechnicianApplicationUpdateManyMutationInput, TechnicianApplicationUncheckedUpdateManyWithoutRejectedByInput>
+  }
+
   export type FaultReportCreateWithoutPoleInput = {
     id?: string
+    reporterName?: string | null
+    reporterEmail?: string | null
+    reporterPhone?: string | null
     description: string
     faultType: $Enums.FaultType
     status?: $Enums.ReportStatus
+    latitude?: number | null
+    longitude?: number | null
     reportedAt?: Date | string
-    reportedBy: UserCreateNestedOneWithoutFaultReportsInput
+    reportedBy?: UserCreateNestedOneWithoutFaultReportsInput
     workOrder?: WorkOrderCreateNestedOneWithoutFaultReportInput
   }
 
   export type FaultReportUncheckedCreateWithoutPoleInput = {
     id?: string
-    reportedById: string
+    reportedById?: string | null
+    reporterName?: string | null
+    reporterEmail?: string | null
+    reporterPhone?: string | null
     description: string
     faultType: $Enums.FaultType
     status?: $Enums.ReportStatus
+    latitude?: number | null
+    longitude?: number | null
     reportedAt?: Date | string
     workOrder?: WorkOrderUncheckedCreateNestedOneWithoutFaultReportInput
   }
@@ -17527,6 +21649,10 @@ export namespace Prisma {
     statusLogs?: StatusLogCreateNestedManyWithoutChangedByInput
     workOrdersCreated?: WorkOrderCreateNestedManyWithoutAssignedByInput
     workOrdersAssigned?: WorkOrderCreateNestedManyWithoutAssignedToInput
+    maintenanceLogs?: MaintenanceLogCreateNestedManyWithoutTechnicianInput
+    technicianApplications?: TechnicianApplicationCreateNestedManyWithoutApplicantInput
+    verifiedApplications?: TechnicianApplicationCreateNestedManyWithoutVerifiedByInput
+    rejectedApplications?: TechnicianApplicationCreateNestedManyWithoutRejectedByInput
   }
 
   export type UserUncheckedCreateWithoutFaultReportsInput = {
@@ -17552,6 +21678,10 @@ export namespace Prisma {
     statusLogs?: StatusLogUncheckedCreateNestedManyWithoutChangedByInput
     workOrdersCreated?: WorkOrderUncheckedCreateNestedManyWithoutAssignedByInput
     workOrdersAssigned?: WorkOrderUncheckedCreateNestedManyWithoutAssignedToInput
+    maintenanceLogs?: MaintenanceLogUncheckedCreateNestedManyWithoutTechnicianInput
+    technicianApplications?: TechnicianApplicationUncheckedCreateNestedManyWithoutApplicantInput
+    verifiedApplications?: TechnicianApplicationUncheckedCreateNestedManyWithoutVerifiedByInput
+    rejectedApplications?: TechnicianApplicationUncheckedCreateNestedManyWithoutRejectedByInput
   }
 
   export type UserCreateOrConnectWithoutFaultReportsInput = {
@@ -17567,6 +21697,7 @@ export namespace Prisma {
     resolutionNotes?: string | null
     assignedBy: UserCreateNestedOneWithoutWorkOrdersCreatedInput
     assignedTo?: UserCreateNestedOneWithoutWorkOrdersAssignedInput
+    maintenanceLogs?: MaintenanceLogCreateNestedManyWithoutWorkOrderInput
   }
 
   export type WorkOrderUncheckedCreateWithoutFaultReportInput = {
@@ -17577,6 +21708,7 @@ export namespace Prisma {
     assignedAt?: Date | string
     resolvedAt?: Date | string | null
     resolutionNotes?: string | null
+    maintenanceLogs?: MaintenanceLogUncheckedCreateNestedManyWithoutWorkOrderInput
   }
 
   export type WorkOrderCreateOrConnectWithoutFaultReportInput = {
@@ -17655,6 +21787,10 @@ export namespace Prisma {
     statusLogs?: StatusLogUpdateManyWithoutChangedByNestedInput
     workOrdersCreated?: WorkOrderUpdateManyWithoutAssignedByNestedInput
     workOrdersAssigned?: WorkOrderUpdateManyWithoutAssignedToNestedInput
+    maintenanceLogs?: MaintenanceLogUpdateManyWithoutTechnicianNestedInput
+    technicianApplications?: TechnicianApplicationUpdateManyWithoutApplicantNestedInput
+    verifiedApplications?: TechnicianApplicationUpdateManyWithoutVerifiedByNestedInput
+    rejectedApplications?: TechnicianApplicationUpdateManyWithoutRejectedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutFaultReportsInput = {
@@ -17680,6 +21816,10 @@ export namespace Prisma {
     statusLogs?: StatusLogUncheckedUpdateManyWithoutChangedByNestedInput
     workOrdersCreated?: WorkOrderUncheckedUpdateManyWithoutAssignedByNestedInput
     workOrdersAssigned?: WorkOrderUncheckedUpdateManyWithoutAssignedToNestedInput
+    maintenanceLogs?: MaintenanceLogUncheckedUpdateManyWithoutTechnicianNestedInput
+    technicianApplications?: TechnicianApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+    verifiedApplications?: TechnicianApplicationUncheckedUpdateManyWithoutVerifiedByNestedInput
+    rejectedApplications?: TechnicianApplicationUncheckedUpdateManyWithoutRejectedByNestedInput
   }
 
   export type WorkOrderUpsertWithoutFaultReportInput = {
@@ -17701,6 +21841,7 @@ export namespace Prisma {
     resolutionNotes?: NullableStringFieldUpdateOperationsInput | string | null
     assignedBy?: UserUpdateOneRequiredWithoutWorkOrdersCreatedNestedInput
     assignedTo?: UserUpdateOneWithoutWorkOrdersAssignedNestedInput
+    maintenanceLogs?: MaintenanceLogUpdateManyWithoutWorkOrderNestedInput
   }
 
   export type WorkOrderUncheckedUpdateWithoutFaultReportInput = {
@@ -17711,6 +21852,7 @@ export namespace Prisma {
     assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resolutionNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    maintenanceLogs?: MaintenanceLogUncheckedUpdateManyWithoutWorkOrderNestedInput
   }
 
   export type UserCreateWithoutWorkOrdersCreatedInput = {
@@ -17736,6 +21878,10 @@ export namespace Prisma {
     searchHistory?: SearchHistoryCreateNestedManyWithoutUserInput
     statusLogs?: StatusLogCreateNestedManyWithoutChangedByInput
     workOrdersAssigned?: WorkOrderCreateNestedManyWithoutAssignedToInput
+    maintenanceLogs?: MaintenanceLogCreateNestedManyWithoutTechnicianInput
+    technicianApplications?: TechnicianApplicationCreateNestedManyWithoutApplicantInput
+    verifiedApplications?: TechnicianApplicationCreateNestedManyWithoutVerifiedByInput
+    rejectedApplications?: TechnicianApplicationCreateNestedManyWithoutRejectedByInput
   }
 
   export type UserUncheckedCreateWithoutWorkOrdersCreatedInput = {
@@ -17761,6 +21907,10 @@ export namespace Prisma {
     searchHistory?: SearchHistoryUncheckedCreateNestedManyWithoutUserInput
     statusLogs?: StatusLogUncheckedCreateNestedManyWithoutChangedByInput
     workOrdersAssigned?: WorkOrderUncheckedCreateNestedManyWithoutAssignedToInput
+    maintenanceLogs?: MaintenanceLogUncheckedCreateNestedManyWithoutTechnicianInput
+    technicianApplications?: TechnicianApplicationUncheckedCreateNestedManyWithoutApplicantInput
+    verifiedApplications?: TechnicianApplicationUncheckedCreateNestedManyWithoutVerifiedByInput
+    rejectedApplications?: TechnicianApplicationUncheckedCreateNestedManyWithoutRejectedByInput
   }
 
   export type UserCreateOrConnectWithoutWorkOrdersCreatedInput = {
@@ -17791,6 +21941,10 @@ export namespace Prisma {
     searchHistory?: SearchHistoryCreateNestedManyWithoutUserInput
     statusLogs?: StatusLogCreateNestedManyWithoutChangedByInput
     workOrdersCreated?: WorkOrderCreateNestedManyWithoutAssignedByInput
+    maintenanceLogs?: MaintenanceLogCreateNestedManyWithoutTechnicianInput
+    technicianApplications?: TechnicianApplicationCreateNestedManyWithoutApplicantInput
+    verifiedApplications?: TechnicianApplicationCreateNestedManyWithoutVerifiedByInput
+    rejectedApplications?: TechnicianApplicationCreateNestedManyWithoutRejectedByInput
   }
 
   export type UserUncheckedCreateWithoutWorkOrdersAssignedInput = {
@@ -17816,6 +21970,10 @@ export namespace Prisma {
     searchHistory?: SearchHistoryUncheckedCreateNestedManyWithoutUserInput
     statusLogs?: StatusLogUncheckedCreateNestedManyWithoutChangedByInput
     workOrdersCreated?: WorkOrderUncheckedCreateNestedManyWithoutAssignedByInput
+    maintenanceLogs?: MaintenanceLogUncheckedCreateNestedManyWithoutTechnicianInput
+    technicianApplications?: TechnicianApplicationUncheckedCreateNestedManyWithoutApplicantInput
+    verifiedApplications?: TechnicianApplicationUncheckedCreateNestedManyWithoutVerifiedByInput
+    rejectedApplications?: TechnicianApplicationUncheckedCreateNestedManyWithoutRejectedByInput
   }
 
   export type UserCreateOrConnectWithoutWorkOrdersAssignedInput = {
@@ -17825,27 +21983,65 @@ export namespace Prisma {
 
   export type FaultReportCreateWithoutWorkOrderInput = {
     id?: string
+    reporterName?: string | null
+    reporterEmail?: string | null
+    reporterPhone?: string | null
     description: string
     faultType: $Enums.FaultType
     status?: $Enums.ReportStatus
+    latitude?: number | null
+    longitude?: number | null
     reportedAt?: Date | string
     pole: PoleCreateNestedOneWithoutFaultReportsInput
-    reportedBy: UserCreateNestedOneWithoutFaultReportsInput
+    reportedBy?: UserCreateNestedOneWithoutFaultReportsInput
   }
 
   export type FaultReportUncheckedCreateWithoutWorkOrderInput = {
     id?: string
     poleId: string
-    reportedById: string
+    reportedById?: string | null
+    reporterName?: string | null
+    reporterEmail?: string | null
+    reporterPhone?: string | null
     description: string
     faultType: $Enums.FaultType
     status?: $Enums.ReportStatus
+    latitude?: number | null
+    longitude?: number | null
     reportedAt?: Date | string
   }
 
   export type FaultReportCreateOrConnectWithoutWorkOrderInput = {
     where: FaultReportWhereUniqueInput
     create: XOR<FaultReportCreateWithoutWorkOrderInput, FaultReportUncheckedCreateWithoutWorkOrderInput>
+  }
+
+  export type MaintenanceLogCreateWithoutWorkOrderInput = {
+    id?: string
+    partsUsed?: string | null
+    timeSpent?: number | null
+    notes?: string | null
+    createdAt?: Date | string
+    technician: UserCreateNestedOneWithoutMaintenanceLogsInput
+  }
+
+  export type MaintenanceLogUncheckedCreateWithoutWorkOrderInput = {
+    id?: string
+    technicianId: string
+    partsUsed?: string | null
+    timeSpent?: number | null
+    notes?: string | null
+    createdAt?: Date | string
+  }
+
+  export type MaintenanceLogCreateOrConnectWithoutWorkOrderInput = {
+    where: MaintenanceLogWhereUniqueInput
+    create: XOR<MaintenanceLogCreateWithoutWorkOrderInput, MaintenanceLogUncheckedCreateWithoutWorkOrderInput>
+  }
+
+  export type MaintenanceLogCreateManyWorkOrderInputEnvelope = {
+    data: MaintenanceLogCreateManyWorkOrderInput | MaintenanceLogCreateManyWorkOrderInput[]
+    skipDuplicates?: boolean
   }
 
   export type UserUpsertWithoutWorkOrdersCreatedInput = {
@@ -17882,6 +22078,10 @@ export namespace Prisma {
     searchHistory?: SearchHistoryUpdateManyWithoutUserNestedInput
     statusLogs?: StatusLogUpdateManyWithoutChangedByNestedInput
     workOrdersAssigned?: WorkOrderUpdateManyWithoutAssignedToNestedInput
+    maintenanceLogs?: MaintenanceLogUpdateManyWithoutTechnicianNestedInput
+    technicianApplications?: TechnicianApplicationUpdateManyWithoutApplicantNestedInput
+    verifiedApplications?: TechnicianApplicationUpdateManyWithoutVerifiedByNestedInput
+    rejectedApplications?: TechnicianApplicationUpdateManyWithoutRejectedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWorkOrdersCreatedInput = {
@@ -17907,6 +22107,10 @@ export namespace Prisma {
     searchHistory?: SearchHistoryUncheckedUpdateManyWithoutUserNestedInput
     statusLogs?: StatusLogUncheckedUpdateManyWithoutChangedByNestedInput
     workOrdersAssigned?: WorkOrderUncheckedUpdateManyWithoutAssignedToNestedInput
+    maintenanceLogs?: MaintenanceLogUncheckedUpdateManyWithoutTechnicianNestedInput
+    technicianApplications?: TechnicianApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+    verifiedApplications?: TechnicianApplicationUncheckedUpdateManyWithoutVerifiedByNestedInput
+    rejectedApplications?: TechnicianApplicationUncheckedUpdateManyWithoutRejectedByNestedInput
   }
 
   export type UserUpsertWithoutWorkOrdersAssignedInput = {
@@ -17943,6 +22147,10 @@ export namespace Prisma {
     searchHistory?: SearchHistoryUpdateManyWithoutUserNestedInput
     statusLogs?: StatusLogUpdateManyWithoutChangedByNestedInput
     workOrdersCreated?: WorkOrderUpdateManyWithoutAssignedByNestedInput
+    maintenanceLogs?: MaintenanceLogUpdateManyWithoutTechnicianNestedInput
+    technicianApplications?: TechnicianApplicationUpdateManyWithoutApplicantNestedInput
+    verifiedApplications?: TechnicianApplicationUpdateManyWithoutVerifiedByNestedInput
+    rejectedApplications?: TechnicianApplicationUpdateManyWithoutRejectedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWorkOrdersAssignedInput = {
@@ -17968,6 +22176,10 @@ export namespace Prisma {
     searchHistory?: SearchHistoryUncheckedUpdateManyWithoutUserNestedInput
     statusLogs?: StatusLogUncheckedUpdateManyWithoutChangedByNestedInput
     workOrdersCreated?: WorkOrderUncheckedUpdateManyWithoutAssignedByNestedInput
+    maintenanceLogs?: MaintenanceLogUncheckedUpdateManyWithoutTechnicianNestedInput
+    technicianApplications?: TechnicianApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+    verifiedApplications?: TechnicianApplicationUncheckedUpdateManyWithoutVerifiedByNestedInput
+    rejectedApplications?: TechnicianApplicationUncheckedUpdateManyWithoutRejectedByNestedInput
   }
 
   export type FaultReportUpsertWithoutWorkOrderInput = {
@@ -17983,22 +22195,240 @@ export namespace Prisma {
 
   export type FaultReportUpdateWithoutWorkOrderInput = {
     id?: StringFieldUpdateOperationsInput | string
+    reporterName?: NullableStringFieldUpdateOperationsInput | string | null
+    reporterEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    reporterPhone?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     faultType?: EnumFaultTypeFieldUpdateOperationsInput | $Enums.FaultType
     status?: EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     reportedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pole?: PoleUpdateOneRequiredWithoutFaultReportsNestedInput
-    reportedBy?: UserUpdateOneRequiredWithoutFaultReportsNestedInput
+    reportedBy?: UserUpdateOneWithoutFaultReportsNestedInput
   }
 
   export type FaultReportUncheckedUpdateWithoutWorkOrderInput = {
     id?: StringFieldUpdateOperationsInput | string
     poleId?: StringFieldUpdateOperationsInput | string
-    reportedById?: StringFieldUpdateOperationsInput | string
+    reportedById?: NullableStringFieldUpdateOperationsInput | string | null
+    reporterName?: NullableStringFieldUpdateOperationsInput | string | null
+    reporterEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    reporterPhone?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     faultType?: EnumFaultTypeFieldUpdateOperationsInput | $Enums.FaultType
     status?: EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     reportedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MaintenanceLogUpsertWithWhereUniqueWithoutWorkOrderInput = {
+    where: MaintenanceLogWhereUniqueInput
+    update: XOR<MaintenanceLogUpdateWithoutWorkOrderInput, MaintenanceLogUncheckedUpdateWithoutWorkOrderInput>
+    create: XOR<MaintenanceLogCreateWithoutWorkOrderInput, MaintenanceLogUncheckedCreateWithoutWorkOrderInput>
+  }
+
+  export type MaintenanceLogUpdateWithWhereUniqueWithoutWorkOrderInput = {
+    where: MaintenanceLogWhereUniqueInput
+    data: XOR<MaintenanceLogUpdateWithoutWorkOrderInput, MaintenanceLogUncheckedUpdateWithoutWorkOrderInput>
+  }
+
+  export type MaintenanceLogUpdateManyWithWhereWithoutWorkOrderInput = {
+    where: MaintenanceLogScalarWhereInput
+    data: XOR<MaintenanceLogUpdateManyMutationInput, MaintenanceLogUncheckedUpdateManyWithoutWorkOrderInput>
+  }
+
+  export type WorkOrderCreateWithoutMaintenanceLogsInput = {
+    id?: string
+    status?: $Enums.WorkOrderStatus
+    assignedAt?: Date | string
+    resolvedAt?: Date | string | null
+    resolutionNotes?: string | null
+    assignedBy: UserCreateNestedOneWithoutWorkOrdersCreatedInput
+    assignedTo?: UserCreateNestedOneWithoutWorkOrdersAssignedInput
+    faultReport: FaultReportCreateNestedOneWithoutWorkOrderInput
+  }
+
+  export type WorkOrderUncheckedCreateWithoutMaintenanceLogsInput = {
+    id?: string
+    faultReportId: string
+    assignedToId?: string | null
+    assignedById: string
+    status?: $Enums.WorkOrderStatus
+    assignedAt?: Date | string
+    resolvedAt?: Date | string | null
+    resolutionNotes?: string | null
+  }
+
+  export type WorkOrderCreateOrConnectWithoutMaintenanceLogsInput = {
+    where: WorkOrderWhereUniqueInput
+    create: XOR<WorkOrderCreateWithoutMaintenanceLogsInput, WorkOrderUncheckedCreateWithoutMaintenanceLogsInput>
+  }
+
+  export type UserCreateWithoutMaintenanceLogsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    barangay: string
+    city: string
+    dob?: Date | string | null
+    firstName: string
+    gender?: string | null
+    lastName: string
+    middleName?: string | null
+    phone: string
+    province?: string | null
+    region: string
+    streetAddress?: string | null
+    faultReports?: FaultReportCreateNestedManyWithoutReportedByInput
+    inventoryLogs?: InventoryLogCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    searchHistory?: SearchHistoryCreateNestedManyWithoutUserInput
+    statusLogs?: StatusLogCreateNestedManyWithoutChangedByInput
+    workOrdersCreated?: WorkOrderCreateNestedManyWithoutAssignedByInput
+    workOrdersAssigned?: WorkOrderCreateNestedManyWithoutAssignedToInput
+    technicianApplications?: TechnicianApplicationCreateNestedManyWithoutApplicantInput
+    verifiedApplications?: TechnicianApplicationCreateNestedManyWithoutVerifiedByInput
+    rejectedApplications?: TechnicianApplicationCreateNestedManyWithoutRejectedByInput
+  }
+
+  export type UserUncheckedCreateWithoutMaintenanceLogsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    barangay: string
+    city: string
+    dob?: Date | string | null
+    firstName: string
+    gender?: string | null
+    lastName: string
+    middleName?: string | null
+    phone: string
+    province?: string | null
+    region: string
+    streetAddress?: string | null
+    faultReports?: FaultReportUncheckedCreateNestedManyWithoutReportedByInput
+    inventoryLogs?: InventoryLogUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    searchHistory?: SearchHistoryUncheckedCreateNestedManyWithoutUserInput
+    statusLogs?: StatusLogUncheckedCreateNestedManyWithoutChangedByInput
+    workOrdersCreated?: WorkOrderUncheckedCreateNestedManyWithoutAssignedByInput
+    workOrdersAssigned?: WorkOrderUncheckedCreateNestedManyWithoutAssignedToInput
+    technicianApplications?: TechnicianApplicationUncheckedCreateNestedManyWithoutApplicantInput
+    verifiedApplications?: TechnicianApplicationUncheckedCreateNestedManyWithoutVerifiedByInput
+    rejectedApplications?: TechnicianApplicationUncheckedCreateNestedManyWithoutRejectedByInput
+  }
+
+  export type UserCreateOrConnectWithoutMaintenanceLogsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutMaintenanceLogsInput, UserUncheckedCreateWithoutMaintenanceLogsInput>
+  }
+
+  export type WorkOrderUpsertWithoutMaintenanceLogsInput = {
+    update: XOR<WorkOrderUpdateWithoutMaintenanceLogsInput, WorkOrderUncheckedUpdateWithoutMaintenanceLogsInput>
+    create: XOR<WorkOrderCreateWithoutMaintenanceLogsInput, WorkOrderUncheckedCreateWithoutMaintenanceLogsInput>
+    where?: WorkOrderWhereInput
+  }
+
+  export type WorkOrderUpdateToOneWithWhereWithoutMaintenanceLogsInput = {
+    where?: WorkOrderWhereInput
+    data: XOR<WorkOrderUpdateWithoutMaintenanceLogsInput, WorkOrderUncheckedUpdateWithoutMaintenanceLogsInput>
+  }
+
+  export type WorkOrderUpdateWithoutMaintenanceLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    status?: EnumWorkOrderStatusFieldUpdateOperationsInput | $Enums.WorkOrderStatus
+    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resolutionNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedBy?: UserUpdateOneRequiredWithoutWorkOrdersCreatedNestedInput
+    assignedTo?: UserUpdateOneWithoutWorkOrdersAssignedNestedInput
+    faultReport?: FaultReportUpdateOneRequiredWithoutWorkOrderNestedInput
+  }
+
+  export type WorkOrderUncheckedUpdateWithoutMaintenanceLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    faultReportId?: StringFieldUpdateOperationsInput | string
+    assignedToId?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedById?: StringFieldUpdateOperationsInput | string
+    status?: EnumWorkOrderStatusFieldUpdateOperationsInput | $Enums.WorkOrderStatus
+    assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    resolutionNotes?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type UserUpsertWithoutMaintenanceLogsInput = {
+    update: XOR<UserUpdateWithoutMaintenanceLogsInput, UserUncheckedUpdateWithoutMaintenanceLogsInput>
+    create: XOR<UserCreateWithoutMaintenanceLogsInput, UserUncheckedCreateWithoutMaintenanceLogsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutMaintenanceLogsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutMaintenanceLogsInput, UserUncheckedUpdateWithoutMaintenanceLogsInput>
+  }
+
+  export type UserUpdateWithoutMaintenanceLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    barangay?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: StringFieldUpdateOperationsInput | string
+    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    faultReports?: FaultReportUpdateManyWithoutReportedByNestedInput
+    inventoryLogs?: InventoryLogUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    searchHistory?: SearchHistoryUpdateManyWithoutUserNestedInput
+    statusLogs?: StatusLogUpdateManyWithoutChangedByNestedInput
+    workOrdersCreated?: WorkOrderUpdateManyWithoutAssignedByNestedInput
+    workOrdersAssigned?: WorkOrderUpdateManyWithoutAssignedToNestedInput
+    technicianApplications?: TechnicianApplicationUpdateManyWithoutApplicantNestedInput
+    verifiedApplications?: TechnicianApplicationUpdateManyWithoutVerifiedByNestedInput
+    rejectedApplications?: TechnicianApplicationUpdateManyWithoutRejectedByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutMaintenanceLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    barangay?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: StringFieldUpdateOperationsInput | string
+    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    faultReports?: FaultReportUncheckedUpdateManyWithoutReportedByNestedInput
+    inventoryLogs?: InventoryLogUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    searchHistory?: SearchHistoryUncheckedUpdateManyWithoutUserNestedInput
+    statusLogs?: StatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+    workOrdersCreated?: WorkOrderUncheckedUpdateManyWithoutAssignedByNestedInput
+    workOrdersAssigned?: WorkOrderUncheckedUpdateManyWithoutAssignedToNestedInput
+    technicianApplications?: TechnicianApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+    verifiedApplications?: TechnicianApplicationUncheckedUpdateManyWithoutVerifiedByNestedInput
+    rejectedApplications?: TechnicianApplicationUncheckedUpdateManyWithoutRejectedByNestedInput
   }
 
   export type UserCreateWithoutStatusLogsInput = {
@@ -18024,6 +22454,10 @@ export namespace Prisma {
     searchHistory?: SearchHistoryCreateNestedManyWithoutUserInput
     workOrdersCreated?: WorkOrderCreateNestedManyWithoutAssignedByInput
     workOrdersAssigned?: WorkOrderCreateNestedManyWithoutAssignedToInput
+    maintenanceLogs?: MaintenanceLogCreateNestedManyWithoutTechnicianInput
+    technicianApplications?: TechnicianApplicationCreateNestedManyWithoutApplicantInput
+    verifiedApplications?: TechnicianApplicationCreateNestedManyWithoutVerifiedByInput
+    rejectedApplications?: TechnicianApplicationCreateNestedManyWithoutRejectedByInput
   }
 
   export type UserUncheckedCreateWithoutStatusLogsInput = {
@@ -18049,6 +22483,10 @@ export namespace Prisma {
     searchHistory?: SearchHistoryUncheckedCreateNestedManyWithoutUserInput
     workOrdersCreated?: WorkOrderUncheckedCreateNestedManyWithoutAssignedByInput
     workOrdersAssigned?: WorkOrderUncheckedCreateNestedManyWithoutAssignedToInput
+    maintenanceLogs?: MaintenanceLogUncheckedCreateNestedManyWithoutTechnicianInput
+    technicianApplications?: TechnicianApplicationUncheckedCreateNestedManyWithoutApplicantInput
+    verifiedApplications?: TechnicianApplicationUncheckedCreateNestedManyWithoutVerifiedByInput
+    rejectedApplications?: TechnicianApplicationUncheckedCreateNestedManyWithoutRejectedByInput
   }
 
   export type UserCreateOrConnectWithoutStatusLogsInput = {
@@ -18121,6 +22559,10 @@ export namespace Prisma {
     searchHistory?: SearchHistoryUpdateManyWithoutUserNestedInput
     workOrdersCreated?: WorkOrderUpdateManyWithoutAssignedByNestedInput
     workOrdersAssigned?: WorkOrderUpdateManyWithoutAssignedToNestedInput
+    maintenanceLogs?: MaintenanceLogUpdateManyWithoutTechnicianNestedInput
+    technicianApplications?: TechnicianApplicationUpdateManyWithoutApplicantNestedInput
+    verifiedApplications?: TechnicianApplicationUpdateManyWithoutVerifiedByNestedInput
+    rejectedApplications?: TechnicianApplicationUpdateManyWithoutRejectedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutStatusLogsInput = {
@@ -18146,6 +22588,10 @@ export namespace Prisma {
     searchHistory?: SearchHistoryUncheckedUpdateManyWithoutUserNestedInput
     workOrdersCreated?: WorkOrderUncheckedUpdateManyWithoutAssignedByNestedInput
     workOrdersAssigned?: WorkOrderUncheckedUpdateManyWithoutAssignedToNestedInput
+    maintenanceLogs?: MaintenanceLogUncheckedUpdateManyWithoutTechnicianNestedInput
+    technicianApplications?: TechnicianApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+    verifiedApplications?: TechnicianApplicationUncheckedUpdateManyWithoutVerifiedByNestedInput
+    rejectedApplications?: TechnicianApplicationUncheckedUpdateManyWithoutRejectedByNestedInput
   }
 
   export type PoleUpsertWithoutStatusLogsInput = {
@@ -18208,6 +22654,10 @@ export namespace Prisma {
     statusLogs?: StatusLogCreateNestedManyWithoutChangedByInput
     workOrdersCreated?: WorkOrderCreateNestedManyWithoutAssignedByInput
     workOrdersAssigned?: WorkOrderCreateNestedManyWithoutAssignedToInput
+    maintenanceLogs?: MaintenanceLogCreateNestedManyWithoutTechnicianInput
+    technicianApplications?: TechnicianApplicationCreateNestedManyWithoutApplicantInput
+    verifiedApplications?: TechnicianApplicationCreateNestedManyWithoutVerifiedByInput
+    rejectedApplications?: TechnicianApplicationCreateNestedManyWithoutRejectedByInput
   }
 
   export type UserUncheckedCreateWithoutSearchHistoryInput = {
@@ -18233,6 +22683,10 @@ export namespace Prisma {
     statusLogs?: StatusLogUncheckedCreateNestedManyWithoutChangedByInput
     workOrdersCreated?: WorkOrderUncheckedCreateNestedManyWithoutAssignedByInput
     workOrdersAssigned?: WorkOrderUncheckedCreateNestedManyWithoutAssignedToInput
+    maintenanceLogs?: MaintenanceLogUncheckedCreateNestedManyWithoutTechnicianInput
+    technicianApplications?: TechnicianApplicationUncheckedCreateNestedManyWithoutApplicantInput
+    verifiedApplications?: TechnicianApplicationUncheckedCreateNestedManyWithoutVerifiedByInput
+    rejectedApplications?: TechnicianApplicationUncheckedCreateNestedManyWithoutRejectedByInput
   }
 
   export type UserCreateOrConnectWithoutSearchHistoryInput = {
@@ -18274,6 +22728,10 @@ export namespace Prisma {
     statusLogs?: StatusLogUpdateManyWithoutChangedByNestedInput
     workOrdersCreated?: WorkOrderUpdateManyWithoutAssignedByNestedInput
     workOrdersAssigned?: WorkOrderUpdateManyWithoutAssignedToNestedInput
+    maintenanceLogs?: MaintenanceLogUpdateManyWithoutTechnicianNestedInput
+    technicianApplications?: TechnicianApplicationUpdateManyWithoutApplicantNestedInput
+    verifiedApplications?: TechnicianApplicationUpdateManyWithoutVerifiedByNestedInput
+    rejectedApplications?: TechnicianApplicationUpdateManyWithoutRejectedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSearchHistoryInput = {
@@ -18299,6 +22757,10 @@ export namespace Prisma {
     statusLogs?: StatusLogUncheckedUpdateManyWithoutChangedByNestedInput
     workOrdersCreated?: WorkOrderUncheckedUpdateManyWithoutAssignedByNestedInput
     workOrdersAssigned?: WorkOrderUncheckedUpdateManyWithoutAssignedToNestedInput
+    maintenanceLogs?: MaintenanceLogUncheckedUpdateManyWithoutTechnicianNestedInput
+    technicianApplications?: TechnicianApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+    verifiedApplications?: TechnicianApplicationUncheckedUpdateManyWithoutVerifiedByNestedInput
+    rejectedApplications?: TechnicianApplicationUncheckedUpdateManyWithoutRejectedByNestedInput
   }
 
   export type UserCreateWithoutNotificationsInput = {
@@ -18324,6 +22786,10 @@ export namespace Prisma {
     statusLogs?: StatusLogCreateNestedManyWithoutChangedByInput
     workOrdersCreated?: WorkOrderCreateNestedManyWithoutAssignedByInput
     workOrdersAssigned?: WorkOrderCreateNestedManyWithoutAssignedToInput
+    maintenanceLogs?: MaintenanceLogCreateNestedManyWithoutTechnicianInput
+    technicianApplications?: TechnicianApplicationCreateNestedManyWithoutApplicantInput
+    verifiedApplications?: TechnicianApplicationCreateNestedManyWithoutVerifiedByInput
+    rejectedApplications?: TechnicianApplicationCreateNestedManyWithoutRejectedByInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -18349,6 +22815,10 @@ export namespace Prisma {
     statusLogs?: StatusLogUncheckedCreateNestedManyWithoutChangedByInput
     workOrdersCreated?: WorkOrderUncheckedCreateNestedManyWithoutAssignedByInput
     workOrdersAssigned?: WorkOrderUncheckedCreateNestedManyWithoutAssignedToInput
+    maintenanceLogs?: MaintenanceLogUncheckedCreateNestedManyWithoutTechnicianInput
+    technicianApplications?: TechnicianApplicationUncheckedCreateNestedManyWithoutApplicantInput
+    verifiedApplications?: TechnicianApplicationUncheckedCreateNestedManyWithoutVerifiedByInput
+    rejectedApplications?: TechnicianApplicationUncheckedCreateNestedManyWithoutRejectedByInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -18390,6 +22860,10 @@ export namespace Prisma {
     statusLogs?: StatusLogUpdateManyWithoutChangedByNestedInput
     workOrdersCreated?: WorkOrderUpdateManyWithoutAssignedByNestedInput
     workOrdersAssigned?: WorkOrderUpdateManyWithoutAssignedToNestedInput
+    maintenanceLogs?: MaintenanceLogUpdateManyWithoutTechnicianNestedInput
+    technicianApplications?: TechnicianApplicationUpdateManyWithoutApplicantNestedInput
+    verifiedApplications?: TechnicianApplicationUpdateManyWithoutVerifiedByNestedInput
+    rejectedApplications?: TechnicianApplicationUpdateManyWithoutRejectedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -18415,6 +22889,10 @@ export namespace Prisma {
     statusLogs?: StatusLogUncheckedUpdateManyWithoutChangedByNestedInput
     workOrdersCreated?: WorkOrderUncheckedUpdateManyWithoutAssignedByNestedInput
     workOrdersAssigned?: WorkOrderUncheckedUpdateManyWithoutAssignedToNestedInput
+    maintenanceLogs?: MaintenanceLogUncheckedUpdateManyWithoutTechnicianNestedInput
+    technicianApplications?: TechnicianApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+    verifiedApplications?: TechnicianApplicationUncheckedUpdateManyWithoutVerifiedByNestedInput
+    rejectedApplications?: TechnicianApplicationUncheckedUpdateManyWithoutRejectedByNestedInput
   }
 
   export type InventoryLogCreateWithoutItemInput = {
@@ -18511,6 +22989,10 @@ export namespace Prisma {
     statusLogs?: StatusLogCreateNestedManyWithoutChangedByInput
     workOrdersCreated?: WorkOrderCreateNestedManyWithoutAssignedByInput
     workOrdersAssigned?: WorkOrderCreateNestedManyWithoutAssignedToInput
+    maintenanceLogs?: MaintenanceLogCreateNestedManyWithoutTechnicianInput
+    technicianApplications?: TechnicianApplicationCreateNestedManyWithoutApplicantInput
+    verifiedApplications?: TechnicianApplicationCreateNestedManyWithoutVerifiedByInput
+    rejectedApplications?: TechnicianApplicationCreateNestedManyWithoutRejectedByInput
   }
 
   export type UserUncheckedCreateWithoutInventoryLogsInput = {
@@ -18536,6 +23018,10 @@ export namespace Prisma {
     statusLogs?: StatusLogUncheckedCreateNestedManyWithoutChangedByInput
     workOrdersCreated?: WorkOrderUncheckedCreateNestedManyWithoutAssignedByInput
     workOrdersAssigned?: WorkOrderUncheckedCreateNestedManyWithoutAssignedToInput
+    maintenanceLogs?: MaintenanceLogUncheckedCreateNestedManyWithoutTechnicianInput
+    technicianApplications?: TechnicianApplicationUncheckedCreateNestedManyWithoutApplicantInput
+    verifiedApplications?: TechnicianApplicationUncheckedCreateNestedManyWithoutVerifiedByInput
+    rejectedApplications?: TechnicianApplicationUncheckedCreateNestedManyWithoutRejectedByInput
   }
 
   export type UserCreateOrConnectWithoutInventoryLogsInput = {
@@ -18612,6 +23098,10 @@ export namespace Prisma {
     statusLogs?: StatusLogUpdateManyWithoutChangedByNestedInput
     workOrdersCreated?: WorkOrderUpdateManyWithoutAssignedByNestedInput
     workOrdersAssigned?: WorkOrderUpdateManyWithoutAssignedToNestedInput
+    maintenanceLogs?: MaintenanceLogUpdateManyWithoutTechnicianNestedInput
+    technicianApplications?: TechnicianApplicationUpdateManyWithoutApplicantNestedInput
+    verifiedApplications?: TechnicianApplicationUpdateManyWithoutVerifiedByNestedInput
+    rejectedApplications?: TechnicianApplicationUpdateManyWithoutRejectedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutInventoryLogsInput = {
@@ -18637,14 +23127,419 @@ export namespace Prisma {
     statusLogs?: StatusLogUncheckedUpdateManyWithoutChangedByNestedInput
     workOrdersCreated?: WorkOrderUncheckedUpdateManyWithoutAssignedByNestedInput
     workOrdersAssigned?: WorkOrderUncheckedUpdateManyWithoutAssignedToNestedInput
+    maintenanceLogs?: MaintenanceLogUncheckedUpdateManyWithoutTechnicianNestedInput
+    technicianApplications?: TechnicianApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+    verifiedApplications?: TechnicianApplicationUncheckedUpdateManyWithoutVerifiedByNestedInput
+    rejectedApplications?: TechnicianApplicationUncheckedUpdateManyWithoutRejectedByNestedInput
+  }
+
+  export type UserCreateWithoutTechnicianApplicationsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    barangay: string
+    city: string
+    dob?: Date | string | null
+    firstName: string
+    gender?: string | null
+    lastName: string
+    middleName?: string | null
+    phone: string
+    province?: string | null
+    region: string
+    streetAddress?: string | null
+    faultReports?: FaultReportCreateNestedManyWithoutReportedByInput
+    inventoryLogs?: InventoryLogCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    searchHistory?: SearchHistoryCreateNestedManyWithoutUserInput
+    statusLogs?: StatusLogCreateNestedManyWithoutChangedByInput
+    workOrdersCreated?: WorkOrderCreateNestedManyWithoutAssignedByInput
+    workOrdersAssigned?: WorkOrderCreateNestedManyWithoutAssignedToInput
+    maintenanceLogs?: MaintenanceLogCreateNestedManyWithoutTechnicianInput
+    verifiedApplications?: TechnicianApplicationCreateNestedManyWithoutVerifiedByInput
+    rejectedApplications?: TechnicianApplicationCreateNestedManyWithoutRejectedByInput
+  }
+
+  export type UserUncheckedCreateWithoutTechnicianApplicationsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    barangay: string
+    city: string
+    dob?: Date | string | null
+    firstName: string
+    gender?: string | null
+    lastName: string
+    middleName?: string | null
+    phone: string
+    province?: string | null
+    region: string
+    streetAddress?: string | null
+    faultReports?: FaultReportUncheckedCreateNestedManyWithoutReportedByInput
+    inventoryLogs?: InventoryLogUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    searchHistory?: SearchHistoryUncheckedCreateNestedManyWithoutUserInput
+    statusLogs?: StatusLogUncheckedCreateNestedManyWithoutChangedByInput
+    workOrdersCreated?: WorkOrderUncheckedCreateNestedManyWithoutAssignedByInput
+    workOrdersAssigned?: WorkOrderUncheckedCreateNestedManyWithoutAssignedToInput
+    maintenanceLogs?: MaintenanceLogUncheckedCreateNestedManyWithoutTechnicianInput
+    verifiedApplications?: TechnicianApplicationUncheckedCreateNestedManyWithoutVerifiedByInput
+    rejectedApplications?: TechnicianApplicationUncheckedCreateNestedManyWithoutRejectedByInput
+  }
+
+  export type UserCreateOrConnectWithoutTechnicianApplicationsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutTechnicianApplicationsInput, UserUncheckedCreateWithoutTechnicianApplicationsInput>
+  }
+
+  export type UserCreateWithoutVerifiedApplicationsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    barangay: string
+    city: string
+    dob?: Date | string | null
+    firstName: string
+    gender?: string | null
+    lastName: string
+    middleName?: string | null
+    phone: string
+    province?: string | null
+    region: string
+    streetAddress?: string | null
+    faultReports?: FaultReportCreateNestedManyWithoutReportedByInput
+    inventoryLogs?: InventoryLogCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    searchHistory?: SearchHistoryCreateNestedManyWithoutUserInput
+    statusLogs?: StatusLogCreateNestedManyWithoutChangedByInput
+    workOrdersCreated?: WorkOrderCreateNestedManyWithoutAssignedByInput
+    workOrdersAssigned?: WorkOrderCreateNestedManyWithoutAssignedToInput
+    maintenanceLogs?: MaintenanceLogCreateNestedManyWithoutTechnicianInput
+    technicianApplications?: TechnicianApplicationCreateNestedManyWithoutApplicantInput
+    rejectedApplications?: TechnicianApplicationCreateNestedManyWithoutRejectedByInput
+  }
+
+  export type UserUncheckedCreateWithoutVerifiedApplicationsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    barangay: string
+    city: string
+    dob?: Date | string | null
+    firstName: string
+    gender?: string | null
+    lastName: string
+    middleName?: string | null
+    phone: string
+    province?: string | null
+    region: string
+    streetAddress?: string | null
+    faultReports?: FaultReportUncheckedCreateNestedManyWithoutReportedByInput
+    inventoryLogs?: InventoryLogUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    searchHistory?: SearchHistoryUncheckedCreateNestedManyWithoutUserInput
+    statusLogs?: StatusLogUncheckedCreateNestedManyWithoutChangedByInput
+    workOrdersCreated?: WorkOrderUncheckedCreateNestedManyWithoutAssignedByInput
+    workOrdersAssigned?: WorkOrderUncheckedCreateNestedManyWithoutAssignedToInput
+    maintenanceLogs?: MaintenanceLogUncheckedCreateNestedManyWithoutTechnicianInput
+    technicianApplications?: TechnicianApplicationUncheckedCreateNestedManyWithoutApplicantInput
+    rejectedApplications?: TechnicianApplicationUncheckedCreateNestedManyWithoutRejectedByInput
+  }
+
+  export type UserCreateOrConnectWithoutVerifiedApplicationsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutVerifiedApplicationsInput, UserUncheckedCreateWithoutVerifiedApplicationsInput>
+  }
+
+  export type UserCreateWithoutRejectedApplicationsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    barangay: string
+    city: string
+    dob?: Date | string | null
+    firstName: string
+    gender?: string | null
+    lastName: string
+    middleName?: string | null
+    phone: string
+    province?: string | null
+    region: string
+    streetAddress?: string | null
+    faultReports?: FaultReportCreateNestedManyWithoutReportedByInput
+    inventoryLogs?: InventoryLogCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    searchHistory?: SearchHistoryCreateNestedManyWithoutUserInput
+    statusLogs?: StatusLogCreateNestedManyWithoutChangedByInput
+    workOrdersCreated?: WorkOrderCreateNestedManyWithoutAssignedByInput
+    workOrdersAssigned?: WorkOrderCreateNestedManyWithoutAssignedToInput
+    maintenanceLogs?: MaintenanceLogCreateNestedManyWithoutTechnicianInput
+    technicianApplications?: TechnicianApplicationCreateNestedManyWithoutApplicantInput
+    verifiedApplications?: TechnicianApplicationCreateNestedManyWithoutVerifiedByInput
+  }
+
+  export type UserUncheckedCreateWithoutRejectedApplicationsInput = {
+    id?: string
+    email: string
+    passwordHash: string
+    role?: $Enums.Role
+    createdAt?: Date | string
+    barangay: string
+    city: string
+    dob?: Date | string | null
+    firstName: string
+    gender?: string | null
+    lastName: string
+    middleName?: string | null
+    phone: string
+    province?: string | null
+    region: string
+    streetAddress?: string | null
+    faultReports?: FaultReportUncheckedCreateNestedManyWithoutReportedByInput
+    inventoryLogs?: InventoryLogUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    searchHistory?: SearchHistoryUncheckedCreateNestedManyWithoutUserInput
+    statusLogs?: StatusLogUncheckedCreateNestedManyWithoutChangedByInput
+    workOrdersCreated?: WorkOrderUncheckedCreateNestedManyWithoutAssignedByInput
+    workOrdersAssigned?: WorkOrderUncheckedCreateNestedManyWithoutAssignedToInput
+    maintenanceLogs?: MaintenanceLogUncheckedCreateNestedManyWithoutTechnicianInput
+    technicianApplications?: TechnicianApplicationUncheckedCreateNestedManyWithoutApplicantInput
+    verifiedApplications?: TechnicianApplicationUncheckedCreateNestedManyWithoutVerifiedByInput
+  }
+
+  export type UserCreateOrConnectWithoutRejectedApplicationsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutRejectedApplicationsInput, UserUncheckedCreateWithoutRejectedApplicationsInput>
+  }
+
+  export type UserUpsertWithoutTechnicianApplicationsInput = {
+    update: XOR<UserUpdateWithoutTechnicianApplicationsInput, UserUncheckedUpdateWithoutTechnicianApplicationsInput>
+    create: XOR<UserCreateWithoutTechnicianApplicationsInput, UserUncheckedCreateWithoutTechnicianApplicationsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutTechnicianApplicationsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutTechnicianApplicationsInput, UserUncheckedUpdateWithoutTechnicianApplicationsInput>
+  }
+
+  export type UserUpdateWithoutTechnicianApplicationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    barangay?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: StringFieldUpdateOperationsInput | string
+    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    faultReports?: FaultReportUpdateManyWithoutReportedByNestedInput
+    inventoryLogs?: InventoryLogUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    searchHistory?: SearchHistoryUpdateManyWithoutUserNestedInput
+    statusLogs?: StatusLogUpdateManyWithoutChangedByNestedInput
+    workOrdersCreated?: WorkOrderUpdateManyWithoutAssignedByNestedInput
+    workOrdersAssigned?: WorkOrderUpdateManyWithoutAssignedToNestedInput
+    maintenanceLogs?: MaintenanceLogUpdateManyWithoutTechnicianNestedInput
+    verifiedApplications?: TechnicianApplicationUpdateManyWithoutVerifiedByNestedInput
+    rejectedApplications?: TechnicianApplicationUpdateManyWithoutRejectedByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutTechnicianApplicationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    barangay?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: StringFieldUpdateOperationsInput | string
+    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    faultReports?: FaultReportUncheckedUpdateManyWithoutReportedByNestedInput
+    inventoryLogs?: InventoryLogUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    searchHistory?: SearchHistoryUncheckedUpdateManyWithoutUserNestedInput
+    statusLogs?: StatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+    workOrdersCreated?: WorkOrderUncheckedUpdateManyWithoutAssignedByNestedInput
+    workOrdersAssigned?: WorkOrderUncheckedUpdateManyWithoutAssignedToNestedInput
+    maintenanceLogs?: MaintenanceLogUncheckedUpdateManyWithoutTechnicianNestedInput
+    verifiedApplications?: TechnicianApplicationUncheckedUpdateManyWithoutVerifiedByNestedInput
+    rejectedApplications?: TechnicianApplicationUncheckedUpdateManyWithoutRejectedByNestedInput
+  }
+
+  export type UserUpsertWithoutVerifiedApplicationsInput = {
+    update: XOR<UserUpdateWithoutVerifiedApplicationsInput, UserUncheckedUpdateWithoutVerifiedApplicationsInput>
+    create: XOR<UserCreateWithoutVerifiedApplicationsInput, UserUncheckedCreateWithoutVerifiedApplicationsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutVerifiedApplicationsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutVerifiedApplicationsInput, UserUncheckedUpdateWithoutVerifiedApplicationsInput>
+  }
+
+  export type UserUpdateWithoutVerifiedApplicationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    barangay?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: StringFieldUpdateOperationsInput | string
+    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    faultReports?: FaultReportUpdateManyWithoutReportedByNestedInput
+    inventoryLogs?: InventoryLogUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    searchHistory?: SearchHistoryUpdateManyWithoutUserNestedInput
+    statusLogs?: StatusLogUpdateManyWithoutChangedByNestedInput
+    workOrdersCreated?: WorkOrderUpdateManyWithoutAssignedByNestedInput
+    workOrdersAssigned?: WorkOrderUpdateManyWithoutAssignedToNestedInput
+    maintenanceLogs?: MaintenanceLogUpdateManyWithoutTechnicianNestedInput
+    technicianApplications?: TechnicianApplicationUpdateManyWithoutApplicantNestedInput
+    rejectedApplications?: TechnicianApplicationUpdateManyWithoutRejectedByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutVerifiedApplicationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    barangay?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: StringFieldUpdateOperationsInput | string
+    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    faultReports?: FaultReportUncheckedUpdateManyWithoutReportedByNestedInput
+    inventoryLogs?: InventoryLogUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    searchHistory?: SearchHistoryUncheckedUpdateManyWithoutUserNestedInput
+    statusLogs?: StatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+    workOrdersCreated?: WorkOrderUncheckedUpdateManyWithoutAssignedByNestedInput
+    workOrdersAssigned?: WorkOrderUncheckedUpdateManyWithoutAssignedToNestedInput
+    maintenanceLogs?: MaintenanceLogUncheckedUpdateManyWithoutTechnicianNestedInput
+    technicianApplications?: TechnicianApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+    rejectedApplications?: TechnicianApplicationUncheckedUpdateManyWithoutRejectedByNestedInput
+  }
+
+  export type UserUpsertWithoutRejectedApplicationsInput = {
+    update: XOR<UserUpdateWithoutRejectedApplicationsInput, UserUncheckedUpdateWithoutRejectedApplicationsInput>
+    create: XOR<UserCreateWithoutRejectedApplicationsInput, UserUncheckedCreateWithoutRejectedApplicationsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutRejectedApplicationsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutRejectedApplicationsInput, UserUncheckedUpdateWithoutRejectedApplicationsInput>
+  }
+
+  export type UserUpdateWithoutRejectedApplicationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    barangay?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: StringFieldUpdateOperationsInput | string
+    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    faultReports?: FaultReportUpdateManyWithoutReportedByNestedInput
+    inventoryLogs?: InventoryLogUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    searchHistory?: SearchHistoryUpdateManyWithoutUserNestedInput
+    statusLogs?: StatusLogUpdateManyWithoutChangedByNestedInput
+    workOrdersCreated?: WorkOrderUpdateManyWithoutAssignedByNestedInput
+    workOrdersAssigned?: WorkOrderUpdateManyWithoutAssignedToNestedInput
+    maintenanceLogs?: MaintenanceLogUpdateManyWithoutTechnicianNestedInput
+    technicianApplications?: TechnicianApplicationUpdateManyWithoutApplicantNestedInput
+    verifiedApplications?: TechnicianApplicationUpdateManyWithoutVerifiedByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutRejectedApplicationsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    passwordHash?: StringFieldUpdateOperationsInput | string
+    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    barangay?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    firstName?: StringFieldUpdateOperationsInput | string
+    gender?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: StringFieldUpdateOperationsInput | string
+    middleName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: StringFieldUpdateOperationsInput | string
+    province?: NullableStringFieldUpdateOperationsInput | string | null
+    region?: StringFieldUpdateOperationsInput | string
+    streetAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    faultReports?: FaultReportUncheckedUpdateManyWithoutReportedByNestedInput
+    inventoryLogs?: InventoryLogUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    searchHistory?: SearchHistoryUncheckedUpdateManyWithoutUserNestedInput
+    statusLogs?: StatusLogUncheckedUpdateManyWithoutChangedByNestedInput
+    workOrdersCreated?: WorkOrderUncheckedUpdateManyWithoutAssignedByNestedInput
+    workOrdersAssigned?: WorkOrderUncheckedUpdateManyWithoutAssignedToNestedInput
+    maintenanceLogs?: MaintenanceLogUncheckedUpdateManyWithoutTechnicianNestedInput
+    technicianApplications?: TechnicianApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+    verifiedApplications?: TechnicianApplicationUncheckedUpdateManyWithoutVerifiedByNestedInput
   }
 
   export type FaultReportCreateManyReportedByInput = {
     id?: string
     poleId: string
+    reporterName?: string | null
+    reporterEmail?: string | null
+    reporterPhone?: string | null
     description: string
     faultType: $Enums.FaultType
     status?: $Enums.ReportStatus
+    latitude?: number | null
+    longitude?: number | null
     reportedAt?: Date | string
   }
 
@@ -18703,11 +23598,67 @@ export namespace Prisma {
     resolutionNotes?: string | null
   }
 
+  export type MaintenanceLogCreateManyTechnicianInput = {
+    id?: string
+    workOrderId: string
+    partsUsed?: string | null
+    timeSpent?: number | null
+    notes?: string | null
+    createdAt?: Date | string
+  }
+
+  export type TechnicianApplicationCreateManyApplicantInput = {
+    id?: string
+    skills: string
+    reason: string
+    status?: $Enums.ApplicationStatus
+    verifiedById?: string | null
+    verifiedAt?: Date | string | null
+    rejectedById?: string | null
+    rejectedAt?: Date | string | null
+    rejectedReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TechnicianApplicationCreateManyVerifiedByInput = {
+    id?: string
+    applicantId: string
+    skills: string
+    reason: string
+    status?: $Enums.ApplicationStatus
+    verifiedAt?: Date | string | null
+    rejectedById?: string | null
+    rejectedAt?: Date | string | null
+    rejectedReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TechnicianApplicationCreateManyRejectedByInput = {
+    id?: string
+    applicantId: string
+    skills: string
+    reason: string
+    status?: $Enums.ApplicationStatus
+    verifiedById?: string | null
+    verifiedAt?: Date | string | null
+    rejectedAt?: Date | string | null
+    rejectedReason?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type FaultReportUpdateWithoutReportedByInput = {
     id?: StringFieldUpdateOperationsInput | string
+    reporterName?: NullableStringFieldUpdateOperationsInput | string | null
+    reporterEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    reporterPhone?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     faultType?: EnumFaultTypeFieldUpdateOperationsInput | $Enums.FaultType
     status?: EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     reportedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     pole?: PoleUpdateOneRequiredWithoutFaultReportsNestedInput
     workOrder?: WorkOrderUpdateOneWithoutFaultReportNestedInput
@@ -18716,9 +23667,14 @@ export namespace Prisma {
   export type FaultReportUncheckedUpdateWithoutReportedByInput = {
     id?: StringFieldUpdateOperationsInput | string
     poleId?: StringFieldUpdateOperationsInput | string
+    reporterName?: NullableStringFieldUpdateOperationsInput | string | null
+    reporterEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    reporterPhone?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     faultType?: EnumFaultTypeFieldUpdateOperationsInput | $Enums.FaultType
     status?: EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     reportedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workOrder?: WorkOrderUncheckedUpdateOneWithoutFaultReportNestedInput
   }
@@ -18726,9 +23682,14 @@ export namespace Prisma {
   export type FaultReportUncheckedUpdateManyWithoutReportedByInput = {
     id?: StringFieldUpdateOperationsInput | string
     poleId?: StringFieldUpdateOperationsInput | string
+    reporterName?: NullableStringFieldUpdateOperationsInput | string | null
+    reporterEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    reporterPhone?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     faultType?: EnumFaultTypeFieldUpdateOperationsInput | $Enums.FaultType
     status?: EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     reportedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -18845,6 +23806,7 @@ export namespace Prisma {
     resolutionNotes?: NullableStringFieldUpdateOperationsInput | string | null
     assignedTo?: UserUpdateOneWithoutWorkOrdersAssignedNestedInput
     faultReport?: FaultReportUpdateOneRequiredWithoutWorkOrderNestedInput
+    maintenanceLogs?: MaintenanceLogUpdateManyWithoutWorkOrderNestedInput
   }
 
   export type WorkOrderUncheckedUpdateWithoutAssignedByInput = {
@@ -18855,6 +23817,7 @@ export namespace Prisma {
     assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resolutionNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    maintenanceLogs?: MaintenanceLogUncheckedUpdateManyWithoutWorkOrderNestedInput
   }
 
   export type WorkOrderUncheckedUpdateManyWithoutAssignedByInput = {
@@ -18875,6 +23838,7 @@ export namespace Prisma {
     resolutionNotes?: NullableStringFieldUpdateOperationsInput | string | null
     assignedBy?: UserUpdateOneRequiredWithoutWorkOrdersCreatedNestedInput
     faultReport?: FaultReportUpdateOneRequiredWithoutWorkOrderNestedInput
+    maintenanceLogs?: MaintenanceLogUpdateManyWithoutWorkOrderNestedInput
   }
 
   export type WorkOrderUncheckedUpdateWithoutAssignedToInput = {
@@ -18885,6 +23849,7 @@ export namespace Prisma {
     assignedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     resolutionNotes?: NullableStringFieldUpdateOperationsInput | string | null
+    maintenanceLogs?: MaintenanceLogUncheckedUpdateManyWithoutWorkOrderNestedInput
   }
 
   export type WorkOrderUncheckedUpdateManyWithoutAssignedToInput = {
@@ -18897,12 +23862,170 @@ export namespace Prisma {
     resolutionNotes?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type MaintenanceLogUpdateWithoutTechnicianInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    partsUsed?: NullableStringFieldUpdateOperationsInput | string | null
+    timeSpent?: NullableIntFieldUpdateOperationsInput | number | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    workOrder?: WorkOrderUpdateOneRequiredWithoutMaintenanceLogsNestedInput
+  }
+
+  export type MaintenanceLogUncheckedUpdateWithoutTechnicianInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    workOrderId?: StringFieldUpdateOperationsInput | string
+    partsUsed?: NullableStringFieldUpdateOperationsInput | string | null
+    timeSpent?: NullableIntFieldUpdateOperationsInput | number | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MaintenanceLogUncheckedUpdateManyWithoutTechnicianInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    workOrderId?: StringFieldUpdateOperationsInput | string
+    partsUsed?: NullableStringFieldUpdateOperationsInput | string | null
+    timeSpent?: NullableIntFieldUpdateOperationsInput | number | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TechnicianApplicationUpdateWithoutApplicantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    skills?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectedReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    verifiedBy?: UserUpdateOneWithoutVerifiedApplicationsNestedInput
+    rejectedBy?: UserUpdateOneWithoutRejectedApplicationsNestedInput
+  }
+
+  export type TechnicianApplicationUncheckedUpdateWithoutApplicantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    skills?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    verifiedById?: NullableStringFieldUpdateOperationsInput | string | null
+    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectedById?: NullableStringFieldUpdateOperationsInput | string | null
+    rejectedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectedReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TechnicianApplicationUncheckedUpdateManyWithoutApplicantInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    skills?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    verifiedById?: NullableStringFieldUpdateOperationsInput | string | null
+    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectedById?: NullableStringFieldUpdateOperationsInput | string | null
+    rejectedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectedReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TechnicianApplicationUpdateWithoutVerifiedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    skills?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectedReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    applicant?: UserUpdateOneRequiredWithoutTechnicianApplicationsNestedInput
+    rejectedBy?: UserUpdateOneWithoutRejectedApplicationsNestedInput
+  }
+
+  export type TechnicianApplicationUncheckedUpdateWithoutVerifiedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    applicantId?: StringFieldUpdateOperationsInput | string
+    skills?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectedById?: NullableStringFieldUpdateOperationsInput | string | null
+    rejectedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectedReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TechnicianApplicationUncheckedUpdateManyWithoutVerifiedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    applicantId?: StringFieldUpdateOperationsInput | string
+    skills?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectedById?: NullableStringFieldUpdateOperationsInput | string | null
+    rejectedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectedReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TechnicianApplicationUpdateWithoutRejectedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    skills?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectedReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    applicant?: UserUpdateOneRequiredWithoutTechnicianApplicationsNestedInput
+    verifiedBy?: UserUpdateOneWithoutVerifiedApplicationsNestedInput
+  }
+
+  export type TechnicianApplicationUncheckedUpdateWithoutRejectedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    applicantId?: StringFieldUpdateOperationsInput | string
+    skills?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    verifiedById?: NullableStringFieldUpdateOperationsInput | string | null
+    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectedReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TechnicianApplicationUncheckedUpdateManyWithoutRejectedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    applicantId?: StringFieldUpdateOperationsInput | string
+    skills?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    status?: EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+    verifiedById?: NullableStringFieldUpdateOperationsInput | string | null
+    verifiedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    rejectedReason?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type FaultReportCreateManyPoleInput = {
     id?: string
-    reportedById: string
+    reportedById?: string | null
+    reporterName?: string | null
+    reporterEmail?: string | null
+    reporterPhone?: string | null
     description: string
     faultType: $Enums.FaultType
     status?: $Enums.ReportStatus
+    latitude?: number | null
+    longitude?: number | null
     reportedAt?: Date | string
   }
 
@@ -18917,30 +24040,45 @@ export namespace Prisma {
 
   export type FaultReportUpdateWithoutPoleInput = {
     id?: StringFieldUpdateOperationsInput | string
+    reporterName?: NullableStringFieldUpdateOperationsInput | string | null
+    reporterEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    reporterPhone?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     faultType?: EnumFaultTypeFieldUpdateOperationsInput | $Enums.FaultType
     status?: EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     reportedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    reportedBy?: UserUpdateOneRequiredWithoutFaultReportsNestedInput
+    reportedBy?: UserUpdateOneWithoutFaultReportsNestedInput
     workOrder?: WorkOrderUpdateOneWithoutFaultReportNestedInput
   }
 
   export type FaultReportUncheckedUpdateWithoutPoleInput = {
     id?: StringFieldUpdateOperationsInput | string
-    reportedById?: StringFieldUpdateOperationsInput | string
+    reportedById?: NullableStringFieldUpdateOperationsInput | string | null
+    reporterName?: NullableStringFieldUpdateOperationsInput | string | null
+    reporterEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    reporterPhone?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     faultType?: EnumFaultTypeFieldUpdateOperationsInput | $Enums.FaultType
     status?: EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     reportedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     workOrder?: WorkOrderUncheckedUpdateOneWithoutFaultReportNestedInput
   }
 
   export type FaultReportUncheckedUpdateManyWithoutPoleInput = {
     id?: StringFieldUpdateOperationsInput | string
-    reportedById?: StringFieldUpdateOperationsInput | string
+    reportedById?: NullableStringFieldUpdateOperationsInput | string | null
+    reporterName?: NullableStringFieldUpdateOperationsInput | string | null
+    reporterEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    reporterPhone?: NullableStringFieldUpdateOperationsInput | string | null
     description?: StringFieldUpdateOperationsInput | string
     faultType?: EnumFaultTypeFieldUpdateOperationsInput | $Enums.FaultType
     status?: EnumReportStatusFieldUpdateOperationsInput | $Enums.ReportStatus
+    latitude?: NullableFloatFieldUpdateOperationsInput | number | null
+    longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     reportedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -18969,6 +24107,42 @@ export namespace Prisma {
     toStatus?: EnumPoleStatusFieldUpdateOperationsInput | $Enums.PoleStatus
     changedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     reason?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MaintenanceLogCreateManyWorkOrderInput = {
+    id?: string
+    technicianId: string
+    partsUsed?: string | null
+    timeSpent?: number | null
+    notes?: string | null
+    createdAt?: Date | string
+  }
+
+  export type MaintenanceLogUpdateWithoutWorkOrderInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    partsUsed?: NullableStringFieldUpdateOperationsInput | string | null
+    timeSpent?: NullableIntFieldUpdateOperationsInput | number | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    technician?: UserUpdateOneRequiredWithoutMaintenanceLogsNestedInput
+  }
+
+  export type MaintenanceLogUncheckedUpdateWithoutWorkOrderInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    technicianId?: StringFieldUpdateOperationsInput | string
+    partsUsed?: NullableStringFieldUpdateOperationsInput | string | null
+    timeSpent?: NullableIntFieldUpdateOperationsInput | number | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MaintenanceLogUncheckedUpdateManyWithoutWorkOrderInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    technicianId?: StringFieldUpdateOperationsInput | string
+    partsUsed?: NullableStringFieldUpdateOperationsInput | string | null
+    timeSpent?: NullableIntFieldUpdateOperationsInput | number | null
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type InventoryLogCreateManyItemInput = {

@@ -45,7 +45,7 @@ export default function MyReportsTable({ reports }: { reports: Report[] }) {
           <p className="text-xs text-gray-400 mt-0.5">Your submitted reports and their current status</p>
         </div>
         <Link
-          href="/faults/new"
+          href="/report"
           className="text-xs font-semibold px-3 py-1.5 bg-[#2f4383] text-white rounded-lg hover:bg-[#243570] transition-colors"
         >
           + Report Issue
@@ -56,7 +56,7 @@ export default function MyReportsTable({ reports }: { reports: Report[] }) {
         <div className="text-center py-12">
           <p className="text-gray-400 text-sm">You haven't submitted any reports yet.</p>
           <Link
-            href="/faults/new"
+            href="/report"
             className="inline-block mt-3 text-xs font-semibold text-[#2f4383] hover:underline"
           >
             Report your first issue →

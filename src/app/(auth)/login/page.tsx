@@ -25,6 +25,7 @@ export default function LoginPage() {
   const [serverError, setServerError] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
 
   const [email, setEmail] = useState("admin@lgu.gov.ph");
   const [password, setPassword] = useState("admin123");
@@ -54,6 +55,7 @@ export default function LoginPage() {
     const result = await signIn("credentials", {
       email: form.get("email"),
       password: form.get("password"),
+      rememberMe,
       redirect: false,
     });
 
@@ -185,19 +187,24 @@ export default function LoginPage() {
         </div>
 
         <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-1.5 cursor-pointer select-none">
-          <label className="flex items-center gap-1.5">
-            <input type="checkbox" className="sr-only" />
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="26"
-              height="26"
-              viewBox="0 0 26 26"
-              fill="none"
-              className="shrink-0"
-            >
-              <rect x="0.5" y="0.5" width="25" height="25" rx="5.5" fill="#FFFBFB" />
-              <rect x="0.5" y="0.5" width="25" height="25" rx="5.5" stroke="#1E3A8A" />
-            </svg>
+          <label className="flex items-center gap-1.5 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={rememberMe}
+              onChange={(e) => setRememberMe(e.target.checked)}
+              className="sr-only"
+            />
+            {rememberMe ? (
+              <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none" className="shrink-0">
+                <rect x="0.5" y="0.5" width="25" height="25" rx="5.5" fill="#1E3A8A" />
+                <path d="M7 13.5L11 17.5L19 9.5" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none" className="shrink-0">
+                <rect x="0.5" y="0.5" width="25" height="25" rx="5.5" fill="#FFFBFB" />
+                <rect x="0.5" y="0.5" width="25" height="25" rx="5.5" stroke="#1E3A8A" />
+              </svg>
+            )}
             <p className="font-['Instrument_Sans'] text-[15px] text-brand-blue">Remember Me</p>
           </label>
           <Link href="/forgot-password" className="font-['Instrument_Sans'] text-[15px] text-brand-goldenrod underline sm:ml-auto cursor-pointer hover:opacity-50 transition-opacity">

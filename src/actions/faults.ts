@@ -3,6 +3,7 @@
 import prisma from '@/lib/prisma'
 import { FaultType, PoleStatus, ReportStatus, WorkOrderStatus } from '@/lib/generated/prisma'
 import { revalidatePath } from 'next/cache'
+import { createNotification } from '@/actions/notifications'
 
 export async function getFaultReports() {
   return prisma.faultReport.findMany({
@@ -101,6 +102,16 @@ export async function fixFaultReport(
       reason: `Fault fixed by technician: ${resolutionNotes}`,
     },
   })
+
+  // Notify the reporter
+  if (report.reportedById) {
+    await createNotification({
+      userId: report.reportedById,
+      title: 'Fault Resolved',
+      message: `Your fault report for pole ${report.pole.poleCode} has been resolved. ${resolutionNotes}`,
+      type: 'FAULT_RESOLVED',
+    })
+  }
 
   revalidatePath('/faults')
   revalidatePath('/poles')

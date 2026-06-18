@@ -1,10 +1,7 @@
 // prisma/seed.ts
 import { Role, FaultType, PoleStatus } from '../src/lib/generated/prisma'
-import prisma from '../src/lib/prisma' // <-- Import your pre-configured instance instead
+import prisma from '../src/lib/prisma'
 import bcrypt from 'bcryptjs'
-
-// REMOVE OR COMMENT OUT THIS LINE:
-// const prisma = new PrismaClient() 
 
 async function main() {
   // Seed users
@@ -78,6 +75,7 @@ async function main() {
   })
 
   await seedInventory()
+  await seedPoles()
 
   console.log('Seed complete.')
   console.log('Test accounts:')
@@ -85,7 +83,6 @@ async function main() {
   console.log('  admin@lgu.gov.ph / admin123')
   console.log('  tech@lgu.gov.ph / tech123')
   console.log('  user@lgu.gov.ph / user123')
-  console.log('No poles seeded — to be populated via OSM streetlight import.')
 }
 
 async function seedInventory() {
@@ -109,6 +106,34 @@ async function seedInventory() {
     await prisma.inventoryItem.create({ data: item })
   }
   console.log(`Seeded ${items.length} inventory items.`)
+}
+
+async function seedPoles() {
+  const existing = await prisma.pole.count()
+  if (existing > 0) return
+
+  const poles = [
+    { poleCode: 'QC-001', address: '1101 Brgy. Kamuning Road', barangay: 'Kamuning', latitude: 14.631, longitude: 121.039, status: PoleStatus.ACTIVE },
+    { poleCode: 'QC-002', address: '1103 Brgy. Kamuning Road', barangay: 'Kamuning', latitude: 14.632, longitude: 121.040, status: PoleStatus.ACTIVE },
+    { poleCode: 'QC-003', address: '1105 Brgy. Kamuning Road', barangay: 'Kamuning', latitude: 14.633, longitude: 121.041, status: PoleStatus.FAULTY },
+    { poleCode: 'QC-004', address: '1120 Brgy. Diliman Ave', barangay: 'Diliman', latitude: 14.640, longitude: 121.045, status: PoleStatus.ACTIVE },
+    { poleCode: 'QC-005', address: '1122 Brgy. Diliman Ave', barangay: 'Diliman', latitude: 14.641, longitude: 121.046, status: PoleStatus.ACTIVE },
+    { poleCode: 'QC-006', address: 'Corner Diliman Rd & Commonwealth Ave', barangay: 'Commonwealth', latitude: 14.650, longitude: 121.050, status: PoleStatus.UNDER_MAINTENANCE },
+    { poleCode: 'QC-007', address: '2001 Commonwealth Ave', barangay: 'Commonwealth', latitude: 14.655, longitude: 121.055, status: PoleStatus.ACTIVE },
+    { poleCode: 'QC-008', address: '2005 Commonwealth Ave', barangay: 'Commonwealth', latitude: 14.660, longitude: 121.058, status: PoleStatus.ACTIVE },
+    { poleCode: 'QC-009', address: '3000 Katipunan Ave', barangay: 'Diliman', latitude: 14.645, longitude: 121.070, status: PoleStatus.FAULTY },
+    { poleCode: 'QC-010', address: '15 Scout Torillo St', barangay: 'Diliman', latitude: 14.635, longitude: 121.038, status: PoleStatus.ACTIVE },
+    { poleCode: 'QC-011', address: '20 Scout Reyes St', barangay: 'Diliman', latitude: 14.637, longitude: 121.036, status: PoleStatus.ACTIVE },
+    { poleCode: 'QC-012', address: '25 Panay Ave', barangay: 'Kamuning', latitude: 14.628, longitude: 121.033, status: PoleStatus.DECOMMISSIONED },
+    { poleCode: 'QC-013', address: '30 Tomas Morato Ave', barangay: 'Diliman', latitude: 14.634, longitude: 121.035, status: PoleStatus.ACTIVE },
+    { poleCode: 'QC-014', address: '40 Timog Ave', barangay: 'Diliman', latitude: 14.638, longitude: 121.042, status: PoleStatus.FAULTY },
+    { poleCode: 'QC-015', address: '50 East Ave', barangay: 'Diliman', latitude: 14.642, longitude: 121.052, status: PoleStatus.ACTIVE },
+  ]
+
+  for (const pole of poles) {
+    await prisma.pole.create({ data: pole })
+  }
+  console.log(`Seeded ${poles.length} poles.`)
 }
 
 main()

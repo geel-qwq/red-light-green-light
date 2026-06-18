@@ -4,6 +4,7 @@ import prisma from '@/lib/prisma'
 import UserStatsRow from './_components/UserStatsRow'
 import MyReportsTable from './_components/MyReportsTable'
 import MyRecentActivity from './_components/MyRecentActivity'
+import TechnicianApplyCard from './_components/TechnicianApplyCard'
 import { Hand } from 'lucide-react'
 
 async function getUserData(userId: string) {
@@ -48,6 +49,9 @@ export default async function UserDashboardPage() {
           Here's a summary of your reported issues and their current status.
         </p>
       </div>
+
+      {/* Technician Application */}
+      <TechnicianApplyCard />
 
       {/* Stats Row */}
       <UserStatsRow

@@ -1,14 +1,15 @@
 
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   MapContainer, TileLayer, Marker, ZoomControl,
-  useMap, useMapEvents,
+  useMap,
 } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import LocationDetails from '../LocationDetails';
+import StreetlightLayer from './StreetlightLayer'
 
 const customMarkerIcon = new L.DivIcon({
   className: 'bg-transparent',
@@ -33,40 +34,6 @@ const customMarkerIconBounce = new L.DivIcon({
   iconAnchor: [16, 32],
 });
 
-type PoleStatus = 'ACTIVE' | 'FAULTY' | 'UNDER_MAINTENANCE' | 'DECOMMISSIONED';
-
-const STATUS_ICON_FILE: Record<PoleStatus, string> = {
-  ACTIVE:            '/marker_icons/lamp-active.png',
-  FAULTY:            '/marker_icons/lamp-faulty.png',
-  UNDER_MAINTENANCE: '/marker_icons/lamp-under_maintenance.png',
-  DECOMMISSIONED:    '/marker_icons/lamp-decommissioned.png',
-};
-
-type LightVisualState = 'default' | 'hovered' | 'selected';
-
-const STREETLIGHT_ICON_PX = 22;
-
-const statusIconCache = new Map<string, L.Icon>();
-
-function getStatusIcon(status: PoleStatus, state: LightVisualState): L.Icon {
-  const cacheKey = `${status}-${state}`;
-  const cached = statusIconCache.get(cacheKey);
-  if (cached) return cached;
-
-  const icon = new L.Icon({
-    iconUrl: STATUS_ICON_FILE[status] ?? STATUS_ICON_FILE.ACTIVE,
-    iconSize: [STREETLIGHT_ICON_PX, STREETLIGHT_ICON_PX],
-    iconAnchor: [STREETLIGHT_ICON_PX / 2, STREETLIGHT_ICON_PX / 2],
-    className: [
-      'streetlight-status-icon',
-      state !== 'default' ? `streetlight-status-icon--${state}` : '',
-    ].filter(Boolean).join(' '),
-  });
-
-  statusIconCache.set(cacheKey, icon);
-  return icon;
-}
-
 function MapUpdater({ targetLocation }: { targetLocation?: [number, number] | null }) {
   const map = useMap();
   useEffect(() => {
@@ -79,154 +46,7 @@ function MapUpdater({ targetLocation }: { targetLocation?: [number, number] | nu
   return null;
 }
 
-interface OsmLight {
-  position: [number, number];
-  status: PoleStatus;
-}
 
-interface StreetlightLayerProps {
-  onLightClick: (pos: [number, number]) => void;
-  selectedLight: [number, number] | null;
-}
-
-function StreetlightLayer({ onLightClick, selectedLight }: StreetlightLayerProps) {
-  const [lights,       setLights]       = useState<OsmLight[]>([]);
-  const [isFetching,   setIsFetching]   = useState(false);
-  const [error,        setError]        = useState<string | null>(null);
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-
-  const abortRef       = useRef<AbortController | null>(null);
-  const debounceRef    = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const cooldownRef    = useRef<number>(0);
-  const lastBboxRef    = useRef<string>('');
-
-  const ENDPOINTS = [
-    'https://overpass-api.de/api/interpreter',
-    'https://overpass.kumi.systems/api/interpreter',
-  ];
-
-  const fetchLights = async (map: L.Map) => {
-    const zoom = map.getZoom();
-    if (zoom < 14) { setLights([]); setError(null); return; }
-
-    const bounds = map.getBounds();
-    const dec = zoom >= 17 ? 5 : zoom >= 15 ? 4 : 3;
-    const bbox = `${bounds.getSouth().toFixed(dec)},${bounds.getWest().toFixed(dec)},${bounds.getNorth().toFixed(dec)},${bounds.getEast().toFixed(dec)}`;
-
-    if (bbox === lastBboxRef.current) return;
-    lastBboxRef.current = bbox;
-
-    if (Date.now() < cooldownRef.current) return;
-
-    abortRef.current?.abort();
-    const controller = new AbortController();
-    abortRef.current = controller;
-
-    setIsFetching(true);
-    setError(null);
-
-    const query = `[out:json][timeout:10];(node["highway"="street_lamp"](${bbox});node["man_made"="street_lamp"](${bbox});node["amenity"="street_lamp"](${bbox});way["lit"="yes"]["highway"](${bbox}););out body geom;`;
-
-    for (const endpoint of ENDPOINTS) {
-      if (controller.signal.aborted) return;
-      try {
-        const res = await fetch(`${endpoint}?data=${encodeURIComponent(query)}`, {
-          signal: controller.signal,
-          headers: { 'User-Agent': 'ilLUMENate/1.0 (municipal lighting map)' },
-        });
-        if (res.status === 429) {
-          cooldownRef.current = Date.now() + 30000;
-          continue;
-        }
-        if (!res.ok) continue;
-        const text = await res.text();
-        let data: any;
-        try { data = JSON.parse(text); } catch { continue; }
-        if (!data?.elements) continue;
-        const fetched: OsmLight[] = [];
-        for (const el of data.elements) {
-          if (el.type === 'node' && typeof el.lat === 'number' && typeof el.lon === 'number') {
-            fetched.push({ position: [el.lat, el.lon], status: 'ACTIVE' });
-          } else if (el.type === 'way' && Array.isArray(el.geometry)) {
-            el.geometry.forEach((pt: any, idx: number) => {
-              if (pt && idx % 3 === 0) fetched.push({ position: [pt.lat, pt.lon], status: 'ACTIVE' });
-            });
-          }
-        }
-        setLights(fetched);
-        setIsFetching(false);
-        return;
-      } catch (err: any) {
-        if (err.name === 'AbortError') return;
-      }
-    }
-
-    setIsFetching(false);
-  };
-
-  const map = useMapEvents({
-    moveend: () => {
-      if (debounceRef.current) clearTimeout(debounceRef.current);
-      debounceRef.current = setTimeout(() => fetchLights(map), 800);
-    },
-  });
-
-  useEffect(() => {
-    const timer = setTimeout(() => fetchLights(map), 500);
-    return () => {
-      clearTimeout(timer);
-      abortRef.current?.abort();
-      if (debounceRef.current) clearTimeout(debounceRef.current);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const isSelected = (pos: [number, number]) =>
-    selectedLight !== null &&
-    selectedLight[0] === pos[0] &&
-    selectedLight[1] === pos[1];
-
-  return (
-    <>
-      {isFetching && (
-        <div className="absolute top-20 right-4 z-[400] bg-white px-3 py-1 rounded-full shadow-md text-xs font-bold text-slate-600 border border-slate-200">
-          Fetching live streetlights...
-        </div>
-      )}
-      {error && !isFetching && (
-        <div className="absolute top-20 right-4 z-[400] bg-white px-3 py-1 rounded-full shadow-md text-xs font-bold text-red-500 border border-slate-200">
-          {error}
-        </div>
-      )}
-      {!isFetching && !error && lights.length === 0 && (
-        <div className="absolute top-20 right-4 z-[400] bg-white px-3 py-1 rounded-full shadow-md text-xs font-bold text-slate-500 border border-slate-200">
-          No tagged streetlights here
-        </div>
-      )}
-
-      {lights.map((light, index) => {
-        const state: LightVisualState = isSelected(light.position)
-          ? 'selected'
-          : hoveredIndex === index
-            ? 'hovered'
-            : 'default';
-
-        return (
-          <Marker
-            key={`light-${light.position[0]}-${light.position[1]}-${index}`}
-            position={light.position}
-            icon={getStatusIcon(light.status, state)}
-            eventHandlers={{
-              click:      () => onLightClick(light.position),
-              mouseover:  () => setHoveredIndex(index),
-              mouseout:   () => setHoveredIndex(null),
-            }}
-          />
-        );
-      })}
-    </>
-  );
-}
 
 interface LeafletMapProps {
   targetLocation?: [number, number] | null;
@@ -247,41 +67,6 @@ export default function LeafletMap({ targetLocation, onMarkerClick }: LeafletMap
     setShowDetails(true);
     onMarkerClick?.();
   };
-
-  useEffect(() => {
-    const styleId = 'marker-bounce-style';
-    if (!document.getElementById(styleId)) {
-      const style = document.createElement('style');
-      style.id    = styleId;
-      style.textContent = `
-        @keyframes markerBounce {
-          0%,  100% { transform: translateY(0px);   }
-          25%        { transform: translateY(-6px);  }
-          55%        { transform: translateY(-11px); }
-          75%        { transform: translateY(-4px);  }
-        }
-        .leaflet-marker-icon.marker-bounce:hover div {
-          animation: markerBounce 0.45s ease;
-        }
-
-        .streetlight-status-icon {
-          transition: transform 0.2s ease, filter 0.2s ease;
-          transform-origin: center center;
-        }
-        .streetlight-status-icon--hovered {
-          transform: scale(1.3);
-          filter: drop-shadow(0 2px 4px rgba(0,0,0,0.35));
-        }
-        .streetlight-status-icon--selected {
-          transform: scale(1.5);
-          filter: drop-shadow(0 0 6px rgba(0,0,0,0.5));
-          animation: markerBounce 0.45s ease;
-        }
-      `;
-      document.head.appendChild(style);
-    }
-    return () => { document.getElementById(styleId)?.remove(); };
-  }, []);
 
   const [showDetails, setShowDetails] = useState(false);
 

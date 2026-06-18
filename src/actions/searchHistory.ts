@@ -6,15 +6,20 @@ import { revalidatePath } from "next/cache";
 import type { SearchHistory } from "@/lib/generated/prisma";
 
 export async function getSearchHistory(): Promise<SearchHistory[]> {
-  const session = await getSession();
-  const userId = session?.user?.id;
-  if (!userId) return [];
+  try {
+    const session = await getSession();
+    const userId = session?.user?.id;
+    if (!userId) return [];
 
-  return prisma.searchHistory.findMany({
-    where: { userId },
-    orderBy: { createdAt: "desc" },
-    take: 20,
-  });
+    return await prisma.searchHistory.findMany({
+      where: { userId },
+      orderBy: { createdAt: "desc" },
+      take: 20,
+    });
+  } catch (error) {
+    console.error("getSearchHistory error:", error);
+    return [];
+  }
 }
 
 export async function saveSearch(formData: {
@@ -27,18 +32,25 @@ export async function saveSearch(formData: {
   const userId = session?.user?.id;
   if (!userId) throw new Error("Unauthorized");
 
-  const record = await prisma.searchHistory.create({
-    data: {
-      userId,
-      title: formData.title,
-      description: formData.description,
-      lat: formData.lat,
-      lng: formData.lng,
-    },
-  });
+  try {
+    const record = await prisma.searchHistory.create({
+      data: {
+        userId,
+        title: formData.title,
+        description: formData.description,
+        lat: formData.lat,
+        lng: formData.lng,
+      },
+    });
 
-  revalidatePath("/");
-  return record;
+    revalidatePath("/");
+    return record;
+  } catch (err: any) {
+    if (err?.code === 'P2003') {
+      throw new Error("Session expired — please log out and log back in");
+    }
+    throw err;
+  }
 }
 
 export async function deleteSearch(id: string) {

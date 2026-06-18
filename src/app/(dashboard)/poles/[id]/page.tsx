@@ -40,7 +40,7 @@ export default async function PoleDetailPage({ params }: { params: { id: string 
                   </span>
                 </div>
                 <p className="text-sm text-gray-700 mt-1">{report.description}</p>
-                <p className="text-xs text-gray-400 mt-1">Reported by {report.reportedBy.firstName} {report.reportedBy.lastName}</p>
+                <p className="text-xs text-gray-400 mt-1">Reported by {report.reportedBy ? `${report.reportedBy.firstName} ${report.reportedBy.lastName}` : "Anonymous"}</p>
               </div>
             ))}
           </div>

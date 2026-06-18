@@ -25,6 +25,7 @@ import {
   Siren,
   Lightbulb,
   Zap,
+  ClipboardList,
 } from "lucide-react";
 import Link from "next/link";
 import Logo from "@/components/Logo";
@@ -196,6 +197,7 @@ export default function Page() {
     stats: { totalUsers: number; totalTechnicians: number; totalAdmins: number; pendingWorkOrders: number; openFaults: number; totalPoles: number }
   }>({ stats: { totalUsers: 0, totalTechnicians: 0, totalAdmins: 0, pendingWorkOrders: 0, openFaults: 0, totalPoles: 0 } });
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
 
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const abortRef = useRef<AbortController | null>(null);
@@ -225,7 +227,8 @@ export default function Page() {
     ],
     user: [
       { title: "My Dashboard", icon: BarChart, key: "overview", route: "/user/dashboard" },
-      { title: "Report an Issue", icon: AlertTriangle, key: "report", route: "/faults" },
+      { title: "Report a Fault", icon: AlertTriangle, key: "report", route: "/report" },
+      { title: "My Reports", icon: ClipboardList, key: "myreports", route: "/my-reports" },
     ],
   };
 
@@ -512,48 +515,51 @@ export default function Page() {
   }
 `}</style>
 
-      <aside className="w-[64px] bg-brand-blue/90 backdrop-blur-[0.5px] flex flex-col items-center py-5 z-40 shadow-xl justify-between">
+      {/* Mobile sidebar toggle */}
+      <button
+        onClick={() => setIsMobileSidebarOpen(!isMobileSidebarOpen)}
+        className="md:hidden fixed top-10 left-4 z-50 w-10 h-10 rounded-xl bg-[#2f4383] border-2 border-[#dba65d] flex items-center justify-center shadow-lg"
+        aria-label="Toggle menu"
+      >
+        {isMobileSidebarOpen ? (
+          <X className="w-5 h-5 text-[#dba65d]" strokeWidth={2} />
+        ) : (
+          <Menu className="w-5 h-5 text-[#dba65d]" strokeWidth={2} />
+        )}
+      </button>
+
+      {/* Mobile overlay */}
+      {isMobileSidebarOpen && (
+        <div className="md:hidden fixed inset-0 z-40 bg-black/30" onClick={() => setIsMobileSidebarOpen(false)} />
+      )}
+
+      {/* Mobile sidebar drawer */}
+      <aside className={`
+        md:hidden fixed inset-y-0 left-0 z-40 w-[64px] bg-brand-blue/95 backdrop-blur-md flex-col items-center py-5 shadow-xl justify-between
+        flex transition-transform duration-200
+        ${isMobileSidebarOpen ? "translate-x-0" : "-translate-x-full"}
+      `}>
         <div className="flex flex-col items-center w-full">
-          <div
-            className="relative w-full py-3 flex flex-col items-center gap-1.5"
-            ref={menuRef}
-          >
+          <div className="relative w-full py-3 flex flex-col items-center gap-1.5">
             <div className="sidebar-btn-bounce w-full flex flex-col items-center gap-1.5">
               <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                onClick={(e) => { e.stopPropagation(); setIsMenuOpen(!isMenuOpen) }}
                 className={`sidebar-icon-btn w-[38px] h-[38px] rounded-[2px] border-2 flex items-center justify-center transition-colors hover:cursor-pointer hover:rounded-full hover:bg-[#dba65d] hover:border-[#dba65d] group ${isMenuOpen ? "bg-[#dba65d] border-[#dba65d]" : "border-[#dba65d]"}`}
               >
-                <Menu
-                  className={`w-5 h-5 group-hover:text-white ${isMenuOpen ? "text-white" : "text-[#dba65d]"}`}
-                  strokeWidth={2}
-                />
+                <Menu className={`w-5 h-5 group-hover:text-white ${isMenuOpen ? "text-white" : "text-[#dba65d]"}`} strokeWidth={2} />
               </button>
-              <span className="text-[#dba65d] text-[10px] text-center px-0.5 font-bold tracking-wide leading-tight">
-                Menu
-              </span>
+              <span className="text-[#dba65d] text-[10px] text-center px-0.5 font-bold tracking-wide leading-tight">Menu</span>
             </div>
-
-            {/* Dropdown Menu Overlay */}
             {isMenuOpen && (
               <div className="absolute top-0 left-[60px] w-60 bg-white dark:bg-slate-800 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100 dark:border-slate-700 overflow-hidden flex flex-col z-50 animate-in fade-in slide-in-from-left-2 duration-200">
                 <div className="px-4 py-3 bg-[#f8fafc] dark:bg-slate-800 border-b border-gray-100 dark:border-slate-700 flex items-center justify-between">
-                  <span className="text-[11px] font-bold text-gray-400 dark:text-slate-400 uppercase tracking-wider">
-                    {effectiveRole} Menu
-                  </span>
+                  <span className="text-[11px] font-bold text-gray-400 dark:text-slate-400 uppercase tracking-wider">{effectiveRole} Menu</span>
                 </div>
-
                 <div className="py-2">
                   {effectiveRole && roleMenuConfig[effectiveRole]?.map((item, idx) => {
                     const Icon = item.icon;
                     return (
-                      <button
-                        key={idx}
-                        onClick={() => {
-                          if (item.route) router.push(item.route);
-                          setIsMenuOpen(false);
-                        }}
-                        className="flex items-center gap-3 px-4 py-2.5 w-full text-left text-[14px] font-medium text-gray-700 dark:text-slate-200 hover:bg-[#dba65d] hover:text-white transition-colors group"
-                      >
+                      <button key={idx} onClick={() => { if (item.route) router.push(item.route); setIsMenuOpen(false); setIsMobileSidebarOpen(false) }} className="flex items-center gap-3 px-4 py-2.5 w-full text-left text-[14px] font-medium text-gray-700 dark:text-slate-200 hover:bg-[#dba65d] hover:text-white transition-colors group">
                         <Icon className="w-4 h-4 text-gray-400 dark:text-slate-400 group-hover:text-white transition-colors" />
                         {item.title}
                       </button>
@@ -564,79 +570,97 @@ export default function Page() {
             )}
           </div>
 
-          {/* #2 FLOATING ACTION TRIGGER: System Overview */}
           {(effectiveRole === "admin" || effectiveRole === "superadmin") && (
-            <div
-              onClick={(e) => {
-                e.stopPropagation();
-                setIsOverviewOpen(!isOverviewOpen);
-              }}
-              className={`sidebar-btn-bounce w-full py-3 flex flex-col items-center gap-1.5 cursor-pointer transition-colors hover:cursor-pointer hover:bg-[#3b529a]/50 group ${isOverviewOpen ? "bg-[#3b529a] border-l-4 border-[#dba65d]" : "border-l-4 border-transparent"}`}
-            >
-              <button
-                className={`sidebar-icon-btn w-[38px] h-[38px] rounded-[2px] border-2 border-[#dba65d] flex items-center justify-center hover:rounded-full hover:cursor-pointer hover:bg-[#dba65d] transition-all group-hover:bg-[#dba65d] ${isOverviewOpen ? "bg-[#dba65d]" : ""}`}
-              >
-                <BarChartIcon
-                  className={`w-5 h-5 group-hover:text-white ${isOverviewOpen ? "text-white" : "text-[#dba65d]"}`}
-                  strokeWidth={2}
-                />
+            <div onClick={(e) => { e.stopPropagation(); setIsOverviewOpen(!isOverviewOpen); setIsMobileSidebarOpen(false) }} className={`sidebar-btn-bounce w-full py-3 flex flex-col items-center gap-1.5 cursor-pointer transition-colors hover:cursor-pointer hover:bg-[#3b529a]/50 group ${isOverviewOpen ? "bg-[#3b529a] border-l-4 border-[#dba65d]" : "border-l-4 border-transparent"}`}>
+              <button className={`sidebar-icon-btn w-[38px] h-[38px] rounded-[2px] border-2 border-[#dba65d] flex items-center justify-center hover:rounded-full hover:cursor-pointer hover:bg-[#dba65d] transition-all group-hover:bg-[#dba65d] ${isOverviewOpen ? "bg-[#dba65d]" : ""}`}>
+                <BarChartIcon className={`w-5 h-5 group-hover:text-white ${isOverviewOpen ? "text-white" : "text-[#dba65d]"}`} strokeWidth={2} />
               </button>
-              <span className="text-[#dba65d] text-[10px] text-center px-0.5 font-bold tracking-wide leading-tight">
-                System Overview
-              </span>
+              <span className="text-[#dba65d] text-[10px] text-center px-0.5 font-bold tracking-wide leading-tight">System Overview</span>
             </div>
           )}
-
           {effectiveRole === "user" && (
-            <div
-              onClick={(e) => {
-                e.stopPropagation();
-                setIsOverviewOpen(!isOverviewOpen);
-              }}
-              className={`sidebar-btn-bounce w-full py-3 flex flex-col items-center gap-1.5 cursor-pointer transition-colors hover:cursor-pointer hover:bg-[#3b529a]/50 group ${isOverviewOpen ? "bg-[#3b529a] border-l-4 border-[#dba65d]" : "border-l-4 border-transparent"}`}
-            >
-              <button
-                className={`sidebar-icon-btn w-[38px] h-[38px] rounded-[2px] border-2 border-[#dba65d] flex items-center justify-center hover:rounded-full transition-all group-hover:bg-[#dba65d] ${isOverviewOpen ? "bg-[#dba65d]" : ""}`}
-              >
-                <BarChartIcon
-                  className={`w-5 h-5 group-hover:text-white ${isOverviewOpen ? "text-white" : "text-[#dba65d]"}`}
-                  strokeWidth={2}
-                />
+            <div onClick={(e) => { e.stopPropagation(); setIsOverviewOpen(!isOverviewOpen); setIsMobileSidebarOpen(false) }} className={`sidebar-btn-bounce w-full py-3 flex flex-col items-center gap-1.5 cursor-pointer transition-colors hover:cursor-pointer hover:bg-[#3b529a]/50 group ${isOverviewOpen ? "bg-[#3b529a] border-l-4 border-[#dba65d]" : "border-l-4 border-transparent"}`}>
+              <button className={`sidebar-icon-btn w-[38px] h-[38px] rounded-[2px] border-2 border-[#dba65d] flex items-center justify-center hover:rounded-full transition-all group-hover:bg-[#dba65d] ${isOverviewOpen ? "bg-[#dba65d]" : ""}`}>
+                <BarChartIcon className={`w-5 h-5 group-hover:text-white ${isOverviewOpen ? "text-white" : "text-[#dba65d]"}`} strokeWidth={2} />
               </button>
-              <span className="text-[#dba65d] text-[10px] text-center px-0.5 font-bold tracking-wide leading-tight">
-                My Dashboard
-              </span>
+              <span className="text-[#dba65d] text-[10px] text-center px-0.5 font-bold tracking-wide leading-tight">My Dashboard</span>
             </div>
           )}
 
-          {/* #3 RECENTS SIDE-TAB TRIGGER */}
-          <div
-            onClick={(e) => {
-              e.stopPropagation();
-              setIsRecentOpen(!isRecentOpen);
-            }}
-            className={`sidebar-btn-bounce w-full py-3 flex flex-col items-center gap-1.5 cursor-pointer transition-colors justify-center hover:cursor-pointer hover:bg-[#3b529a]/50 group ${isRecentOpen ? "bg-[#3b529a] border-l-4 border-[#dba65d]" : "border-l-4 border-transparent"}`}
-          >
-            <button
-              className={`sidebar-icon-btn w-[38px] h-[38px] rounded-[2px] border-2 border-[#dba65d] flex items-center justify-center hover:rounded-full transition-all hover:cursor-pointer group-hover:bg-[#dba65d] ${isRecentOpen ? "bg-[#dba65d]" : ""}`}
-            >
-              <Clock
-                className={`w-5 h-5 group-hover:text-white ${isRecentOpen ? "text-white" : "text-[#dba65d]"}`}
-                strokeWidth={2}
-              />
+          <div onClick={(e) => { e.stopPropagation(); setIsRecentOpen(!isRecentOpen); setIsMobileSidebarOpen(false) }} className={`sidebar-btn-bounce w-full py-3 flex flex-col items-center gap-1.5 cursor-pointer transition-colors justify-center hover:cursor-pointer hover:bg-[#3b529a]/50 group ${isRecentOpen ? "bg-[#3b529a] border-l-4 border-[#dba65d]" : "border-l-4 border-transparent"}`}>
+            <button className={`sidebar-icon-btn w-[38px] h-[38px] rounded-[2px] border-2 border-[#dba65d] flex items-center justify-center hover:rounded-full transition-all hover:cursor-pointer group-hover:bg-[#dba65d] ${isRecentOpen ? "bg-[#dba65d]" : ""}`}>
+              <Clock className={`w-5 h-5 group-hover:text-white ${isRecentOpen ? "text-white" : "text-[#dba65d]"}`} strokeWidth={2} />
             </button>
-            <span className="text-[#dba65d] text-[11px] font-medium tracking-wide">
-              Recents
-            </span>
+            <span className="text-[#dba65d] text-[11px] font-medium tracking-wide">Recents</span>
           </div>
-
         </div>
 
-        {/* Bottom buttons */}
         <div className="flex flex-col items-center w-full gap-1">
+          <div className="sidebar-btn-bounce"><DarkModeToggle /></div>
           <div className="sidebar-btn-bounce">
-            <DarkModeToggle />
+            <button className="sidebar-icon-btn w-[42px] h-[42px] flex items-center justify-center hover:bg-[#dba65d] rounded-lg transition-colors group">
+              <Languages className="w-6 h-6 text-[#dba65d] group-hover:text-white transition-colors" />
+            </button>
           </div>
+        </div>
+      </aside>
+
+      <aside className="hidden md:flex w-[64px] bg-brand-blue/90 backdrop-blur-[0.5px] flex-col items-center py-5 z-40 shadow-xl justify-between">
+        <div className="flex flex-col items-center w-full">
+          <div className="relative w-full py-3 flex flex-col items-center gap-1.5" ref={menuRef}>
+            <div className="sidebar-btn-bounce w-full flex flex-col items-center gap-1.5">
+              <button onClick={() => setIsMenuOpen(!isMenuOpen)} className={`sidebar-icon-btn w-[38px] h-[38px] rounded-[2px] border-2 flex items-center justify-center transition-colors hover:cursor-pointer hover:rounded-full hover:bg-[#dba65d] hover:border-[#dba65d] group ${isMenuOpen ? "bg-[#dba65d] border-[#dba65d]" : "border-[#dba65d]"}`}>
+                <Menu className={`w-5 h-5 group-hover:text-white ${isMenuOpen ? "text-white" : "text-[#dba65d]"}`} strokeWidth={2} />
+              </button>
+              <span className="text-[#dba65d] text-[10px] text-center px-0.5 font-bold tracking-wide leading-tight">Menu</span>
+            </div>
+            {isMenuOpen && (
+              <div className="absolute top-0 left-[60px] w-60 bg-white dark:bg-slate-800 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100 dark:border-slate-700 overflow-hidden flex flex-col z-50 animate-in fade-in slide-in-from-left-2 duration-200">
+                <div className="px-4 py-3 bg-[#f8fafc] dark:bg-slate-800 border-b border-gray-100 dark:border-slate-700 flex items-center justify-between">
+                  <span className="text-[11px] font-bold text-gray-400 dark:text-slate-400 uppercase tracking-wider">{effectiveRole} Menu</span>
+                </div>
+                <div className="py-2">
+                  {effectiveRole && roleMenuConfig[effectiveRole]?.map((item, idx) => {
+                    const Icon = item.icon;
+                    return (
+                      <button key={idx} onClick={() => { if (item.route) router.push(item.route); setIsMenuOpen(false) }} className="flex items-center gap-3 px-4 py-2.5 w-full text-left text-[14px] font-medium text-gray-700 dark:text-slate-200 hover:bg-[#dba65d] hover:text-white transition-colors group">
+                        <Icon className="w-4 h-4 text-gray-400 dark:text-slate-400 group-hover:text-white transition-colors" />
+                        {item.title}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {(effectiveRole === "admin" || effectiveRole === "superadmin") && (
+            <div onClick={(e) => { e.stopPropagation(); setIsOverviewOpen(!isOverviewOpen) }} className={`sidebar-btn-bounce w-full py-3 flex flex-col items-center gap-1.5 cursor-pointer transition-colors hover:cursor-pointer hover:bg-[#3b529a]/50 group ${isOverviewOpen ? "bg-[#3b529a] border-l-4 border-[#dba65d]" : "border-l-4 border-transparent"}`}>
+              <button className={`sidebar-icon-btn w-[38px] h-[38px] rounded-[2px] border-2 border-[#dba65d] flex items-center justify-center hover:rounded-full hover:cursor-pointer hover:bg-[#dba65d] transition-all group-hover:bg-[#dba65d] ${isOverviewOpen ? "bg-[#dba65d]" : ""}`}>
+                <BarChartIcon className={`w-5 h-5 group-hover:text-white ${isOverviewOpen ? "text-white" : "text-[#dba65d]"}`} strokeWidth={2} />
+              </button>
+              <span className="text-[#dba65d] text-[10px] text-center px-0.5 font-bold tracking-wide leading-tight">System Overview</span>
+            </div>
+          )}
+          {effectiveRole === "user" && (
+            <div onClick={(e) => { e.stopPropagation(); setIsOverviewOpen(!isOverviewOpen) }} className={`sidebar-btn-bounce w-full py-3 flex flex-col items-center gap-1.5 cursor-pointer transition-colors hover:cursor-pointer hover:bg-[#3b529a]/50 group ${isOverviewOpen ? "bg-[#3b529a] border-l-4 border-[#dba65d]" : "border-l-4 border-transparent"}`}>
+              <button className={`sidebar-icon-btn w-[38px] h-[38px] rounded-[2px] border-2 border-[#dba65d] flex items-center justify-center hover:rounded-full transition-all group-hover:bg-[#dba65d] ${isOverviewOpen ? "bg-[#dba65d]" : ""}`}>
+                <BarChartIcon className={`w-5 h-5 group-hover:text-white ${isOverviewOpen ? "text-white" : "text-[#dba65d]"}`} strokeWidth={2} />
+              </button>
+              <span className="text-[#dba65d] text-[10px] text-center px-0.5 font-bold tracking-wide leading-tight">My Dashboard</span>
+            </div>
+          )}
+
+          <div onClick={(e) => { e.stopPropagation(); setIsRecentOpen(!isRecentOpen) }} className={`sidebar-btn-bounce w-full py-3 flex flex-col items-center gap-1.5 cursor-pointer transition-colors justify-center hover:cursor-pointer hover:bg-[#3b529a]/50 group ${isRecentOpen ? "bg-[#3b529a] border-l-4 border-[#dba65d]" : "border-l-4 border-transparent"}`}>
+            <button className={`sidebar-icon-btn w-[38px] h-[38px] rounded-[2px] border-2 border-[#dba65d] flex items-center justify-center hover:rounded-full transition-all hover:cursor-pointer group-hover:bg-[#dba65d] ${isRecentOpen ? "bg-[#dba65d]" : ""}`}>
+              <Clock className={`w-5 h-5 group-hover:text-white ${isRecentOpen ? "text-white" : "text-[#dba65d]"}`} strokeWidth={2} />
+            </button>
+            <span className="text-[#dba65d] text-[11px] font-medium tracking-wide">Recents</span>
+          </div>
+        </div>
+
+        <div className="flex flex-col items-center w-full gap-1">
+          <div className="sidebar-btn-bounce"><DarkModeToggle /></div>
           <div className="sidebar-btn-bounce">
             <button className="sidebar-icon-btn w-[42px] h-[42px] flex items-center justify-center hover:bg-[#dba65d] rounded-lg transition-colors group">
               <Languages className="w-6 h-6 text-[#dba65d] group-hover:text-white transition-colors" />
@@ -673,6 +697,11 @@ export default function Page() {
           </div>
           {!sessionUser && (
           <div className="flex items-center gap-1 sm:gap-4">
+            <Link href={"/report"}>
+              <button className="cursor-pointer px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full font-bold text-[11px] sm:text-[13px] text-white bg-red-500 hover:bg-red-600 transition-colors shadow-md whitespace-nowrap">
+                Report Fault
+              </button>
+            </Link>
             <Link href={"/login"}>
               <button className="cursor-pointer px-3 sm:px-8 py-1.5 sm:py-2.5 rounded-full font-bold text-[11px] sm:text-[14px] text-[#dba65d] bg-white hover:bg-gray-100 transition-colors shadow-md whitespace-nowrap">
                 Login
@@ -882,28 +911,28 @@ export default function Page() {
           )}
 
           {/* FLOATING AI TELEMETRY COPILOT PANEL */}
-          <div className="absolute bottom-4 right-2 sm:right-4 sm:bottom-6 sm:right-13 pointer-events-auto flex flex-col items-end z-40">
+          <div className="fixed bottom-4 right-2 sm:right-6 pointer-events-auto flex flex-col items-end z-40">
             {isChatOpen && (
-              <div className="w-[calc(100vw-1rem)] sm:w-[380px] h-[50vh] sm:h-[480px] bg-white dark:bg-slate-800 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.15)] border border-slate-200 dark:border-slate-700 flex flex-col mb-4 overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-200">
-                <div className="bg-[#2f4383] text-white px-5 py-4 flex items-center justify-between">
-                  <div className="flex items-center gap-2.5">
-                    <div className="p-1.5 bg-white/10 rounded-lg">
-                      <Bot className="w-5 h-5 text-[#dba65d]" />
+              <div className="w-[calc(100vw-1.5rem)] sm:w-[380px] h-[60vh] sm:h-[480px] max-h-[500px] bg-white dark:bg-slate-800 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.15)] border border-slate-200 dark:border-slate-700 flex flex-col mb-4 overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-200">
+                <div className="bg-[#2f4383] text-white px-4 sm:px-5 py-3 sm:py-4 flex items-center justify-between shrink-0">
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <div className="p-1.5 bg-white/10 rounded-lg shrink-0">
+                      <Bot className="w-4 h-4 sm:w-5 sm:h-5 text-[#dba65d]" />
                     </div>
-                    <div>
-                      <h3 className="text-sm font-bold tracking-wide">LumenCHAT</h3>
-                      <p className="text-[11px] text-slate-300 font-medium">Your AI chatbot assistant</p>
+                    <div className="min-w-0">
+                      <h3 className="text-sm font-bold tracking-wide truncate">LumenCHAT</h3>
+                      <p className="text-[10px] sm:text-[11px] text-slate-300 font-medium truncate">AI assistant</p>
                     </div>
                   </div>
-                  <button onClick={() => setIsChatOpen(false)} className="p-1 hover:bg-white/10 rounded-full transition-colors">
+                  <button onClick={() => setIsChatOpen(false)} className="p-1 hover:bg-white/10 rounded-full transition-colors shrink-0">
                     <X className="w-5 h-5 text-slate-300 hover:text-white hover:cursor-pointer" />
                   </button>
                 </div>
 
-                <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-3 bg-slate-50 dark:bg-slate-900">
+                <div className="flex-1 overflow-y-auto p-3 sm:p-4 flex flex-col gap-3 bg-slate-50 dark:bg-slate-900">
                   {messages.map((msg, index) => (
-                    <div key={index} className={`flex flex-col max-w-[80%] ${msg.role === "user" ? "self-end items-end" : "self-start items-start"}`}>
-                      <div className={`px-4 py-2.5 rounded-2xl text-[14px] leading-relaxed font-medium shadow-sm ${msg.role === "user" ? "bg-[#2f4383] text-white rounded-br-none" : "bg-white dark:bg-slate-700 text-gray-800 dark:text-slate-100 border border-slate-200 dark:border-slate-600 rounded-bl-none"}`}>
+                    <div key={index} className={`flex flex-col max-w-[85%] sm:max-w-[80%] ${msg.role === "user" ? "self-end items-end" : "self-start items-start"}`}>
+                      <div className={`px-3 py-2 sm:px-4 sm:py-2.5 rounded-2xl text-[13px] sm:text-[14px] leading-relaxed font-medium shadow-sm ${msg.role === "user" ? "bg-[#2f4383] text-white rounded-br-none" : "bg-white dark:bg-slate-700 text-gray-800 dark:text-slate-100 border border-slate-200 dark:border-slate-600 rounded-bl-none"}`}>
                         {msg.content}
                       </div>
                     </div>
@@ -921,15 +950,15 @@ export default function Page() {
                   <div ref={chatEndRef} />
                 </div>
 
-                <form onSubmit={handleSendChatMessage} className="p-3 border-t border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 flex items-center gap-2">
+                <form onSubmit={handleSendChatMessage} className="p-3 border-t border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 flex items-center gap-2 shrink-0">
                   <input
                     type="text"
                     value={chatInput}
                     onChange={(e) => setChatInput(e.target.value)}
-                    placeholder="Ask about anomalies or hardware specs..."
-                    className="flex-1 text-[14px] font-medium px-3 py-2 border border-slate-200 dark:border-slate-600 rounded-xl outline-none focus:border-[#2f4383] bg-white dark:bg-slate-700 text-gray-800 dark:text-slate-100 transition-colors"
+                    placeholder="Ask about anomalies..."
+                    className="flex-1 min-w-0 text-[13px] sm:text-[14px] font-medium px-3 py-2 border border-slate-200 dark:border-slate-600 rounded-xl outline-none focus:border-[#2f4383] bg-white dark:bg-slate-700 text-gray-800 dark:text-slate-100 transition-colors"
                   />
-                  <button type="submit" disabled={isAiLoading || !chatInput.trim()} className="p-2 bg-[#2f4383] text-white rounded-xl hover:bg-[#203063] disabled:bg-slate-200 dark:disabled:bg-slate-600 disabled:text-slate-400 transition-colors">
+                  <button type="submit" disabled={isAiLoading || !chatInput.trim()} className="p-2 bg-[#2f4383] text-white rounded-xl hover:bg-[#203063] disabled:bg-slate-200 dark:disabled:bg-slate-600 disabled:text-slate-400 transition-colors shrink-0">
                     <Send className="w-4 h-4" />
                   </button>
                 </form>
@@ -938,9 +967,9 @@ export default function Page() {
 
             <button
               onClick={() => setIsChatOpen(!isChatOpen)}
-              className={`w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-200 ${isChatOpen ? "bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-gray-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-600 rotate-90" : "bg-[#dba65d] text-white hover:bg-[#c59553] scale-100 hover:scale-105 hover:cursor-pointer"}`}
+              className={`w-11 h-11 sm:w-14 sm:h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-200 ${isChatOpen ? "bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-gray-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-600 rotate-90" : "bg-[#dba65d] text-white hover:bg-[#c59553] scale-100 hover:scale-105 hover:cursor-pointer"}`}
             >
-              {isChatOpen ? <X className="w-6 h-6" /> : <MessageSquare className="w-6 h-6" />}
+              {isChatOpen ? <X className="w-5 h-5" /> : <MessageSquare className="w-5 h-5 sm:w-6 sm:h-6" />}
             </button>
           </div>
 

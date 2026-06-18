@@ -155,9 +155,14 @@ exports.Prisma.FaultReportScalarFieldEnum = {
   id: 'id',
   poleId: 'poleId',
   reportedById: 'reportedById',
+  reporterName: 'reporterName',
+  reporterEmail: 'reporterEmail',
+  reporterPhone: 'reporterPhone',
   description: 'description',
   faultType: 'faultType',
   status: 'status',
+  latitude: 'latitude',
+  longitude: 'longitude',
   reportedAt: 'reportedAt'
 };
 
@@ -170,6 +175,16 @@ exports.Prisma.WorkOrderScalarFieldEnum = {
   assignedAt: 'assignedAt',
   resolvedAt: 'resolvedAt',
   resolutionNotes: 'resolutionNotes'
+};
+
+exports.Prisma.MaintenanceLogScalarFieldEnum = {
+  id: 'id',
+  workOrderId: 'workOrderId',
+  technicianId: 'technicianId',
+  partsUsed: 'partsUsed',
+  timeSpent: 'timeSpent',
+  notes: 'notes',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.StatusLogScalarFieldEnum = {
@@ -232,6 +247,21 @@ exports.Prisma.InventoryLogScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.TechnicianApplicationScalarFieldEnum = {
+  id: 'id',
+  applicantId: 'applicantId',
+  skills: 'skills',
+  reason: 'reason',
+  status: 'status',
+  verifiedById: 'verifiedById',
+  verifiedAt: 'verifiedAt',
+  rejectedById: 'rejectedById',
+  rejectedAt: 'rejectedAt',
+  rejectedReason: 'rejectedReason',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -284,17 +314,25 @@ exports.WorkOrderStatus = exports.$Enums.WorkOrderStatus = {
   CANCELLED: 'CANCELLED'
 };
 
+exports.ApplicationStatus = exports.$Enums.ApplicationStatus = {
+  PENDING: 'PENDING',
+  VERIFIED: 'VERIFIED',
+  REJECTED: 'REJECTED'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Pole: 'Pole',
   FaultReport: 'FaultReport',
   WorkOrder: 'WorkOrder',
+  MaintenanceLog: 'MaintenanceLog',
   StatusLog: 'StatusLog',
   SearchHistory: 'SearchHistory',
   PasswordResetToken: 'PasswordResetToken',
   Notification: 'Notification',
   InventoryItem: 'InventoryItem',
-  InventoryLog: 'InventoryLog'
+  InventoryLog: 'InventoryLog',
+  TechnicianApplication: 'TechnicianApplication'
 };
 
 /**

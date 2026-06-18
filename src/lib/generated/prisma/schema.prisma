@@ -8,29 +8,33 @@ datasource db {
 }
 
 model User {
-  id                 String          @id @default(cuid())
-  email              String          @unique
-  passwordHash       String
-  role               Role            @default(USER)
-  createdAt          DateTime        @default(now())
-  barangay           String
-  city               String
-  dob                DateTime?
-  firstName          String
-  gender             String?
-  lastName           String
-  middleName         String?
-  phone              String
-  province           String?
-  region             String
-  streetAddress      String?
-  faultReports       FaultReport[]   @relation("ReportedBy")
-  inventoryLogs      InventoryLog[]
-  notifications      Notification[]
-  searchHistory      SearchHistory[]
-  statusLogs         StatusLog[]
-  workOrdersCreated  WorkOrder[]     @relation("AssignedBy")
-  workOrdersAssigned WorkOrder[]     @relation("AssignedTo")
+  id                     String                  @id @default(cuid())
+  email                  String                  @unique
+  passwordHash           String
+  role                   Role                    @default(USER)
+  createdAt              DateTime                @default(now())
+  barangay               String
+  city                   String
+  dob                    DateTime?
+  firstName              String
+  gender                 String?
+  lastName               String
+  middleName             String?
+  phone                  String
+  province               String?
+  region                 String
+  streetAddress          String?
+  faultReports           FaultReport[]           @relation("ReportedBy")
+  inventoryLogs          InventoryLog[]
+  notifications          Notification[]
+  searchHistory          SearchHistory[]
+  statusLogs             StatusLog[]
+  workOrdersCreated      WorkOrder[]             @relation("AssignedBy")
+  workOrdersAssigned     WorkOrder[]             @relation("AssignedTo")
+  maintenanceLogs        MaintenanceLog[]
+  technicianApplications TechnicianApplication[] @relation("TechnicianApplications")
+  verifiedApplications   TechnicianApplication[] @relation("VerifiedApplications")
+  rejectedApplications   TechnicianApplication[] @relation("RejectedApplications")
 }
 
 model Pole {
@@ -48,30 +52,51 @@ model Pole {
 }
 
 model FaultReport {
-  id           String       @id @default(cuid())
-  poleId       String
-  reportedById String
-  description  String
-  faultType    FaultType
-  status       ReportStatus @default(OPEN)
-  reportedAt   DateTime     @default(now())
-  pole         Pole         @relation(fields: [poleId], references: [id])
-  reportedBy   User         @relation("ReportedBy", fields: [reportedById], references: [id])
-  workOrder    WorkOrder?
+  id            String       @id @default(cuid())
+  poleId        String
+  reportedById  String?
+  reporterName  String?
+  reporterEmail String?
+  reporterPhone String?
+  description   String
+  faultType     FaultType
+  status        ReportStatus @default(OPEN)
+  latitude      Float?
+  longitude     Float?
+  reportedAt    DateTime     @default(now())
+  pole          Pole         @relation(fields: [poleId], references: [id])
+  reportedBy    User?        @relation("ReportedBy", fields: [reportedById], references: [id])
+  workOrder     WorkOrder?
 }
 
 model WorkOrder {
-  id              String          @id @default(cuid())
-  faultReportId   String          @unique
+  id              String           @id @default(cuid())
+  faultReportId   String           @unique
   assignedToId    String?
   assignedById    String
-  status          WorkOrderStatus @default(PENDING)
-  assignedAt      DateTime        @default(now())
+  status          WorkOrderStatus  @default(PENDING)
+  assignedAt      DateTime         @default(now())
   resolvedAt      DateTime?
   resolutionNotes String?
-  assignedBy      User            @relation("AssignedBy", fields: [assignedById], references: [id])
-  assignedTo      User?           @relation("AssignedTo", fields: [assignedToId], references: [id])
-  faultReport     FaultReport     @relation(fields: [faultReportId], references: [id])
+  assignedBy      User             @relation("AssignedBy", fields: [assignedById], references: [id])
+  assignedTo      User?            @relation("AssignedTo", fields: [assignedToId], references: [id])
+  faultReport     FaultReport      @relation(fields: [faultReportId], references: [id])
+  maintenanceLogs MaintenanceLog[]
+}
+
+model MaintenanceLog {
+  id           String    @id @default(cuid())
+  workOrderId  String
+  technicianId String
+  partsUsed    String?
+  timeSpent    Int?
+  notes        String?
+  createdAt    DateTime  @default(now())
+  workOrder    WorkOrder @relation(fields: [workOrderId], references: [id])
+  technician   User      @relation(fields: [technicianId], references: [id])
+
+  @@index([workOrderId])
+  @@index([technicianId])
 }
 
 model StatusLog {
@@ -147,6 +172,33 @@ model InventoryLog {
   user      User          @relation(fields: [userId], references: [id])
 
   @@index([itemId, createdAt])
+}
+
+enum ApplicationStatus {
+  PENDING
+  VERIFIED
+  REJECTED
+}
+
+model TechnicianApplication {
+  id             String            @id @default(cuid())
+  applicantId    String
+  skills         String
+  reason         String
+  status         ApplicationStatus @default(PENDING)
+  verifiedById   String?
+  verifiedAt     DateTime?
+  rejectedById   String?
+  rejectedAt     DateTime?
+  rejectedReason String?
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+  applicant      User              @relation("TechnicianApplications", fields: [applicantId], references: [id])
+  verifiedBy     User?             @relation("VerifiedApplications", fields: [verifiedById], references: [id])
+  rejectedBy     User?             @relation("RejectedApplications", fields: [rejectedById], references: [id])
+
+  @@index([applicantId])
+  @@index([status])
 }
 
 enum Role {
