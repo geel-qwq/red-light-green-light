@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
 
@@ -48,6 +49,11 @@
       transform: scale(1);
     }
   }
+}
+
+/* Dark mode base */
+.dark body {
+  background-color: #0f172a;
 }
 
 /* Responsive table wrapper - ensures tables scroll horizontally on mobile */

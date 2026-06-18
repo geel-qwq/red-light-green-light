@@ -29,6 +29,7 @@ import {
 import Link from "next/link";
 import Logo from "@/components/Logo";
 import GuestRedirectWrapper from "@/components/GuestRedirectWrapper";
+import DarkModeToggle from "@/components/DarkModeToggle";
 import { getSearchHistory, saveSearch, deleteSearch } from "@/actions/searchHistory";
 import type { SearchHistory } from "@/lib/generated/prisma";
 import UserFloatingDashboard from './(dashboard)/user/dashboard/_components/UserFloatingDashboard'
@@ -495,7 +496,7 @@ export default function Page() {
 
   return (
     <GuestRedirectWrapper>
-    <div className="flex h-screen w-full overflow-hidden bg-[#e5e7eb] font-sans relative">
+    <div className="flex h-screen w-full overflow-hidden bg-[#e5e7eb] dark:bg-slate-900 font-sans relative">
 
       {/* 1. LEFT SIDEBAR */}
       <style>{`
@@ -534,9 +535,9 @@ export default function Page() {
 
             {/* Dropdown Menu Overlay */}
             {isMenuOpen && (
-              <div className="absolute top-0 left-[60px] w-60 bg-white rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100 overflow-hidden flex flex-col z-50 animate-in fade-in slide-in-from-left-2 duration-200">
-                <div className="px-4 py-3 bg-[#f8fafc] border-b border-gray-100 flex items-center justify-between">
-                  <span className="text-[11px] font-bold text-gray-400 uppercase tracking-wider">
+              <div className="absolute top-0 left-[60px] w-60 bg-white dark:bg-slate-800 rounded-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-gray-100 dark:border-slate-700 overflow-hidden flex flex-col z-50 animate-in fade-in slide-in-from-left-2 duration-200">
+                <div className="px-4 py-3 bg-[#f8fafc] dark:bg-slate-800 border-b border-gray-100 dark:border-slate-700 flex items-center justify-between">
+                  <span className="text-[11px] font-bold text-gray-400 dark:text-slate-400 uppercase tracking-wider">
                     {effectiveRole} Menu
                   </span>
                 </div>
@@ -551,9 +552,9 @@ export default function Page() {
                           if (item.route) router.push(item.route);
                           setIsMenuOpen(false);
                         }}
-                        className="flex items-center gap-3 px-4 py-2.5 w-full text-left text-[14px] font-medium text-gray-700 hover:bg-[#dba65d] hover:text-white transition-colors group"
+                        className="flex items-center gap-3 px-4 py-2.5 w-full text-left text-[14px] font-medium text-gray-700 dark:text-slate-200 hover:bg-[#dba65d] hover:text-white transition-colors group"
                       >
-                        <Icon className="w-4 h-4 text-gray-400 group-hover:text-white transition-colors" />
+                        <Icon className="w-4 h-4 text-gray-400 dark:text-slate-400 group-hover:text-white transition-colors" />
                         {item.title}
                       </button>
                     );
@@ -631,8 +632,11 @@ export default function Page() {
 
         </div>
 
-        {/* Bottom language button */}
-        <div className="flex flex-col items-center w-full">
+        {/* Bottom buttons */}
+        <div className="flex flex-col items-center w-full gap-1">
+          <div className="sidebar-btn-bounce">
+            <DarkModeToggle />
+          </div>
           <div className="sidebar-btn-bounce">
             <button className="sidebar-icon-btn w-[42px] h-[42px] flex items-center justify-center hover:bg-[#dba65d] rounded-lg transition-colors group">
               <Languages className="w-6 h-6 text-[#dba65d] group-hover:text-white transition-colors" />
@@ -687,13 +691,13 @@ export default function Page() {
         {isRecentOpen && (
           <div
             ref={recentPanelRef}
-            className="absolute top-[60px] sm:top-[70px] left-0 bottom-0 w-full sm:w-[420px] bg-white z-20 shadow-[8px_0_24px_rgba(0,0,0,0.15)] flex flex-col animate-in slide-in-from-left-8 duration-200"
+            className="absolute top-[60px] sm:top-[70px] left-0 bottom-0 w-full sm:w-[420px] bg-white dark:bg-slate-900 z-20 shadow-[8px_0_24px_rgba(0,0,0,0.15)] flex flex-col animate-in slide-in-from-left-8 duration-200"
           >
-            <div className="flex items-center justify-between px-4 sm:px-8 py-4 sm:py-6 border-b border-gray-200/80">
-              <h2 className="text-lg sm:text-2xl font-bold text-gray-900 tracking-tight">Recent Activities</h2>
+            <div className="flex items-center justify-between px-4 sm:px-8 py-4 sm:py-6 border-b border-gray-200/80 dark:border-slate-700">
+              <h2 className="text-lg sm:text-2xl font-bold text-gray-900 dark:text-slate-100 tracking-tight">Recent Activities</h2>
               <button
                 onClick={() => setIsRecentOpen(false)}
-                className="p-1 rounded-full text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors"
+                className="p-1 rounded-full text-gray-400 dark:text-slate-400 hover:text-gray-700 dark:hover:text-slate-200 hover:bg-gray-100 dark:hover:bg-slate-800 transition-colors"
               >
                 <X className="w-5 h-5 sm:w-6 sm:h-6" />
               </button>
@@ -701,10 +705,10 @@ export default function Page() {
 
             <div className="flex-1 overflow-y-auto p-4 sm:p-6 flex flex-col gap-3 sm:gap-4">
               {recentActivities.map((activity) => (
-                <div key={activity.id} className="relative bg-white border border-gray-200 rounded-xl p-4 sm:p-5 shadow-sm mb-3 sm:mb-4">
+                <div key={activity.id} className="relative bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl p-4 sm:p-5 shadow-sm mb-3 sm:mb-4">
                   <button
                     onClick={() => handleDeleteActivity(activity.id)}
-                    className="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition-colors"
+                    className="absolute top-4 right-4 text-gray-400 dark:text-slate-400 hover:text-red-500 transition-colors"
                     title="Delete"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -712,11 +716,11 @@ export default function Page() {
                     </svg>
                   </button>
                   <div className="flex justify-between items-center mb-2 pr-6">
-                    <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">NODE ID: {activity.id}</span>
-                    <span className="text-xs text-gray-500 font-medium">{activity.time}</span>
+                    <span className="text-xs font-bold text-gray-400 dark:text-slate-400 uppercase tracking-wider">NODE ID: {activity.id}</span>
+                    <span className="text-xs text-gray-500 dark:text-slate-400 font-medium">{activity.time}</span>
                   </div>
-                  <h3 className="text-md font-bold text-gray-900 mb-1">{activity.title}</h3>
-                  <p className="text-sm text-gray-500">{activity.description}</p>
+                  <h3 className="text-md font-bold text-gray-900 dark:text-slate-100 mb-1">{activity.title}</h3>
+                  <p className="text-sm text-gray-500 dark:text-slate-400">{activity.description}</p>
                 </div>
               ))}
             </div>
@@ -726,7 +730,7 @@ export default function Page() {
         {/* FLOATING MAP CONTROLS CODES */}
         <div className="absolute inset-0 z-10 pointer-events-none mt-[70px]">
           <div ref={containerRef} className="absolute top-2 sm:top-4 left-2 right-2 sm:left-4 sm:right-4 md:left-6 md:right-auto pointer-events-auto sm:w-[90vw] md:w-[480px] md:hover:w-[650px] transition-all duration-300">
-            <div className="relative flex items-center w-full bg-white rounded-[20px] shadow-sm border border-slate-300 px-3 py-2">
+            <div className="relative flex items-center w-full bg-white dark:bg-slate-800 rounded-[20px] shadow-sm border border-slate-300 dark:border-slate-600 px-3 py-2">
               <div className="flex items-center flex-1">
                 <input
                   type="text"
@@ -735,33 +739,33 @@ export default function Page() {
                   onChange={(e) => setSearchInput(e.target.value)}
                   onKeyDown={handleKeyDown}
                   onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
-                  className="flex-1 bg-transparent outline-none text-gray-800 placeholder:text-gray-400 text-[14px] sm:text-[15px] font-medium"
+                  className="flex-1 bg-transparent outline-none text-gray-800 dark:text-slate-100 placeholder:text-gray-400 dark:placeholder:text-slate-500 text-[14px] sm:text-[15px] font-medium"
                 />
               </div>
 
               <button
                 onClick={() => setIsFilterOpen(!isFilterOpen)}
-                className="ml-2 flex items-center gap-1 px-3 py-1.5 bg-white text-gray-700 rounded-full border border-gray-300 hover:bg-slate-50 transition-colors shrink-0"
+                className="ml-2 flex items-center gap-1 px-3 py-1.5 bg-white dark:bg-slate-700 text-gray-700 dark:text-slate-200 rounded-full border border-gray-300 dark:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-600 transition-colors shrink-0"
               >
                 <Filter className="w-4 h-4" />
                 <span className="hidden sm:inline text-sm font-medium">Filter</span>
               </button>
 
               {isFilterOpen && (
-                <div className="absolute top-[110%] left-0 sm:left-auto sm:right-0 w-56 bg-white rounded-xl shadow-lg border border-slate-200 py-2 z-50">
-                  <button onClick={() => setIsFilterOpen(false)} className="w-full flex items-center gap-3 px-4 py-2 hover:bg-slate-50 text-gray-700 border-b border-slate-100">
+                <div className="absolute top-[110%] left-0 sm:left-auto sm:right-0 w-56 bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700 py-2 z-50">
+                  <button onClick={() => setIsFilterOpen(false)} className="w-full flex items-center gap-3 px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-700 text-gray-700 dark:text-slate-200 border-b border-slate-100 dark:border-slate-700">
                     <X className="w-4 h-4" />
                     <span className="text-sm">Clear Filter</span>
                   </button>
-                  <button className="w-full flex items-center gap-3 px-4 py-2 hover:bg-slate-50 text-gray-700 bg-slate-100">
+                  <button className="w-full flex items-center gap-3 px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-700 text-gray-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-700">
                     <div className="w-2 h-2 rounded-full bg-green-500"></div>
                     <span className="text-sm">Operational / Healthy</span>
                   </button>
-                  <button className="w-full flex items-center gap-3 px-4 py-2 hover:bg-slate-50 text-gray-700">
+                  <button className="w-full flex items-center gap-3 px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-700 text-gray-700 dark:text-slate-200">
                     <div className="w-2 h-2 rounded-full bg-red-500"></div>
                     <span className="text-sm">Lamp Failure Fault</span>
                   </button>
-                  <button className="w-full flex items-center gap-3 px-4 py-2 hover:bg-slate-50 text-gray-700">
+                  <button className="w-full flex items-center gap-3 px-4 py-2 hover:bg-slate-50 dark:hover:bg-slate-700 text-gray-700 dark:text-slate-200">
                     <div className="w-2 h-2 rounded-full bg-yellow-400"></div>
                     <span className="text-sm">Structural Pole Damage</span>
                   </button>
@@ -786,14 +790,14 @@ export default function Page() {
                     <button
                       key={result.place_id}
                       onClick={() => selectResult(result)}
-                      className="flex items-center gap-3 sm:gap-5 w-full text-left p-3 sm:p-4 bg-white rounded-2xl shadow-sm border border-slate-300 hover:shadow-md hover:border-slate-400 hover:bg-gray-300 transition-all hover:cursor-pointer"
+                      className="flex items-center gap-3 sm:gap-5 w-full text-left p-3 sm:p-4 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-300 dark:border-slate-600 hover:shadow-md hover:border-slate-400 dark:hover:border-slate-500 hover:bg-gray-300 dark:hover:bg-slate-700 transition-all hover:cursor-pointer"
                     >
                       <div className="hidden sm:block flex-shrink-0">
                         <StreetLampIcon hasWarning={showWarning} />
                       </div>
                       <div className="flex flex-col pr-2 min-w-0">
-                        <span className="text-base sm:text-xl font-medium text-gray-900 tracking-wide truncate">{mainTitle}</span>
-                        <span className="text-[12px] sm:text-[13px] text-gray-800 font-medium leading-snug mt-1 line-clamp-2">{subAddress}</span>
+                        <span className="text-base sm:text-xl font-medium text-gray-900 dark:text-slate-100 tracking-wide truncate">{mainTitle}</span>
+                        <span className="text-[12px] sm:text-[13px] text-gray-800 dark:text-slate-300 font-medium leading-snug mt-1 line-clamp-2">{subAddress}</span>
                       </div>
                     </button>
                   );
@@ -807,67 +811,67 @@ export default function Page() {
             <div className="absolute inset-0 z-50 pointer-events-auto flex items-center justify-center p-2 sm:p-4 md:p-8 animate-in fade-in duration-200">
               <div className="absolute inset-0" onClick={() => setIsOverviewOpen(false)} />
 
-              <div className="relative z-10 w-full sm:w-[95vw] md:w-[90vw] max-w-6xl h-[85vh] sm:h-[80vh] bg-white/95 border border-white rounded-[16px] sm:rounded-[24px] shadow-[0_20px_50px_rgba(0,0,0,0.3)] flex flex-col p-4 sm:p-6 md:p-8 overflow-y-auto">
+              <div className="relative z-10 w-full sm:w-[95vw] md:w-[90vw] max-w-6xl h-[85vh] sm:h-[80vh] bg-white/95 dark:bg-slate-900/95 border border-white dark:border-slate-700 rounded-[16px] sm:rounded-[24px] shadow-[0_20px_50px_rgba(0,0,0,0.3)] flex flex-col p-4 sm:p-6 md:p-8 overflow-y-auto">
 
                 {/* Dismiss Modal Trigger Button */}
                 <button
                   onClick={() => setIsOverviewOpen(false)}
-                  className="absolute top-6 right-6 text-gray-400 hover:text-gray-700 bg-gray-100 hover:bg-gray-200 w-8 h-8 flex items-center justify-center rounded-full transition-colors cursor-pointer"
+                  className="absolute top-6 right-6 text-gray-400 dark:text-slate-400 hover:text-gray-700 dark:hover:text-slate-200 bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 w-8 h-8 flex items-center justify-center rounded-full transition-colors cursor-pointer"
                 >
                   <X className="w-4 h-4" />
                 </button>
 
                 {/* Dashboard Panel Metadata Header */}
                 <div className="mb-6 pr-8">
-                  <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
+                  <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100 tracking-tight">
                     System Overview Metrics Dashboard
                   </h1>
-                  <p className="text-xs text-slate-500 font-medium mt-0.5">
+                  <p className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5">
                     Real-time crowd sourced operational summaries and municipal node tracking profiles for {gpsLocation}.
                   </p>
                 </div>
 
                 {/* Metric Summary Rows Card Matrix Container */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
-                  <div className="bg-white border border-slate-100 rounded-xl p-4 shadow-sm flex flex-col justify-between min-h-[110px]">
-                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Recent Fixes</span>
-                    <span className="text-2xl font-black text-slate-800 my-1">MCRT1</span>
+                  <div className="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-xl p-4 shadow-sm flex flex-col justify-between min-h-[110px]">
+                    <span className="text-[10px] font-bold text-slate-400 dark:text-slate-400 uppercase tracking-wider">Recent Fixes</span>
+                    <span className="text-2xl font-black text-slate-800 dark:text-slate-100 my-1">MCRT1</span>
                     <span className="text-[10px] text-emerald-600 font-medium inline-flex items-center gap-1"><CheckCircle className="w-3 h-3" /> Resolved in last 2 hours</span>
                   </div>
 
-                  <div className="bg-white border border-slate-100 rounded-xl p-4 shadow-sm flex flex-col justify-between min-h-[110px]">
-                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Recent Reported Outages</span>
-                    <span className="text-3xl font-black text-slate-800 my-1">9</span>
+                  <div className="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-xl p-4 shadow-sm flex flex-col justify-between min-h-[110px]">
+                    <span className="text-[10px] font-bold text-slate-400 dark:text-slate-400 uppercase tracking-wider">Recent Reported Outages</span>
+                    <span className="text-3xl font-black text-slate-800 dark:text-slate-100 my-1">9</span>
                     <span className="text-[10px] text-rose-600 font-medium inline-flex items-center gap-1"><Siren className="w-3 h-3" /> Unresolved civic tickets</span>
                   </div>
 
-                  <div className="bg-white border border-slate-100 rounded-xl p-4 shadow-sm flex flex-col justify-between min-h-[110px]">
-                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Ongoing Maintenance</span>
-                    <span className="text-3xl font-black text-slate-800 my-1">3</span>
+                  <div className="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-xl p-4 shadow-sm flex flex-col justify-between min-h-[110px]">
+                    <span className="text-[10px] font-bold text-slate-400 dark:text-slate-400 uppercase tracking-wider">Ongoing Maintenance</span>
+                    <span className="text-3xl font-black text-slate-800 dark:text-slate-100 my-1">3</span>
                     <span className="text-[10px] text-amber-600 font-medium inline-flex items-center gap-1"><Wrench className="w-3 h-3" /> Crew active in field</span>
                   </div>
 
-                  <div className="bg-white border border-slate-100 rounded-xl p-4 shadow-sm flex flex-col justify-between min-h-[110px]">
-                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Street With Least Lights</span>
-                    <span className="text-xl font-bold text-slate-800 truncate my-1">Sta. Mesa</span>
-                    <span className="text-[10px] text-slate-500 font-medium inline-flex items-center gap-1"><Lightbulb className="w-3 h-3" /> Total: 5 units</span>
+                  <div className="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-xl p-4 shadow-sm flex flex-col justify-between min-h-[110px]">
+                    <span className="text-[10px] font-bold text-slate-400 dark:text-slate-400 uppercase tracking-wider">Street With Least Lights</span>
+                    <span className="text-xl font-bold text-slate-800 dark:text-slate-100 truncate my-1">Sta. Mesa</span>
+                    <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium inline-flex items-center gap-1"><Lightbulb className="w-3 h-3" /> Total: 5 units</span>
                   </div>
 
-                  <div className="bg-white border border-slate-100 rounded-xl p-4 shadow-sm flex flex-col justify-between min-h-[110px]">
-                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Street With Most Lights</span>
-                    <span className="text-xl font-bold text-slate-800 truncate my-1">Pureza</span>
-                    <span className="text-[10px] text-slate-500 font-medium inline-flex items-center gap-1"><Zap className="w-3 h-3" /> Total: 67 units</span>
+                  <div className="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-xl p-4 shadow-sm flex flex-col justify-between min-h-[110px]">
+                    <span className="text-[10px] font-bold text-slate-400 dark:text-slate-400 uppercase tracking-wider">Street With Most Lights</span>
+                    <span className="text-xl font-bold text-slate-800 dark:text-slate-100 truncate my-1">Pureza</span>
+                    <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium inline-flex items-center gap-1"><Zap className="w-3 h-3" /> Total: 67 units</span>
                   </div>
                 </div>
 
                 {/* System Activity Stream Component Slot */}
                 <div className="flex-1 flex flex-col min-h-0">
                   <div className="mb-3">
-                    <h2 className="text-base font-bold text-slate-800">Recent System Activity Logs</h2>
-                    <p className="text-xs text-slate-400">Real-time tracking grid of infrastructure diagnostics and maintenance dispatches.</p>
+                    <h2 className="text-base font-bold text-slate-800 dark:text-slate-100">Recent System Activity Logs</h2>
+                    <p className="text-xs text-slate-400 dark:text-slate-400">Real-time tracking grid of infrastructure diagnostics and maintenance dispatches.</p>
                   </div>
-                  <div className="flex-1 border-2 border-dashed border-slate-200 rounded-xl bg-slate-50/50 p-4 overflow-y-auto">
-                    <div className="text-center text-slate-400 text-sm py-12">
+                  <div className="flex-1 border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-xl bg-slate-50/50 dark:bg-slate-800/50 p-4 overflow-y-auto">
+                    <div className="text-center text-slate-400 dark:text-slate-400 text-sm py-12">
                       Awaiting dynamic infrastructure database entries...
                     </div>
                   </div>
@@ -880,7 +884,7 @@ export default function Page() {
           {/* FLOATING AI TELEMETRY COPILOT PANEL */}
           <div className="absolute bottom-4 right-2 sm:right-4 sm:bottom-6 sm:right-13 pointer-events-auto flex flex-col items-end z-40">
             {isChatOpen && (
-              <div className="w-[calc(100vw-1rem)] sm:w-[380px] h-[50vh] sm:h-[480px] bg-white rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.15)] border border-slate-200 flex flex-col mb-4 overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-200">
+              <div className="w-[calc(100vw-1rem)] sm:w-[380px] h-[50vh] sm:h-[480px] bg-white dark:bg-slate-800 rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.15)] border border-slate-200 dark:border-slate-700 flex flex-col mb-4 overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-200">
                 <div className="bg-[#2f4383] text-white px-5 py-4 flex items-center justify-between">
                   <div className="flex items-center gap-2.5">
                     <div className="p-1.5 bg-white/10 rounded-lg">
@@ -896,17 +900,17 @@ export default function Page() {
                   </button>
                 </div>
 
-                <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-3 bg-slate-50">
+                <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-3 bg-slate-50 dark:bg-slate-900">
                   {messages.map((msg, index) => (
                     <div key={index} className={`flex flex-col max-w-[80%] ${msg.role === "user" ? "self-end items-end" : "self-start items-start"}`}>
-                      <div className={`px-4 py-2.5 rounded-2xl text-[14px] leading-relaxed font-medium shadow-sm ${msg.role === "user" ? "bg-[#2f4383] text-white rounded-br-none" : "bg-white text-gray-800 border border-slate-200 rounded-bl-none"}`}>
+                      <div className={`px-4 py-2.5 rounded-2xl text-[14px] leading-relaxed font-medium shadow-sm ${msg.role === "user" ? "bg-[#2f4383] text-white rounded-br-none" : "bg-white dark:bg-slate-700 text-gray-800 dark:text-slate-100 border border-slate-200 dark:border-slate-600 rounded-bl-none"}`}>
                         {msg.content}
                       </div>
                     </div>
                   ))}
 
                   {isAiLoading && (
-                    <div className="self-start flex items-center gap-2 px-4 py-3 bg-white border border-slate-200 rounded-2xl rounded-bl-none shadow-sm">
+                    <div className="self-start flex items-center gap-2 px-4 py-3 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-2xl rounded-bl-none shadow-sm">
                       <div className="flex gap-1">
                         <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce"></span>
                         <span className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce [animation-delay:0.2s]"></span>
@@ -917,15 +921,15 @@ export default function Page() {
                   <div ref={chatEndRef} />
                 </div>
 
-                <form onSubmit={handleSendChatMessage} className="p-3 border-t border-slate-200 bg-white flex items-center gap-2">
+                <form onSubmit={handleSendChatMessage} className="p-3 border-t border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 flex items-center gap-2">
                   <input
                     type="text"
                     value={chatInput}
                     onChange={(e) => setChatInput(e.target.value)}
                     placeholder="Ask about anomalies or hardware specs..."
-                    className="flex-1 text-[14px] font-medium px-3 py-2 border border-slate-200 rounded-xl outline-none focus:border-[#2f4383] transition-colors"
+                    className="flex-1 text-[14px] font-medium px-3 py-2 border border-slate-200 dark:border-slate-600 rounded-xl outline-none focus:border-[#2f4383] bg-white dark:bg-slate-700 text-gray-800 dark:text-slate-100 transition-colors"
                   />
-                  <button type="submit" disabled={isAiLoading || !chatInput.trim()} className="p-2 bg-[#2f4383] text-white rounded-xl hover:bg-[#203063] disabled:bg-slate-200 disabled:text-slate-400 transition-colors">
+                  <button type="submit" disabled={isAiLoading || !chatInput.trim()} className="p-2 bg-[#2f4383] text-white rounded-xl hover:bg-[#203063] disabled:bg-slate-200 dark:disabled:bg-slate-600 disabled:text-slate-400 transition-colors">
                     <Send className="w-4 h-4" />
                   </button>
                 </form>
@@ -934,7 +938,7 @@ export default function Page() {
 
             <button
               onClick={() => setIsChatOpen(!isChatOpen)}
-              className={`w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-200 ${isChatOpen ? "bg-white border border-slate-200 text-gray-700 hover:bg-slate-50 rotate-90" : "bg-[#dba65d] text-white hover:bg-[#c59553] scale-100 hover:scale-105 hover:cursor-pointer"}`}
+              className={`w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-200 ${isChatOpen ? "bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-gray-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-600 rotate-90" : "bg-[#dba65d] text-white hover:bg-[#c59553] scale-100 hover:scale-105 hover:cursor-pointer"}`}
             >
               {isChatOpen ? <X className="w-6 h-6" /> : <MessageSquare className="w-6 h-6" />}
             </button>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Koulen, Instrument_Sans } from "next/font/google";
 import SessionProvider from "@/components/SessionProvider";
+import ThemeProviderWrapper from "@/components/ThemeProviderWrapper";
 import "./globals.css";
 
 const koulenFont = Koulen({
@@ -30,14 +31,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         suppressHydrationWarning
         className={`${koulenFont.variable} ${instrumentSansFont.variable}`}
       >
         <SessionProvider>
-        {children}
-      </SessionProvider>
+          <ThemeProviderWrapper>
+            {children}
+          </ThemeProviderWrapper>
+        </SessionProvider>
       </body>
     </html>
   );
