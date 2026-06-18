@@ -5,19 +5,16 @@ import { useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-// ── Contact details — change these strings for each deployment ──
 const CONTACT_EMAIL = "example@lumen.com";
 const CONTACT_NUMBER = "09XXXXXXXXX";
 const CONTACT_ADDRESS = "#67 Mundo ni Majinbu Street, Brgy. Lumen Hall";
 
-// ── Fault / status types (mirrors FaultType enum in the codebase) ──
 const ISSUE_TYPES = [
   { value: "NO_POWER", label: "Light completely out" },
   { value: "FLICKERING", label: "Flickering / Unstable light" },
   { value: "DAMAGED_FIXTURE", label: "Broken pole / Structural damage" },
 ];
 
-// ── Pole status → badge colour (same mapping used in poles/[id]/page.tsx) ──
 const STATUS_BADGE: Record<string, { bg: string; text: string; dot: string }> = {
   ACTIVE: { bg: "bg-green-50", text: "text-green-700", dot: "bg-green-500" },
   FAULTY: { bg: "bg-red-50", text: "text-red-600", dot: "bg-red-500" },
@@ -25,15 +22,12 @@ const STATUS_BADGE: Record<string, { bg: string; text: string; dot: string }> = 
   DECOMMISSIONED: { bg: "bg-gray-100", text: "text-brand-cornflower-blue", dot: "bg-gray-400" },
 };
 
-// ── Streetlight SVG icon — status-aware colour fill ──
-// Colours mirror the status system already used across the dashboard.
 function StreetlightIcon({ status }: { status: string }) {
-  // Pick the fill colour based on pole status
   const fill =
-    status === "ACTIVE" ? "#16a34a" :   // green-600
-      status === "FAULTY" ? "#ef4444" :   // red-500
-        status === "UNDER_MAINTENANCE" ? "#d97706" :   // amber-600
-          "#9ca3af";    // gray-400 (decommissioned / unknown)
+    status === "ACTIVE" ? "#16a34a" :
+      status === "FAULTY" ? "#ef4444" :
+        status === "UNDER_MAINTENANCE" ? "#d97706" :
+          "#9ca3af";
 
   return (
     <svg
@@ -65,16 +59,13 @@ type Tab = "overview" | "complaints" | "about";
 // ── Props ──
 export interface LocationDetailsProps {
   isOpen: boolean;
-  // Basic identity
-  title?: string;   // street name or pole code
+  title?: string;
   address?: string;
-  // Pole metadata 
   status?: string;
   poleCode?: string;
   latitude?: number;
   longitude?: number;
   barangay?: string;
-  // Node / hardware specs
   nodeSpecs?: Record<string, string>;
   // Fault reports for this pole
   faultReports?: Array<{
@@ -135,10 +126,8 @@ export default function LocationDetails({
   const removeFile = (idx: number) =>
     setMediaFiles((prev) => prev.filter((_, i) => i !== idx));
 
-  // ── Complaint submit (stub — wire to createFaultReport server action) ──
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: call createFaultReport({ poleId, reportedById, description, faultType: issueType })
     setSubmitted(true);
     setTimeout(() => {
       setSubmitted(false);
@@ -287,7 +276,6 @@ export default function LocationDetails({
         {activeTab === "complaints" && (
           <div className="p-5 space-y-4">
 
-            {/* Coordinates */}
             {latitude != null && longitude != null && (
               <div className="bg-gray-50 rounded-xl p-3">
                 <p className="text-[10px] font-bold text-gray-950 uppercase tracking-wider">Coordinates</p>
@@ -297,44 +285,38 @@ export default function LocationDetails({
               </div>
             )}
 
-            {/* Report button */}
             <Link
-              href={latitude != null && longitude != null ? `/report?lat=${latitude}&lng=${longitude}` : "/report"}
-              className="block w-full py-2.5 rounded-xl text-sm font-bold text-white bg-[#1E3A8A] hover:bg-[#4169E1] active:scale-[0.98] transition-all duration-200 text-center"
+              href={`/report?lat=${latitude}&lng=${longitude}`}
+              className="w-full py-2.5 rounded-xl text-sm font-bold font-instrument text-white bg-[#1E3A8A] hover:bg-[#4169E1] active:scale-[0.98] transition-all duration-200 block text-center"
             >
-              Report an Issue
+              + Report an Issue
             </Link>
 
-            {/* Fault reports list */}
-            {faultReports && faultReports.length > 0 ? (
-              <div>
-                <h3 className="text-xs font-bold text-brand-blue uppercase tracking-wider mb-3">
-                  All Complaints ({faultReports.length})
-                </h3>
-                <div className="space-y-2">
-                  {faultReports.map((r) => (
-                    <div key={r.id} className="bg-gray-50 rounded-xl p-3">
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="text-[10px] font-bold text-gray-950 uppercase tracking-wider">
-                          {r.faultType.replace(/_/g, " ")}
-                        </span>
-                        <span className="text-[10px] text-brand-cornflower-blue">
-                          {new Date(r.reportedAt).toLocaleDateString()}
-                        </span>
-                      </div>
-                      <p className="text-xs text-gray-700 leading-snug">{r.description}</p>
-                      <p className="text-[10px] text-gray-400 mt-1">
-                        by {r.reportedBy ? `${r.reportedBy.firstName} ${r.reportedBy.lastName}` : "Anonymous"}
-                        {r.status !== "OPEN" && ` — ${r.status.replace(/_/g, " ")}`}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
+            {(!faultReports || faultReports.length === 0) ? (
+              <p className="text-xs text-gray-500 text-center py-4">No fault reports for this location yet.</p>
             ) : (
-              <p className="text-center text-gray-400 dark:text-slate-400 text-sm py-8">
-                No complaints yet for this streetlight.
-              </p>
+              <div className="divide-y divide-gray-100">
+                {faultReports.map((fr) => (
+                  <div key={fr.id} className="py-3 space-y-1">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-brand-blue uppercase">
+                        {fr.faultType.replace('_', ' ')}
+                      </span>
+                      <span className="text-[10px] text-gray-400">
+                        {new Date(fr.reportedAt).toLocaleDateString()}
+                      </span>
+                    </div>
+                    <p className="text-xs text-gray-600">{fr.description}</p>
+                    <p className="text-[10px] text-gray-400">
+                      {fr.reportedBy
+                        ? `${fr.reportedBy.firstName} ${fr.reportedBy.lastName}`
+                        : 'Anonymous'}
+                      {' · '}
+                      {fr.status.replace('_', ' ')}
+                    </p>
+                  </div>
+                ))}
+              </div>
             )}
           </div>
         )}
@@ -433,7 +415,7 @@ export default function LocationDetails({
           </div>
         )}
 
-      </div>{/* end scrollable content */}
+      </div>
     </div>
   );
 }

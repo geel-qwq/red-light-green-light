@@ -1,4 +1,4 @@
-
+// leafletmap.tsx
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -9,7 +9,7 @@ import {
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import LocationDetails from '../LocationDetails';
-import StreetlightLayer from './StreetlightLayer'
+import StreetlightLayer, { PoleStatus } from './StreetlightLayer' // [CHANGED] import PoleStatus type
 import { getPoleFaultsByCoord } from '@/actions/poles'
 
 const customMarkerIcon = new L.DivIcon({
@@ -39,19 +39,15 @@ function MapUpdater({ targetLocation }: { targetLocation?: [number, number] | nu
   const map = useMap();
   useEffect(() => {
     if (targetLocation) {
-      map.flyTo(targetLocation, map.getZoom(), {
-        duration: 0.8,
-      });
+      map.panTo(targetLocation, { animate: true, duration: 0.4 });
     }
   }, [targetLocation, map]);
   return null;
 }
 
-
-
 interface LeafletMapProps {
   targetLocation?: [number, number] | null;
-  onMarkerClick?:  () => void;
+  onMarkerClick?: () => void;
 }
 
 export default function LeafletMap({ targetLocation, onMarkerClick }: LeafletMapProps) {
@@ -59,8 +55,10 @@ export default function LeafletMap({ targetLocation, onMarkerClick }: LeafletMap
 
   const mapKey = targetLocation ? `${targetLocation[0]}-${targetLocation[1]}` : 'default-map';
 
-  const [activeLight,   setActiveLight]   = useState<[number, number] | null>(null);
+  const [activeLight, setActiveLight] = useState<[number, number] | null>(null);
   const [selectedLight, setSelectedLight] = useState<[number, number] | null>(null);
+  // [ADDED] track the status of the clicked streetlight so LocationDetails shows it correctly
+  const [activeLightStatus, setActiveLightStatus] = useState<PoleStatus>('ACTIVE');
 
   const [poleData, setPoleData] = useState<{
     id: string
@@ -77,9 +75,11 @@ export default function LeafletMap({ targetLocation, onMarkerClick }: LeafletMap
     }>
   } | null>(null)
 
-  const handleLightClick = async (pos: [number, number]) => {
+  // [CHANGED] now receives status from StreetlightLayer and stores it in state
+  const handleLightClick = async (pos: [number, number], status: PoleStatus) => {
     setActiveLight(pos);
     setSelectedLight(pos);
+    setActiveLightStatus(status); // [ADDED]
     setShowDetails(true);
     onMarkerClick?.();
     const [pole, geoRes] = await Promise.all([
@@ -136,6 +136,7 @@ export default function LeafletMap({ targetLocation, onMarkerClick }: LeafletMap
   useEffect(() => {
     setActiveLight(null);
     setSelectedLight(null);
+    setActiveLightStatus('ACTIVE'); // [ADDED] reset status on location change
     setShowDetails(false);
     setPoleData(null);
   }, [targetLocation]);
@@ -160,7 +161,7 @@ export default function LeafletMap({ targetLocation, onMarkerClick }: LeafletMap
         <MapUpdater targetLocation={activeLight ?? targetLocation} />
 
         <StreetlightLayer
-          onLightClick={handleLightClick}
+          onLightClick={handleLightClick} // [CHANGED] handler now accepts (pos, status)
           selectedLight={selectedLight}
         />
         <Marker
@@ -186,7 +187,7 @@ export default function LeafletMap({ targetLocation, onMarkerClick }: LeafletMap
                 ? poleData?.address ?? "Live node — OpenStreetMap"
                 : "Quezon City, Metro Manila"
             }
-            status="ACTIVE"
+            status={activeLight ? activeLightStatus : 'ACTIVE'}
             poleCode={poleData?.poleCode}
             barangay={poleData?.barangay}
             latitude={activeLight?.[0] ?? targetLocation?.[0] ?? defaultCenter[0]}
