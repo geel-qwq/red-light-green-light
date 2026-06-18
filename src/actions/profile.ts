@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 import prisma from "@/lib/prisma";
 import { getSession } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
+import { logAudit } from "@/lib/audit";
 
 export async function getProfile() {
   const session = await getSession();
@@ -67,6 +68,8 @@ export async function updateProfile(data: {
     },
   });
 
+  await logAudit('UPDATE_PROFILE', 'User', session.user.id)
+
   revalidatePath("/profile");
   return { success: true };
 }
@@ -98,6 +101,8 @@ export async function deleteAccount(data: {
     prisma.passwordResetToken.deleteMany({ where: { email: user.email } }),
     prisma.user.delete({ where: { id: user.id } }),
   ]);
+
+  await logAudit('DELETE_ACCOUNT', 'User', user.id, JSON.stringify({ email: user.email }))
 
   revalidatePath("/");
   return { success: true };

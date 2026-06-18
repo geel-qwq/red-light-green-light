@@ -21,7 +21,7 @@ export default async function DashboardLayout({
 
       {/* Sidebar */}
       <aside id="dashboard-sidebar" className="fixed inset-y-0 left-0 -translate-x-full md:relative md:translate-x-0 w-72 md:w-56 bg-white dark:bg-slate-800 border-r border-gray-100 dark:border-slate-700 flex flex-col justify-between z-40 transition-transform duration-200 h-screen overflow-hidden">
-        <div className="flex flex-col flex-1">
+        <div className="flex flex-col flex-1 min-h-0">
           {/* Header */}
           <div className="px-6 py-5 border-b border-gray-100 dark:border-slate-700">
             <p className="text-xs font-semibold text-gray-500 dark:text-slate-400 tracking-wider">

@@ -3,6 +3,7 @@
 import prisma  from '@/lib/prisma'
 import { PoleStatus } from '@/lib/generated/prisma/client'
 import { revalidatePath } from 'next/cache'
+import { logAudit } from '@/lib/audit'
 
 export async function getPoles() {
   return prisma.pole.findMany({
@@ -35,6 +36,8 @@ export async function createPole(data: {
   longitude: number
 }) {
   const pole = await prisma.pole.create({ data })
+  await logAudit('CREATE_POLE', 'Pole', pole.id, JSON.stringify({ poleCode: pole.poleCode }))
+
   revalidatePath('/poles')
   return pole
 }
@@ -62,6 +65,8 @@ export async function updatePoleStatus(
     where: { id: poleId },
     data: { status: toStatus },
   })
+
+  await logAudit('UPDATE_POLE_STATUS', 'Pole', poleId, JSON.stringify({ fromStatus: pole.status, toStatus }))
 
   revalidatePath('/poles')
   revalidatePath(`/poles/${poleId}`)

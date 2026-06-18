@@ -73,6 +73,16 @@ export type InventoryLog = $Result.DefaultSelection<Prisma.$InventoryLogPayload>
  * 
  */
 export type TechnicianApplication = $Result.DefaultSelection<Prisma.$TechnicianApplicationPayload>
+/**
+ * Model SystemSetting
+ * 
+ */
+export type SystemSetting = $Result.DefaultSelection<Prisma.$SystemSettingPayload>
+/**
+ * Model AuditLog
+ * 
+ */
+export type AuditLog = $Result.DefaultSelection<Prisma.$AuditLogPayload>
 
 /**
  * Enums
@@ -406,6 +416,26 @@ export class PrismaClient<
     * ```
     */
   get technicianApplication(): Prisma.TechnicianApplicationDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.systemSetting`: Exposes CRUD operations for the **SystemSetting** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SystemSettings
+    * const systemSettings = await prisma.systemSetting.findMany()
+    * ```
+    */
+  get systemSetting(): Prisma.SystemSettingDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.auditLog`: Exposes CRUD operations for the **AuditLog** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more AuditLogs
+    * const auditLogs = await prisma.auditLog.findMany()
+    * ```
+    */
+  get auditLog(): Prisma.AuditLogDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -851,7 +881,9 @@ export namespace Prisma {
     Notification: 'Notification',
     InventoryItem: 'InventoryItem',
     InventoryLog: 'InventoryLog',
-    TechnicianApplication: 'TechnicianApplication'
+    TechnicianApplication: 'TechnicianApplication',
+    SystemSetting: 'SystemSetting',
+    AuditLog: 'AuditLog'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -867,7 +899,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "pole" | "faultReport" | "workOrder" | "maintenanceLog" | "statusLog" | "searchHistory" | "passwordResetToken" | "notification" | "inventoryItem" | "inventoryLog" | "technicianApplication"
+      modelProps: "user" | "pole" | "faultReport" | "workOrder" | "maintenanceLog" | "statusLog" | "searchHistory" | "passwordResetToken" | "notification" | "inventoryItem" | "inventoryLog" | "technicianApplication" | "systemSetting" | "auditLog"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1759,6 +1791,154 @@ export namespace Prisma {
           }
         }
       }
+      SystemSetting: {
+        payload: Prisma.$SystemSettingPayload<ExtArgs>
+        fields: Prisma.SystemSettingFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SystemSettingFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemSettingPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SystemSettingFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemSettingPayload>
+          }
+          findFirst: {
+            args: Prisma.SystemSettingFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemSettingPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SystemSettingFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemSettingPayload>
+          }
+          findMany: {
+            args: Prisma.SystemSettingFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemSettingPayload>[]
+          }
+          create: {
+            args: Prisma.SystemSettingCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemSettingPayload>
+          }
+          createMany: {
+            args: Prisma.SystemSettingCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SystemSettingCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemSettingPayload>[]
+          }
+          delete: {
+            args: Prisma.SystemSettingDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemSettingPayload>
+          }
+          update: {
+            args: Prisma.SystemSettingUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemSettingPayload>
+          }
+          deleteMany: {
+            args: Prisma.SystemSettingDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SystemSettingUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SystemSettingUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemSettingPayload>[]
+          }
+          upsert: {
+            args: Prisma.SystemSettingUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SystemSettingPayload>
+          }
+          aggregate: {
+            args: Prisma.SystemSettingAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSystemSetting>
+          }
+          groupBy: {
+            args: Prisma.SystemSettingGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SystemSettingGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SystemSettingCountArgs<ExtArgs>
+            result: $Utils.Optional<SystemSettingCountAggregateOutputType> | number
+          }
+        }
+      }
+      AuditLog: {
+        payload: Prisma.$AuditLogPayload<ExtArgs>
+        fields: Prisma.AuditLogFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.AuditLogFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.AuditLogFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogPayload>
+          }
+          findFirst: {
+            args: Prisma.AuditLogFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.AuditLogFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogPayload>
+          }
+          findMany: {
+            args: Prisma.AuditLogFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogPayload>[]
+          }
+          create: {
+            args: Prisma.AuditLogCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogPayload>
+          }
+          createMany: {
+            args: Prisma.AuditLogCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.AuditLogCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogPayload>[]
+          }
+          delete: {
+            args: Prisma.AuditLogDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogPayload>
+          }
+          update: {
+            args: Prisma.AuditLogUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogPayload>
+          }
+          deleteMany: {
+            args: Prisma.AuditLogDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.AuditLogUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.AuditLogUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogPayload>[]
+          }
+          upsert: {
+            args: Prisma.AuditLogUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$AuditLogPayload>
+          }
+          aggregate: {
+            args: Prisma.AuditLogAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAuditLog>
+          }
+          groupBy: {
+            args: Prisma.AuditLogGroupByArgs<ExtArgs>
+            result: $Utils.Optional<AuditLogGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.AuditLogCountArgs<ExtArgs>
+            result: $Utils.Optional<AuditLogCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1879,6 +2059,8 @@ export namespace Prisma {
     inventoryItem?: InventoryItemOmit
     inventoryLog?: InventoryLogOmit
     technicianApplication?: TechnicianApplicationOmit
+    systemSetting?: SystemSettingOmit
+    auditLog?: AuditLogOmit
   }
 
   /* Types for Logging */
@@ -2196,6 +2378,7 @@ export namespace Prisma {
     email: string | null
     passwordHash: string | null
     role: $Enums.Role | null
+    isActive: boolean | null
     createdAt: Date | null
     emailVerified: Date | null
     verificationToken: string | null
@@ -2218,6 +2401,7 @@ export namespace Prisma {
     email: string | null
     passwordHash: string | null
     role: $Enums.Role | null
+    isActive: boolean | null
     createdAt: Date | null
     emailVerified: Date | null
     verificationToken: string | null
@@ -2240,6 +2424,7 @@ export namespace Prisma {
     email: number
     passwordHash: number
     role: number
+    isActive: number
     createdAt: number
     emailVerified: number
     verificationToken: number
@@ -2264,6 +2449,7 @@ export namespace Prisma {
     email?: true
     passwordHash?: true
     role?: true
+    isActive?: true
     createdAt?: true
     emailVerified?: true
     verificationToken?: true
@@ -2286,6 +2472,7 @@ export namespace Prisma {
     email?: true
     passwordHash?: true
     role?: true
+    isActive?: true
     createdAt?: true
     emailVerified?: true
     verificationToken?: true
@@ -2308,6 +2495,7 @@ export namespace Prisma {
     email?: true
     passwordHash?: true
     role?: true
+    isActive?: true
     createdAt?: true
     emailVerified?: true
     verificationToken?: true
@@ -2403,6 +2591,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role: $Enums.Role
+    isActive: boolean
     createdAt: Date
     emailVerified: Date | null
     verificationToken: string | null
@@ -2442,6 +2631,7 @@ export namespace Prisma {
     email?: boolean
     passwordHash?: boolean
     role?: boolean
+    isActive?: boolean
     createdAt?: boolean
     emailVerified?: boolean
     verificationToken?: boolean
@@ -2476,6 +2666,7 @@ export namespace Prisma {
     email?: boolean
     passwordHash?: boolean
     role?: boolean
+    isActive?: boolean
     createdAt?: boolean
     emailVerified?: boolean
     verificationToken?: boolean
@@ -2498,6 +2689,7 @@ export namespace Prisma {
     email?: boolean
     passwordHash?: boolean
     role?: boolean
+    isActive?: boolean
     createdAt?: boolean
     emailVerified?: boolean
     verificationToken?: boolean
@@ -2520,6 +2712,7 @@ export namespace Prisma {
     email?: boolean
     passwordHash?: boolean
     role?: boolean
+    isActive?: boolean
     createdAt?: boolean
     emailVerified?: boolean
     verificationToken?: boolean
@@ -2537,7 +2730,7 @@ export namespace Prisma {
     streetAddress?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "passwordHash" | "role" | "createdAt" | "emailVerified" | "verificationToken" | "verificationTokenExpires" | "barangay" | "city" | "dob" | "firstName" | "gender" | "lastName" | "middleName" | "phone" | "province" | "region" | "streetAddress", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "passwordHash" | "role" | "isActive" | "createdAt" | "emailVerified" | "verificationToken" | "verificationTokenExpires" | "barangay" | "city" | "dob" | "firstName" | "gender" | "lastName" | "middleName" | "phone" | "province" | "region" | "streetAddress", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     faultReports?: boolean | User$faultReportsArgs<ExtArgs>
     inventoryLogs?: boolean | User$inventoryLogsArgs<ExtArgs>
@@ -2575,6 +2768,7 @@ export namespace Prisma {
       email: string
       passwordHash: string
       role: $Enums.Role
+      isActive: boolean
       createdAt: Date
       emailVerified: Date | null
       verificationToken: string | null
@@ -3028,6 +3222,7 @@ export namespace Prisma {
     readonly email: FieldRef<"User", 'String'>
     readonly passwordHash: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'Role'>
+    readonly isActive: FieldRef<"User", 'Boolean'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly emailVerified: FieldRef<"User", 'DateTime'>
     readonly verificationToken: FieldRef<"User", 'String'>
@@ -4946,6 +5141,7 @@ export namespace Prisma {
     latitude: number | null
     longitude: number | null
     reportedAt: Date | null
+    adminNotes: string | null
   }
 
   export type FaultReportMaxAggregateOutputType = {
@@ -4961,6 +5157,7 @@ export namespace Prisma {
     latitude: number | null
     longitude: number | null
     reportedAt: Date | null
+    adminNotes: string | null
   }
 
   export type FaultReportCountAggregateOutputType = {
@@ -4976,6 +5173,7 @@ export namespace Prisma {
     latitude: number
     longitude: number
     reportedAt: number
+    adminNotes: number
     _all: number
   }
 
@@ -5003,6 +5201,7 @@ export namespace Prisma {
     latitude?: true
     longitude?: true
     reportedAt?: true
+    adminNotes?: true
   }
 
   export type FaultReportMaxAggregateInputType = {
@@ -5018,6 +5217,7 @@ export namespace Prisma {
     latitude?: true
     longitude?: true
     reportedAt?: true
+    adminNotes?: true
   }
 
   export type FaultReportCountAggregateInputType = {
@@ -5033,6 +5233,7 @@ export namespace Prisma {
     latitude?: true
     longitude?: true
     reportedAt?: true
+    adminNotes?: true
     _all?: true
   }
 
@@ -5135,6 +5336,7 @@ export namespace Prisma {
     latitude: number | null
     longitude: number | null
     reportedAt: Date
+    adminNotes: string | null
     _count: FaultReportCountAggregateOutputType | null
     _avg: FaultReportAvgAggregateOutputType | null
     _sum: FaultReportSumAggregateOutputType | null
@@ -5169,6 +5371,7 @@ export namespace Prisma {
     latitude?: boolean
     longitude?: boolean
     reportedAt?: boolean
+    adminNotes?: boolean
     pole?: boolean | PoleDefaultArgs<ExtArgs>
     reportedBy?: boolean | FaultReport$reportedByArgs<ExtArgs>
     workOrder?: boolean | FaultReport$workOrderArgs<ExtArgs>
@@ -5187,6 +5390,7 @@ export namespace Prisma {
     latitude?: boolean
     longitude?: boolean
     reportedAt?: boolean
+    adminNotes?: boolean
     pole?: boolean | PoleDefaultArgs<ExtArgs>
     reportedBy?: boolean | FaultReport$reportedByArgs<ExtArgs>
   }, ExtArgs["result"]["faultReport"]>
@@ -5204,6 +5408,7 @@ export namespace Prisma {
     latitude?: boolean
     longitude?: boolean
     reportedAt?: boolean
+    adminNotes?: boolean
     pole?: boolean | PoleDefaultArgs<ExtArgs>
     reportedBy?: boolean | FaultReport$reportedByArgs<ExtArgs>
   }, ExtArgs["result"]["faultReport"]>
@@ -5221,9 +5426,10 @@ export namespace Prisma {
     latitude?: boolean
     longitude?: boolean
     reportedAt?: boolean
+    adminNotes?: boolean
   }
 
-  export type FaultReportOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "poleId" | "reportedById" | "reporterName" | "reporterEmail" | "reporterPhone" | "description" | "faultType" | "status" | "latitude" | "longitude" | "reportedAt", ExtArgs["result"]["faultReport"]>
+  export type FaultReportOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "poleId" | "reportedById" | "reporterName" | "reporterEmail" | "reporterPhone" | "description" | "faultType" | "status" | "latitude" | "longitude" | "reportedAt" | "adminNotes", ExtArgs["result"]["faultReport"]>
   export type FaultReportInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     pole?: boolean | PoleDefaultArgs<ExtArgs>
     reportedBy?: boolean | FaultReport$reportedByArgs<ExtArgs>
@@ -5258,6 +5464,7 @@ export namespace Prisma {
       latitude: number | null
       longitude: number | null
       reportedAt: Date
+      adminNotes: string | null
     }, ExtArgs["result"]["faultReport"]>
     composites: {}
   }
@@ -5696,6 +5903,7 @@ export namespace Prisma {
     readonly latitude: FieldRef<"FaultReport", 'Float'>
     readonly longitude: FieldRef<"FaultReport", 'Float'>
     readonly reportedAt: FieldRef<"FaultReport", 'DateTime'>
+    readonly adminNotes: FieldRef<"FaultReport", 'String'>
   }
     
 
@@ -16269,6 +16477,2045 @@ export namespace Prisma {
 
 
   /**
+   * Model SystemSetting
+   */
+
+  export type AggregateSystemSetting = {
+    _count: SystemSettingCountAggregateOutputType | null
+    _min: SystemSettingMinAggregateOutputType | null
+    _max: SystemSettingMaxAggregateOutputType | null
+  }
+
+  export type SystemSettingMinAggregateOutputType = {
+    id: string | null
+    key: string | null
+    value: string | null
+  }
+
+  export type SystemSettingMaxAggregateOutputType = {
+    id: string | null
+    key: string | null
+    value: string | null
+  }
+
+  export type SystemSettingCountAggregateOutputType = {
+    id: number
+    key: number
+    value: number
+    _all: number
+  }
+
+
+  export type SystemSettingMinAggregateInputType = {
+    id?: true
+    key?: true
+    value?: true
+  }
+
+  export type SystemSettingMaxAggregateInputType = {
+    id?: true
+    key?: true
+    value?: true
+  }
+
+  export type SystemSettingCountAggregateInputType = {
+    id?: true
+    key?: true
+    value?: true
+    _all?: true
+  }
+
+  export type SystemSettingAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SystemSetting to aggregate.
+     */
+    where?: SystemSettingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SystemSettings to fetch.
+     */
+    orderBy?: SystemSettingOrderByWithRelationInput | SystemSettingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SystemSettingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SystemSettings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SystemSettings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SystemSettings
+    **/
+    _count?: true | SystemSettingCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SystemSettingMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SystemSettingMaxAggregateInputType
+  }
+
+  export type GetSystemSettingAggregateType<T extends SystemSettingAggregateArgs> = {
+        [P in keyof T & keyof AggregateSystemSetting]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSystemSetting[P]>
+      : GetScalarType<T[P], AggregateSystemSetting[P]>
+  }
+
+
+
+
+  export type SystemSettingGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SystemSettingWhereInput
+    orderBy?: SystemSettingOrderByWithAggregationInput | SystemSettingOrderByWithAggregationInput[]
+    by: SystemSettingScalarFieldEnum[] | SystemSettingScalarFieldEnum
+    having?: SystemSettingScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SystemSettingCountAggregateInputType | true
+    _min?: SystemSettingMinAggregateInputType
+    _max?: SystemSettingMaxAggregateInputType
+  }
+
+  export type SystemSettingGroupByOutputType = {
+    id: string
+    key: string
+    value: string
+    _count: SystemSettingCountAggregateOutputType | null
+    _min: SystemSettingMinAggregateOutputType | null
+    _max: SystemSettingMaxAggregateOutputType | null
+  }
+
+  type GetSystemSettingGroupByPayload<T extends SystemSettingGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SystemSettingGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SystemSettingGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SystemSettingGroupByOutputType[P]>
+            : GetScalarType<T[P], SystemSettingGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SystemSettingSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    key?: boolean
+    value?: boolean
+  }, ExtArgs["result"]["systemSetting"]>
+
+  export type SystemSettingSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    key?: boolean
+    value?: boolean
+  }, ExtArgs["result"]["systemSetting"]>
+
+  export type SystemSettingSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    key?: boolean
+    value?: boolean
+  }, ExtArgs["result"]["systemSetting"]>
+
+  export type SystemSettingSelectScalar = {
+    id?: boolean
+    key?: boolean
+    value?: boolean
+  }
+
+  export type SystemSettingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "key" | "value", ExtArgs["result"]["systemSetting"]>
+
+  export type $SystemSettingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SystemSetting"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      key: string
+      value: string
+    }, ExtArgs["result"]["systemSetting"]>
+    composites: {}
+  }
+
+  type SystemSettingGetPayload<S extends boolean | null | undefined | SystemSettingDefaultArgs> = $Result.GetResult<Prisma.$SystemSettingPayload, S>
+
+  type SystemSettingCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SystemSettingFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SystemSettingCountAggregateInputType | true
+    }
+
+  export interface SystemSettingDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SystemSetting'], meta: { name: 'SystemSetting' } }
+    /**
+     * Find zero or one SystemSetting that matches the filter.
+     * @param {SystemSettingFindUniqueArgs} args - Arguments to find a SystemSetting
+     * @example
+     * // Get one SystemSetting
+     * const systemSetting = await prisma.systemSetting.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SystemSettingFindUniqueArgs>(args: SelectSubset<T, SystemSettingFindUniqueArgs<ExtArgs>>): Prisma__SystemSettingClient<$Result.GetResult<Prisma.$SystemSettingPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SystemSetting that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SystemSettingFindUniqueOrThrowArgs} args - Arguments to find a SystemSetting
+     * @example
+     * // Get one SystemSetting
+     * const systemSetting = await prisma.systemSetting.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SystemSettingFindUniqueOrThrowArgs>(args: SelectSubset<T, SystemSettingFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SystemSettingClient<$Result.GetResult<Prisma.$SystemSettingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SystemSetting that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemSettingFindFirstArgs} args - Arguments to find a SystemSetting
+     * @example
+     * // Get one SystemSetting
+     * const systemSetting = await prisma.systemSetting.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SystemSettingFindFirstArgs>(args?: SelectSubset<T, SystemSettingFindFirstArgs<ExtArgs>>): Prisma__SystemSettingClient<$Result.GetResult<Prisma.$SystemSettingPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SystemSetting that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemSettingFindFirstOrThrowArgs} args - Arguments to find a SystemSetting
+     * @example
+     * // Get one SystemSetting
+     * const systemSetting = await prisma.systemSetting.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SystemSettingFindFirstOrThrowArgs>(args?: SelectSubset<T, SystemSettingFindFirstOrThrowArgs<ExtArgs>>): Prisma__SystemSettingClient<$Result.GetResult<Prisma.$SystemSettingPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SystemSettings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemSettingFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SystemSettings
+     * const systemSettings = await prisma.systemSetting.findMany()
+     * 
+     * // Get first 10 SystemSettings
+     * const systemSettings = await prisma.systemSetting.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const systemSettingWithIdOnly = await prisma.systemSetting.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SystemSettingFindManyArgs>(args?: SelectSubset<T, SystemSettingFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SystemSettingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SystemSetting.
+     * @param {SystemSettingCreateArgs} args - Arguments to create a SystemSetting.
+     * @example
+     * // Create one SystemSetting
+     * const SystemSetting = await prisma.systemSetting.create({
+     *   data: {
+     *     // ... data to create a SystemSetting
+     *   }
+     * })
+     * 
+     */
+    create<T extends SystemSettingCreateArgs>(args: SelectSubset<T, SystemSettingCreateArgs<ExtArgs>>): Prisma__SystemSettingClient<$Result.GetResult<Prisma.$SystemSettingPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SystemSettings.
+     * @param {SystemSettingCreateManyArgs} args - Arguments to create many SystemSettings.
+     * @example
+     * // Create many SystemSettings
+     * const systemSetting = await prisma.systemSetting.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SystemSettingCreateManyArgs>(args?: SelectSubset<T, SystemSettingCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SystemSettings and returns the data saved in the database.
+     * @param {SystemSettingCreateManyAndReturnArgs} args - Arguments to create many SystemSettings.
+     * @example
+     * // Create many SystemSettings
+     * const systemSetting = await prisma.systemSetting.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SystemSettings and only return the `id`
+     * const systemSettingWithIdOnly = await prisma.systemSetting.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SystemSettingCreateManyAndReturnArgs>(args?: SelectSubset<T, SystemSettingCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SystemSettingPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SystemSetting.
+     * @param {SystemSettingDeleteArgs} args - Arguments to delete one SystemSetting.
+     * @example
+     * // Delete one SystemSetting
+     * const SystemSetting = await prisma.systemSetting.delete({
+     *   where: {
+     *     // ... filter to delete one SystemSetting
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SystemSettingDeleteArgs>(args: SelectSubset<T, SystemSettingDeleteArgs<ExtArgs>>): Prisma__SystemSettingClient<$Result.GetResult<Prisma.$SystemSettingPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SystemSetting.
+     * @param {SystemSettingUpdateArgs} args - Arguments to update one SystemSetting.
+     * @example
+     * // Update one SystemSetting
+     * const systemSetting = await prisma.systemSetting.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SystemSettingUpdateArgs>(args: SelectSubset<T, SystemSettingUpdateArgs<ExtArgs>>): Prisma__SystemSettingClient<$Result.GetResult<Prisma.$SystemSettingPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SystemSettings.
+     * @param {SystemSettingDeleteManyArgs} args - Arguments to filter SystemSettings to delete.
+     * @example
+     * // Delete a few SystemSettings
+     * const { count } = await prisma.systemSetting.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SystemSettingDeleteManyArgs>(args?: SelectSubset<T, SystemSettingDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SystemSettings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemSettingUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SystemSettings
+     * const systemSetting = await prisma.systemSetting.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SystemSettingUpdateManyArgs>(args: SelectSubset<T, SystemSettingUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SystemSettings and returns the data updated in the database.
+     * @param {SystemSettingUpdateManyAndReturnArgs} args - Arguments to update many SystemSettings.
+     * @example
+     * // Update many SystemSettings
+     * const systemSetting = await prisma.systemSetting.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SystemSettings and only return the `id`
+     * const systemSettingWithIdOnly = await prisma.systemSetting.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SystemSettingUpdateManyAndReturnArgs>(args: SelectSubset<T, SystemSettingUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SystemSettingPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SystemSetting.
+     * @param {SystemSettingUpsertArgs} args - Arguments to update or create a SystemSetting.
+     * @example
+     * // Update or create a SystemSetting
+     * const systemSetting = await prisma.systemSetting.upsert({
+     *   create: {
+     *     // ... data to create a SystemSetting
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SystemSetting we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SystemSettingUpsertArgs>(args: SelectSubset<T, SystemSettingUpsertArgs<ExtArgs>>): Prisma__SystemSettingClient<$Result.GetResult<Prisma.$SystemSettingPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SystemSettings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemSettingCountArgs} args - Arguments to filter SystemSettings to count.
+     * @example
+     * // Count the number of SystemSettings
+     * const count = await prisma.systemSetting.count({
+     *   where: {
+     *     // ... the filter for the SystemSettings we want to count
+     *   }
+     * })
+    **/
+    count<T extends SystemSettingCountArgs>(
+      args?: Subset<T, SystemSettingCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SystemSettingCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SystemSetting.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemSettingAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SystemSettingAggregateArgs>(args: Subset<T, SystemSettingAggregateArgs>): Prisma.PrismaPromise<GetSystemSettingAggregateType<T>>
+
+    /**
+     * Group by SystemSetting.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SystemSettingGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SystemSettingGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SystemSettingGroupByArgs['orderBy'] }
+        : { orderBy?: SystemSettingGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SystemSettingGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSystemSettingGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SystemSetting model
+   */
+  readonly fields: SystemSettingFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SystemSetting.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SystemSettingClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SystemSetting model
+   */
+  interface SystemSettingFieldRefs {
+    readonly id: FieldRef<"SystemSetting", 'String'>
+    readonly key: FieldRef<"SystemSetting", 'String'>
+    readonly value: FieldRef<"SystemSetting", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SystemSetting findUnique
+   */
+  export type SystemSettingFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemSetting
+     */
+    select?: SystemSettingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SystemSetting
+     */
+    omit?: SystemSettingOmit<ExtArgs> | null
+    /**
+     * Filter, which SystemSetting to fetch.
+     */
+    where: SystemSettingWhereUniqueInput
+  }
+
+  /**
+   * SystemSetting findUniqueOrThrow
+   */
+  export type SystemSettingFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemSetting
+     */
+    select?: SystemSettingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SystemSetting
+     */
+    omit?: SystemSettingOmit<ExtArgs> | null
+    /**
+     * Filter, which SystemSetting to fetch.
+     */
+    where: SystemSettingWhereUniqueInput
+  }
+
+  /**
+   * SystemSetting findFirst
+   */
+  export type SystemSettingFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemSetting
+     */
+    select?: SystemSettingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SystemSetting
+     */
+    omit?: SystemSettingOmit<ExtArgs> | null
+    /**
+     * Filter, which SystemSetting to fetch.
+     */
+    where?: SystemSettingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SystemSettings to fetch.
+     */
+    orderBy?: SystemSettingOrderByWithRelationInput | SystemSettingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SystemSettings.
+     */
+    cursor?: SystemSettingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SystemSettings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SystemSettings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SystemSettings.
+     */
+    distinct?: SystemSettingScalarFieldEnum | SystemSettingScalarFieldEnum[]
+  }
+
+  /**
+   * SystemSetting findFirstOrThrow
+   */
+  export type SystemSettingFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemSetting
+     */
+    select?: SystemSettingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SystemSetting
+     */
+    omit?: SystemSettingOmit<ExtArgs> | null
+    /**
+     * Filter, which SystemSetting to fetch.
+     */
+    where?: SystemSettingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SystemSettings to fetch.
+     */
+    orderBy?: SystemSettingOrderByWithRelationInput | SystemSettingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SystemSettings.
+     */
+    cursor?: SystemSettingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SystemSettings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SystemSettings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SystemSettings.
+     */
+    distinct?: SystemSettingScalarFieldEnum | SystemSettingScalarFieldEnum[]
+  }
+
+  /**
+   * SystemSetting findMany
+   */
+  export type SystemSettingFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemSetting
+     */
+    select?: SystemSettingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SystemSetting
+     */
+    omit?: SystemSettingOmit<ExtArgs> | null
+    /**
+     * Filter, which SystemSettings to fetch.
+     */
+    where?: SystemSettingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SystemSettings to fetch.
+     */
+    orderBy?: SystemSettingOrderByWithRelationInput | SystemSettingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SystemSettings.
+     */
+    cursor?: SystemSettingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SystemSettings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SystemSettings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SystemSettings.
+     */
+    distinct?: SystemSettingScalarFieldEnum | SystemSettingScalarFieldEnum[]
+  }
+
+  /**
+   * SystemSetting create
+   */
+  export type SystemSettingCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemSetting
+     */
+    select?: SystemSettingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SystemSetting
+     */
+    omit?: SystemSettingOmit<ExtArgs> | null
+    /**
+     * The data needed to create a SystemSetting.
+     */
+    data: XOR<SystemSettingCreateInput, SystemSettingUncheckedCreateInput>
+  }
+
+  /**
+   * SystemSetting createMany
+   */
+  export type SystemSettingCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SystemSettings.
+     */
+    data: SystemSettingCreateManyInput | SystemSettingCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SystemSetting createManyAndReturn
+   */
+  export type SystemSettingCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemSetting
+     */
+    select?: SystemSettingSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SystemSetting
+     */
+    omit?: SystemSettingOmit<ExtArgs> | null
+    /**
+     * The data used to create many SystemSettings.
+     */
+    data: SystemSettingCreateManyInput | SystemSettingCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SystemSetting update
+   */
+  export type SystemSettingUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemSetting
+     */
+    select?: SystemSettingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SystemSetting
+     */
+    omit?: SystemSettingOmit<ExtArgs> | null
+    /**
+     * The data needed to update a SystemSetting.
+     */
+    data: XOR<SystemSettingUpdateInput, SystemSettingUncheckedUpdateInput>
+    /**
+     * Choose, which SystemSetting to update.
+     */
+    where: SystemSettingWhereUniqueInput
+  }
+
+  /**
+   * SystemSetting updateMany
+   */
+  export type SystemSettingUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SystemSettings.
+     */
+    data: XOR<SystemSettingUpdateManyMutationInput, SystemSettingUncheckedUpdateManyInput>
+    /**
+     * Filter which SystemSettings to update
+     */
+    where?: SystemSettingWhereInput
+    /**
+     * Limit how many SystemSettings to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SystemSetting updateManyAndReturn
+   */
+  export type SystemSettingUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemSetting
+     */
+    select?: SystemSettingSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SystemSetting
+     */
+    omit?: SystemSettingOmit<ExtArgs> | null
+    /**
+     * The data used to update SystemSettings.
+     */
+    data: XOR<SystemSettingUpdateManyMutationInput, SystemSettingUncheckedUpdateManyInput>
+    /**
+     * Filter which SystemSettings to update
+     */
+    where?: SystemSettingWhereInput
+    /**
+     * Limit how many SystemSettings to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SystemSetting upsert
+   */
+  export type SystemSettingUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemSetting
+     */
+    select?: SystemSettingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SystemSetting
+     */
+    omit?: SystemSettingOmit<ExtArgs> | null
+    /**
+     * The filter to search for the SystemSetting to update in case it exists.
+     */
+    where: SystemSettingWhereUniqueInput
+    /**
+     * In case the SystemSetting found by the `where` argument doesn't exist, create a new SystemSetting with this data.
+     */
+    create: XOR<SystemSettingCreateInput, SystemSettingUncheckedCreateInput>
+    /**
+     * In case the SystemSetting was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SystemSettingUpdateInput, SystemSettingUncheckedUpdateInput>
+  }
+
+  /**
+   * SystemSetting delete
+   */
+  export type SystemSettingDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemSetting
+     */
+    select?: SystemSettingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SystemSetting
+     */
+    omit?: SystemSettingOmit<ExtArgs> | null
+    /**
+     * Filter which SystemSetting to delete.
+     */
+    where: SystemSettingWhereUniqueInput
+  }
+
+  /**
+   * SystemSetting deleteMany
+   */
+  export type SystemSettingDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SystemSettings to delete
+     */
+    where?: SystemSettingWhereInput
+    /**
+     * Limit how many SystemSettings to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SystemSetting without action
+   */
+  export type SystemSettingDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SystemSetting
+     */
+    select?: SystemSettingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SystemSetting
+     */
+    omit?: SystemSettingOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model AuditLog
+   */
+
+  export type AggregateAuditLog = {
+    _count: AuditLogCountAggregateOutputType | null
+    _min: AuditLogMinAggregateOutputType | null
+    _max: AuditLogMaxAggregateOutputType | null
+  }
+
+  export type AuditLogMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    userEmail: string | null
+    userName: string | null
+    role: string | null
+    action: string | null
+    entityType: string | null
+    entityId: string | null
+    metadata: string | null
+    createdAt: Date | null
+  }
+
+  export type AuditLogMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    userEmail: string | null
+    userName: string | null
+    role: string | null
+    action: string | null
+    entityType: string | null
+    entityId: string | null
+    metadata: string | null
+    createdAt: Date | null
+  }
+
+  export type AuditLogCountAggregateOutputType = {
+    id: number
+    userId: number
+    userEmail: number
+    userName: number
+    role: number
+    action: number
+    entityType: number
+    entityId: number
+    metadata: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type AuditLogMinAggregateInputType = {
+    id?: true
+    userId?: true
+    userEmail?: true
+    userName?: true
+    role?: true
+    action?: true
+    entityType?: true
+    entityId?: true
+    metadata?: true
+    createdAt?: true
+  }
+
+  export type AuditLogMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    userEmail?: true
+    userName?: true
+    role?: true
+    action?: true
+    entityType?: true
+    entityId?: true
+    metadata?: true
+    createdAt?: true
+  }
+
+  export type AuditLogCountAggregateInputType = {
+    id?: true
+    userId?: true
+    userEmail?: true
+    userName?: true
+    role?: true
+    action?: true
+    entityType?: true
+    entityId?: true
+    metadata?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type AuditLogAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AuditLog to aggregate.
+     */
+    where?: AuditLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AuditLogs to fetch.
+     */
+    orderBy?: AuditLogOrderByWithRelationInput | AuditLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: AuditLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AuditLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AuditLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned AuditLogs
+    **/
+    _count?: true | AuditLogCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: AuditLogMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: AuditLogMaxAggregateInputType
+  }
+
+  export type GetAuditLogAggregateType<T extends AuditLogAggregateArgs> = {
+        [P in keyof T & keyof AggregateAuditLog]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAuditLog[P]>
+      : GetScalarType<T[P], AggregateAuditLog[P]>
+  }
+
+
+
+
+  export type AuditLogGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AuditLogWhereInput
+    orderBy?: AuditLogOrderByWithAggregationInput | AuditLogOrderByWithAggregationInput[]
+    by: AuditLogScalarFieldEnum[] | AuditLogScalarFieldEnum
+    having?: AuditLogScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: AuditLogCountAggregateInputType | true
+    _min?: AuditLogMinAggregateInputType
+    _max?: AuditLogMaxAggregateInputType
+  }
+
+  export type AuditLogGroupByOutputType = {
+    id: string
+    userId: string
+    userEmail: string
+    userName: string
+    role: string
+    action: string
+    entityType: string
+    entityId: string | null
+    metadata: string | null
+    createdAt: Date
+    _count: AuditLogCountAggregateOutputType | null
+    _min: AuditLogMinAggregateOutputType | null
+    _max: AuditLogMaxAggregateOutputType | null
+  }
+
+  type GetAuditLogGroupByPayload<T extends AuditLogGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<AuditLogGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof AuditLogGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], AuditLogGroupByOutputType[P]>
+            : GetScalarType<T[P], AuditLogGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type AuditLogSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    userEmail?: boolean
+    userName?: boolean
+    role?: boolean
+    action?: boolean
+    entityType?: boolean
+    entityId?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["auditLog"]>
+
+  export type AuditLogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    userEmail?: boolean
+    userName?: boolean
+    role?: boolean
+    action?: boolean
+    entityType?: boolean
+    entityId?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["auditLog"]>
+
+  export type AuditLogSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    userEmail?: boolean
+    userName?: boolean
+    role?: boolean
+    action?: boolean
+    entityType?: boolean
+    entityId?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["auditLog"]>
+
+  export type AuditLogSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    userEmail?: boolean
+    userName?: boolean
+    role?: boolean
+    action?: boolean
+    entityType?: boolean
+    entityId?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+  }
+
+  export type AuditLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "userEmail" | "userName" | "role" | "action" | "entityType" | "entityId" | "metadata" | "createdAt", ExtArgs["result"]["auditLog"]>
+
+  export type $AuditLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "AuditLog"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      userEmail: string
+      userName: string
+      role: string
+      action: string
+      entityType: string
+      entityId: string | null
+      metadata: string | null
+      createdAt: Date
+    }, ExtArgs["result"]["auditLog"]>
+    composites: {}
+  }
+
+  type AuditLogGetPayload<S extends boolean | null | undefined | AuditLogDefaultArgs> = $Result.GetResult<Prisma.$AuditLogPayload, S>
+
+  type AuditLogCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<AuditLogFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: AuditLogCountAggregateInputType | true
+    }
+
+  export interface AuditLogDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AuditLog'], meta: { name: 'AuditLog' } }
+    /**
+     * Find zero or one AuditLog that matches the filter.
+     * @param {AuditLogFindUniqueArgs} args - Arguments to find a AuditLog
+     * @example
+     * // Get one AuditLog
+     * const auditLog = await prisma.auditLog.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends AuditLogFindUniqueArgs>(args: SelectSubset<T, AuditLogFindUniqueArgs<ExtArgs>>): Prisma__AuditLogClient<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one AuditLog that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {AuditLogFindUniqueOrThrowArgs} args - Arguments to find a AuditLog
+     * @example
+     * // Get one AuditLog
+     * const auditLog = await prisma.auditLog.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends AuditLogFindUniqueOrThrowArgs>(args: SelectSubset<T, AuditLogFindUniqueOrThrowArgs<ExtArgs>>): Prisma__AuditLogClient<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AuditLog that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditLogFindFirstArgs} args - Arguments to find a AuditLog
+     * @example
+     * // Get one AuditLog
+     * const auditLog = await prisma.auditLog.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends AuditLogFindFirstArgs>(args?: SelectSubset<T, AuditLogFindFirstArgs<ExtArgs>>): Prisma__AuditLogClient<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first AuditLog that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditLogFindFirstOrThrowArgs} args - Arguments to find a AuditLog
+     * @example
+     * // Get one AuditLog
+     * const auditLog = await prisma.auditLog.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends AuditLogFindFirstOrThrowArgs>(args?: SelectSubset<T, AuditLogFindFirstOrThrowArgs<ExtArgs>>): Prisma__AuditLogClient<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more AuditLogs that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditLogFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all AuditLogs
+     * const auditLogs = await prisma.auditLog.findMany()
+     * 
+     * // Get first 10 AuditLogs
+     * const auditLogs = await prisma.auditLog.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const auditLogWithIdOnly = await prisma.auditLog.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends AuditLogFindManyArgs>(args?: SelectSubset<T, AuditLogFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a AuditLog.
+     * @param {AuditLogCreateArgs} args - Arguments to create a AuditLog.
+     * @example
+     * // Create one AuditLog
+     * const AuditLog = await prisma.auditLog.create({
+     *   data: {
+     *     // ... data to create a AuditLog
+     *   }
+     * })
+     * 
+     */
+    create<T extends AuditLogCreateArgs>(args: SelectSubset<T, AuditLogCreateArgs<ExtArgs>>): Prisma__AuditLogClient<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many AuditLogs.
+     * @param {AuditLogCreateManyArgs} args - Arguments to create many AuditLogs.
+     * @example
+     * // Create many AuditLogs
+     * const auditLog = await prisma.auditLog.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends AuditLogCreateManyArgs>(args?: SelectSubset<T, AuditLogCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many AuditLogs and returns the data saved in the database.
+     * @param {AuditLogCreateManyAndReturnArgs} args - Arguments to create many AuditLogs.
+     * @example
+     * // Create many AuditLogs
+     * const auditLog = await prisma.auditLog.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many AuditLogs and only return the `id`
+     * const auditLogWithIdOnly = await prisma.auditLog.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends AuditLogCreateManyAndReturnArgs>(args?: SelectSubset<T, AuditLogCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a AuditLog.
+     * @param {AuditLogDeleteArgs} args - Arguments to delete one AuditLog.
+     * @example
+     * // Delete one AuditLog
+     * const AuditLog = await prisma.auditLog.delete({
+     *   where: {
+     *     // ... filter to delete one AuditLog
+     *   }
+     * })
+     * 
+     */
+    delete<T extends AuditLogDeleteArgs>(args: SelectSubset<T, AuditLogDeleteArgs<ExtArgs>>): Prisma__AuditLogClient<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one AuditLog.
+     * @param {AuditLogUpdateArgs} args - Arguments to update one AuditLog.
+     * @example
+     * // Update one AuditLog
+     * const auditLog = await prisma.auditLog.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends AuditLogUpdateArgs>(args: SelectSubset<T, AuditLogUpdateArgs<ExtArgs>>): Prisma__AuditLogClient<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more AuditLogs.
+     * @param {AuditLogDeleteManyArgs} args - Arguments to filter AuditLogs to delete.
+     * @example
+     * // Delete a few AuditLogs
+     * const { count } = await prisma.auditLog.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends AuditLogDeleteManyArgs>(args?: SelectSubset<T, AuditLogDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AuditLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditLogUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many AuditLogs
+     * const auditLog = await prisma.auditLog.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends AuditLogUpdateManyArgs>(args: SelectSubset<T, AuditLogUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more AuditLogs and returns the data updated in the database.
+     * @param {AuditLogUpdateManyAndReturnArgs} args - Arguments to update many AuditLogs.
+     * @example
+     * // Update many AuditLogs
+     * const auditLog = await prisma.auditLog.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more AuditLogs and only return the `id`
+     * const auditLogWithIdOnly = await prisma.auditLog.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends AuditLogUpdateManyAndReturnArgs>(args: SelectSubset<T, AuditLogUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one AuditLog.
+     * @param {AuditLogUpsertArgs} args - Arguments to update or create a AuditLog.
+     * @example
+     * // Update or create a AuditLog
+     * const auditLog = await prisma.auditLog.upsert({
+     *   create: {
+     *     // ... data to create a AuditLog
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the AuditLog we want to update
+     *   }
+     * })
+     */
+    upsert<T extends AuditLogUpsertArgs>(args: SelectSubset<T, AuditLogUpsertArgs<ExtArgs>>): Prisma__AuditLogClient<$Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of AuditLogs.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditLogCountArgs} args - Arguments to filter AuditLogs to count.
+     * @example
+     * // Count the number of AuditLogs
+     * const count = await prisma.auditLog.count({
+     *   where: {
+     *     // ... the filter for the AuditLogs we want to count
+     *   }
+     * })
+    **/
+    count<T extends AuditLogCountArgs>(
+      args?: Subset<T, AuditLogCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], AuditLogCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a AuditLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditLogAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends AuditLogAggregateArgs>(args: Subset<T, AuditLogAggregateArgs>): Prisma.PrismaPromise<GetAuditLogAggregateType<T>>
+
+    /**
+     * Group by AuditLog.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {AuditLogGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends AuditLogGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: AuditLogGroupByArgs['orderBy'] }
+        : { orderBy?: AuditLogGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, AuditLogGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAuditLogGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the AuditLog model
+   */
+  readonly fields: AuditLogFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for AuditLog.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__AuditLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the AuditLog model
+   */
+  interface AuditLogFieldRefs {
+    readonly id: FieldRef<"AuditLog", 'String'>
+    readonly userId: FieldRef<"AuditLog", 'String'>
+    readonly userEmail: FieldRef<"AuditLog", 'String'>
+    readonly userName: FieldRef<"AuditLog", 'String'>
+    readonly role: FieldRef<"AuditLog", 'String'>
+    readonly action: FieldRef<"AuditLog", 'String'>
+    readonly entityType: FieldRef<"AuditLog", 'String'>
+    readonly entityId: FieldRef<"AuditLog", 'String'>
+    readonly metadata: FieldRef<"AuditLog", 'String'>
+    readonly createdAt: FieldRef<"AuditLog", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * AuditLog findUnique
+   */
+  export type AuditLogFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLog
+     */
+    omit?: AuditLogOmit<ExtArgs> | null
+    /**
+     * Filter, which AuditLog to fetch.
+     */
+    where: AuditLogWhereUniqueInput
+  }
+
+  /**
+   * AuditLog findUniqueOrThrow
+   */
+  export type AuditLogFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLog
+     */
+    omit?: AuditLogOmit<ExtArgs> | null
+    /**
+     * Filter, which AuditLog to fetch.
+     */
+    where: AuditLogWhereUniqueInput
+  }
+
+  /**
+   * AuditLog findFirst
+   */
+  export type AuditLogFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLog
+     */
+    omit?: AuditLogOmit<ExtArgs> | null
+    /**
+     * Filter, which AuditLog to fetch.
+     */
+    where?: AuditLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AuditLogs to fetch.
+     */
+    orderBy?: AuditLogOrderByWithRelationInput | AuditLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AuditLogs.
+     */
+    cursor?: AuditLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AuditLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AuditLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AuditLogs.
+     */
+    distinct?: AuditLogScalarFieldEnum | AuditLogScalarFieldEnum[]
+  }
+
+  /**
+   * AuditLog findFirstOrThrow
+   */
+  export type AuditLogFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLog
+     */
+    omit?: AuditLogOmit<ExtArgs> | null
+    /**
+     * Filter, which AuditLog to fetch.
+     */
+    where?: AuditLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AuditLogs to fetch.
+     */
+    orderBy?: AuditLogOrderByWithRelationInput | AuditLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for AuditLogs.
+     */
+    cursor?: AuditLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AuditLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AuditLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AuditLogs.
+     */
+    distinct?: AuditLogScalarFieldEnum | AuditLogScalarFieldEnum[]
+  }
+
+  /**
+   * AuditLog findMany
+   */
+  export type AuditLogFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLog
+     */
+    omit?: AuditLogOmit<ExtArgs> | null
+    /**
+     * Filter, which AuditLogs to fetch.
+     */
+    where?: AuditLogWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of AuditLogs to fetch.
+     */
+    orderBy?: AuditLogOrderByWithRelationInput | AuditLogOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing AuditLogs.
+     */
+    cursor?: AuditLogWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` AuditLogs from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` AuditLogs.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of AuditLogs.
+     */
+    distinct?: AuditLogScalarFieldEnum | AuditLogScalarFieldEnum[]
+  }
+
+  /**
+   * AuditLog create
+   */
+  export type AuditLogCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLog
+     */
+    omit?: AuditLogOmit<ExtArgs> | null
+    /**
+     * The data needed to create a AuditLog.
+     */
+    data: XOR<AuditLogCreateInput, AuditLogUncheckedCreateInput>
+  }
+
+  /**
+   * AuditLog createMany
+   */
+  export type AuditLogCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many AuditLogs.
+     */
+    data: AuditLogCreateManyInput | AuditLogCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AuditLog createManyAndReturn
+   */
+  export type AuditLogCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLog
+     */
+    omit?: AuditLogOmit<ExtArgs> | null
+    /**
+     * The data used to create many AuditLogs.
+     */
+    data: AuditLogCreateManyInput | AuditLogCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * AuditLog update
+   */
+  export type AuditLogUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLog
+     */
+    omit?: AuditLogOmit<ExtArgs> | null
+    /**
+     * The data needed to update a AuditLog.
+     */
+    data: XOR<AuditLogUpdateInput, AuditLogUncheckedUpdateInput>
+    /**
+     * Choose, which AuditLog to update.
+     */
+    where: AuditLogWhereUniqueInput
+  }
+
+  /**
+   * AuditLog updateMany
+   */
+  export type AuditLogUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update AuditLogs.
+     */
+    data: XOR<AuditLogUpdateManyMutationInput, AuditLogUncheckedUpdateManyInput>
+    /**
+     * Filter which AuditLogs to update
+     */
+    where?: AuditLogWhereInput
+    /**
+     * Limit how many AuditLogs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AuditLog updateManyAndReturn
+   */
+  export type AuditLogUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLog
+     */
+    omit?: AuditLogOmit<ExtArgs> | null
+    /**
+     * The data used to update AuditLogs.
+     */
+    data: XOR<AuditLogUpdateManyMutationInput, AuditLogUncheckedUpdateManyInput>
+    /**
+     * Filter which AuditLogs to update
+     */
+    where?: AuditLogWhereInput
+    /**
+     * Limit how many AuditLogs to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * AuditLog upsert
+   */
+  export type AuditLogUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLog
+     */
+    omit?: AuditLogOmit<ExtArgs> | null
+    /**
+     * The filter to search for the AuditLog to update in case it exists.
+     */
+    where: AuditLogWhereUniqueInput
+    /**
+     * In case the AuditLog found by the `where` argument doesn't exist, create a new AuditLog with this data.
+     */
+    create: XOR<AuditLogCreateInput, AuditLogUncheckedCreateInput>
+    /**
+     * In case the AuditLog was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<AuditLogUpdateInput, AuditLogUncheckedUpdateInput>
+  }
+
+  /**
+   * AuditLog delete
+   */
+  export type AuditLogDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLog
+     */
+    omit?: AuditLogOmit<ExtArgs> | null
+    /**
+     * Filter which AuditLog to delete.
+     */
+    where: AuditLogWhereUniqueInput
+  }
+
+  /**
+   * AuditLog deleteMany
+   */
+  export type AuditLogDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which AuditLogs to delete
+     */
+    where?: AuditLogWhereInput
+    /**
+     * Limit how many AuditLogs to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * AuditLog without action
+   */
+  export type AuditLogDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AuditLog
+     */
+    select?: AuditLogSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the AuditLog
+     */
+    omit?: AuditLogOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -16287,6 +18534,7 @@ export namespace Prisma {
     email: 'email',
     passwordHash: 'passwordHash',
     role: 'role',
+    isActive: 'isActive',
     createdAt: 'createdAt',
     emailVerified: 'emailVerified',
     verificationToken: 'verificationToken',
@@ -16334,7 +18582,8 @@ export namespace Prisma {
     status: 'status',
     latitude: 'latitude',
     longitude: 'longitude',
-    reportedAt: 'reportedAt'
+    reportedAt: 'reportedAt',
+    adminNotes: 'adminNotes'
   };
 
   export type FaultReportScalarFieldEnum = (typeof FaultReportScalarFieldEnum)[keyof typeof FaultReportScalarFieldEnum]
@@ -16463,6 +18712,31 @@ export namespace Prisma {
   export type TechnicianApplicationScalarFieldEnum = (typeof TechnicianApplicationScalarFieldEnum)[keyof typeof TechnicianApplicationScalarFieldEnum]
 
 
+  export const SystemSettingScalarFieldEnum: {
+    id: 'id',
+    key: 'key',
+    value: 'value'
+  };
+
+  export type SystemSettingScalarFieldEnum = (typeof SystemSettingScalarFieldEnum)[keyof typeof SystemSettingScalarFieldEnum]
+
+
+  export const AuditLogScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    userEmail: 'userEmail',
+    userName: 'userName',
+    role: 'role',
+    action: 'action',
+    entityType: 'entityType',
+    entityId: 'entityId',
+    metadata: 'metadata',
+    createdAt: 'createdAt'
+  };
+
+  export type AuditLogScalarFieldEnum = (typeof AuditLogScalarFieldEnum)[keyof typeof AuditLogScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -16517,6 +18791,13 @@ export namespace Prisma {
    * Reference to a field of type 'Role[]'
    */
   export type ListEnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -16619,13 +18900,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Boolean'
-   */
-  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-    
-
-
-  /**
    * Reference to a field of type 'ApplicationStatus'
    */
   export type EnumApplicationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ApplicationStatus'>
@@ -16650,6 +18924,7 @@ export namespace Prisma {
     email?: StringFilter<"User"> | string
     passwordHash?: StringFilter<"User"> | string
     role?: EnumRoleFilter<"User"> | $Enums.Role
+    isActive?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     emailVerified?: DateTimeNullableFilter<"User"> | Date | string | null
     verificationToken?: StringNullableFilter<"User"> | string | null
@@ -16683,6 +18958,7 @@ export namespace Prisma {
     email?: SortOrder
     passwordHash?: SortOrder
     role?: SortOrder
+    isActive?: SortOrder
     createdAt?: SortOrder
     emailVerified?: SortOrderInput | SortOrder
     verificationToken?: SortOrderInput | SortOrder
@@ -16720,6 +18996,7 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     passwordHash?: StringFilter<"User"> | string
     role?: EnumRoleFilter<"User"> | $Enums.Role
+    isActive?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     emailVerified?: DateTimeNullableFilter<"User"> | Date | string | null
     verificationTokenExpires?: DateTimeNullableFilter<"User"> | Date | string | null
@@ -16752,6 +19029,7 @@ export namespace Prisma {
     email?: SortOrder
     passwordHash?: SortOrder
     role?: SortOrder
+    isActive?: SortOrder
     createdAt?: SortOrder
     emailVerified?: SortOrderInput | SortOrder
     verificationToken?: SortOrderInput | SortOrder
@@ -16780,6 +19058,7 @@ export namespace Prisma {
     email?: StringWithAggregatesFilter<"User"> | string
     passwordHash?: StringWithAggregatesFilter<"User"> | string
     role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
+    isActive?: BoolWithAggregatesFilter<"User"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     emailVerified?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     verificationToken?: StringNullableWithAggregatesFilter<"User"> | string | null
@@ -16893,6 +19172,7 @@ export namespace Prisma {
     latitude?: FloatNullableFilter<"FaultReport"> | number | null
     longitude?: FloatNullableFilter<"FaultReport"> | number | null
     reportedAt?: DateTimeFilter<"FaultReport"> | Date | string
+    adminNotes?: StringNullableFilter<"FaultReport"> | string | null
     pole?: XOR<PoleScalarRelationFilter, PoleWhereInput>
     reportedBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     workOrder?: XOR<WorkOrderNullableScalarRelationFilter, WorkOrderWhereInput> | null
@@ -16911,6 +19191,7 @@ export namespace Prisma {
     latitude?: SortOrderInput | SortOrder
     longitude?: SortOrderInput | SortOrder
     reportedAt?: SortOrder
+    adminNotes?: SortOrderInput | SortOrder
     pole?: PoleOrderByWithRelationInput
     reportedBy?: UserOrderByWithRelationInput
     workOrder?: WorkOrderOrderByWithRelationInput
@@ -16932,6 +19213,7 @@ export namespace Prisma {
     latitude?: FloatNullableFilter<"FaultReport"> | number | null
     longitude?: FloatNullableFilter<"FaultReport"> | number | null
     reportedAt?: DateTimeFilter<"FaultReport"> | Date | string
+    adminNotes?: StringNullableFilter<"FaultReport"> | string | null
     pole?: XOR<PoleScalarRelationFilter, PoleWhereInput>
     reportedBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     workOrder?: XOR<WorkOrderNullableScalarRelationFilter, WorkOrderWhereInput> | null
@@ -16950,6 +19232,7 @@ export namespace Prisma {
     latitude?: SortOrderInput | SortOrder
     longitude?: SortOrderInput | SortOrder
     reportedAt?: SortOrder
+    adminNotes?: SortOrderInput | SortOrder
     _count?: FaultReportCountOrderByAggregateInput
     _avg?: FaultReportAvgOrderByAggregateInput
     _max?: FaultReportMaxOrderByAggregateInput
@@ -16973,6 +19256,7 @@ export namespace Prisma {
     latitude?: FloatNullableWithAggregatesFilter<"FaultReport"> | number | null
     longitude?: FloatNullableWithAggregatesFilter<"FaultReport"> | number | null
     reportedAt?: DateTimeWithAggregatesFilter<"FaultReport"> | Date | string
+    adminNotes?: StringNullableWithAggregatesFilter<"FaultReport"> | string | null
   }
 
   export type WorkOrderWhereInput = {
@@ -17619,11 +19903,131 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"TechnicianApplication"> | Date | string
   }
 
+  export type SystemSettingWhereInput = {
+    AND?: SystemSettingWhereInput | SystemSettingWhereInput[]
+    OR?: SystemSettingWhereInput[]
+    NOT?: SystemSettingWhereInput | SystemSettingWhereInput[]
+    id?: StringFilter<"SystemSetting"> | string
+    key?: StringFilter<"SystemSetting"> | string
+    value?: StringFilter<"SystemSetting"> | string
+  }
+
+  export type SystemSettingOrderByWithRelationInput = {
+    id?: SortOrder
+    key?: SortOrder
+    value?: SortOrder
+  }
+
+  export type SystemSettingWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    key?: string
+    AND?: SystemSettingWhereInput | SystemSettingWhereInput[]
+    OR?: SystemSettingWhereInput[]
+    NOT?: SystemSettingWhereInput | SystemSettingWhereInput[]
+    value?: StringFilter<"SystemSetting"> | string
+  }, "id" | "key">
+
+  export type SystemSettingOrderByWithAggregationInput = {
+    id?: SortOrder
+    key?: SortOrder
+    value?: SortOrder
+    _count?: SystemSettingCountOrderByAggregateInput
+    _max?: SystemSettingMaxOrderByAggregateInput
+    _min?: SystemSettingMinOrderByAggregateInput
+  }
+
+  export type SystemSettingScalarWhereWithAggregatesInput = {
+    AND?: SystemSettingScalarWhereWithAggregatesInput | SystemSettingScalarWhereWithAggregatesInput[]
+    OR?: SystemSettingScalarWhereWithAggregatesInput[]
+    NOT?: SystemSettingScalarWhereWithAggregatesInput | SystemSettingScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SystemSetting"> | string
+    key?: StringWithAggregatesFilter<"SystemSetting"> | string
+    value?: StringWithAggregatesFilter<"SystemSetting"> | string
+  }
+
+  export type AuditLogWhereInput = {
+    AND?: AuditLogWhereInput | AuditLogWhereInput[]
+    OR?: AuditLogWhereInput[]
+    NOT?: AuditLogWhereInput | AuditLogWhereInput[]
+    id?: StringFilter<"AuditLog"> | string
+    userId?: StringFilter<"AuditLog"> | string
+    userEmail?: StringFilter<"AuditLog"> | string
+    userName?: StringFilter<"AuditLog"> | string
+    role?: StringFilter<"AuditLog"> | string
+    action?: StringFilter<"AuditLog"> | string
+    entityType?: StringFilter<"AuditLog"> | string
+    entityId?: StringNullableFilter<"AuditLog"> | string | null
+    metadata?: StringNullableFilter<"AuditLog"> | string | null
+    createdAt?: DateTimeFilter<"AuditLog"> | Date | string
+  }
+
+  export type AuditLogOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    userEmail?: SortOrder
+    userName?: SortOrder
+    role?: SortOrder
+    action?: SortOrder
+    entityType?: SortOrder
+    entityId?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AuditLogWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: AuditLogWhereInput | AuditLogWhereInput[]
+    OR?: AuditLogWhereInput[]
+    NOT?: AuditLogWhereInput | AuditLogWhereInput[]
+    userId?: StringFilter<"AuditLog"> | string
+    userEmail?: StringFilter<"AuditLog"> | string
+    userName?: StringFilter<"AuditLog"> | string
+    role?: StringFilter<"AuditLog"> | string
+    action?: StringFilter<"AuditLog"> | string
+    entityType?: StringFilter<"AuditLog"> | string
+    entityId?: StringNullableFilter<"AuditLog"> | string | null
+    metadata?: StringNullableFilter<"AuditLog"> | string | null
+    createdAt?: DateTimeFilter<"AuditLog"> | Date | string
+  }, "id">
+
+  export type AuditLogOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    userEmail?: SortOrder
+    userName?: SortOrder
+    role?: SortOrder
+    action?: SortOrder
+    entityType?: SortOrder
+    entityId?: SortOrderInput | SortOrder
+    metadata?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: AuditLogCountOrderByAggregateInput
+    _max?: AuditLogMaxOrderByAggregateInput
+    _min?: AuditLogMinOrderByAggregateInput
+  }
+
+  export type AuditLogScalarWhereWithAggregatesInput = {
+    AND?: AuditLogScalarWhereWithAggregatesInput | AuditLogScalarWhereWithAggregatesInput[]
+    OR?: AuditLogScalarWhereWithAggregatesInput[]
+    NOT?: AuditLogScalarWhereWithAggregatesInput | AuditLogScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"AuditLog"> | string
+    userId?: StringWithAggregatesFilter<"AuditLog"> | string
+    userEmail?: StringWithAggregatesFilter<"AuditLog"> | string
+    userName?: StringWithAggregatesFilter<"AuditLog"> | string
+    role?: StringWithAggregatesFilter<"AuditLog"> | string
+    action?: StringWithAggregatesFilter<"AuditLog"> | string
+    entityType?: StringWithAggregatesFilter<"AuditLog"> | string
+    entityId?: StringNullableWithAggregatesFilter<"AuditLog"> | string | null
+    metadata?: StringNullableWithAggregatesFilter<"AuditLog"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"AuditLog"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
     passwordHash: string
     role?: $Enums.Role
+    isActive?: boolean
     createdAt?: Date | string
     emailVerified?: Date | string | null
     verificationToken?: string | null
@@ -17657,6 +20061,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: $Enums.Role
+    isActive?: boolean
     createdAt?: Date | string
     emailVerified?: Date | string | null
     verificationToken?: string | null
@@ -17690,6 +20095,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -17723,6 +20129,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -17756,6 +20163,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: $Enums.Role
+    isActive?: boolean
     createdAt?: Date | string
     emailVerified?: Date | string | null
     verificationToken?: string | null
@@ -17778,6 +20186,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -17800,6 +20209,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -17920,6 +20330,7 @@ export namespace Prisma {
     latitude?: number | null
     longitude?: number | null
     reportedAt?: Date | string
+    adminNotes?: string | null
     pole: PoleCreateNestedOneWithoutFaultReportsInput
     reportedBy?: UserCreateNestedOneWithoutFaultReportsInput
     workOrder?: WorkOrderCreateNestedOneWithoutFaultReportInput
@@ -17938,6 +20349,7 @@ export namespace Prisma {
     latitude?: number | null
     longitude?: number | null
     reportedAt?: Date | string
+    adminNotes?: string | null
     workOrder?: WorkOrderUncheckedCreateNestedOneWithoutFaultReportInput
   }
 
@@ -17952,6 +20364,7 @@ export namespace Prisma {
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     reportedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    adminNotes?: NullableStringFieldUpdateOperationsInput | string | null
     pole?: PoleUpdateOneRequiredWithoutFaultReportsNestedInput
     reportedBy?: UserUpdateOneWithoutFaultReportsNestedInput
     workOrder?: WorkOrderUpdateOneWithoutFaultReportNestedInput
@@ -17970,6 +20383,7 @@ export namespace Prisma {
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     reportedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    adminNotes?: NullableStringFieldUpdateOperationsInput | string | null
     workOrder?: WorkOrderUncheckedUpdateOneWithoutFaultReportNestedInput
   }
 
@@ -17986,6 +20400,7 @@ export namespace Prisma {
     latitude?: number | null
     longitude?: number | null
     reportedAt?: Date | string
+    adminNotes?: string | null
   }
 
   export type FaultReportUpdateManyMutationInput = {
@@ -17999,6 +20414,7 @@ export namespace Prisma {
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     reportedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    adminNotes?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type FaultReportUncheckedUpdateManyInput = {
@@ -18014,6 +20430,7 @@ export namespace Prisma {
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     reportedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    adminNotes?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type WorkOrderCreateInput = {
@@ -18682,6 +21099,139 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type SystemSettingCreateInput = {
+    id?: string
+    key: string
+    value: string
+  }
+
+  export type SystemSettingUncheckedCreateInput = {
+    id?: string
+    key: string
+    value: string
+  }
+
+  export type SystemSettingUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SystemSettingUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SystemSettingCreateManyInput = {
+    id?: string
+    key: string
+    value: string
+  }
+
+  export type SystemSettingUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SystemSettingUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    key?: StringFieldUpdateOperationsInput | string
+    value?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AuditLogCreateInput = {
+    id?: string
+    userId: string
+    userEmail: string
+    userName: string
+    role: string
+    action: string
+    entityType: string
+    entityId?: string | null
+    metadata?: string | null
+    createdAt?: Date | string
+  }
+
+  export type AuditLogUncheckedCreateInput = {
+    id?: string
+    userId: string
+    userEmail: string
+    userName: string
+    role: string
+    action: string
+    entityType: string
+    entityId?: string | null
+    metadata?: string | null
+    createdAt?: Date | string
+  }
+
+  export type AuditLogUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    userEmail?: StringFieldUpdateOperationsInput | string
+    userName?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    entityType?: StringFieldUpdateOperationsInput | string
+    entityId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AuditLogUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    userEmail?: StringFieldUpdateOperationsInput | string
+    userName?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    entityType?: StringFieldUpdateOperationsInput | string
+    entityId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AuditLogCreateManyInput = {
+    id?: string
+    userId: string
+    userEmail: string
+    userName: string
+    role: string
+    action: string
+    entityType: string
+    entityId?: string | null
+    metadata?: string | null
+    createdAt?: Date | string
+  }
+
+  export type AuditLogUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    userEmail?: StringFieldUpdateOperationsInput | string
+    userName?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    entityType?: StringFieldUpdateOperationsInput | string
+    entityId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type AuditLogUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    userEmail?: StringFieldUpdateOperationsInput | string
+    userName?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    action?: StringFieldUpdateOperationsInput | string
+    entityType?: StringFieldUpdateOperationsInput | string
+    entityId?: NullableStringFieldUpdateOperationsInput | string | null
+    metadata?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -18702,6 +21252,11 @@ export namespace Prisma {
     in?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
     notIn?: $Enums.Role[] | ListEnumRoleFieldRefInput<$PrismaModel>
     not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type DateTimeFilter<$PrismaModel = never> = {
@@ -18831,6 +21386,7 @@ export namespace Prisma {
     email?: SortOrder
     passwordHash?: SortOrder
     role?: SortOrder
+    isActive?: SortOrder
     createdAt?: SortOrder
     emailVerified?: SortOrder
     verificationToken?: SortOrder
@@ -18853,6 +21409,7 @@ export namespace Prisma {
     email?: SortOrder
     passwordHash?: SortOrder
     role?: SortOrder
+    isActive?: SortOrder
     createdAt?: SortOrder
     emailVerified?: SortOrder
     verificationToken?: SortOrder
@@ -18875,6 +21432,7 @@ export namespace Prisma {
     email?: SortOrder
     passwordHash?: SortOrder
     role?: SortOrder
+    isActive?: SortOrder
     createdAt?: SortOrder
     emailVerified?: SortOrder
     verificationToken?: SortOrder
@@ -18918,6 +21476,14 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumRoleFilter<$PrismaModel>
     _max?: NestedEnumRoleFilter<$PrismaModel>
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -19109,6 +21675,7 @@ export namespace Prisma {
     latitude?: SortOrder
     longitude?: SortOrder
     reportedAt?: SortOrder
+    adminNotes?: SortOrder
   }
 
   export type FaultReportAvgOrderByAggregateInput = {
@@ -19129,6 +21696,7 @@ export namespace Prisma {
     latitude?: SortOrder
     longitude?: SortOrder
     reportedAt?: SortOrder
+    adminNotes?: SortOrder
   }
 
   export type FaultReportMinOrderByAggregateInput = {
@@ -19144,6 +21712,7 @@ export namespace Prisma {
     latitude?: SortOrder
     longitude?: SortOrder
     reportedAt?: SortOrder
+    adminNotes?: SortOrder
   }
 
   export type FaultReportSumOrderByAggregateInput = {
@@ -19414,11 +21983,6 @@ export namespace Prisma {
     usedAt?: SortOrder
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type NotificationCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
@@ -19447,14 +22011,6 @@ export namespace Prisma {
     type?: SortOrder
     read?: SortOrder
     createdAt?: SortOrder
-  }
-
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -19632,6 +22188,63 @@ export namespace Prisma {
     _max?: NestedEnumApplicationStatusFilter<$PrismaModel>
   }
 
+  export type SystemSettingCountOrderByAggregateInput = {
+    id?: SortOrder
+    key?: SortOrder
+    value?: SortOrder
+  }
+
+  export type SystemSettingMaxOrderByAggregateInput = {
+    id?: SortOrder
+    key?: SortOrder
+    value?: SortOrder
+  }
+
+  export type SystemSettingMinOrderByAggregateInput = {
+    id?: SortOrder
+    key?: SortOrder
+    value?: SortOrder
+  }
+
+  export type AuditLogCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    userEmail?: SortOrder
+    userName?: SortOrder
+    role?: SortOrder
+    action?: SortOrder
+    entityType?: SortOrder
+    entityId?: SortOrder
+    metadata?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AuditLogMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    userEmail?: SortOrder
+    userName?: SortOrder
+    role?: SortOrder
+    action?: SortOrder
+    entityType?: SortOrder
+    entityId?: SortOrder
+    metadata?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type AuditLogMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    userEmail?: SortOrder
+    userName?: SortOrder
+    role?: SortOrder
+    action?: SortOrder
+    entityType?: SortOrder
+    entityId?: SortOrder
+    metadata?: SortOrder
+    createdAt?: SortOrder
+  }
+
   export type FaultReportCreateNestedManyWithoutReportedByInput = {
     create?: XOR<FaultReportCreateWithoutReportedByInput, FaultReportUncheckedCreateWithoutReportedByInput> | FaultReportCreateWithoutReportedByInput[] | FaultReportUncheckedCreateWithoutReportedByInput[]
     connectOrCreate?: FaultReportCreateOrConnectWithoutReportedByInput | FaultReportCreateOrConnectWithoutReportedByInput[]
@@ -19792,6 +22405,10 @@ export namespace Prisma {
 
   export type EnumRoleFieldUpdateOperationsInput = {
     set?: $Enums.Role
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
@@ -20462,10 +23079,6 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
-  }
-
   export type UserUpdateOneRequiredWithoutNotificationsNestedInput = {
     create?: XOR<UserCreateWithoutNotificationsInput, UserUncheckedCreateWithoutNotificationsInput>
     connectOrCreate?: UserCreateOrConnectWithoutNotificationsInput
@@ -20623,6 +23236,11 @@ export namespace Prisma {
     not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type NestedDateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -20695,6 +23313,14 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumRoleFilter<$PrismaModel>
     _max?: NestedEnumRoleFilter<$PrismaModel>
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
@@ -20891,19 +23517,6 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -20948,6 +23561,7 @@ export namespace Prisma {
     latitude?: number | null
     longitude?: number | null
     reportedAt?: Date | string
+    adminNotes?: string | null
     pole: PoleCreateNestedOneWithoutFaultReportsInput
     workOrder?: WorkOrderCreateNestedOneWithoutFaultReportInput
   }
@@ -20964,6 +23578,7 @@ export namespace Prisma {
     latitude?: number | null
     longitude?: number | null
     reportedAt?: Date | string
+    adminNotes?: string | null
     workOrder?: WorkOrderUncheckedCreateNestedOneWithoutFaultReportInput
   }
 
@@ -21325,6 +23940,7 @@ export namespace Prisma {
     latitude?: FloatNullableFilter<"FaultReport"> | number | null
     longitude?: FloatNullableFilter<"FaultReport"> | number | null
     reportedAt?: DateTimeFilter<"FaultReport"> | Date | string
+    adminNotes?: StringNullableFilter<"FaultReport"> | string | null
   }
 
   export type InventoryLogUpsertWithWhereUniqueWithoutUserInput = {
@@ -21594,6 +24210,7 @@ export namespace Prisma {
     latitude?: number | null
     longitude?: number | null
     reportedAt?: Date | string
+    adminNotes?: string | null
     reportedBy?: UserCreateNestedOneWithoutFaultReportsInput
     workOrder?: WorkOrderCreateNestedOneWithoutFaultReportInput
   }
@@ -21610,6 +24227,7 @@ export namespace Prisma {
     latitude?: number | null
     longitude?: number | null
     reportedAt?: Date | string
+    adminNotes?: string | null
     workOrder?: WorkOrderUncheckedCreateNestedOneWithoutFaultReportInput
   }
 
@@ -21719,6 +24337,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: $Enums.Role
+    isActive?: boolean
     createdAt?: Date | string
     emailVerified?: Date | string | null
     verificationToken?: string | null
@@ -21751,6 +24370,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: $Enums.Role
+    isActive?: boolean
     createdAt?: Date | string
     emailVerified?: Date | string | null
     verificationToken?: string | null
@@ -21863,6 +24483,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21895,6 +24516,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21960,6 +24582,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: $Enums.Role
+    isActive?: boolean
     createdAt?: Date | string
     emailVerified?: Date | string | null
     verificationToken?: string | null
@@ -21992,6 +24615,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: $Enums.Role
+    isActive?: boolean
     createdAt?: Date | string
     emailVerified?: Date | string | null
     verificationToken?: string | null
@@ -22029,6 +24653,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: $Enums.Role
+    isActive?: boolean
     createdAt?: Date | string
     emailVerified?: Date | string | null
     verificationToken?: string | null
@@ -22061,6 +24686,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: $Enums.Role
+    isActive?: boolean
     createdAt?: Date | string
     emailVerified?: Date | string | null
     verificationToken?: string | null
@@ -22104,6 +24730,7 @@ export namespace Prisma {
     latitude?: number | null
     longitude?: number | null
     reportedAt?: Date | string
+    adminNotes?: string | null
     pole: PoleCreateNestedOneWithoutFaultReportsInput
     reportedBy?: UserCreateNestedOneWithoutFaultReportsInput
   }
@@ -22121,6 +24748,7 @@ export namespace Prisma {
     latitude?: number | null
     longitude?: number | null
     reportedAt?: Date | string
+    adminNotes?: string | null
   }
 
   export type FaultReportCreateOrConnectWithoutWorkOrderInput = {
@@ -22172,6 +24800,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22204,6 +24833,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22247,6 +24877,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22279,6 +24910,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22328,6 +24960,7 @@ export namespace Prisma {
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     reportedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    adminNotes?: NullableStringFieldUpdateOperationsInput | string | null
     pole?: PoleUpdateOneRequiredWithoutFaultReportsNestedInput
     reportedBy?: UserUpdateOneWithoutFaultReportsNestedInput
   }
@@ -22345,6 +24978,7 @@ export namespace Prisma {
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     reportedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    adminNotes?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MaintenanceLogUpsertWithWhereUniqueWithoutWorkOrderInput = {
@@ -22395,6 +25029,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: $Enums.Role
+    isActive?: boolean
     createdAt?: Date | string
     emailVerified?: Date | string | null
     verificationToken?: string | null
@@ -22427,6 +25062,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: $Enums.Role
+    isActive?: boolean
     createdAt?: Date | string
     emailVerified?: Date | string | null
     verificationToken?: string | null
@@ -22508,6 +25144,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22540,6 +25177,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22572,6 +25210,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: $Enums.Role
+    isActive?: boolean
     createdAt?: Date | string
     emailVerified?: Date | string | null
     verificationToken?: string | null
@@ -22604,6 +25243,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: $Enums.Role
+    isActive?: boolean
     createdAt?: Date | string
     emailVerified?: Date | string | null
     verificationToken?: string | null
@@ -22683,6 +25323,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22715,6 +25356,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22784,6 +25426,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: $Enums.Role
+    isActive?: boolean
     createdAt?: Date | string
     emailVerified?: Date | string | null
     verificationToken?: string | null
@@ -22816,6 +25459,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: $Enums.Role
+    isActive?: boolean
     createdAt?: Date | string
     emailVerified?: Date | string | null
     verificationToken?: string | null
@@ -22864,6 +25508,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22896,6 +25541,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22928,6 +25574,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: $Enums.Role
+    isActive?: boolean
     createdAt?: Date | string
     emailVerified?: Date | string | null
     verificationToken?: string | null
@@ -22960,6 +25607,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: $Enums.Role
+    isActive?: boolean
     createdAt?: Date | string
     emailVerified?: Date | string | null
     verificationToken?: string | null
@@ -23008,6 +25656,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23040,6 +25689,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23143,6 +25793,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: $Enums.Role
+    isActive?: boolean
     createdAt?: Date | string
     emailVerified?: Date | string | null
     verificationToken?: string | null
@@ -23175,6 +25826,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: $Enums.Role
+    isActive?: boolean
     createdAt?: Date | string
     emailVerified?: Date | string | null
     verificationToken?: string | null
@@ -23258,6 +25910,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23290,6 +25943,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23322,6 +25976,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: $Enums.Role
+    isActive?: boolean
     createdAt?: Date | string
     emailVerified?: Date | string | null
     verificationToken?: string | null
@@ -23354,6 +26009,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: $Enums.Role
+    isActive?: boolean
     createdAt?: Date | string
     emailVerified?: Date | string | null
     verificationToken?: string | null
@@ -23391,6 +26047,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: $Enums.Role
+    isActive?: boolean
     createdAt?: Date | string
     emailVerified?: Date | string | null
     verificationToken?: string | null
@@ -23423,6 +26080,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: $Enums.Role
+    isActive?: boolean
     createdAt?: Date | string
     emailVerified?: Date | string | null
     verificationToken?: string | null
@@ -23460,6 +26118,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: $Enums.Role
+    isActive?: boolean
     createdAt?: Date | string
     emailVerified?: Date | string | null
     verificationToken?: string | null
@@ -23492,6 +26151,7 @@ export namespace Prisma {
     email: string
     passwordHash: string
     role?: $Enums.Role
+    isActive?: boolean
     createdAt?: Date | string
     emailVerified?: Date | string | null
     verificationToken?: string | null
@@ -23540,6 +26200,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23572,6 +26233,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23615,6 +26277,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23647,6 +26310,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23690,6 +26354,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23722,6 +26387,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23761,6 +26427,7 @@ export namespace Prisma {
     latitude?: number | null
     longitude?: number | null
     reportedAt?: Date | string
+    adminNotes?: string | null
   }
 
   export type InventoryLogCreateManyUserInput = {
@@ -23880,6 +26547,7 @@ export namespace Prisma {
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     reportedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    adminNotes?: NullableStringFieldUpdateOperationsInput | string | null
     pole?: PoleUpdateOneRequiredWithoutFaultReportsNestedInput
     workOrder?: WorkOrderUpdateOneWithoutFaultReportNestedInput
   }
@@ -23896,6 +26564,7 @@ export namespace Prisma {
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     reportedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    adminNotes?: NullableStringFieldUpdateOperationsInput | string | null
     workOrder?: WorkOrderUncheckedUpdateOneWithoutFaultReportNestedInput
   }
 
@@ -23911,6 +26580,7 @@ export namespace Prisma {
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     reportedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    adminNotes?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type InventoryLogUpdateWithoutUserInput = {
@@ -24247,6 +26917,7 @@ export namespace Prisma {
     latitude?: number | null
     longitude?: number | null
     reportedAt?: Date | string
+    adminNotes?: string | null
   }
 
   export type StatusLogCreateManyPoleInput = {
@@ -24269,6 +26940,7 @@ export namespace Prisma {
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     reportedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    adminNotes?: NullableStringFieldUpdateOperationsInput | string | null
     reportedBy?: UserUpdateOneWithoutFaultReportsNestedInput
     workOrder?: WorkOrderUpdateOneWithoutFaultReportNestedInput
   }
@@ -24285,6 +26957,7 @@ export namespace Prisma {
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     reportedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    adminNotes?: NullableStringFieldUpdateOperationsInput | string | null
     workOrder?: WorkOrderUncheckedUpdateOneWithoutFaultReportNestedInput
   }
 
@@ -24300,6 +26973,7 @@ export namespace Prisma {
     latitude?: NullableFloatFieldUpdateOperationsInput | number | null
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
     reportedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    adminNotes?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type StatusLogUpdateWithoutPoleInput = {

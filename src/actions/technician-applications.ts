@@ -5,6 +5,7 @@ import { getSession } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
 import { createNotification } from "./notifications";
 import { Role } from "@/lib/generated/prisma/client";
+import { logAudit } from "@/lib/audit";
 
 export async function applyAsTechnician(data: {
   skills: string;
@@ -50,6 +51,8 @@ export async function applyAsTechnician(data: {
       })
     )
   );
+
+  await logAudit('APPLY_AS_TECHNICIAN', 'TechnicianApplication', application.id, JSON.stringify({ skills: data.skills }))
 
   revalidatePath("/user/dashboard");
   return application;
@@ -153,6 +156,8 @@ export async function verifyTechnicianApplication(applicationId: string) {
     ),
   ]);
 
+  await logAudit('VERIFY_TECHNICIAN_APPLICATION', 'TechnicianApplication', applicationId, JSON.stringify({ applicantId: application.applicantId }))
+
   revalidatePath("/admin/technician-applications");
   revalidatePath("/superadmin/technician-applications");
   return updated;
@@ -199,6 +204,8 @@ export async function rejectTechnicianApplication(
     message: `Your technician application has been rejected by ${adminName}. Reason: ${reason}`,
     type: "APPLICATION_REJECTED",
   });
+
+  await logAudit('REJECT_TECHNICIAN_APPLICATION', 'TechnicianApplication', applicationId, JSON.stringify({ applicantId: application.applicantId, reason }))
 
   revalidatePath("/admin/technician-applications");
   return updated;

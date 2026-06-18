@@ -4,6 +4,7 @@ import prisma from '@/lib/prisma'
 import { Role } from '@/lib/generated/prisma/client'
 import UserTable from '../dashboard/_components/UserTable'
 import RoleManagement from '../dashboard/_components/RoleManagement'
+import CreateUserForm from './CreateUserForm'
 
 async function getData() {
   const users = await prisma.user.findMany({
@@ -20,23 +21,29 @@ async function getData() {
       createdAt: true,
     },
   })
-  return { users }
+  const barangays = await prisma.pole.findMany({
+    distinct: ['barangay'],
+    select: { barangay: true },
+    orderBy: { barangay: 'asc' },
+  })
+  return { users, barangays: barangays.map(b => b.barangay) }
 }
 
 export default async function SuperAdminUsers() {
   const session = await getSession()
   if (!session || session.user.role !== 'SUPERADMIN') redirect('/dashboard')
 
-  const { users } = await getData()
+  const { users, barangays } = await getData()
 
   return (
     <div className="p-4 sm:p-8 space-y-8 max-w-[1400px]">
       <div>
         <h1 className="text-2xl font-bold text-gray-900">User & Role Management</h1>
         <p className="text-sm text-gray-500 mt-1">
-          Full control over all accounts — change roles, view details, and manage system access.
+          Full control over all accounts — change roles, create users, view details, and manage system access.
         </p>
       </div>
+      <CreateUserForm barangays={barangays} />
       <RoleManagement users={users} />
       <UserTable users={users} />
     </div>

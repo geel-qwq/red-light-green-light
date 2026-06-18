@@ -4,6 +4,7 @@ import  prisma  from '@/lib/prisma'
 import { PoleStatus, ReportStatus, WorkOrderStatus } from '@/lib/generated/prisma'
 import { revalidatePath } from 'next/cache'
 import { createNotification } from './notifications'
+import { logAudit } from '@/lib/audit'
 
 export async function getWorkOrders() {
   return prisma.workOrder.findMany({
@@ -46,6 +47,8 @@ export async function createWorkOrder(data: {
       type: 'WORK_ORDER',
     })
   }
+
+  await logAudit('CREATE_WORK_ORDER', 'WorkOrder', order.id, JSON.stringify({ faultReportId: data.faultReportId, assignedToId: data.assignedToId }))
 
   revalidatePath('/workorders')
   revalidatePath('/faults')
@@ -99,6 +102,8 @@ export async function updateWorkOrderStatus(
       },
     })
   }
+
+  await logAudit('UPDATE_WORK_ORDER_STATUS', 'WorkOrder', workOrderId, JSON.stringify({ status, resolutionNotes }))
 
   revalidatePath('/workorders')
   revalidatePath('/faults')

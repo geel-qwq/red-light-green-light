@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 import crypto from "crypto";
 import prisma from "@/lib/prisma";
 import { Resend } from "resend";
+import { logAudit } from "@/lib/audit";
 
 const resend = new Resend(process.env.RESEND_API_KEY!);
 const DOMAIN = "mail.kylbrc.xyz";
@@ -55,6 +56,8 @@ export async function requestReset(prevState: any, formData: FormData) {
     return { error: "Failed to send email. Please try again later." };
   }
 
+  await logAudit('REQUEST_PASSWORD_RESET', 'User', user.id, JSON.stringify({ email }))
+
   return { success: true };
 }
 
@@ -97,6 +100,8 @@ export async function resetPassword(prevState: any, formData: FormData) {
       data: { usedAt: new Date() },
     }),
   ]);
+
+  await logAudit('RESET_PASSWORD', 'User', resetToken.email, JSON.stringify({ email: resetToken.email }))
 
   return { success: true };
 }

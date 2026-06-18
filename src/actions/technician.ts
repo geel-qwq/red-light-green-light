@@ -5,6 +5,7 @@ import { getSession } from '@/lib/auth'
 import { PoleStatus, ReportStatus, WorkOrderStatus } from '@/lib/generated/prisma'
 import { revalidatePath } from 'next/cache'
 import { createNotification } from './notifications'
+import { logAudit } from '@/lib/audit'
 
 export async function getMyWorkOrders() {
   const session = await getSession()
@@ -102,6 +103,8 @@ export async function updateWorkOrderStatusById(
     }
   }
 
+  await logAudit('UPDATE_WORK_ORDER_STATUS', 'WorkOrder', workOrderId, JSON.stringify({ status, resolutionNotes }))
+
   revalidatePath('/technician/work-queue')
   revalidatePath('/workorders')
   revalidatePath('/faults')
@@ -128,6 +131,8 @@ export async function addMaintenanceLog(data: {
     },
     include: { technician: { select: { firstName: true, lastName: true } } },
   })
+
+  await logAudit('ADD_MAINTENANCE_LOG', 'MaintenanceLog', log.id, JSON.stringify({ workOrderId: data.workOrderId, partsUsed: data.partsUsed }))
 
   revalidatePath('/technician/work-queue')
   return log

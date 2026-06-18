@@ -3,6 +3,7 @@
 import prisma from "@/lib/prisma";
 import { getSession } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
+import { logAudit } from "@/lib/audit";
 
 export async function getInventory() {
   return prisma.inventoryItem.findMany({
@@ -50,6 +51,8 @@ export async function updateInventoryQuantity(
       },
     }),
   ]);
+
+  await logAudit('UPDATE_INVENTORY', 'InventoryItem', itemId, JSON.stringify({ change, note, newQty }))
 
   revalidatePath("/technician/inventory");
   return { ...item, quantity: newQty };

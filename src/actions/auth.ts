@@ -6,6 +6,7 @@ import crypto from "crypto";
 import prisma from "@/lib/prisma"; 
 import { redirect } from "next/navigation";
 import { Resend } from "resend";
+import { logAudit } from "@/lib/audit";
 
 const resend = new Resend(process.env.RESEND_API_KEY!);
 const DOMAIN = "mail.kylbrc.xyz";
@@ -73,7 +74,7 @@ export async function registerUser(prevState: any, formData: FormData) {
     const verificationTokenExpires = new Date(Date.now() + 1000 * 60 * 60 * 24); // 24 hours
 
     // Create the user in the database
-    await prisma.user.create({
+    const user = await prisma.user.create({
       data: {
         firstName,
         middleName: finalMiddleName,
@@ -96,6 +97,8 @@ export async function registerUser(prevState: any, formData: FormData) {
         streetAddress: streetAddress || null,
       },
     });
+
+    await logAudit('REGISTER_USER', 'User', user.id, JSON.stringify({ email: user.email }))
 
     // Send verification email (fire-and-forget to avoid blocking registration)
     const verifyUrl = `${process.env.NEXTAUTH_URL}/verify-email/${verificationToken}`;

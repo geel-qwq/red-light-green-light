@@ -6,6 +6,7 @@ import { getSession } from "@/lib/auth";
 import { Resend } from "resend";
 import { revalidatePath } from "next/cache";
 import { createNotification } from "@/actions/notifications";
+import { logAudit } from "@/lib/audit";
 
 const resend = new Resend(process.env.RESEND_API_KEY!);
 const DOMAIN = "mail.kylbrc.xyz";
@@ -81,6 +82,8 @@ export async function verifyEmailToken(token: string) {
     message: "Your email has been verified successfully.",
     type: "EMAIL_VERIFIED",
   });
+
+  await logAudit('VERIFY_EMAIL', 'User', user.id)
 
   return { success: true };
 }

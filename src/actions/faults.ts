@@ -4,6 +4,7 @@ import prisma from '@/lib/prisma'
 import { FaultType, PoleStatus, ReportStatus, WorkOrderStatus } from '@/lib/generated/prisma'
 import { revalidatePath } from 'next/cache'
 import { createNotification } from '@/actions/notifications'
+import { logAudit } from '@/lib/audit'
 
 export async function getFaultReports() {
   return prisma.faultReport.findMany({
@@ -45,6 +46,8 @@ export async function createFaultReport(data: {
     },
   })
 
+  await logAudit('CREATE_FAULT_REPORT', 'FaultReport', report.id, JSON.stringify({ poleId: data.poleId, faultType: data.faultType }))
+
   revalidatePath('/faults')
   revalidatePath('/poles')
   revalidatePath('/')
@@ -56,6 +59,8 @@ export async function closeFaultReport(reportId: string, closedById: string) {
     where: { id: reportId },
     data: { status: ReportStatus.CLOSED },
   })
+  await logAudit('CLOSE_FAULT_REPORT', 'FaultReport', reportId)
+
   revalidatePath('/faults')
   return report
 }
@@ -112,6 +117,8 @@ export async function fixFaultReport(
       type: 'FAULT_RESOLVED',
     })
   }
+
+  await logAudit('FIX_FAULT_REPORT', 'FaultReport', faultReportId, JSON.stringify({ technicianId, resolutionNotes }))
 
   revalidatePath('/faults')
   revalidatePath('/poles')

@@ -12,6 +12,7 @@ model User {
   email              String          @unique
   passwordHash       String
   role               Role            @default(USER)
+  isActive           Boolean         @default(true)
   createdAt          DateTime        @default(now())
   emailVerified      DateTime?
   verificationToken  String?         @unique
@@ -67,6 +68,7 @@ model FaultReport {
   latitude     Float?
   longitude    Float?
   reportedAt   DateTime     @default(now())
+  adminNotes   String?
   pole         Pole         @relation(fields: [poleId], references: [id])
   reportedBy   User?        @relation("ReportedBy", fields: [reportedById], references: [id])
   workOrder    WorkOrder?
@@ -233,6 +235,29 @@ enum ReportStatus {
   RESOLVED
   CLOSED
   DELETED
+}
+
+model SystemSetting {
+  id    String @id @default(cuid())
+  key   String @unique
+  value String
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  userId     String
+  userEmail  String
+  userName   String
+  role       String
+  action     String
+  entityType String
+  entityId   String?
+  metadata   String?
+  createdAt  DateTime @default(now())
+
+  @@index([userId, createdAt])
+  @@index([entityType, entityId])
+  @@index([createdAt])
 }
 
 enum WorkOrderStatus {

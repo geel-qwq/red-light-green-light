@@ -4,6 +4,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
+import ReactMarkdown from "react-markdown";
 import {
   Menu,
   Clock,
@@ -198,12 +199,29 @@ export default function Page() {
   }>({ stats: { totalUsers: 0, totalTechnicians: 0, totalAdmins: 0, pendingWorkOrders: 0, openFaults: 0, totalPoles: 0 } });
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
+  const [menuPos, setMenuPos] = useState({ x: 16, y: 40 });
+  const menuDragRef = useRef({ dragging: false, startX: 0, startY: 0, originX: 0, originY: 0, hasMoved: false, cx: 16, cy: 40 });
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('index-hamburger-pos');
+      if (saved) {
+        const p = JSON.parse(saved);
+        if (typeof p.x === 'number' && typeof p.y === 'number') {
+          setMenuPos(p);
+          menuDragRef.current.cx = p.x;
+          menuDragRef.current.cy = p.y;
+        }
+      }
+    } catch {}
+  }, []);
 
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const abortRef = useRef<AbortController | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const recentPanelRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
+  const mobileSidebarRef = useRef<HTMLElement>(null);
   const chatEndRef = useRef<HTMLDivElement>(null);
 
   const [isDashboardOpen, setIsDashboardOpen] = useState(false);
@@ -440,7 +458,7 @@ export default function Page() {
       setIsRecentOpen(false);
     }
 
-    if (menuRef.current && !menuRef.current.contains(target)) {
+    if (menuRef.current && !menuRef.current.contains(target) && !(mobileSidebarRef.current && mobileSidebarRef.current.contains(target))) {
       setIsMenuOpen(false);
     }
   };
@@ -517,8 +535,34 @@ export default function Page() {
 
       {/* Mobile sidebar toggle */}
       <button
-        onClick={() => setIsMobileSidebarOpen(!isMobileSidebarOpen)}
-        className="md:hidden fixed top-10 left-4 z-50 w-10 h-10 rounded-xl bg-[#2f4383] border-2 border-[#dba65d] flex items-center justify-center shadow-lg"
+        onPointerDown={(e) => {
+          const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+          menuDragRef.current = { dragging: true, startX: e.clientX, startY: e.clientY, originX: rect.left, originY: rect.top, hasMoved: false, cx: rect.left, cy: rect.top };
+          (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+        }}
+        onPointerMove={(e) => {
+          const d = menuDragRef.current;
+          if (!d.dragging) return;
+          const dx = e.clientX - d.startX;
+          const dy = e.clientY - d.startY;
+          if (Math.abs(dx) > 5 || Math.abs(dy) > 5) d.hasMoved = true;
+          if (!d.hasMoved) return;
+          d.cx = Math.max(0, Math.min(window.innerWidth - 48, d.originX + dx));
+          d.cy = Math.max(0, Math.min(window.innerHeight - 48, d.originY + dy));
+          setMenuPos({ x: d.cx, y: d.cy });
+        }}
+        onPointerUp={(e) => {
+          const d = menuDragRef.current;
+          d.dragging = false;
+          (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
+          if (d.hasMoved) {
+            try { localStorage.setItem('index-hamburger-pos', JSON.stringify({ x: d.cx, y: d.cy })); } catch {}
+          } else {
+            setIsMobileSidebarOpen(!isMobileSidebarOpen);
+          }
+        }}
+        className="md:hidden fixed z-50 w-10 h-10 rounded-xl bg-[#2f4383] border-2 border-[#dba65d] flex items-center justify-center shadow-lg touch-none select-none"
+        style={{ top: menuPos.y, left: menuPos.x }}
         aria-label="Toggle menu"
       >
         {isMobileSidebarOpen ? (
@@ -530,11 +574,11 @@ export default function Page() {
 
       {/* Mobile overlay */}
       {isMobileSidebarOpen && (
-        <div className="md:hidden fixed inset-0 z-40 bg-black/30" onClick={() => setIsMobileSidebarOpen(false)} />
+        <div className="md:hidden fixed inset-0 z-30 bg-black/30" onClick={() => setIsMobileSidebarOpen(false)} />
       )}
 
       {/* Mobile sidebar drawer */}
-      <aside className={`
+      <aside ref={mobileSidebarRef} className={`
         md:hidden fixed inset-y-0 left-0 z-40 w-[64px] bg-brand-blue/95 backdrop-blur-md flex-col items-center py-5 shadow-xl justify-between
         flex transition-transform duration-200
         ${isMobileSidebarOpen ? "translate-x-0" : "-translate-x-full"}
@@ -933,7 +977,7 @@ export default function Page() {
                   {messages.map((msg, index) => (
                     <div key={index} className={`flex flex-col max-w-[85%] sm:max-w-[80%] ${msg.role === "user" ? "self-end items-end" : "self-start items-start"}`}>
                       <div className={`px-3 py-2 sm:px-4 sm:py-2.5 rounded-2xl text-[13px] sm:text-[14px] leading-relaxed font-medium shadow-sm ${msg.role === "user" ? "bg-[#2f4383] text-white rounded-br-none" : "bg-white dark:bg-slate-700 text-gray-800 dark:text-slate-100 border border-slate-200 dark:border-slate-600 rounded-bl-none"}`}>
-                        {msg.content}
+                        <ReactMarkdown>{msg.content}</ReactMarkdown>
                       </div>
                     </div>
                   ))}

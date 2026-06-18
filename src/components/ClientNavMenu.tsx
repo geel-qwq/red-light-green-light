@@ -26,6 +26,12 @@ import {
   Zap,
   Trash2,
   User,
+  Megaphone,
+  Download,
+  GitCompareArrows,
+  Settings,
+  ScrollText,
+  Archive,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 
@@ -64,9 +70,18 @@ const navItems: NavItem[] = [
   { href: '/', label: 'Map View', icon: Map, roles: [Role.USER] },
   { href: '/superadmin/users', label: 'User & Role Management', icon: Users, roles: [Role.SUPERADMIN] },
   { href: '/superadmin/technician-applications', label: 'Technician Apps', icon: Wrench, roles: [Role.SUPERADMIN] },
+  { href: '/superadmin/poles', label: 'Pole Registry', icon: MapPin, roles: [Role.SUPERADMIN] },
+  { href: '/superadmin/settings', label: 'System Settings', icon: Settings, roles: [Role.SUPERADMIN] },
+  { href: '/superadmin/audit', label: 'Audit Log', icon: ScrollText, roles: [Role.SUPERADMIN] },
+  { href: '/superadmin/backup', label: 'Backup & Export', icon: Archive, roles: [Role.SUPERADMIN] },
   { href: '/admin/users', label: 'User Management', icon: Users, roles: [Role.ADMIN] },
   { href: '/admin/technician-applications', label: 'Technician Apps', icon: Wrench, roles: [Role.ADMIN] },
   { href: '/admin/poles', label: 'Pole Data', icon: MapPin, roles: [Role.ADMIN] },
+  { href: '/admin/faults', label: 'Fault Inbox', icon: AlertTriangle, roles: [Role.ADMIN] },
+  { href: '/admin/technicians', label: 'Technicians', icon: Wrench, roles: [Role.ADMIN] },
+  { href: '/admin/announcements', label: 'Announcements', icon: Megaphone, roles: [Role.ADMIN] },
+  { href: '/admin/workorders', label: 'Work Orders', icon: GitCompareArrows, roles: [Role.ADMIN] },
+  { href: '/admin/export', label: 'Export Reports', icon: Download, roles: [Role.ADMIN] },
   { href: '/poles', label: 'Poles', icon: MapPin, roles: [Role.SUPERADMIN, Role.TECHNICIAN] },
   { href: '/faults', label: 'Fault Reports', icon: AlertTriangle, roles: [Role.SUPERADMIN, Role.TECHNICIAN, Role.USER, Role.ADMIN] },
   { href: '/my-reports', label: 'My Reports', icon: ClipboardList, roles: [Role.USER] },
@@ -158,7 +173,7 @@ export default function ClientNavMenu({ userRole, userName }: Props) {
 
   return (
     <>
-      <nav className="flex-1 px-3 py-4 space-y-1 bg-white dark:bg-slate-800">
+      <nav className="flex-1 px-3 py-4 space-y-1 bg-white dark:bg-slate-800 overflow-y-auto min-h-0">
         {visibleItems.map((item) => {
           const isActive = pathname === item.href || pathname.startsWith(item.href + '/')
           return (

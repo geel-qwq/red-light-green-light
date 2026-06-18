@@ -6,8 +6,12 @@ import SuperAdminStatsRow from './_components/SuperAdminStatsRow'
 import RoleManagement from './_components/RoleManagement'
 import SystemOverview from './_components/SystemOverview'
 import UserTable from './_components/UserTable'
+import AnalyticsCharts from './_components/AnalyticsCharts'
 
 async function getSuperAdminData() {
+  const now = new Date()
+  const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1)
+
   const [
     totalUsers,
     totalTechnicians,
@@ -17,6 +21,13 @@ async function getSuperAdminData() {
     totalPoles,
     poleGroup,
     users,
+    faultsByType,
+    faultsByStatus,
+    usersByRole,
+    workOrdersByStatus,
+    faultsByBarangay,
+    monthlyFaults,
+    monthlyResolved,
   ] = await Promise.all([
     prisma.user.count(),
     prisma.user.count({ where: { role: Role.TECHNICIAN } }),
@@ -39,6 +50,15 @@ async function getSuperAdminData() {
         createdAt: true,
       },
     }),
+    prisma.faultReport.groupBy({ by: ['faultType'], _count: true }),
+    prisma.faultReport.groupBy({ by: ['status'], _count: true }),
+    prisma.user.groupBy({ by: ['role'], _count: true }),
+    prisma.workOrder.groupBy({ by: ['status'], _count: true }),
+    prisma.faultReport.findMany({
+      select: { pole: { select: { barangay: true } } },
+    }),
+    prisma.faultReport.count({ where: { reportedAt: { gte: startOfMonth } } }),
+    prisma.workOrder.count({ where: { status: 'RESOLVED', resolvedAt: { gte: startOfMonth } } }),
   ])
 
   const statusMap = Object.fromEntries(poleGroup.map((p) => [p.status, p._count]))
@@ -63,6 +83,12 @@ async function getSuperAdminData() {
     },
   })
 
+  const barangayMap: Record<string, number> = {}
+  for (const r of faultsByBarangay) {
+    const b = r.pole.barangay
+    barangayMap[b] = (barangayMap[b] ?? 0) + 1
+  }
+
   return {
     totalUsers,
     totalTechnicians,
@@ -80,6 +106,24 @@ async function getSuperAdminData() {
     avgResolutionHours,
     recentFixes,
     users,
+    analytics: {
+      faultTypes: faultsByType.map(f => ({ type: f.faultType, count: f._count })),
+      faultStatuses: faultsByStatus.map(f => ({ type: f.status, count: f._count })),
+      usersByRole: usersByRole.map(r => ({ type: r.role, count: r._count })),
+      workOrderStatuses: workOrdersByStatus.map(w => ({ type: w.status, count: w._count })),
+      topFaultBarangays: Object.entries(barangayMap)
+        .map(([barangay, count]) => ({ barangay, count }))
+        .sort((a, b) => b.count - a.count)
+        .slice(0, 10),
+      monthlyFaults,
+      monthlyResolved,
+      poleStats: {
+        active: statusMap['ACTIVE'] ?? 0,
+        faulty: statusMap['FAULTY'] ?? 0,
+        underMaintenance: statusMap['UNDER_MAINTENANCE'] ?? 0,
+        decommissioned: statusMap['DECOMMISSIONED'] ?? 0,
+      },
+    },
   }
 }
 
@@ -117,6 +161,8 @@ export default async function SuperAdminDashboard() {
         />
         <RoleManagement users={data.users} />
       </div>
+
+      <AnalyticsCharts data={data.analytics} />
 
       <UserTable users={data.users} />
     </div>

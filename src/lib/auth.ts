@@ -55,6 +55,7 @@ export const authOptions: NextAuthOptions = {
           where: { email: credentials.email },
         })
         if (!user) return null
+        if (!user.isActive) return null
 
         const valid = await bcrypt.compare(credentials.password, user.passwordHash)
         if (!valid) return null
@@ -74,6 +75,7 @@ export const authOptions: NextAuthOptions = {
         if (!user.email) return false
 
         const existing = await prisma.user.findUnique({ where: { email: user.email } })
+        if (existing && !existing.isActive) return false
         if (!existing) {
           const nameParts = (user.name || "User").split(" ")
           const firstName = nameParts[0]

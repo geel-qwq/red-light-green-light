@@ -125,6 +125,7 @@ exports.Prisma.UserScalarFieldEnum = {
   email: 'email',
   passwordHash: 'passwordHash',
   role: 'role',
+  isActive: 'isActive',
   createdAt: 'createdAt',
   emailVerified: 'emailVerified',
   verificationToken: 'verificationToken',
@@ -166,7 +167,8 @@ exports.Prisma.FaultReportScalarFieldEnum = {
   status: 'status',
   latitude: 'latitude',
   longitude: 'longitude',
-  reportedAt: 'reportedAt'
+  reportedAt: 'reportedAt',
+  adminNotes: 'adminNotes'
 };
 
 exports.Prisma.WorkOrderScalarFieldEnum = {
@@ -265,6 +267,25 @@ exports.Prisma.TechnicianApplicationScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.SystemSettingScalarFieldEnum = {
+  id: 'id',
+  key: 'key',
+  value: 'value'
+};
+
+exports.Prisma.AuditLogScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  userEmail: 'userEmail',
+  userName: 'userName',
+  role: 'role',
+  action: 'action',
+  entityType: 'entityType',
+  entityId: 'entityId',
+  metadata: 'metadata',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -336,7 +357,9 @@ exports.Prisma.ModelName = {
   Notification: 'Notification',
   InventoryItem: 'InventoryItem',
   InventoryLog: 'InventoryLog',
-  TechnicianApplication: 'TechnicianApplication'
+  TechnicianApplication: 'TechnicianApplication',
+  SystemSetting: 'SystemSetting',
+  AuditLog: 'AuditLog'
 };
 
 /**

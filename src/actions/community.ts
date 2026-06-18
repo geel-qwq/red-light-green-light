@@ -5,6 +5,7 @@ import { getSession } from "@/lib/auth";
 import { FaultType, PoleStatus, ReportStatus, Role } from "@/lib/generated/prisma";
 import { createNotification } from "@/actions/notifications";
 import { revalidatePath } from "next/cache";
+import { logAudit } from "@/lib/audit";
 
 export async function getNearbyFaultyPoles(lat: number, lng: number, radiusKm = 5) {
   const degreeRadius = radiusKm / 111;
@@ -72,6 +73,8 @@ export async function createAnonymousFaultReport(data: {
     })
   ))
 
+  await logAudit('CREATE_ANONYMOUS_FAULT_REPORT', 'FaultReport', report.id, JSON.stringify({ poleId: data.poleId, faultType: data.faultType }))
+
   revalidatePath("/");
   revalidatePath("/faults");
   revalidatePath("/poles");
@@ -131,6 +134,8 @@ export async function createUserFaultReport(data: {
       type: 'NEW_FAULT_REPORT',
     })
   ))
+
+  await logAudit('CREATE_USER_FAULT_REPORT', 'FaultReport', report.id, JSON.stringify({ poleId: data.poleId, faultType: data.faultType }))
 
   revalidatePath("/");
   revalidatePath("/faults");
@@ -223,6 +228,8 @@ export async function softDeleteUserReport(reportId: string) {
     data: { status: ReportStatus.DELETED },
   });
 
+  await logAudit('SOFT_DELETE_REPORT', 'FaultReport', reportId)
+
   revalidatePath("/user/dashboard");
   revalidatePath("/my-reports");
   revalidatePath("/user/trash");
@@ -242,6 +249,8 @@ export async function restoreUserReport(reportId: string) {
     where: { id: reportId },
     data: { status: ReportStatus.OPEN },
   });
+
+  await logAudit('RESTORE_REPORT', 'FaultReport', reportId)
 
   revalidatePath("/user/dashboard");
   revalidatePath("/my-reports");
@@ -268,6 +277,8 @@ export async function editUserReport(reportId: string, data: {
       faultType: data.faultType,
     },
   });
+
+  await logAudit('EDIT_REPORT', 'FaultReport', reportId)
 
   revalidatePath("/user/dashboard");
   revalidatePath("/my-reports");
