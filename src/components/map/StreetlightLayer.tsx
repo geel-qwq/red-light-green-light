@@ -92,6 +92,7 @@ export default function StreetlightLayer({ onLightClick, selectedLight, interact
   const abortRef = useRef<AbortController | null>(null)
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const cooldownRef = useRef<number>(0)
+  const failCooldownRef = useRef<number>(0)
   const lastBboxRef = useRef<string>('')
 
   const fetchLights = async (map: L.Map) => {
@@ -106,6 +107,7 @@ export default function StreetlightLayer({ onLightClick, selectedLight, interact
     lastBboxRef.current = bbox
 
     if (Date.now() < cooldownRef.current) return
+    if (Date.now() < failCooldownRef.current) return
 
     abortRef.current?.abort()
     const controller = new AbortController()
@@ -147,6 +149,7 @@ export default function StreetlightLayer({ onLightClick, selectedLight, interact
       if (err.name === 'AbortError') return
       setIsFetching(false)
       setError('Could not fetch streetlight data')
+      failCooldownRef.current = Date.now() + 10000
     }
   }
 

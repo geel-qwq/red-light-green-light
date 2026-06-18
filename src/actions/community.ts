@@ -56,16 +56,21 @@ export async function createAnonymousFaultReport(data: {
       where: { id: data.poleId },
       data: { status: PoleStatus.FAULTY },
     });
-    await prisma.statusLog.create({
-      data: {
-        poleId: data.poleId,
-        changedById: "anonymous",
-        fromStatus: pole.status,
-        toStatus: PoleStatus.FAULTY,
-        reason: `Anonymous fault report: ${data.description}`,
-      },
-    });
   }
+
+  const poleCode = pole.poleCode
+  const adminsAndTechs = await prisma.user.findMany({
+    where: { role: { in: [Role.ADMIN, Role.TECHNICIAN] } },
+    select: { id: true },
+  })
+  await Promise.all(adminsAndTechs.map((u) =>
+    createNotification({
+      userId: u.id,
+      title: 'New Fault Report',
+      message: `An anonymous fault report was submitted for pole ${poleCode} — ${data.faultType}.`,
+      type: 'NEW_FAULT_REPORT',
+    })
+  ))
 
   revalidatePath("/");
   revalidatePath("/faults");
@@ -113,16 +118,16 @@ export async function createUserFaultReport(data: {
     });
   }
 
-  const technicians = await prisma.user.findMany({
-    where: { role: Role.TECHNICIAN },
+  const poleCode = pole.poleCode
+  const recipients = await prisma.user.findMany({
+    where: { role: { in: [Role.ADMIN, Role.TECHNICIAN] } },
     select: { id: true },
   })
-  const poleCode = pole.poleCode
-  await Promise.all(technicians.map((t) =>
+  await Promise.all(recipients.map((u) =>
     createNotification({
-      userId: t.id,
+      userId: u.id,
       title: 'New Fault Report',
-      message: `A new fault report has been submitted for pole ${poleCode} — ${data.faultType}.`,
+      message: `${session.user.name ?? 'A user'} reported a fault at pole ${poleCode} — ${data.faultType}.`,
       type: 'NEW_FAULT_REPORT',
     })
   ))
@@ -178,6 +183,19 @@ export async function getMyReportStats() {
   return { total, open, inProgress, resolved, avgResolutionTime };
 }
 
+export async function getDeletedUserReports() {
+  const session = await getSession();
+  if (!session?.user?.id) throw new Error("Unauthorized");
+
+  return prisma.faultReport.findMany({
+    where: { reportedById: session.user.id, status: ReportStatus.DELETED },
+    orderBy: { reportedAt: "desc" },
+    include: {
+      pole: { select: { poleCode: true, address: true, barangay: true } },
+    },
+  });
+}
+
 export async function getAllPolesForMap() {
   return prisma.pole.findMany({
     select: {
@@ -190,4 +208,68 @@ export async function getAllPolesForMap() {
       barangay: true,
     },
   });
+}
+
+export async function softDeleteUserReport(reportId: string) {
+  const session = await getSession();
+  if (!session?.user?.id) throw new Error("Unauthorized");
+
+  const report = await prisma.faultReport.findUnique({ where: { id: reportId } });
+  if (!report) throw new Error("Report not found");
+  if (report.reportedById !== session.user.id) throw new Error("Not your report");
+
+  await prisma.faultReport.update({
+    where: { id: reportId },
+    data: { status: ReportStatus.DELETED },
+  });
+
+  revalidatePath("/user/dashboard");
+  revalidatePath("/my-reports");
+  revalidatePath("/user/trash");
+  return { success: true };
+}
+
+export async function restoreUserReport(reportId: string) {
+  const session = await getSession();
+  if (!session?.user?.id) throw new Error("Unauthorized");
+
+  const report = await prisma.faultReport.findUnique({ where: { id: reportId } });
+  if (!report) throw new Error("Report not found");
+  if (report.reportedById !== session.user.id) throw new Error("Not your report");
+  if (report.status !== ReportStatus.DELETED) throw new Error("Report is not deleted");
+
+  await prisma.faultReport.update({
+    where: { id: reportId },
+    data: { status: ReportStatus.OPEN },
+  });
+
+  revalidatePath("/user/dashboard");
+  revalidatePath("/my-reports");
+  revalidatePath("/user/trash");
+  return { success: true };
+}
+
+export async function editUserReport(reportId: string, data: {
+  description: string
+  faultType: FaultType
+}) {
+  const session = await getSession();
+  if (!session?.user?.id) throw new Error("Unauthorized");
+
+  const report = await prisma.faultReport.findUnique({ where: { id: reportId } });
+  if (!report) throw new Error("Report not found");
+  if (report.reportedById !== session.user.id) throw new Error("Not your report");
+  if (report.status === ReportStatus.DELETED) throw new Error("Cannot edit a deleted report");
+
+  await prisma.faultReport.update({
+    where: { id: reportId },
+    data: {
+      description: data.description,
+      faultType: data.faultType,
+    },
+  });
+
+  revalidatePath("/user/dashboard");
+  revalidatePath("/my-reports");
+  return { success: true };
 }

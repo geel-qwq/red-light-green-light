@@ -24,6 +24,8 @@ import {
   Wrench,
   Lightbulb,
   Zap,
+  Trash2,
+  User,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 
@@ -58,6 +60,7 @@ const navItems: NavItem[] = [
   { href: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard, roles: [Role.ADMIN] },
   { href: '/technician/dashboard', label: 'Dashboard', icon: LayoutDashboard, roles: [Role.TECHNICIAN] },
   { href: '/user/dashboard', label: 'Dashboard', icon: LayoutDashboard, roles: [Role.USER] },
+  { href: '/profile', label: 'Profile', icon: User, roles: [Role.SUPERADMIN, Role.ADMIN, Role.TECHNICIAN, Role.USER] },
   { href: '/', label: 'Map View', icon: Map, roles: [Role.USER] },
   { href: '/superadmin/users', label: 'User & Role Management', icon: Users, roles: [Role.SUPERADMIN] },
   { href: '/superadmin/technician-applications', label: 'Technician Apps', icon: Wrench, roles: [Role.SUPERADMIN] },
@@ -67,6 +70,7 @@ const navItems: NavItem[] = [
   { href: '/poles', label: 'Poles', icon: MapPin, roles: [Role.SUPERADMIN, Role.TECHNICIAN] },
   { href: '/faults', label: 'Fault Reports', icon: AlertTriangle, roles: [Role.SUPERADMIN, Role.TECHNICIAN, Role.USER, Role.ADMIN] },
   { href: '/my-reports', label: 'My Reports', icon: ClipboardList, roles: [Role.USER] },
+  { href: '/user/trash', label: 'Trash', icon: Trash2, roles: [Role.USER] },
   { href: '/workorders', label: 'Work Orders', icon: ClipboardList, roles: [Role.SUPERADMIN, Role.TECHNICIAN, Role.ADMIN] },
   { href: '/technician/work-queue', label: 'Work Queue', icon: ClipboardList, roles: [Role.TECHNICIAN] },
   { href: '/technician/inventory', label: 'Inventory', icon: Package, roles: [Role.TECHNICIAN] },
@@ -77,6 +81,24 @@ const navItems: NavItem[] = [
 interface Props {
   userRole: Role
   userName: string
+}
+
+function getNotificationRoute(n: Notification, role: Role): string | null {
+  switch (n.type) {
+    case 'NEW_FAULT_REPORT':
+    case 'FAULT_RESOLVED':
+      return '/faults'
+    case 'WORK_ORDER':
+      return role === Role.TECHNICIAN ? '/technician/work-queue' : '/workorders'
+    case 'TECHNICIAN_APPLICATION':
+      return role === Role.SUPERADMIN ? '/superadmin/technician-applications' : '/admin/technician-applications'
+    case 'APPLICATION_VERIFIED':
+    case 'APPLICATION_REJECTED':
+    case 'EMAIL_VERIFIED':
+      return '/profile'
+    default:
+      return null
+  }
 }
 
 export default function ClientNavMenu({ userRole, userName }: Props) {
@@ -100,10 +122,9 @@ export default function ClientNavMenu({ userRole, userName }: Props) {
   const [isNotifOpen, setIsNotifOpen] = useState(false)
 
   useEffect(() => {
-    getUnreadCount().then(setUnreadCount)
-    const interval = setInterval(() => {
-      getUnreadCount().then(setUnreadCount)
-    }, 30000)
+    const fetchCount = () => getUnreadCount().then(setUnreadCount).catch(() => {})
+    fetchCount()
+    const interval = setInterval(fetchCount, 5000)
     return () => clearInterval(interval)
   }, [])
 
@@ -233,12 +254,9 @@ export default function ClientNavMenu({ userRole, userName }: Props) {
                   <p className="text-center text-gray-400 dark:text-slate-400 text-sm py-12">No notifications yet.</p>
                 ) : (
                   <div className="divide-y divide-gray-50 dark:divide-slate-700">
-                    {notifications.map((n) => (
-                      <button
-                        key={n.id}
-                        onClick={() => handleMarkRead(n.id)}
-                        className={`w-full text-left px-4 py-3 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors ${!n.read ? 'bg-blue-50/40 dark:bg-blue-900/20' : ''}`}
-                      >
+                    {notifications.map((n) => {
+                      const route = getNotificationRoute(n, userRole)
+                      const content = (
                         <div className="flex items-start gap-3">
                           <div className={`mt-1.5 w-2 h-2 rounded-full shrink-0 ${!n.read ? 'bg-blue-500' : 'bg-transparent'}`} />
                           <div className="flex-1 min-w-0">
@@ -246,8 +264,30 @@ export default function ClientNavMenu({ userRole, userName }: Props) {
                             <p className="text-xs text-gray-500 dark:text-slate-400 mt-0.5">{n.message}</p>
                           </div>
                         </div>
-                      </button>
-                    ))}
+                      )
+                      const className = `w-full text-left px-4 py-3 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors ${!n.read ? 'bg-blue-50/40 dark:bg-blue-900/20' : ''}`
+                      if (route) {
+                        return (
+                          <Link
+                            key={n.id}
+                            href={route}
+                            onClick={() => { handleMarkRead(n.id); setIsNotifOpen(false); closeSidebarOnMobile(); }}
+                            className={className}
+                          >
+                            {content}
+                          </Link>
+                        )
+                      }
+                      return (
+                        <button
+                          key={n.id}
+                          onClick={() => handleMarkRead(n.id)}
+                          className={className}
+                        >
+                          {content}
+                        </button>
+                      )
+                    })}
                   </div>
                 )}
               </div>

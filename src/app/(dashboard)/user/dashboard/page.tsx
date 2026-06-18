@@ -1,19 +1,22 @@
 import { getSession } from '@/lib/auth'
 import { redirect } from 'next/navigation'
 import prisma from '@/lib/prisma'
+import { ReportStatus } from '@/lib/generated/prisma'
 import UserStatsRow from './_components/UserStatsRow'
 import MyReportsTable from './_components/MyReportsTable'
 import MyRecentActivity from './_components/MyRecentActivity'
 import TechnicianApplyCard from './_components/TechnicianApplyCard'
+import UserCharts from './_components/UserCharts'
 import { Hand } from 'lucide-react'
 
 async function getUserData(userId: string) {
-  const [myReports, openReports, resolvedReports, recentReports, recentActivity] = await Promise.all([
-    prisma.faultReport.count({ where: { reportedById: userId } }),
-    prisma.faultReport.count({ where: { reportedById: userId, status: { in: ['OPEN', 'IN_PROGRESS'] } } }),
-    prisma.faultReport.count({ where: { reportedById: userId, status: { in: ['RESOLVED', 'CLOSED'] } } }),
+  const notDeleted = { reportedById: userId, status: { not: ReportStatus.DELETED } }
+  const [myReports, openReports, resolvedReports, recentReports, chartReports] = await Promise.all([
+    prisma.faultReport.count({ where: notDeleted }),
+    prisma.faultReport.count({ where: { ...notDeleted, status: { in: [ReportStatus.OPEN, ReportStatus.IN_PROGRESS] } } }),
+    prisma.faultReport.count({ where: { ...notDeleted, status: { in: [ReportStatus.RESOLVED, ReportStatus.CLOSED] } } }),
     prisma.faultReport.findMany({
-      where: { reportedById: userId },
+      where: notDeleted,
       orderBy: { reportedAt: 'desc' },
       take: 10,
       include: {
@@ -22,14 +25,12 @@ async function getUserData(userId: string) {
       },
     }),
     prisma.faultReport.findMany({
-      where: { reportedById: userId },
-      orderBy: { reportedAt: 'desc' },
-      take: 5,
-      include: { pole: { select: { poleCode: true, address: true } } },
+      where: notDeleted,
+      select: { faultType: true, status: true, reportedAt: true },
     }),
   ])
 
-  return { myReports, openReports, resolvedReports, recentReports, recentActivity }
+  return { myReports, openReports, resolvedReports, recentReports, chartReports }
 }
 
 export default async function UserDashboardPage() {
@@ -60,12 +61,15 @@ export default async function UserDashboardPage() {
         resolved={data.resolvedReports}
       />
 
+      {/* Analytics Charts */}
+      {data.chartReports.length > 0 && <UserCharts reports={data.chartReports} />}
+
       {/* Two-column: recent activity + report a new issue CTA */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2">
           <MyReportsTable reports={data.recentReports} />
         </div>
-        <MyRecentActivity activity={data.recentActivity} />
+        <MyRecentActivity />
       </div>
     </div>
   )

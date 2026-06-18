@@ -13,6 +13,9 @@ model User {
   passwordHash       String
   role               Role            @default(USER)
   createdAt          DateTime        @default(now())
+  emailVerified      DateTime?
+  verificationToken  String?         @unique
+  verificationTokenExpires DateTime?
   barangay           String
   city               String
   dob                DateTime?
@@ -229,6 +232,7 @@ enum ReportStatus {
   IN_PROGRESS
   RESOLVED
   CLOSED
+  DELETED
 }
 
 enum WorkOrderStatus {

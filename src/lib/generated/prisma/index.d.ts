@@ -123,7 +123,8 @@ export const ReportStatus: {
   OPEN: 'OPEN',
   IN_PROGRESS: 'IN_PROGRESS',
   RESOLVED: 'RESOLVED',
-  CLOSED: 'CLOSED'
+  CLOSED: 'CLOSED',
+  DELETED: 'DELETED'
 };
 
 export type ReportStatus = (typeof ReportStatus)[keyof typeof ReportStatus]
@@ -2196,6 +2197,9 @@ export namespace Prisma {
     passwordHash: string | null
     role: $Enums.Role | null
     createdAt: Date | null
+    emailVerified: Date | null
+    verificationToken: string | null
+    verificationTokenExpires: Date | null
     barangay: string | null
     city: string | null
     dob: Date | null
@@ -2215,6 +2219,9 @@ export namespace Prisma {
     passwordHash: string | null
     role: $Enums.Role | null
     createdAt: Date | null
+    emailVerified: Date | null
+    verificationToken: string | null
+    verificationTokenExpires: Date | null
     barangay: string | null
     city: string | null
     dob: Date | null
@@ -2234,6 +2241,9 @@ export namespace Prisma {
     passwordHash: number
     role: number
     createdAt: number
+    emailVerified: number
+    verificationToken: number
+    verificationTokenExpires: number
     barangay: number
     city: number
     dob: number
@@ -2255,6 +2265,9 @@ export namespace Prisma {
     passwordHash?: true
     role?: true
     createdAt?: true
+    emailVerified?: true
+    verificationToken?: true
+    verificationTokenExpires?: true
     barangay?: true
     city?: true
     dob?: true
@@ -2274,6 +2287,9 @@ export namespace Prisma {
     passwordHash?: true
     role?: true
     createdAt?: true
+    emailVerified?: true
+    verificationToken?: true
+    verificationTokenExpires?: true
     barangay?: true
     city?: true
     dob?: true
@@ -2293,6 +2309,9 @@ export namespace Prisma {
     passwordHash?: true
     role?: true
     createdAt?: true
+    emailVerified?: true
+    verificationToken?: true
+    verificationTokenExpires?: true
     barangay?: true
     city?: true
     dob?: true
@@ -2385,6 +2404,9 @@ export namespace Prisma {
     passwordHash: string
     role: $Enums.Role
     createdAt: Date
+    emailVerified: Date | null
+    verificationToken: string | null
+    verificationTokenExpires: Date | null
     barangay: string
     city: string
     dob: Date | null
@@ -2421,6 +2443,9 @@ export namespace Prisma {
     passwordHash?: boolean
     role?: boolean
     createdAt?: boolean
+    emailVerified?: boolean
+    verificationToken?: boolean
+    verificationTokenExpires?: boolean
     barangay?: boolean
     city?: boolean
     dob?: boolean
@@ -2452,6 +2477,9 @@ export namespace Prisma {
     passwordHash?: boolean
     role?: boolean
     createdAt?: boolean
+    emailVerified?: boolean
+    verificationToken?: boolean
+    verificationTokenExpires?: boolean
     barangay?: boolean
     city?: boolean
     dob?: boolean
@@ -2471,6 +2499,9 @@ export namespace Prisma {
     passwordHash?: boolean
     role?: boolean
     createdAt?: boolean
+    emailVerified?: boolean
+    verificationToken?: boolean
+    verificationTokenExpires?: boolean
     barangay?: boolean
     city?: boolean
     dob?: boolean
@@ -2490,6 +2521,9 @@ export namespace Prisma {
     passwordHash?: boolean
     role?: boolean
     createdAt?: boolean
+    emailVerified?: boolean
+    verificationToken?: boolean
+    verificationTokenExpires?: boolean
     barangay?: boolean
     city?: boolean
     dob?: boolean
@@ -2503,7 +2537,7 @@ export namespace Prisma {
     streetAddress?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "passwordHash" | "role" | "createdAt" | "barangay" | "city" | "dob" | "firstName" | "gender" | "lastName" | "middleName" | "phone" | "province" | "region" | "streetAddress", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "passwordHash" | "role" | "createdAt" | "emailVerified" | "verificationToken" | "verificationTokenExpires" | "barangay" | "city" | "dob" | "firstName" | "gender" | "lastName" | "middleName" | "phone" | "province" | "region" | "streetAddress", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     faultReports?: boolean | User$faultReportsArgs<ExtArgs>
     inventoryLogs?: boolean | User$inventoryLogsArgs<ExtArgs>
@@ -2542,6 +2576,9 @@ export namespace Prisma {
       passwordHash: string
       role: $Enums.Role
       createdAt: Date
+      emailVerified: Date | null
+      verificationToken: string | null
+      verificationTokenExpires: Date | null
       barangay: string
       city: string
       dob: Date | null
@@ -2992,6 +3029,9 @@ export namespace Prisma {
     readonly passwordHash: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'Role'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
+    readonly emailVerified: FieldRef<"User", 'DateTime'>
+    readonly verificationToken: FieldRef<"User", 'String'>
+    readonly verificationTokenExpires: FieldRef<"User", 'DateTime'>
     readonly barangay: FieldRef<"User", 'String'>
     readonly city: FieldRef<"User", 'String'>
     readonly dob: FieldRef<"User", 'DateTime'>
@@ -16248,6 +16288,9 @@ export namespace Prisma {
     passwordHash: 'passwordHash',
     role: 'role',
     createdAt: 'createdAt',
+    emailVerified: 'emailVerified',
+    verificationToken: 'verificationToken',
+    verificationTokenExpires: 'verificationTokenExpires',
     barangay: 'barangay',
     city: 'city',
     dob: 'dob',
@@ -16608,6 +16651,9 @@ export namespace Prisma {
     passwordHash?: StringFilter<"User"> | string
     role?: EnumRoleFilter<"User"> | $Enums.Role
     createdAt?: DateTimeFilter<"User"> | Date | string
+    emailVerified?: DateTimeNullableFilter<"User"> | Date | string | null
+    verificationToken?: StringNullableFilter<"User"> | string | null
+    verificationTokenExpires?: DateTimeNullableFilter<"User"> | Date | string | null
     barangay?: StringFilter<"User"> | string
     city?: StringFilter<"User"> | string
     dob?: DateTimeNullableFilter<"User"> | Date | string | null
@@ -16638,6 +16684,9 @@ export namespace Prisma {
     passwordHash?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
+    emailVerified?: SortOrderInput | SortOrder
+    verificationToken?: SortOrderInput | SortOrder
+    verificationTokenExpires?: SortOrderInput | SortOrder
     barangay?: SortOrder
     city?: SortOrder
     dob?: SortOrderInput | SortOrder
@@ -16665,12 +16714,15 @@ export namespace Prisma {
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     email?: string
+    verificationToken?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     passwordHash?: StringFilter<"User"> | string
     role?: EnumRoleFilter<"User"> | $Enums.Role
     createdAt?: DateTimeFilter<"User"> | Date | string
+    emailVerified?: DateTimeNullableFilter<"User"> | Date | string | null
+    verificationTokenExpires?: DateTimeNullableFilter<"User"> | Date | string | null
     barangay?: StringFilter<"User"> | string
     city?: StringFilter<"User"> | string
     dob?: DateTimeNullableFilter<"User"> | Date | string | null
@@ -16693,7 +16745,7 @@ export namespace Prisma {
     technicianApplications?: TechnicianApplicationListRelationFilter
     verifiedApplications?: TechnicianApplicationListRelationFilter
     rejectedApplications?: TechnicianApplicationListRelationFilter
-  }, "id" | "email">
+  }, "id" | "email" | "verificationToken">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
@@ -16701,6 +16753,9 @@ export namespace Prisma {
     passwordHash?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
+    emailVerified?: SortOrderInput | SortOrder
+    verificationToken?: SortOrderInput | SortOrder
+    verificationTokenExpires?: SortOrderInput | SortOrder
     barangay?: SortOrder
     city?: SortOrder
     dob?: SortOrderInput | SortOrder
@@ -16726,6 +16781,9 @@ export namespace Prisma {
     passwordHash?: StringWithAggregatesFilter<"User"> | string
     role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    emailVerified?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+    verificationToken?: StringNullableWithAggregatesFilter<"User"> | string | null
+    verificationTokenExpires?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
     barangay?: StringWithAggregatesFilter<"User"> | string
     city?: StringWithAggregatesFilter<"User"> | string
     dob?: DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
@@ -17567,6 +17625,9 @@ export namespace Prisma {
     passwordHash: string
     role?: $Enums.Role
     createdAt?: Date | string
+    emailVerified?: Date | string | null
+    verificationToken?: string | null
+    verificationTokenExpires?: Date | string | null
     barangay: string
     city: string
     dob?: Date | string | null
@@ -17597,6 +17658,9 @@ export namespace Prisma {
     passwordHash: string
     role?: $Enums.Role
     createdAt?: Date | string
+    emailVerified?: Date | string | null
+    verificationToken?: string | null
+    verificationTokenExpires?: Date | string | null
     barangay: string
     city: string
     dob?: Date | string | null
@@ -17627,6 +17691,9 @@ export namespace Prisma {
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -17657,6 +17724,9 @@ export namespace Prisma {
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -17687,6 +17757,9 @@ export namespace Prisma {
     passwordHash: string
     role?: $Enums.Role
     createdAt?: Date | string
+    emailVerified?: Date | string | null
+    verificationToken?: string | null
+    verificationTokenExpires?: Date | string | null
     barangay: string
     city: string
     dob?: Date | string | null
@@ -17706,6 +17779,9 @@ export namespace Prisma {
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -17725,6 +17801,9 @@ export namespace Prisma {
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -18753,6 +18832,9 @@ export namespace Prisma {
     passwordHash?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
+    emailVerified?: SortOrder
+    verificationToken?: SortOrder
+    verificationTokenExpires?: SortOrder
     barangay?: SortOrder
     city?: SortOrder
     dob?: SortOrder
@@ -18772,6 +18854,9 @@ export namespace Prisma {
     passwordHash?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
+    emailVerified?: SortOrder
+    verificationToken?: SortOrder
+    verificationTokenExpires?: SortOrder
     barangay?: SortOrder
     city?: SortOrder
     dob?: SortOrder
@@ -18791,6 +18876,9 @@ export namespace Prisma {
     passwordHash?: SortOrder
     role?: SortOrder
     createdAt?: SortOrder
+    emailVerified?: SortOrder
+    verificationToken?: SortOrder
+    verificationTokenExpires?: SortOrder
     barangay?: SortOrder
     city?: SortOrder
     dob?: SortOrder
@@ -21632,6 +21720,9 @@ export namespace Prisma {
     passwordHash: string
     role?: $Enums.Role
     createdAt?: Date | string
+    emailVerified?: Date | string | null
+    verificationToken?: string | null
+    verificationTokenExpires?: Date | string | null
     barangay: string
     city: string
     dob?: Date | string | null
@@ -21661,6 +21752,9 @@ export namespace Prisma {
     passwordHash: string
     role?: $Enums.Role
     createdAt?: Date | string
+    emailVerified?: Date | string | null
+    verificationToken?: string | null
+    verificationTokenExpires?: Date | string | null
     barangay: string
     city: string
     dob?: Date | string | null
@@ -21770,6 +21864,9 @@ export namespace Prisma {
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -21799,6 +21896,9 @@ export namespace Prisma {
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -21861,6 +21961,9 @@ export namespace Prisma {
     passwordHash: string
     role?: $Enums.Role
     createdAt?: Date | string
+    emailVerified?: Date | string | null
+    verificationToken?: string | null
+    verificationTokenExpires?: Date | string | null
     barangay: string
     city: string
     dob?: Date | string | null
@@ -21890,6 +21993,9 @@ export namespace Prisma {
     passwordHash: string
     role?: $Enums.Role
     createdAt?: Date | string
+    emailVerified?: Date | string | null
+    verificationToken?: string | null
+    verificationTokenExpires?: Date | string | null
     barangay: string
     city: string
     dob?: Date | string | null
@@ -21924,6 +22030,9 @@ export namespace Prisma {
     passwordHash: string
     role?: $Enums.Role
     createdAt?: Date | string
+    emailVerified?: Date | string | null
+    verificationToken?: string | null
+    verificationTokenExpires?: Date | string | null
     barangay: string
     city: string
     dob?: Date | string | null
@@ -21953,6 +22062,9 @@ export namespace Prisma {
     passwordHash: string
     role?: $Enums.Role
     createdAt?: Date | string
+    emailVerified?: Date | string | null
+    verificationToken?: string | null
+    verificationTokenExpires?: Date | string | null
     barangay: string
     city: string
     dob?: Date | string | null
@@ -22061,6 +22173,9 @@ export namespace Prisma {
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -22090,6 +22205,9 @@ export namespace Prisma {
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -22130,6 +22248,9 @@ export namespace Prisma {
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -22159,6 +22280,9 @@ export namespace Prisma {
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -22272,6 +22396,9 @@ export namespace Prisma {
     passwordHash: string
     role?: $Enums.Role
     createdAt?: Date | string
+    emailVerified?: Date | string | null
+    verificationToken?: string | null
+    verificationTokenExpires?: Date | string | null
     barangay: string
     city: string
     dob?: Date | string | null
@@ -22301,6 +22428,9 @@ export namespace Prisma {
     passwordHash: string
     role?: $Enums.Role
     createdAt?: Date | string
+    emailVerified?: Date | string | null
+    verificationToken?: string | null
+    verificationTokenExpires?: Date | string | null
     barangay: string
     city: string
     dob?: Date | string | null
@@ -22379,6 +22509,9 @@ export namespace Prisma {
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -22408,6 +22541,9 @@ export namespace Prisma {
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -22437,6 +22573,9 @@ export namespace Prisma {
     passwordHash: string
     role?: $Enums.Role
     createdAt?: Date | string
+    emailVerified?: Date | string | null
+    verificationToken?: string | null
+    verificationTokenExpires?: Date | string | null
     barangay: string
     city: string
     dob?: Date | string | null
@@ -22466,6 +22605,9 @@ export namespace Prisma {
     passwordHash: string
     role?: $Enums.Role
     createdAt?: Date | string
+    emailVerified?: Date | string | null
+    verificationToken?: string | null
+    verificationTokenExpires?: Date | string | null
     barangay: string
     city: string
     dob?: Date | string | null
@@ -22542,6 +22684,9 @@ export namespace Prisma {
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -22571,6 +22716,9 @@ export namespace Prisma {
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -22637,6 +22785,9 @@ export namespace Prisma {
     passwordHash: string
     role?: $Enums.Role
     createdAt?: Date | string
+    emailVerified?: Date | string | null
+    verificationToken?: string | null
+    verificationTokenExpires?: Date | string | null
     barangay: string
     city: string
     dob?: Date | string | null
@@ -22666,6 +22817,9 @@ export namespace Prisma {
     passwordHash: string
     role?: $Enums.Role
     createdAt?: Date | string
+    emailVerified?: Date | string | null
+    verificationToken?: string | null
+    verificationTokenExpires?: Date | string | null
     barangay: string
     city: string
     dob?: Date | string | null
@@ -22711,6 +22865,9 @@ export namespace Prisma {
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -22740,6 +22897,9 @@ export namespace Prisma {
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -22769,6 +22929,9 @@ export namespace Prisma {
     passwordHash: string
     role?: $Enums.Role
     createdAt?: Date | string
+    emailVerified?: Date | string | null
+    verificationToken?: string | null
+    verificationTokenExpires?: Date | string | null
     barangay: string
     city: string
     dob?: Date | string | null
@@ -22798,6 +22961,9 @@ export namespace Prisma {
     passwordHash: string
     role?: $Enums.Role
     createdAt?: Date | string
+    emailVerified?: Date | string | null
+    verificationToken?: string | null
+    verificationTokenExpires?: Date | string | null
     barangay: string
     city: string
     dob?: Date | string | null
@@ -22843,6 +23009,9 @@ export namespace Prisma {
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -22872,6 +23041,9 @@ export namespace Prisma {
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -22972,6 +23144,9 @@ export namespace Prisma {
     passwordHash: string
     role?: $Enums.Role
     createdAt?: Date | string
+    emailVerified?: Date | string | null
+    verificationToken?: string | null
+    verificationTokenExpires?: Date | string | null
     barangay: string
     city: string
     dob?: Date | string | null
@@ -23001,6 +23176,9 @@ export namespace Prisma {
     passwordHash: string
     role?: $Enums.Role
     createdAt?: Date | string
+    emailVerified?: Date | string | null
+    verificationToken?: string | null
+    verificationTokenExpires?: Date | string | null
     barangay: string
     city: string
     dob?: Date | string | null
@@ -23081,6 +23259,9 @@ export namespace Prisma {
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -23110,6 +23291,9 @@ export namespace Prisma {
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -23139,6 +23323,9 @@ export namespace Prisma {
     passwordHash: string
     role?: $Enums.Role
     createdAt?: Date | string
+    emailVerified?: Date | string | null
+    verificationToken?: string | null
+    verificationTokenExpires?: Date | string | null
     barangay: string
     city: string
     dob?: Date | string | null
@@ -23168,6 +23355,9 @@ export namespace Prisma {
     passwordHash: string
     role?: $Enums.Role
     createdAt?: Date | string
+    emailVerified?: Date | string | null
+    verificationToken?: string | null
+    verificationTokenExpires?: Date | string | null
     barangay: string
     city: string
     dob?: Date | string | null
@@ -23202,6 +23392,9 @@ export namespace Prisma {
     passwordHash: string
     role?: $Enums.Role
     createdAt?: Date | string
+    emailVerified?: Date | string | null
+    verificationToken?: string | null
+    verificationTokenExpires?: Date | string | null
     barangay: string
     city: string
     dob?: Date | string | null
@@ -23231,6 +23424,9 @@ export namespace Prisma {
     passwordHash: string
     role?: $Enums.Role
     createdAt?: Date | string
+    emailVerified?: Date | string | null
+    verificationToken?: string | null
+    verificationTokenExpires?: Date | string | null
     barangay: string
     city: string
     dob?: Date | string | null
@@ -23265,6 +23461,9 @@ export namespace Prisma {
     passwordHash: string
     role?: $Enums.Role
     createdAt?: Date | string
+    emailVerified?: Date | string | null
+    verificationToken?: string | null
+    verificationTokenExpires?: Date | string | null
     barangay: string
     city: string
     dob?: Date | string | null
@@ -23294,6 +23493,9 @@ export namespace Prisma {
     passwordHash: string
     role?: $Enums.Role
     createdAt?: Date | string
+    emailVerified?: Date | string | null
+    verificationToken?: string | null
+    verificationTokenExpires?: Date | string | null
     barangay: string
     city: string
     dob?: Date | string | null
@@ -23339,6 +23541,9 @@ export namespace Prisma {
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -23368,6 +23573,9 @@ export namespace Prisma {
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -23408,6 +23616,9 @@ export namespace Prisma {
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -23437,6 +23648,9 @@ export namespace Prisma {
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -23477,6 +23691,9 @@ export namespace Prisma {
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -23506,6 +23723,9 @@ export namespace Prisma {
     passwordHash?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    verificationTokenExpires?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     barangay?: StringFieldUpdateOperationsInput | string
     city?: StringFieldUpdateOperationsInput | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null

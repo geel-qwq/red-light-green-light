@@ -10,6 +10,7 @@ import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import LocationDetails from '../LocationDetails';
 import StreetlightLayer from './StreetlightLayer'
+import { getPoleFaultsByCoord } from '@/actions/poles'
 
 const customMarkerIcon = new L.DivIcon({
   className: 'bg-transparent',
@@ -61,11 +62,63 @@ export default function LeafletMap({ targetLocation, onMarkerClick }: LeafletMap
   const [activeLight,   setActiveLight]   = useState<[number, number] | null>(null);
   const [selectedLight, setSelectedLight] = useState<[number, number] | null>(null);
 
-  const handleLightClick = (pos: [number, number]) => {
+  const [poleData, setPoleData] = useState<{
+    id: string
+    poleCode: string
+    address: string
+    barangay: string
+    faultReports: Array<{
+      id: string
+      description: string
+      faultType: string
+      status: string
+      reportedAt: Date
+      reportedBy: { firstName: string; lastName: string } | null
+    }>
+  } | null>(null)
+
+  const handleLightClick = async (pos: [number, number]) => {
     setActiveLight(pos);
     setSelectedLight(pos);
     setShowDetails(true);
     onMarkerClick?.();
+    const [pole, geoRes] = await Promise.all([
+      getPoleFaultsByCoord(pos[0], pos[1]),
+      fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${pos[0]}&lon=${pos[1]}`).catch(() => null),
+    ])
+    let resolvedAddress = "Unknown location"
+    let resolvedBarangay = ""
+    if (geoRes && geoRes.ok) {
+      const geo = await geoRes.json()
+      if (geo?.display_name) {
+        resolvedAddress = geo.display_name
+        resolvedBarangay = geo.address?.barangay || geo.address?.village || geo.address?.town || geo.address?.city || ""
+      }
+    }
+    if (pole) {
+      setPoleData({
+        id: pole.id,
+        poleCode: pole.poleCode,
+        address: resolvedAddress,
+        barangay: resolvedBarangay || pole.barangay,
+        faultReports: pole.faultReports.map((r) => ({
+          id: r.id,
+          description: r.description,
+          faultType: r.faultType,
+          status: r.status,
+          reportedAt: r.reportedAt,
+          reportedBy: r.reportedBy ? { firstName: r.reportedBy.firstName, lastName: r.reportedBy.lastName } : null,
+        })),
+      })
+    } else {
+      setPoleData({
+        id: "",
+        poleCode: "",
+        address: resolvedAddress,
+        barangay: resolvedBarangay,
+        faultReports: [],
+      })
+    }
   };
 
   const [showDetails, setShowDetails] = useState(false);
@@ -84,6 +137,7 @@ export default function LeafletMap({ targetLocation, onMarkerClick }: LeafletMap
     setActiveLight(null);
     setSelectedLight(null);
     setShowDetails(false);
+    setPoleData(null);
   }, [targetLocation]);
 
   const markerPosition: [number, number] = activeLight ?? targetLocation ?? defaultCenter;
@@ -124,17 +178,20 @@ export default function LeafletMap({ targetLocation, onMarkerClick }: LeafletMap
             isOpen={showDetails}
             title={
               activeLight
-                ? `Streetlight @ ${activeLight[0].toFixed(4)}, ${activeLight[1].toFixed(4)}`
+                ? poleData?.poleCode ?? `Streetlight @ ${activeLight[0].toFixed(4)}, ${activeLight[1].toFixed(4)}`
                 : (targetLocation ? "Searched Location" : "Default Location")
             }
             address={
               activeLight
-                ? "Live node — OpenStreetMap"
+                ? poleData?.address ?? "Live node — OpenStreetMap"
                 : "Quezon City, Metro Manila"
             }
             status="ACTIVE"
+            poleCode={poleData?.poleCode}
+            barangay={poleData?.barangay}
             latitude={activeLight?.[0] ?? targetLocation?.[0] ?? defaultCenter[0]}
             longitude={activeLight?.[1] ?? targetLocation?.[1] ?? defaultCenter[1]}
+            faultReports={poleData?.faultReports ?? null}
           />
         </div>
 

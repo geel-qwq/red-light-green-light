@@ -2,8 +2,13 @@
 "use server";
 
 import bcrypt from "bcryptjs";
+import crypto from "crypto";
 import prisma from "@/lib/prisma"; 
 import { redirect } from "next/navigation";
+import { Resend } from "resend";
+
+const resend = new Resend(process.env.RESEND_API_KEY!);
+const DOMAIN = "mail.kylbrc.xyz";
 
 export async function registerUser(prevState: any, formData: FormData) {
   // 1. Extract Personal Information
@@ -63,6 +68,10 @@ export async function registerUser(prevState: any, formData: FormData) {
     const finalMiddleName = !middleName || middleName.toUpperCase() === "N/A" ? null : middleName;
     const parsedDob = dobRaw ? new Date(dobRaw) : null;
 
+    // Generate email verification token
+    const verificationToken = crypto.randomBytes(32).toString("hex");
+    const verificationTokenExpires = new Date(Date.now() + 1000 * 60 * 60 * 24); // 24 hours
+
     // Create the user in the database
     await prisma.user.create({
       data: {
@@ -75,6 +84,8 @@ export async function registerUser(prevState: any, formData: FormData) {
         email,
         phone,
         passwordHash: hashedPassword,
+        verificationToken,
+        verificationTokenExpires,
         
         region,
         // Because NCR disables the province dropdown, `province` might be empty.
@@ -85,6 +96,24 @@ export async function registerUser(prevState: any, formData: FormData) {
         streetAddress: streetAddress || null,
       },
     });
+
+    // Send verification email (fire-and-forget to avoid blocking registration)
+    const verifyUrl = `${process.env.NEXTAUTH_URL}/verify-email/${verificationToken}`;
+    resend.emails.send({
+      from: `ilLUMENate <noreply@${DOMAIN}>`,
+      to: email,
+      subject: "Verify your ilLUMENate email",
+      html: `
+        <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto;">
+          <h1 style="color: #1E3A8A;">ilLUMENate</h1>
+          <p>Thanks for registering! Please verify your email address by clicking the button below.</p>
+          <a href="${verifyUrl}" style="display: inline-block; background: #1E3A8A; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; margin: 16px 0;">
+            Verify Email
+          </a>
+          <p style="color: #666; font-size: 14px;">This link expires in 24 hours. If you didn't create an account, ignore this email.</p>
+        </div>
+      `,
+    }).catch((err) => console.error("Failed to send verification email:", err));
 
   } catch (error) {
     console.error("Registration error:", error);

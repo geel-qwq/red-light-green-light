@@ -4,6 +4,7 @@ import { authOptions } from "@/lib/auth";
 import ClientNavMenu from "@/components/ClientNavMenu";
 import LocationDisplay from "@/components/LocationDisplay";
 import MobileSidebarToggle from "@/components/MobileSidebarToggle";
+import EmailVerificationBanner from "@/components/EmailVerificationBanner";
 
 export default async function DashboardLayout({
   children,
@@ -41,7 +42,10 @@ export default async function DashboardLayout({
       <div id="sidebar-overlay" className="fixed inset-0 bg-black/30 z-30 hidden md:hidden" />
 
       {/* Main content */}
-      <main id="main-content" className="flex-1 overflow-auto min-w-0">{children}</main>
+      <main id="main-content" className="flex-1 overflow-auto min-w-0">
+        <EmailVerificationBanner />
+        {children}
+      </main>
     </div>
   );
 }

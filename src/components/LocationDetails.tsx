@@ -3,6 +3,7 @@
 
 import { useState, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 // ── Contact details — change these strings for each deployment ──
 const CONTACT_EMAIL = "example@lumen.com";
@@ -75,6 +76,15 @@ export interface LocationDetailsProps {
   barangay?: string;
   // Node / hardware specs
   nodeSpecs?: Record<string, string>;
+  // Fault reports for this pole
+  faultReports?: Array<{
+    id: string
+    description: string
+    faultType: string
+    status: string
+    reportedAt: Date
+    reportedBy: { firstName: string; lastName: string } | null
+  }> | null
 }
 
 export default function LocationDetails({
@@ -87,6 +97,7 @@ export default function LocationDetails({
   longitude,
   barangay,
   nodeSpecs,
+  faultReports,
 }: LocationDetailsProps) {
 
   // ── Active tab state ──
@@ -248,7 +259,7 @@ export default function LocationDetails({
               )}
               {barangay && (
                 <div className="bg-gray-50 rounded-xl p-3">
-                  <p className="text-[10px] font-bold text-gray-950 uppercase tracking-wider">Barangay</p>
+                  <p className="text-[10px] font-bold text-gray-950 uppercase tracking-wider">City</p>
                   <p className="text-sm font-semibold text-brand-blue mt-1">{barangay}</p>
                 </div>
               )}
@@ -268,154 +279,62 @@ export default function LocationDetails({
                 </div>
               )}
             </div>
+
           </div>
         )}
 
         {/* ━━━━━━━━━━━━━━━━━━━ COMPLAINTS TAB ━━━━━━━━━━━━━━━━━━━ */}
         {activeTab === "complaints" && (
-          <div className="p-5">
+          <div className="p-5 space-y-4">
 
-            {/* Success state — shown briefly after submit */}
-            {submitted ? (
-              <div className="flex flex-col items-center justify-center py-12 gap-3 text-center">
-                <div className="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center">
-                  {/* Checkmark icon */}
-                  <svg className="w-6 h-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                  </svg>
+            {/* Coordinates */}
+            {latitude != null && longitude != null && (
+              <div className="bg-gray-50 rounded-xl p-3">
+                <p className="text-[10px] font-bold text-gray-950 uppercase tracking-wider">Coordinates</p>
+                <p className="text-xs font-mono font-semibold text-brand-blue mt-1">
+                  {latitude.toFixed(6)}, {longitude.toFixed(6)}
+                </p>
+              </div>
+            )}
+
+            {/* Report button */}
+            <Link
+              href={latitude != null && longitude != null ? `/report?lat=${latitude}&lng=${longitude}` : "/report"}
+              className="block w-full py-2.5 rounded-xl text-sm font-bold text-white bg-[#1E3A8A] hover:bg-[#4169E1] active:scale-[0.98] transition-all duration-200 text-center"
+            >
+              Report an Issue
+            </Link>
+
+            {/* Fault reports list */}
+            {faultReports && faultReports.length > 0 ? (
+              <div>
+                <h3 className="text-xs font-bold text-brand-blue uppercase tracking-wider mb-3">
+                  All Complaints ({faultReports.length})
+                </h3>
+                <div className="space-y-2">
+                  {faultReports.map((r) => (
+                    <div key={r.id} className="bg-gray-50 rounded-xl p-3">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-[10px] font-bold text-gray-950 uppercase tracking-wider">
+                          {r.faultType.replace(/_/g, " ")}
+                        </span>
+                        <span className="text-[10px] text-brand-cornflower-blue">
+                          {new Date(r.reportedAt).toLocaleDateString()}
+                        </span>
+                      </div>
+                      <p className="text-xs text-gray-700 leading-snug">{r.description}</p>
+                      <p className="text-[10px] text-gray-400 mt-1">
+                        by {r.reportedBy ? `${r.reportedBy.firstName} ${r.reportedBy.lastName}` : "Anonymous"}
+                        {r.status !== "OPEN" && ` — ${r.status.replace(/_/g, " ")}`}
+                      </p>
+                    </div>
+                  ))}
                 </div>
-                <p className="text-sm font-bold text-brand-blue">Report submitted!</p>
-                <p className="text-xs text-brand-cornflower-blue">Thank you for helping keep the streets lit.</p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-4">
-
-                {/* Section heading */}
-                <div>
-                  <h3 className="text-sm font-bold text-brand-blue">Report an Issue</h3>
-                  <p className="text-xs text-gray-950 mt-0.5">
-                    Help our team respond faster by describing the problem.
-                  </p>
-                </div>
-
-                {/* Issue classification dropdown */}
-                <div>
-                  <label className="block text-xs font-bold text-brand-blue mb-1.5 uppercase tracking-wider">
-                    Issue Classification <span className="text-red-500">*</span>
-                  </label>
-                  <select
-                    required
-                    value={issueType}
-                    onChange={(e) => setIssueType(e.target.value)}
-                    className={[
-                      "w-full px-3 py-2.5 rounded-xl text-sm border",
-                      "focus:outline-none focus:ring-2 focus:ring-[#1E3A8A]/30",
-                      "transition-colors",
-                      issueType ? "text-brand-blue bg-white border-[#1E3A8A]" : "text-gray-500 bg-gray-50 border-gray-200",
-                    ].join(" ")}
-                  >
-                    <option value="" disabled>Select issue type…</option>
-                    {ISSUE_TYPES.map((t) => (
-                      <option key={t.value} value={t.value}>{t.label}</option>
-                    ))}
-                  </select>
-                </div>
-
-                {/* Description textarea */}
-                <div>
-                  <label className="block text-xs font-bold text-brand-blue mb-1.5 uppercase tracking-wider">
-                    Description
-                  </label>
-                  <textarea
-                    rows={3}
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    placeholder="Describe the problem context…"
-                    className={[
-                      "w-full px-3 py-2.5 rounded-xl text-sm border resize-none",
-                      "focus:outline-none focus:ring-2 focus:ring-[#1E3A8A]/30",
-                      "placeholder:text-gray-500 bg-gray-50 border-gray-200",
-                      "transition-colors",
-                    ].join(" ")}
-                  />
-                </div>
-
-                {/* Media upload — drag-and-drop zone */}
-                <div>
-                  <label className="block text-xs font-bold text-brand-blue mb-1.5 uppercase tracking-wider">
-                    Upload Media
-                  </label>
-
-                  {/* Drop zone */}
-                  <div
-                    onClick={() => fileInputRef.current?.click()}
-                    onDrop={handleDrop}
-                    onDragOver={(e) => { e.preventDefault(); setIsDragOver(true); }}
-                    onDragLeave={() => setIsDragOver(false)}
-                    className={[
-                      "w-full rounded-xl border-2 border-dashed cursor-pointer",
-                      "flex flex-col items-center justify-center py-5 gap-2",
-                      "transition-colors duration-200",
-                      isDragOver
-                        ? "border-[#1E3A8A] bg-blue-50"
-                        : "border-gray-200 bg-gray-50 hover:border-[#1E3A8A]/50 hover:bg-gray-100",
-                    ].join(" ")}
-                  >
-                    {/* Upload icon */}
-                    <svg className="w-7 h-7 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                      <path strokeLinecap="round" strokeLinejoin="round"
-                        d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" />
-                    </svg>
-                    <p className="text-xs text-gray-500 font-medium text-center px-4">
-                      Click or drag photo / video evidence
-                    </p>
-                    <p className="text-[10px] text-gray-300">JPG, PNG, MP4 accepted</p>
-                  </div>
-
-                  {/* Hidden file input */}
-                  <input
-                    ref={fileInputRef}
-                    type="file"
-                    accept="image/*,video/*"
-                    multiple
-                    className="hidden"
-                    onChange={handleFileInput}
-                  />
-
-                  {/* Preview list of selected files */}
-                  {mediaFiles.length > 0 && (
-                    <ul className="mt-2 space-y-1">
-                      {mediaFiles.map((f, i) => (
-                        <li
-                          key={i}
-                          className="flex items-center justify-between bg-white border border-gray-100 rounded-lg px-3 py-1.5 text-xs text-gray-700"
-                        >
-                          <span className="truncate max-w-[80%]">{f.name}</span>
-                          <button
-                            type="button"
-                            onClick={() => removeFile(i)}
-                            className="text-brand-cornflower-blue hover:text-red-500 transition-colors ml-2"
-                          >
-                            ✕
-                          </button>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-
-                {/* Submit button — brand blue */}
-                <button
-                  type="submit"
-                  className={[
-                    "w-full py-2.5 rounded-xl text-sm font-bold font-instrument text-white",
-                    "bg-[#1E3A8A] hover:bg-[#4169E1] active:scale-[0.98]",
-                    "transition-all duration-200",
-                  ].join(" ")}
-                >
-                  Submit Report
-                </button>
-              </form>
+              <p className="text-center text-gray-400 dark:text-slate-400 text-sm py-8">
+                No complaints yet for this streetlight.
+              </p>
             )}
           </div>
         )}

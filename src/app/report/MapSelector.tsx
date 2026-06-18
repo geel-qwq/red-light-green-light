@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect } from "react";
-import { MapContainer, TileLayer, Marker, Popup, useMapEvents, useMap } from "react-leaflet";
+import { useEffect, useCallback, useState } from "react";
+import { MapContainer, TileLayer, Marker, ZoomControl, useMap } from "react-leaflet";
 import L from "leaflet";
 import StreetlightLayer from "@/components/map/StreetlightLayer";
+import { resolvePoleFromOsm } from "@/actions/poles";
 
 interface Pole {
   id: string;
@@ -22,50 +23,34 @@ interface Props {
   gpsLocation: [number, number] | null;
 }
 
-function createIcon(color: string) {
-  return L.divIcon({
-    className: "",
-    html: `<div style="width:28px;height:28px;background:${color};border:3px solid white;border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;color:white;font-size:12px;font-weight:bold;">⚡</div>`,
-    iconSize: [28, 28],
-    iconAnchor: [14, 14],
-  });
-}
+const customMarkerIcon = new L.DivIcon({
+  className: 'bg-transparent',
+  html: `<div style="color: #b23b3b; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+            <circle cx="12" cy="10" r="3"></circle>
+          </svg>
+         </div>`,
+  iconSize: [32, 32],
+  iconAnchor: [16, 32],
+});
 
-function PoleMarkers({ poles, selectedPole, onSelect }: { poles: Pole[]; selectedPole: Pole | null; onSelect: (p: Pole) => void }) {
-  useMapEvents({
-    click() {},
-  });
-  return (
-    <>
-      {poles.map((pole) => {
-        const color = pole.status === "FAULTY" ? "#ef4444" : pole.status === "UNDER_MAINTENANCE" ? "#d97706" : pole.status === "DECOMMISSIONED" ? "#9ca3af" : "#22c55e";
-        const isSelected = selectedPole?.id === pole.id;
-        return (
-          <Marker
-            key={pole.id}
-            position={[pole.latitude, pole.longitude]}
-            icon={isSelected ? createIcon("#1E3A8A") : createIcon(color)}
-            eventHandlers={{ click: () => onSelect(pole) }}
-          >
-            <Popup>
-              <div className="text-sm">
-                <p className="font-bold">{pole.poleCode}</p>
-                <p className="text-xs text-gray-500">{pole.address}</p>
-                <p className="text-xs text-gray-400">{pole.barangay}</p>
-                <p className="text-xs font-medium mt-1" style={{ color }}>{pole.status.replace("_", " ")}</p>
-              </div>
-            </Popup>
-          </Marker>
-        );
-      })}
-    </>
-  );
+function MapUpdater({ targetLocation }: { targetLocation?: [number, number] | null }) {
+  const map = useMap();
+  useEffect(() => {
+    if (targetLocation) {
+      map.flyTo(targetLocation, map.getZoom(), {
+        duration: 0.8,
+      });
+    }
+  }, [targetLocation, map]);
+  return null;
 }
 
 function GpsMarker({ location }: { location: [number, number] }) {
   const map = useMap();
   useEffect(() => {
-    if (location) map.setView(location, 14);
+    if (location) map.setView(location, 16);
   }, [location, map]);
   return (
     <Marker
@@ -76,57 +61,63 @@ function GpsMarker({ location }: { location: [number, number] }) {
         iconSize: [24, 24],
         iconAnchor: [12, 12],
       })}
-    >
-      <Popup>Your location</Popup>
-    </Marker>
+    />
   );
 }
 
-function haversineDistance(a: [number, number], b: [number, number]): number {
-  const R = 6371000;
-  const dLat = ((b[0] - a[0]) * Math.PI) / 180;
-  const dLng = ((b[1] - a[1]) * Math.PI) / 180;
-  const sinLat = Math.sin(dLat / 2);
-  const sinLng = Math.sin(dLng / 2);
-  const h = sinLat * sinLat + Math.cos((a[0] * Math.PI) / 180) * Math.cos((b[0] * Math.PI) / 180) * sinLng * sinLng;
-  return R * 2 * Math.atan2(Math.sqrt(h), Math.sqrt(1 - h));
-}
+export default function MapSelector({ poles: _poles, selectedPole, onSelect, gpsLocation }: Props) {
+  const center: [number, number] = gpsLocation ?? [14.6507, 120.9842];
 
-function findNearestPole(pos: [number, number], poles: Pole[], maxDist = 100): Pole | null {
-  let nearest: Pole | null = null;
-  let minDist = maxDist;
-  for (const pole of poles) {
-    const d = haversineDistance(pos, [pole.latitude, pole.longitude]);
-    if (d < minDist) {
-      minDist = d;
-      nearest = pole;
+  const mapKey = gpsLocation ? `${gpsLocation[0]}-${gpsLocation[1]}` : 'default-map';
+
+  const handleLightClick = useCallback(async (pos: [number, number]) => {
+    try {
+      const pole = await resolvePoleFromOsm(pos[0], pos[1]);
+      onSelect(pole);
+    } catch {
+      // Ignore errors silently
     }
-  }
-  return nearest;
-}
+  }, [onSelect]);
 
-export default function MapSelector({ poles, selectedPole, onSelect, gpsLocation }: Props) {
-  const center: [number, number] = gpsLocation ?? [14.65, 121.03];
+  const selectedPos: [number, number] | null = selectedPole
+    ? [selectedPole.latitude, selectedPole.longitude]
+    : null;
 
-  const handleLightClick = (pos: [number, number]) => {
-    const nearest = findNearestPole(pos, poles, 100);
-    if (nearest) onSelect(nearest);
-  };
+  const markerPosition: [number, number] = selectedPos ?? gpsLocation ?? center;
 
   return (
-    <MapContainer
-      center={center}
-      zoom={13}
-      className="w-full h-full"
-      zoomControl={false}
-    >
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a> &copy; <a href="https://carto.com/">CARTO</a>'
-        url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-      />
-      <StreetlightLayer onLightClick={handleLightClick} interactive={true} />
-      <PoleMarkers poles={poles} selectedPole={selectedPole} onSelect={onSelect} />
-      {gpsLocation && <GpsMarker location={gpsLocation} />}
-    </MapContainer>
+    <div className="absolute inset-0 z-[0] map-container">
+      <MapContainer
+        key={mapKey}
+        center={center}
+        zoom={16}
+        zoomControl={false}
+        style={{ height: '100%', width: '100%' }}
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+        />
+        <ZoomControl position="bottomright" />
+        <MapUpdater targetLocation={selectedPos} />
+        <StreetlightLayer onLightClick={handleLightClick} interactive={true} />
+        <Marker
+          position={markerPosition}
+          icon={customMarkerIcon}
+        />
+        {gpsLocation && !selectedPole && <GpsMarker location={gpsLocation} />}
+        {selectedPole && (
+          <Marker
+            position={selectedPos!}
+            icon={L.divIcon({
+              className: "bg-transparent",
+              html: `<div style="width:32px;height:32px;background:#1E3A8A;border:3px solid white;border-radius:50%;box-shadow:0 2px 10px rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center;color:white;font-size:14px;font-weight:bold;">⚡</div>`,
+              iconSize: [32, 32],
+              iconAnchor: [16, 16],
+            })}
+          />
+        )}
+      </MapContainer>
+    </div>
   );
 }

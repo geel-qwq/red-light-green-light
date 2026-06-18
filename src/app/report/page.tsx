@@ -1,11 +1,11 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { MapPin, AlertTriangle, Camera, Send, Loader2, CheckCircle, ArrowLeft, Navigation } from "lucide-react";
-import { createAnonymousFaultReport, createUserFaultReport, getAllPolesForMap } from "@/actions/community";
+import { createAnonymousFaultReport, createUserFaultReport } from "@/actions/community";
 
 const LeafletMap = dynamic(() => import("./MapSelector"), { ssr: false });
 
@@ -29,7 +29,7 @@ interface Pole {
 
 export default function ReportPage() {
   const router = useRouter();
-  const [poles, setPoles] = useState<Pole[]>([]);
+  const searchParams = useSearchParams();
   const [selectedPole, setSelectedPole] = useState<Pole | null>(null);
   const [faultType, setFaultType] = useState("");
   const [description, setDescription] = useState("");
@@ -46,7 +46,20 @@ export default function ReportPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    getAllPolesForMap().then(setPoles);
+    const latParam = searchParams.get("lat");
+    const lngParam = searchParams.get("lng");
+    if (latParam && lngParam) {
+      const lat = parseFloat(latParam);
+      const lng = parseFloat(lngParam);
+      if (!isNaN(lat) && !isNaN(lng)) {
+        setGpsLocation([lat, lng]);
+      }
+    } else if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => setGpsLocation([pos.coords.latitude, pos.coords.longitude]),
+        () => {}
+      );
+    }
     fetch("/api/auth/session")
       .then((r) => r.json())
       .then((data) => {
@@ -56,13 +69,7 @@ export default function ReportPage() {
         }
       })
       .catch(() => {});
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (pos) => setGpsLocation([pos.coords.latitude, pos.coords.longitude]),
-        () => {}
-      );
-    }
-  }, []);
+  }, [searchParams]);
 
   const handlePoleSelect = (pole: Pole) => setSelectedPole(pole);
 
@@ -152,8 +159,8 @@ export default function ReportPage() {
               {selectedPole ? `Selected: ${selectedPole.poleCode}` : "Click a pole on the map to select it"}
             </span>
           </div>
-          <div className="h-[300px] sm:h-[400px]">
-            <LeafletMap poles={poles} selectedPole={selectedPole} onSelect={handlePoleSelect} gpsLocation={gpsLocation} />
+          <div className="h-[300px] sm:h-[400px] relative">
+            <LeafletMap poles={[]} selectedPole={selectedPole} onSelect={handlePoleSelect} gpsLocation={gpsLocation} />
           </div>
           {selectedPole && (
             <div className="px-4 py-2 bg-blue-50 dark:bg-blue-900/20 border-t border-blue-100 dark:border-blue-900/30 flex items-center gap-2 text-sm text-blue-700 dark:text-blue-300">

@@ -126,6 +126,9 @@ exports.Prisma.UserScalarFieldEnum = {
   passwordHash: 'passwordHash',
   role: 'role',
   createdAt: 'createdAt',
+  emailVerified: 'emailVerified',
+  verificationToken: 'verificationToken',
+  verificationTokenExpires: 'verificationTokenExpires',
   barangay: 'barangay',
   city: 'city',
   dob: 'dob',
@@ -303,7 +306,8 @@ exports.ReportStatus = exports.$Enums.ReportStatus = {
   OPEN: 'OPEN',
   IN_PROGRESS: 'IN_PROGRESS',
   RESOLVED: 'RESOLVED',
-  CLOSED: 'CLOSED'
+  CLOSED: 'CLOSED',
+  DELETED: 'DELETED'
 };
 
 exports.WorkOrderStatus = exports.$Enums.WorkOrderStatus = {

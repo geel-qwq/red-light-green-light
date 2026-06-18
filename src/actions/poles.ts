@@ -145,3 +145,52 @@ export async function bulkRegisterOsmPoles(
   revalidatePath("/poles")
   return count
 }
+
+const DEG_PER_KM = 1 / 111
+export async function getPoleFaultsByCoord(lat: number, lng: number) {
+  const DEG_PER_KM = 0.009
+  const pole = await prisma.pole.findFirst({
+    where: {
+      latitude: { gte: lat - DEG_PER_KM * 0.05, lte: lat + DEG_PER_KM * 0.05 },
+      longitude: { gte: lng - DEG_PER_KM * 0.05, lte: lng + DEG_PER_KM * 0.05 },
+    },
+    orderBy: { updatedAt: 'desc' },
+    include: {
+      faultReports: {
+        include: {
+          reportedBy: { select: { firstName: true, lastName: true } },
+        },
+        orderBy: { reportedAt: 'desc' },
+      },
+    },
+  })
+  return pole
+}
+
+export async function resolvePoleFromOsm(lat: number, lng: number) {
+  const existing = await prisma.pole.findFirst({
+    where: {
+      latitude: { gte: lat - DEG_PER_KM * 0.05, lte: lat + DEG_PER_KM * 0.05 },
+      longitude: { gte: lng - DEG_PER_KM * 0.05, lte: lng + DEG_PER_KM * 0.05 },
+    },
+    orderBy: { updatedAt: 'desc' },
+  })
+
+  if (existing) return existing
+
+  const count = await prisma.pole.count()
+  const poleCode = `OSM-${String(count + 1).padStart(4, '0')}`
+
+  const pole = await prisma.pole.create({
+    data: {
+      poleCode,
+      address: `${lat.toFixed(4)}, ${lng.toFixed(4)}`,
+      barangay: 'Quezon City',
+      latitude: lat,
+      longitude: lng,
+    },
+  })
+
+  revalidatePath('/poles')
+  return pole
+}

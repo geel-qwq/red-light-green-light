@@ -24,6 +24,7 @@ export default async function FaultsPage() {
           <thead>
             <tr className="border-b border-gray-100 bg-gray-50">
               <th className="text-left px-4 py-3 text-xs font-medium text-gray-500">Pole</th>
+              <th className="text-left px-4 py-3 text-xs font-medium text-gray-500">Reported By</th>
               <th className="text-left px-4 py-3 text-xs font-medium text-gray-500">Type</th>
               <th className="text-left px-4 py-3 text-xs font-medium text-gray-500">Description</th>
               <th className="text-left px-4 py-3 text-xs font-medium text-gray-500">Status</th>
@@ -40,6 +41,11 @@ export default async function FaultsPage() {
                     {report.pole.poleCode}
                   </Link>
                 </td>
+                <td className="px-4 py-3 text-gray-600 text-xs">
+                  {report.reportedBy
+                    ? `${report.reportedBy.firstName} ${report.reportedBy.lastName}`
+                    : report.reporterName || 'Anonymous'}
+                </td>
                 <td className="px-4 py-3 text-gray-500 text-xs">{report.faultType.replace('_', ' ')}</td>
                 <td className="px-4 py-3 text-gray-700 max-w-xs truncate">{report.description}</td>
                 <td className="px-4 py-3">
@@ -48,7 +54,7 @@ export default async function FaultsPage() {
                   </span>
                 </td>
                 <td className="px-4 py-3 text-gray-400 text-xs">
-                  {new Date(report.reportedAt).toLocaleDateString()}
+                  {new Date(report.reportedAt).toLocaleString()}
                 </td>
                 <td className="px-4 py-3 text-xs text-gray-400">
                   {report.workOrder ? (
