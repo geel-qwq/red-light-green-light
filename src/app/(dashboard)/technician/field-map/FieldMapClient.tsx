@@ -62,11 +62,10 @@ export default function FieldMapClient({ poles }: { poles: FieldPole[] }) {
               <button
                 key={f}
                 onClick={() => { setFilter(f); setSelectedPole(null) }}
-                className={`text-xs font-semibold px-2.5 py-1.5 rounded-md transition-colors ${
-                  filter === f
-                    ? 'bg-white dark:bg-slate-600 text-gray-900 dark:text-slate-100 shadow-sm'
-                    : 'text-gray-500 dark:text-slate-400 hover:text-gray-700 dark:hover:text-slate-200'
-                }`}
+                className={`text-xs font-semibold px-2.5 py-1.5 rounded-md transition-colors ${filter === f
+                  ? 'bg-white dark:bg-slate-600 text-gray-900 dark:text-slate-100 shadow-sm'
+                  : 'text-gray-500 dark:text-slate-400 hover:text-gray-700 dark:hover:text-slate-200'
+                  }`}
               >
                 {f === 'ALL' ? 'All' : f.replace('_', ' ')}
               </button>
@@ -104,7 +103,7 @@ export default function FieldMapClient({ poles }: { poles: FieldPole[] }) {
                 <Navigation className="w-4 h-4 text-gray-600 dark:text-slate-300" />
               </a>
               <Link
-                href={`/technician/work-queue/${selectedPole.workOrderId}`}
+                href={`/ttechnician/field-mapechnician/work-queue/${selectedPole.workOrderId}`}
                 className="text-xs font-semibold text-blue-600 hover:underline"
               >
                 View Work Order

@@ -89,7 +89,7 @@ const navItems: NavItem[] = [
   { href: '/workorders', label: 'Work Orders', icon: ClipboardList, roles: [Role.SUPERADMIN, Role.TECHNICIAN, Role.ADMIN] },
   { href: '/technician/work-queue', label: 'Work Queue', icon: ClipboardList, roles: [Role.TECHNICIAN] },
   { href: '/technician/inventory', label: 'Inventory', icon: Package, roles: [Role.TECHNICIAN] },
-  { href: '/technician/field-map', label: 'Field Map', icon: Map, roles: [Role.TECHNICIAN] },
+  { href: '/', label: 'Field Map', icon: Map, roles: [Role.TECHNICIAN] },
   { href: '/reports', label: 'Reports', icon: BarChart3, roles: [Role.SUPERADMIN, Role.ADMIN] },
 ]
 
