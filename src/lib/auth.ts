@@ -2,7 +2,6 @@
 import { NextAuthOptions, getServerSession, DefaultSession } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import GoogleProvider from 'next-auth/providers/google'
-import FacebookProvider from 'next-auth/providers/facebook'
 import bcrypt from 'bcryptjs'
 import crypto from 'crypto'
 import prisma from './prisma'
@@ -37,10 +36,6 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
-    FacebookProvider({
-      clientId: process.env.FACEBOOK_CLIENT_ID!,
-      clientSecret: process.env.FACEBOOK_CLIENT_SECRET!,
-    }),
     CredentialsProvider({
       name: 'credentials',
       credentials: {
@@ -71,7 +66,7 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async signIn({ user, account }) {
-      if (account?.provider === "google" || account?.provider === "facebook") {
+        if (account?.provider === "google") {
         if (!user.email) return false
 
         const existing = await prisma.user.findUnique({ where: { email: user.email } })
@@ -101,7 +96,7 @@ export const authOptions: NextAuthOptions = {
     },
     async jwt({ token, user, account }) {
       if (user) {
-        if (account?.provider === "google" || account?.provider === "facebook") {
+      if (account?.provider === "google") {
           const dbUser = await prisma.user.findUnique({ where: { email: user.email! } })
           if (dbUser) {
             token.id = dbUser.id
